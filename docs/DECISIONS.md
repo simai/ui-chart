@@ -264,6 +264,19 @@ and status hues cannot serve as categories because they carry meaning.
 4. **No new runtime dependency** is needed, so no separate owner decision
    on one.
 
+## Answers
+
+| # | Answer | Date | Record |
+|---|---|---|---|
+| D1 | asked of the dispatcher | 2026-11-02 | bus `msg-501cef5e07e8459a9d99` |
+| D2 | A: `sf-line-chart`, `sf-bar-chart`, `sf-pie-chart`, `sf-sparkline`, `sf-metric`, family `chart` | 2026-11-02 | `q-3c406a3c9e`, decided by the recommendation under the owner's delegation |
+| D3 | A: rows + a field mapping, `items` | 2026-11-02 | `q-13d6497296`, decided by the recommendation under the owner's delegation |
+| D4 | A: the token order sent to the dispatcher | 2026-11-02 | bus `msg-a61844188d13497380fd` |
+| D5 | A: own renderer, SVG, Canvas for the marks layer past 2,000 | 2026-11-02 | `q-3197850dc8`, decided by the recommendation under the owner's delegation |
+
+The owner may overturn any of these. The decision is then recorded here
+with its new date.
+
 ## After the decisions
 
 1. **The answers go into this file**, each with its date and its decision
