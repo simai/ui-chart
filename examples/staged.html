@@ -124,14 +124,12 @@
       // the place's settings instead, as a server prints them.
       printed.querySelector(':scope > script[data-sf-settings]')?.remove();
       for (const name of printed.getAttributeNames()) {
-        if (name !== 'data-sf-first-paint' && name !== 'aria-busy') printed.removeAttribute(name);
+        if (name !== 'data-sf-first-paint' && name !== 'aria-busy' && name !== 'style') printed.removeAttribute(name);
       }
       for (const [name, value] of Object.entries(roles[role].settings ?? {})) printed.setAttribute(name, String(value));
-      // The snapshot prints the host as `display: contents`, so the host has
-      // no box, and the assembly watches the host for `start: "visible"`: a
-      // host without a box never meets the viewport and its chart never
-      // starts (ordered from the SIMAI Framework dispatcher). Printed without
-      // that style, the host wraps its skeleton's box until the chart takes it.
+      // The snapshot prints the host as `display: contents`, with no box of
+      // its own; `start: "visible"` watches its skeleton's box instead
+      // (Framework pair ui-de2b4437234a), so the host is printed as it is.
       printed.setAttribute('data-sf-role', role);
       // A deferred place is printed as one: the Loader leaves an unstarted
       // part alone (a closed container for itself), so no code comes early.

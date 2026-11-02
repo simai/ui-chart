@@ -345,7 +345,7 @@ This changes D4 option C ("no local palette") for named sets.
 
 > **Кратко.** Тепловая карта красит ячейки ступенчатой шкалой на тонах темы
 > Фреймворка. Новых токенов нет; нейтральную середину расходящейся шкалы мы
-> выбрали сами (`neutral-90` / `neutral-25`), диспетчер может её заменить.
+> сначала выбрали сами, с версии 0.1.1 это роль Фреймворка `--sf-chart-midpoint`.
 
 - **Stepped, not continuous.** There are 3 to 9 steps of equal width, 5 by
   default. A diverging scale is made even around its middle and has an odd
@@ -364,8 +364,8 @@ This changes D4 option C ("no local palette") for named sets.
   - This settles the open midpoint question of §8.4 locally. If the
     dispatcher gives a midpoint role, it replaces these two tones.
   - The dispatcher has since released `--sf-chart-midpoint` in pair
-    `ui-de2b4437234a`. The middle step takes it when the pin moves to that
-    pair.
+    `ui-de2b4437234a`. Since heatmap 0.1.1 and that pin, the middle step is
+    that role.
 - **Colour is never the only cue.** The value is written in the cell, said
   in the tooltip and the live line, and kept in the table. A gap is an
   outlined empty cell.

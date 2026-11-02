@@ -24,7 +24,7 @@
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "e8ab9dd3463d61bd3dddd626214d048b2ace65c0d7854bf633e84b0fd3c46901",
+  "content_sha256": "1080050c72db1365fcee8f6758d15e4a9e8b20b171bd0d694986b2909a113bd1",
   "dependencies": [
     {
       "id": "tokens.colour",

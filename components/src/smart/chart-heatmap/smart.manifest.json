@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-heatmap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Heatmap",
   "summary": "A heatmap: a measure over two categories as a grid of cells, coloured by the steps of a sequential or a diverging scale on the theme's own tones, with the value written where it fits, a legend of the scale, a tooltip, a keyboard cursor over the grid, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -42,11 +42,13 @@
       },
       "root-class": {
         "type": "string",
-        "default": ""
+        "default": "",
+        "description": "Classes added to the root element the component draws."
       },
       "root-style": {
         "type": "string",
-        "default": ""
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
       },
       "label": {
         "type": "string",
@@ -395,7 +397,7 @@
       },
       {
         "path": "src/smart/chart-heatmap/component.json",
-        "sha256": "139e592bf1c1229031f864829c4dafe3a00ea6fb10d27a42db7da634c3f3fd13"
+        "sha256": "092af217044a8a2bdb990ccd810837ae8efc3c09d1124c3ed134d0922b468b3e"
       },
       {
         "path": "src/smart/chart-heatmap/lang/en.json",

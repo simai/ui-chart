@@ -16,7 +16,7 @@
 // The ladder from weak to strong: light-theme tones, dark-theme tones.
 const LIGHT = [90, 85, 80, 70, 60, 40, 35, 30, 25];
 const DARK = [20, 25, 30, 35, 40, 60, 70, 80, 85];
-const MIDDLE = 'light-dark(var(--sf-neutral-90), var(--sf-neutral-25))';
+const MIDDLE = 'var(--sf-chart-midpoint)';
 const MIDDLE_INK = 'light-dark(var(--sf-neutral-10), var(--sf-neutral-95))';
 
 export const FAMILIES = ['primary', 'secondary', 'tertiary', 'neutral', 'success', 'warning', 'error', 'info'];

@@ -17,5 +17,5 @@
 | M2+. The catalogue by tiers | — | — |
 | Release | waits for the Framework pair with parts 1–10 of the M0 and M1 evidence (the dispatcher's order) | — |
 
-Pinned SIMAI Framework release: `ui-2d39b617a719` (ui-source `426123e2`, npm
-`@simai-studio/ui@5.20261102.1106`), in `components/framework.lock.json`.
+Pinned SIMAI Framework release: `ui-de2b4437234a` (ui-source `5776ff08`, npm
+`@simai-studio/ui@5.20261102.2243`), in `components/framework.lock.json`.
