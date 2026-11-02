@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.bar-chart",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Bar chart",
   "summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -418,11 +418,11 @@
     "source_artifacts": [
       {
         "path": "src/smart/bar-chart/index.js",
-        "sha256": "f0833cb30c763ef71baf8898e4e9f6a5cb1f9b351ef16f5d45749f6df0e18fda"
+        "sha256": "7ef983788c5904e9da815bcf5e50c76b93398000829a87cdbf3101a4f71988d0"
       },
       {
         "path": "src/smart/bar-chart/js/templates/default.js",
-        "sha256": "5dff8c8e712bbf33a285a8598449e8ae00a2218b95913479cbd5cb899c01242a"
+        "sha256": "59cb9649ffa83bd4ee8d561cd2b9b3ba36f858b7e64803b2f50b766963ca20b2"
       },
       {
         "path": "src/smart/bar-chart/js/templates/default.css",
@@ -434,11 +434,11 @@
       },
       {
         "path": "src/smart/bar-chart/docs.md",
-        "sha256": "e7569d514d0dd92723cb0133d5878885c3b1fbef9b1d66b81eadff7d8c982232"
+        "sha256": "c5438d8e11fdf561a7c57bdb81bea2b1e1df0518f7e6f944e6965c1a107ca1ee"
       },
       {
         "path": "src/smart/bar-chart/component.json",
-        "sha256": "53eccfc7bb98ed90074bad8f0e559fcdb052c19d722e952c91f66cd1c0a84628"
+        "sha256": "4e0ededf9acbd7fa3de5704413602de697717a6f7f2127b27a669c27deb40827"
       },
       {
         "path": "src/smart/bar-chart/lang/en.json",

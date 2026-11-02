@@ -60,6 +60,34 @@
       "change": "minor",
       "summary": "stack: none, stacked (the series as layers, positive up and negative down from zero) or normalized (shares of the whole at each x on a 0–100 % axis, the cursor and the tooltip saying the share and the value); a layer always fills its band, keeps its gaps and shares its kept points with the other layers; the summary says the series are stacked.",
       "consumer": "Nothing to do: stack defaults to none, so a chart without it draws as before; set stack to stack the series."
+    },
+    {
+      "unit": "module.chart-core",
+      "version": "0.2.1",
+      "recorded_on": "2026-11-02",
+      "change": "patch",
+      "summary": "settled: the value a costly view shows for data that may change fast; a change after a quiet spell shows at once, a stream at most once per wait, the latest last."
+    },
+    {
+      "unit": "smart.line-chart",
+      "version": "0.2.1",
+      "recorded_on": "2026-11-02",
+      "change": "patch",
+      "summary": "The data table is rebuilt only when the data changes, never on a pointer or cursor move, and at most once per second while data streams; the first data shows at once. A line chart with table=\"hidden\" updating 1,200 points went from 31 ms to 5 ms per update."
+    },
+    {
+      "unit": "smart.bar-chart",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-02",
+      "change": "patch",
+      "summary": "The data table is rebuilt only when the data changes, never on a pointer or cursor move, and at most once per second while data streams; the first data shows at once. A bar chart with table=\"hidden\" updating 1,200 points went from 31 ms to 5 ms per update."
+    },
+    {
+      "unit": "smart.pie-chart",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-02",
+      "change": "patch",
+      "summary": "The data table is rebuilt only when the data changes, never on a pointer or cursor move, and at most once per second while data streams; the first data shows at once. A pie chart with table=\"hidden\" updating 1,200 points went from 31 ms to 5 ms per update."
     }
   ]
 }

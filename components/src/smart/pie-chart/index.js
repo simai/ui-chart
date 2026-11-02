@@ -16,6 +16,7 @@ import {readSeries} from '../chart-core/data.js';
 import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {arcMiddle, arcPath, pieSlices} from '../chart-core/arc.js';
 import {moveCursor} from '../chart-core/cursor.js';
+import {settled} from '../chart-core/settle.js';
 import {renderPieChartTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';
@@ -57,6 +58,7 @@ class SfPieChart extends PieChartElement {
   onDisconnected() {
     this._observer?.disconnect();
     this._observer = null;
+    clearTimeout(this._table?.timer);
     this._observed = null;
     super.onDisconnected();
   }
@@ -280,7 +282,8 @@ class SfPieChart extends PieChartElement {
     const geometry = state === 'ready' ? this.geometry(parts) : null;
     this._geometry = geometry;
     const cursor = this._cursor && parts[this._cursor.index] && !parts[this._cursor.index].hidden ? this._cursor : null;
-    const total = model.rows.reduce((sum, row) => sum + (row.value !== null && row.value > 0 ? row.value : 0), 0);
+    const tableModel = this.tableModel(model, state === 'ready');
+    const total = tableModel.rows.reduce((sum, row) => sum + (row.value !== null && row.value > 0 ? row.value : 0), 0);
     return this.createTemplateContext({
       ...this.getPropsContext(),
       component: this,
@@ -290,7 +293,8 @@ class SfPieChart extends PieChartElement {
       state,
       model,
       parts,
-      rows: model.rows.map((row) => ({...row, share: row.value !== null && row.value > 0 && total ? row.value / total : null})),
+      tableKey: [tableModel, this.label, this.categoryLabel, this.valueLabel, this.valueFormat, pageLocale(this), this.table, this.table === 'toggle' ? this._view : 'chart'],
+      rows: tableModel.rows.map((row) => ({...row, share: row.value !== null && row.value > 0 && total ? row.value / total : null})),
       geometry,
       cursor,
       said: this._said,
@@ -303,6 +307,20 @@ class SfPieChart extends PieChartElement {
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       rootClass: this.getRootClass(),
     });
+  }
+
+  // The data the table shows: settled, so a stream or a pointer move does
+  // not rebuild a row per x on every render (chart-core/settle).
+  // The first data after none shows at once: only a change of data already
+  // shown is held.
+  tableModel(model, ready) {
+    this._table = this._table ?? {};
+    if (!ready) {
+      clearTimeout(this._table.timer);
+      this._table = {};
+      return model;
+    }
+    return settled(this._table, model, {later: () => this.requestComponentUpdate('table')});
   }
 
   template() {

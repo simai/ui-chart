@@ -11,6 +11,7 @@ import {areaPath, bandPath, linePath, runs} from '../src/smart/chart-core/path.j
 import {minMaxIndexes} from '../src/smart/chart-core/decimate.js';
 import {seriesFacts, trendOf} from '../src/smart/chart-core/describe.js';
 import {moveCursor} from '../src/smart/chart-core/cursor.js';
+import {settled} from '../src/smart/chart-core/settle.js';
 
 test('records and columns read into the same rows', () => {
   const records = [{m: 'a', v: 1}, {m: 'b', v: 2}];
@@ -195,4 +196,21 @@ test('a unit format says the unit in the page language', () => {
   assert.deepEqual(numberOptions('unit-'), {maximumFractionDigits: 2});
   assert.equal(formatNumber(3, 'en', 'unit-parsec-of-stars'), '3');
   assert.equal(formatNumber(3, 'en', 'unit-furlong'), '3');
+});
+
+test('a settled table follows a stream at most once per wait, the latest last', async () => {
+  const holder = {};
+  let asked = 0;
+  const later = () => { asked += 1; };
+  const a = {};
+  const b = {};
+  const c = {};
+  assert.equal(settled(holder, a, {wait: 40, later, now: 0}), a, 'the first value shows at once');
+  assert.equal(settled(holder, a, {wait: 40, later, now: 5}), a, 'the same value stays');
+  assert.equal(settled(holder, b, {wait: 40, later, now: 10}), a, 'a change inside the wait is held');
+  assert.equal(settled(holder, c, {wait: 40, later, now: 20}), a);
+  await new Promise((done) => setTimeout(done, 80));
+  assert.equal(asked, 1, 'one render is asked for the held change');
+  assert.equal(holder.shown, c, 'the latest value is the one shown');
+  assert.equal(settled(holder, b, {wait: 40, later, now: Date.now() + 100}), b, 'after a quiet spell a change shows at once');
 });

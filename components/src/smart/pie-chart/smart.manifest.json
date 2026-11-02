@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.pie-chart",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Pie chart",
   "summary": "A pie chart: the parts of one whole as slices of a circle or a ring with the total in the middle, the smallest folded into «Другое», with shares inside the slices, a legend that hides parts, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -375,11 +375,11 @@
     "source_artifacts": [
       {
         "path": "src/smart/pie-chart/index.js",
-        "sha256": "7889fa94b782743c12f9329a1a09786dcc7d747ad376c5318a15f66645c4ebb8"
+        "sha256": "2890e48ddbb158dd6c620646294a7d56998360a36356cb80a00fc1ac4233d5ff"
       },
       {
         "path": "src/smart/pie-chart/js/templates/default.js",
-        "sha256": "b980d8736008211baacb2de36b79c68d08d0950bce00765336c53be94d386e6d"
+        "sha256": "75c98086c569fa18559716d58dc68823d94b53e2ca0c5eca9bd05797119d46a6"
       },
       {
         "path": "src/smart/pie-chart/js/templates/default.css",
@@ -391,11 +391,11 @@
       },
       {
         "path": "src/smart/pie-chart/docs.md",
-        "sha256": "2e5da8d85b6c848f43e521ae03059dc72df5fd766908c45e8ce30a7b83f1e2e8"
+        "sha256": "25febc413fca2d128d9da53089e1b8cf6e1558776365cda7d24bcbc9edb3e00d"
       },
       {
         "path": "src/smart/pie-chart/component.json",
-        "sha256": "7ea5dd9c42f50bddd0dcf342da3fc697761a38c0963b036362e6f7d682bd070e"
+        "sha256": "62d989f04eace0f6e40239d42b696f926a96ad564f7177999e01f62608f77a61"
       },
       {
         "path": "src/smart/pie-chart/lang/en.json",

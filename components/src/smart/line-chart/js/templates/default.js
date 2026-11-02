@@ -1,4 +1,5 @@
 import {html, nothing} from 'lit';
+import {guard} from 'lit/directives/guard.js';
 import './default.css';
 
 // The figure of a line chart: the label and the table button, the legend,
@@ -108,10 +109,16 @@ function renderLegend(context, place) {
   `;
 }
 
+// The table is the settled copy of the data (chart-core/settle): it is
+// rebuilt only when its key changes, never on a pointer or cursor move.
 function renderTable(context) {
-  const {component, model, label} = context;
   const shownTable = context.table === 'visible' || (context.table === 'toggle' && context.view === 'table');
   if (context.state !== 'ready' || (!shownTable && context.table !== 'hidden')) return nothing;
+  return guard(context.tableKey, () => tableMarkup(context, shownTable));
+}
+
+function tableMarkup(context, shownTable) {
+  const {component, tableModel: model, label} = context;
   return html`
     <div class=${shownTable ? 'sf-line-chart-table' : 'sf-line-chart-sr'}>
       <table>

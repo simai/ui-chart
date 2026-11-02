@@ -52,8 +52,8 @@
     <h2 id="stream-title">Поток: мониторинг сервера</h2>
     <p class="note">Страница добавляет точку по таймеру и держит окно последних точек: каждый раз она даёт графику
       новый список <code>items</code>, а плиткам — новое <code>value</code>. График перерисовывается целиком;
-      справа — сколько это заняло. Таблица здесь по кнопке (<code>table="toggle"</code>): скрытая таблица
-      для экранного диктора (<code>hidden</code>) пока перестраивается на каждой точке и стоит в 6–7 раз дороже.</p>
+      справа — сколько это заняло. Таблица с теми же данными для экранного диктора
+      (<code>table="hidden"</code>) обновляется не чаще раза в секунду, поэтому поток её не тормозит.</p>
     <div class="toolbar">
       <button type="button" id="pause" aria-pressed="false">Пауза</button>
       <label>Частота
@@ -71,7 +71,7 @@
       <sf-metric id="memory-now" label="Память" format="unit-gigabyte" max="16" data-state="loading"></sf-metric>
       <sf-metric id="requests-now" label="Запросов в секунду" format="integer" data-state="loading"></sf-metric>
     </div>
-    <sf-line-chart id="stream" label="CPU и диск, поток" x="t" y="cpu,disk" x-scale="time" y-format="percent" y-min="0" y-max="1" data-state="loading"></sf-line-chart>
+    <sf-line-chart id="stream" label="CPU и диск, поток" x="t" y="cpu,disk" x-scale="time" y-format="percent" y-min="0" y-max="1" data-state="loading" table="hidden"></sf-line-chart>
   </section>
 
   <section aria-labelledby="server-title">

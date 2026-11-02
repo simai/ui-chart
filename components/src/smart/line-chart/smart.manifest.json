@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.line-chart",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "title": "Line chart",
   "summary": "A line chart: one or more series over time, a number or categories, with axes, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -444,11 +444,11 @@
     "source_artifacts": [
       {
         "path": "src/smart/line-chart/index.js",
-        "sha256": "22a1cb5c0482f625aeea5b8ed5eb39c8bb8da5f3893729944970004e19935c2e"
+        "sha256": "a6e36a4ef8a28e77fdc0d581912fd8775edd597765072fe4bf1b78afa32b07cf"
       },
       {
         "path": "src/smart/line-chart/js/templates/default.js",
-        "sha256": "e2c7ee87d1e0a0219a53e188914d2f1abcb9154853a29bc48b630a7cb8b29bb1"
+        "sha256": "cd4269e7647cfc6eec2efa1d22e591de162daffaf438674a036b70cca7910024"
       },
       {
         "path": "src/smart/line-chart/js/templates/default.css",
@@ -460,11 +460,11 @@
       },
       {
         "path": "src/smart/line-chart/docs.md",
-        "sha256": "6d6f4841e632f5af6980d1241292e812bf16823db72900c4a888b453a84140e0"
+        "sha256": "e4f8ab13765d3ca08b7c775cf96f65317c57d3e34e3aca0e79653d3c52601931"
       },
       {
         "path": "src/smart/line-chart/component.json",
-        "sha256": "5c5039b52c031713be8acb1d1511ebc4f4b339253c9b476d9e47342614b27f32"
+        "sha256": "c16305b26214a20d6790b91c128b0d414b2f4bc39b8c148a40e5b566047ed4b7"
       },
       {
         "path": "src/smart/line-chart/lang/en.json",

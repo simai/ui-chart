@@ -18,6 +18,7 @@ import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {stackExtent, stackSeries} from '../chart-core/stack.js';
 import {seriesFacts} from '../chart-core/describe.js';
 import {moveCursor} from '../chart-core/cursor.js';
+import {settled} from '../chart-core/settle.js';
 import {renderBarChartTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';
@@ -68,6 +69,7 @@ class SfBarChart extends BarChartElement {
   onDisconnected() {
     this._observer?.disconnect();
     this._observer = null;
+    clearTimeout(this._table?.timer);
     this._observed = null;
     super.onDisconnected();
   }
@@ -393,6 +395,7 @@ class SfBarChart extends BarChartElement {
     const geometry = state === 'ready' ? this.geometry(model, shown) : null;
     this._geometry = geometry;
     const cursor = this._cursor && shown.some((one) => one.key === this._cursor.series) && this._cursor.index < model.xs.length ? this._cursor : null;
+    const tableModel = this.tableModel(model, state === 'ready');
     return this.createTemplateContext({
       ...this.getPropsContext(),
       component: this,
@@ -403,6 +406,8 @@ class SfBarChart extends BarChartElement {
       label: this.label || this.words('untitled'),
       state,
       model,
+      tableModel,
+      tableKey: [tableModel, this.label, this.xLabel, this.xFormat, this.yFormat, pageLocale(this), this.table, this.table === 'toggle' ? this._view : 'chart'],
       shown,
       geometry,
       cursor,
@@ -414,6 +419,20 @@ class SfBarChart extends BarChartElement {
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       rootClass: this.getRootClass(),
     });
+  }
+
+  // The data the table shows: settled, so a stream or a pointer move does
+  // not rebuild a row per x on every render (chart-core/settle).
+  // The first data after none shows at once: only a change of data already
+  // shown is held.
+  tableModel(model, ready) {
+    this._table = this._table ?? {};
+    if (!ready) {
+      clearTimeout(this._table.timer);
+      this._table = {};
+      return model;
+    }
+    return settled(this._table, model, {later: () => this.requestComponentUpdate('table')});
   }
 
   template() {
