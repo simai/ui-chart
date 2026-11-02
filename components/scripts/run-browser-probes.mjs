@@ -3,8 +3,8 @@
 //
 // Runs every package browser probe (tests/browser/*.browser.mjs of this
 // repository) against the package bytes laid into the free Framework they were
-// built against: the free output is the directory holding core/, component/,
-// utility/ and smart/ (wave-1/output of ui-builder's
+// built against: the free output is the `distr` of the ui distribution at the
+// pinned release, or the directory holding core/, component/, utility/ and smart/ (wave-1/output of ui-builder's
 // verify-product-reproducibility.cjs for the pinned ui-source revision), the
 // package output the one holding smart/ (wave-1/output/package/chart of
 // verify-package-reproducibility.cjs). The two are combined into one output root
@@ -27,8 +27,12 @@ const [freeInput, packageInput] = args.filter((value, index) => !value.startsWit
 if (!freeInput || !packageInput) throw new Error('usage: run-browser-probes.mjs <free build output> <package build output> [--overlay <directory>]');
 const free = resolve(freeInput);
 const built = resolve(packageInput);
-for (const path of ['core/core/js/core.js', 'smart/smart']) {
-  if (!existsSync(join(free, path))) throw new Error(`the free output has no ${path}: ${free}`);
+// The free output as a product root (core/core, smart/smart, ...), or the
+// `distr` of the ui distribution (core, smart, ...), read as one.
+const distr = !existsSync(join(free, 'core', 'core', 'js', 'core.js')) && existsSync(join(free, 'core', 'js', 'core.js'));
+const freePath = (product) => (distr ? join(free, product) : join(free, product, product));
+for (const path of [join(freePath('core'), 'js', 'core.js'), freePath('smart')]) {
+  if (!existsSync(path)) throw new Error(`the free output has no ${path}`);
 }
 for (const path of [...PACKAGE_COMPONENTS.map((name) => `smart/${name}`), 'smart/rule.js']) {
   if (!existsSync(join(built, path))) throw new Error(`the package output has no ${path}: ${built}`);
@@ -39,8 +43,18 @@ if (!existsSync(overlay)) materializeOverlay(overlay);
 const combined = join(overlay, '.probe-output');
 rmSync(combined, {force: true, recursive: true});
 mkdirSync(join(combined, 'smart'), {recursive: true});
-for (const product of ['core', 'component', 'utility']) symlinkSync(join(free, product), join(combined, product));
-cpSync(join(free, 'smart', 'smart'), join(combined, 'smart', 'smart'), {recursive: true});
+for (const product of ['core', 'component', 'utility']) {
+  mkdirSync(join(combined, product), {recursive: true});
+  symlinkSync(freePath(product), join(combined, product, product));
+}
+cpSync(freePath('smart'), join(combined, 'smart', 'smart'), {recursive: true});
+// A ui distribution ships another package's rule file as smart/rule.js (the
+// one it serves under its own base); the free Framework has none there, and
+// this package's takes its place.
+const strayRule = join(combined, 'smart', 'smart', 'rule.js');
+if (existsSync(strayRule) && /registerPackage\(/u.test(readFileSync(strayRule, 'utf8'))) {
+  for (const file of ['rule.js', 'rule.js.gz', 'rule.min.js', 'rule.min.js.gz']) rmSync(join(combined, 'smart', 'smart', file), {force: true});
+}
 for (const entry of readdirSync(join(built, 'smart'))) {
   const destination = join(combined, 'smart', 'smart', entry);
   if (existsSync(destination)) throw new Error(`the package output would replace the free smart/${entry}`);

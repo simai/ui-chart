@@ -23,7 +23,7 @@
 // (core/core, smart/smart, ...) or the `distr` of the ui distribution; a
 // distr is laid out as a product root with symbolic links.
 import {spawnSync} from 'node:child_process';
-import {cpSync, existsSync, mkdirSync, rmSync, symlinkSync, writeFileSync} from 'node:fs';
+import {cpSync, existsSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {PACKAGE_COMPONENTS, PACKAGE_ROOT, materializeOverlay, packageNameOf} from './overlay.mjs';
 
@@ -52,7 +52,15 @@ if (!existsSync(join(free, 'core', 'core', 'js', 'core.js'))) {
   for (const [product, [folder, inner]] of Object.entries(products)) {
     if (!existsSync(join(free, product))) throw new Error(`the free output has no ${product}: ${free}`);
     mkdirSync(join(root, folder), {recursive: true});
-    symlinkSync(join(free, product), join(root, folder, inner));
+    if (product === 'smart') cpSync(join(free, product), join(root, folder, inner), {recursive: true});
+    else symlinkSync(join(free, product), join(root, folder, inner));
+  }
+  // A ui distribution ships another package's rule file as smart/rule.js; the
+  // free Framework has none there, and served first it would hide this
+  // package's (the tools serve the package after the free output).
+  const strayRule = join(root, 'smart', 'smart', 'rule.js');
+  if (existsSync(strayRule) && /registerPackage\(/u.test(readFileSync(strayRule, 'utf8'))) {
+    for (const file of ['rule.js', 'rule.js.gz', 'rule.min.js', 'rule.min.js.gz']) rmSync(join(root, 'smart', 'smart', file), {force: true});
   }
 }
 

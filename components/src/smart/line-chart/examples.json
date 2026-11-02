@@ -345,12 +345,31 @@
         },
         {
           "id": "p2-keyboard-cursor",
-          "title": "Tab reaches the plot; the arrows move the cursor and each move is said; Enter chooses the point",
+          "title": "Tab reaches the table button, the legend, then the plot; the arrows move the cursor and each move is said; Enter chooses the point",
           "covers": "keyboard.host (Tab, ArrowRight, ArrowDown, End, Enter, Escape), events.select",
           "steps": [
             {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {sales: 'Продажи', plan: 'План'}; c.items = [{\"month\": \"2026-01\", \"sales\": 120, \"plan\": 125}, {\"month\": \"2026-02\", \"sales\": 132, \"plan\": 130}, {\"month\": \"2026-03\", \"sales\": 128, \"plan\": 135}, {\"month\": \"2026-04\", \"sales\": 150, \"plan\": 145}, {\"month\": \"2026-05\", \"sales\": 171, \"plan\": 160}, {\"month\": \"2026-06\", \"sales\": 165, \"plan\": 165}, {\"month\": \"2026-07\", \"sales\": 180, \"plan\": 175}, {\"month\": \"2026-08\", \"sales\": 176, \"plan\": 180}, {\"month\": \"2026-09\", \"sales\": 190, \"plan\": 185}, {\"month\": \"2026-10\", \"sales\": 204, \"plan\": 195}, {\"month\": \"2026-11\", \"sales\": 198, \"plan\": 205}, {\"month\": \"2026-12\", \"sales\": 221, \"plan\": 215}]; const g = document.querySelector('#g'); g.items = [{\"day\": \"2026-10-01\", \"visits\": 340}, {\"day\": \"2026-10-02\", \"visits\": 362}, {\"day\": \"2026-10-03\", \"visits\": null}, {\"day\": \"2026-10-04\", \"visits\": null}, {\"day\": \"2026-10-05\", \"visits\": 401}, {\"day\": \"2026-10-06\", \"visits\": 395}, {\"day\": \"2026-10-07\", \"visits\": 410}, {\"day\": \"2026-10-08\", \"visits\": null}, {\"day\": \"2026-10-09\", \"visits\": 430}, {\"day\": \"2026-10-10\", \"visits\": 452}, {\"day\": \"2026-10-11\", \"visits\": 440}, {\"day\": \"2026-10-12\", \"visits\": 461}, {\"day\": \"2026-10-13\", \"visits\": 470}, {\"day\": \"2026-10-14\", \"visits\": 488}]; return true; })()",
+              "wait": 250
+            },
+            {
               "script": "(document.activeElement?.blur?.(), true)",
               "wait": 60
+            },
+            {
+              "user": "keyboard:Tab",
+              "wait": 80,
+              "check": "document.activeElement?.classList.contains('sf-line-chart-view')"
+            },
+            {
+              "user": "keyboard:Tab",
+              "wait": 60,
+              "check": "document.activeElement?.dataset.series === 'sales'"
+            },
+            {
+              "user": "keyboard:Tab",
+              "wait": 60,
+              "check": "document.activeElement?.dataset.series === 'plan'"
             },
             {
               "user": "keyboard:Tab",
@@ -402,6 +421,10 @@
           "covers": "settings.legend, events.toggle, values.hidden-series",
           "steps": [
             {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {sales: 'Продажи', plan: 'План'}; c.items = [{\"month\": \"2026-01\", \"sales\": 120, \"plan\": 125}, {\"month\": \"2026-02\", \"sales\": 132, \"plan\": 130}, {\"month\": \"2026-03\", \"sales\": 128, \"plan\": 135}, {\"month\": \"2026-04\", \"sales\": 150, \"plan\": 145}, {\"month\": \"2026-05\", \"sales\": 171, \"plan\": 160}, {\"month\": \"2026-06\", \"sales\": 165, \"plan\": 165}, {\"month\": \"2026-07\", \"sales\": 180, \"plan\": 175}, {\"month\": \"2026-08\", \"sales\": 176, \"plan\": 180}, {\"month\": \"2026-09\", \"sales\": 190, \"plan\": 185}, {\"month\": \"2026-10\", \"sales\": 204, \"plan\": 195}, {\"month\": \"2026-11\", \"sales\": 198, \"plan\": 205}, {\"month\": \"2026-12\", \"sales\": 221, \"plan\": 215}]; const g = document.querySelector('#g'); g.items = [{\"day\": \"2026-10-01\", \"visits\": 340}, {\"day\": \"2026-10-02\", \"visits\": 362}, {\"day\": \"2026-10-03\", \"visits\": null}, {\"day\": \"2026-10-04\", \"visits\": null}, {\"day\": \"2026-10-05\", \"visits\": 401}, {\"day\": \"2026-10-06\", \"visits\": 395}, {\"day\": \"2026-10-07\", \"visits\": 410}, {\"day\": \"2026-10-08\", \"visits\": null}, {\"day\": \"2026-10-09\", \"visits\": 430}, {\"day\": \"2026-10-10\", \"visits\": 452}, {\"day\": \"2026-10-11\", \"visits\": 440}, {\"day\": \"2026-10-12\", \"visits\": 461}, {\"day\": \"2026-10-13\", \"visits\": 470}, {\"day\": \"2026-10-14\", \"visits\": 488}]; return true; })()",
+              "wait": 250
+            },
+            {
               "user": "click:#c .sf-line-chart-legend-item[data-series=plan]",
               "wait": 150,
               "expect": {
@@ -431,6 +454,10 @@
           "covers": "settings.table (toggle)",
           "steps": [
             {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {sales: 'Продажи', plan: 'План'}; c.items = [{\"month\": \"2026-01\", \"sales\": 120, \"plan\": 125}, {\"month\": \"2026-02\", \"sales\": 132, \"plan\": 130}, {\"month\": \"2026-03\", \"sales\": 128, \"plan\": 135}, {\"month\": \"2026-04\", \"sales\": 150, \"plan\": 145}, {\"month\": \"2026-05\", \"sales\": 171, \"plan\": 160}, {\"month\": \"2026-06\", \"sales\": 165, \"plan\": 165}, {\"month\": \"2026-07\", \"sales\": 180, \"plan\": 175}, {\"month\": \"2026-08\", \"sales\": 176, \"plan\": 180}, {\"month\": \"2026-09\", \"sales\": 190, \"plan\": 185}, {\"month\": \"2026-10\", \"sales\": 204, \"plan\": 195}, {\"month\": \"2026-11\", \"sales\": 198, \"plan\": 205}, {\"month\": \"2026-12\", \"sales\": 221, \"plan\": 215}]; const g = document.querySelector('#g'); g.items = [{\"day\": \"2026-10-01\", \"visits\": 340}, {\"day\": \"2026-10-02\", \"visits\": 362}, {\"day\": \"2026-10-03\", \"visits\": null}, {\"day\": \"2026-10-04\", \"visits\": null}, {\"day\": \"2026-10-05\", \"visits\": 401}, {\"day\": \"2026-10-06\", \"visits\": 395}, {\"day\": \"2026-10-07\", \"visits\": 410}, {\"day\": \"2026-10-08\", \"visits\": null}, {\"day\": \"2026-10-09\", \"visits\": 430}, {\"day\": \"2026-10-10\", \"visits\": 452}, {\"day\": \"2026-10-11\", \"visits\": 440}, {\"day\": \"2026-10-12\", \"visits\": 461}, {\"day\": \"2026-10-13\", \"visits\": 470}, {\"day\": \"2026-10-14\", \"visits\": 488}]; return true; })()",
+              "wait": 250
+            },
+            {
               "user": "click:#c .sf-line-chart-view",
               "wait": 150,
               "check": "document.querySelector('#c .sf-line-chart-plot').hidden && document.querySelectorAll('#c .sf-line-chart-table tbody tr').length === 12 && document.querySelector('#c .sf-line-chart-table caption').textContent.trim() === 'Продажи и план, 2026'"
@@ -448,6 +475,10 @@
           "covers": "settings.gaps (break), settings.items",
           "steps": [
             {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {sales: 'Продажи', plan: 'План'}; c.items = [{\"month\": \"2026-01\", \"sales\": 120, \"plan\": 125}, {\"month\": \"2026-02\", \"sales\": 132, \"plan\": 130}, {\"month\": \"2026-03\", \"sales\": 128, \"plan\": 135}, {\"month\": \"2026-04\", \"sales\": 150, \"plan\": 145}, {\"month\": \"2026-05\", \"sales\": 171, \"plan\": 160}, {\"month\": \"2026-06\", \"sales\": 165, \"plan\": 165}, {\"month\": \"2026-07\", \"sales\": 180, \"plan\": 175}, {\"month\": \"2026-08\", \"sales\": 176, \"plan\": 180}, {\"month\": \"2026-09\", \"sales\": 190, \"plan\": 185}, {\"month\": \"2026-10\", \"sales\": 204, \"plan\": 195}, {\"month\": \"2026-11\", \"sales\": 198, \"plan\": 205}, {\"month\": \"2026-12\", \"sales\": 221, \"plan\": 215}]; const g = document.querySelector('#g'); g.items = [{\"day\": \"2026-10-01\", \"visits\": 340}, {\"day\": \"2026-10-02\", \"visits\": 362}, {\"day\": \"2026-10-03\", \"visits\": null}, {\"day\": \"2026-10-04\", \"visits\": null}, {\"day\": \"2026-10-05\", \"visits\": 401}, {\"day\": \"2026-10-06\", \"visits\": 395}, {\"day\": \"2026-10-07\", \"visits\": 410}, {\"day\": \"2026-10-08\", \"visits\": null}, {\"day\": \"2026-10-09\", \"visits\": 430}, {\"day\": \"2026-10-10\", \"visits\": 452}, {\"day\": \"2026-10-11\", \"visits\": 440}, {\"day\": \"2026-10-12\", \"visits\": 461}, {\"day\": \"2026-10-13\", \"visits\": 470}, {\"day\": \"2026-10-14\", \"visits\": 488}]; return true; })()",
+              "wait": 250
+            },
+            {
               "check": "(document.querySelector('#g .sf-line-chart-line').getAttribute('d').match(/M/gu) || []).length === 3"
             }
           ]
@@ -457,6 +488,10 @@
           "title": "the error state offers «Повторить», which asks for the data again (refresh)",
           "covers": "settings.data-state (error), events.refresh, relations cl-empty-state",
           "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {sales: 'Продажи', plan: 'План'}; c.items = [{\"month\": \"2026-01\", \"sales\": 120, \"plan\": 125}, {\"month\": \"2026-02\", \"sales\": 132, \"plan\": 130}, {\"month\": \"2026-03\", \"sales\": 128, \"plan\": 135}, {\"month\": \"2026-04\", \"sales\": 150, \"plan\": 145}, {\"month\": \"2026-05\", \"sales\": 171, \"plan\": 160}, {\"month\": \"2026-06\", \"sales\": 165, \"plan\": 165}, {\"month\": \"2026-07\", \"sales\": 180, \"plan\": 175}, {\"month\": \"2026-08\", \"sales\": 176, \"plan\": 180}, {\"month\": \"2026-09\", \"sales\": 190, \"plan\": 185}, {\"month\": \"2026-10\", \"sales\": 204, \"plan\": 195}, {\"month\": \"2026-11\", \"sales\": 198, \"plan\": 205}, {\"month\": \"2026-12\", \"sales\": 221, \"plan\": 215}]; const g = document.querySelector('#g'); g.items = [{\"day\": \"2026-10-01\", \"visits\": 340}, {\"day\": \"2026-10-02\", \"visits\": 362}, {\"day\": \"2026-10-03\", \"visits\": null}, {\"day\": \"2026-10-04\", \"visits\": null}, {\"day\": \"2026-10-05\", \"visits\": 401}, {\"day\": \"2026-10-06\", \"visits\": 395}, {\"day\": \"2026-10-07\", \"visits\": 410}, {\"day\": \"2026-10-08\", \"visits\": null}, {\"day\": \"2026-10-09\", \"visits\": 430}, {\"day\": \"2026-10-10\", \"visits\": 452}, {\"day\": \"2026-10-11\", \"visits\": 440}, {\"day\": \"2026-10-12\", \"visits\": 461}, {\"day\": \"2026-10-13\", \"visits\": 470}, {\"day\": \"2026-10-14\", \"visits\": 488}]; return true; })()",
+              "wait": 250
+            },
             {
               "wait": 200,
               "user": "click:#e sf-empty-state button",

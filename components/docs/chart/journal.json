@@ -1,0 +1,7 @@
+{
+  "schema": "simai.change-journal",
+  "schema_version": 1,
+  "policy": "contracts/lifecycle-policy.json",
+  "summary": "The chart package's change journal (standard simai.change-lifecycle 1.0.0): a public name of a chart component that is renamed or removed is recorded here in the free journal's record form, with its dates. No name has left yet.",
+  "records": []
+}

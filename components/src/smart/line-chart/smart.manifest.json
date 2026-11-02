@@ -434,11 +434,11 @@
     "source_artifacts": [
       {
         "path": "src/smart/line-chart/index.js",
-        "sha256": "9031718181f394dfab0464a5b22378d4c0786d2a17904a7a7a4a1bffa2c0fa34"
+        "sha256": "82eed698702dc8eaa6b922756c61050e97e46b6721f3ace3d6582975818a4998"
       },
       {
         "path": "src/smart/line-chart/js/templates/default.js",
-        "sha256": "08b922fb4c4b7a99f15646109fdb7cd4fa74ca03d3792761b3b8e80344795836"
+        "sha256": "3717a660b313b6b01ac9e0f5ce2a08c8c8f5954656c6f4b8310cdd297c449e5a"
       },
       {
         "path": "src/smart/line-chart/js/templates/default.css",
@@ -458,11 +458,11 @@
       },
       {
         "path": "src/smart/line-chart/lang/en.json",
-        "sha256": "874e59e7620a3d160728aebba907f1187c44c13a178b185d7c1f7db7c8eadfe6"
+        "sha256": "21d352ea93f05b6d0a08bfe2b134ba2b082bc6e886f4c8edfc9161c58c0a6f83"
       },
       {
         "path": "src/smart/line-chart/lang/ru.json",
-        "sha256": "06703f58c46c7415f04ba318696cbc799d677ed2bfbdc92ca4dd626e59a07b51"
+        "sha256": "77f9a6d96150ed3348a3eebd927a58a8275c1dddafd192a2a39072e934bf51a7"
       }
     ],
     "generated_runtime": []

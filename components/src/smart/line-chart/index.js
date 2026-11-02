@@ -127,14 +127,17 @@ class SfLineChart extends LineChartElement {
     const font = FONT[this.size] ?? 12;
     const count = model.xs.length;
 
+    // y-min and y-max hold only when given: an unset number reads as 0.
+    const yMin = this.hasAttribute('y-min') && Number.isFinite(this.yMin) ? this.yMin : null;
+    const yMax = this.hasAttribute('y-max') && Number.isFinite(this.yMax) ? this.yMax : null;
     let [low, high] = extent(shown) ?? [0, 1];
-    if (Number.isFinite(this.yMin)) low = this.yMin;
-    if (Number.isFinite(this.yMax)) high = this.yMax;
+    if (yMin !== null) low = yMin;
+    if (yMax !== null) high = yMax;
     const top = GAP + (this.yLabel ? font * 1.5 : 0);
     const bottom = font * 1.5 + GAP + (this.xLabel ? font * 1.5 : 0);
     const yTicks = niceTicks(low, high, tickCount(height - top - bottom, font * 3.5), {
       zero: this.yZero || this.area,
-      nice: !Number.isFinite(this.yMin) && !Number.isFinite(this.yMax),
+      nice: yMin === null && yMax === null,
     });
     const yLabels = yTicks.ticks.map((value) => this.sayY(value, yTicks.step));
     const left = Math.ceil(Math.max(...yLabels.map((text) => text.length)) * font * CHAR) + GAP * 1.5;
@@ -162,6 +165,14 @@ class SfLineChart extends LineChartElement {
       xTicks = model.labels.map((label, index) => ({at: x(index), text: String(label), index})).filter(({index}) => index % every === 0);
     }
 
+    // A label at an edge does not leave the plot: it is held from that edge.
+    xTicks = xTicks.map((tick) => {
+      const half = (tick.text.length * font * CHAR) / 2;
+      if (tick.at - half < 0) return {...tick, at: 0, anchor: 'start'};
+      if (tick.at + half > width) return {...tick, at: width, anchor: 'end'};
+      return {...tick, anchor: 'middle'};
+    });
+
     const px = model.xs.map((value) => x(value));
     const baseline = y(Math.max(yTicks.min, Math.min(yTicks.max, 0)));
     const markers = this.markers === 'always' || (this.markers === 'auto' && count <= 200 && (inner.right - inner.left) / Math.max(1, count) >= 12);
@@ -186,7 +197,9 @@ class SfLineChart extends LineChartElement {
   summarize(model, shown) {
     if (this.summary === 'none') return '';
     if (!model.xs.length) return this.words('summary-empty');
-    const parts = [this.words('summary-range', {from: this.sayX(model, 0), to: this.sayX(model, model.xs.length - 1)})];
+    // The sentence ends with its own full stop: an abbreviation the date
+    // ends with («2026 г.») gives it, not a second one.
+    const parts = [this.words('summary-range', {from: this.sayX(model, 0), to: this.sayX(model, model.xs.length - 1).replace(/\.$/u, '')})];
     for (const one of shown) {
       const facts = seriesFacts(one.values);
       if (!facts) continue;
@@ -275,7 +288,8 @@ class SfLineChart extends LineChartElement {
     const model = this.model();
     const one = model.series.find((series) => series.key === cursor.series);
     if (!one) return;
-    this.sfEmit('select', {series: one.key, index: cursor.index, x: String(model.keys[cursor.index]), value: one.values[cursor.index]});
+    // x as the data gave it ('2026-12'), not as the axis reads it.
+    this.sfEmit('select', {series: one.key, index: cursor.index, x: String(model.labels[cursor.index] ?? ''), value: one.values[cursor.index]});
   }
 
   toggleSeries(key) {

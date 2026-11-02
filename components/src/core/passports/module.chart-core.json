@@ -1,0 +1,23 @@
+{
+  "schema": "simai.framework.unit-passport",
+  "schema_version": 1,
+  "id": "module.chart-core",
+  "kind": "module",
+  "version": "0.1.0",
+  "owner": "simai/ui-chart",
+  "summary": "The SIMAI Chart core: data, scales, formats, paths, decimation, the words and the keyboard cursor every chart shares.",
+  "includes": [
+    "src/smart/chart-core/"
+  ],
+  "files": [
+    "src/smart/chart-core/cursor.js",
+    "src/smart/chart-core/data.js",
+    "src/smart/chart-core/decimate.js",
+    "src/smart/chart-core/describe.js",
+    "src/smart/chart-core/format.js",
+    "src/smart/chart-core/path.js",
+    "src/smart/chart-core/scale.js"
+  ],
+  "content_sha256": "fbe7e6fadd18244ecc83157b4ac5d6dfaac4418daa89d2011af953bdd22aadb6",
+  "dependencies": []
+}

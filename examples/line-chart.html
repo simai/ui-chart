@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru" class="theme-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sf-line-chart — SIMAI Chart</title>
+  <!-- The free Framework at the pinned release (ui-2d39b617a719) is served
+       under /framework/, the chart package build under /package/: see
+       serve.mjs. The page declares the package before the core starts, as
+       any consumer does; the Loader then fetches the package's rule file and
+       sf-line-chart when the page uses it. -->
+  <script>
+    window.sfPath = '/framework/';
+    window.sfSmartPath = '/framework/';
+    window.SF_BOOT_CONFIG = {packages: {chart: {base: '/package/smart/'}}};
+  </script>
+  <link rel="stylesheet" href="/framework/core/css/core.css">
+  <style>
+    body { margin: 0; background: var(--sf-surface-0); color: var(--sf-on-surface); font-family: var(--sf-text--family); }
+    main { display: grid; gap: var(--sf-space-2); max-inline-size: 72rem; margin-inline: auto; padding: var(--sf-space-1); }
+    .grid { display: grid; gap: var(--sf-space-1); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+    header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sf-space-1\/2); }
+    h1 { margin: 0; font-size: var(--sf-heading-4--size); line-height: var(--sf-heading-4--height); }
+    h2 { margin: 0 0 var(--sf-space-1\/2); font-size: var(--sf-heading-6--size); line-height: var(--sf-heading-6--height); }
+    #log { min-block-size: 3lh; margin: 0; padding: var(--sf-space-1\/2); border: var(--sf-px) solid var(--sf-outline-variant); border-radius: var(--sf-radius-1); font-size: var(--sf-text-small--size); white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>sf-line-chart</h1>
+    <button type="button" id="theme">Тёмная тема</button>
+  </header>
+
+  <section>
+    <h2>Два ряда по месяцам</h2>
+    <sf-line-chart id="sales" label="Продажи и план, 2026" x="month" y="sales,plan" y-format="integer" y-label="тыс. ₽">
+      <p slot="description">План пересмотрен в мае.</p>
+    </sf-line-chart>
+  </section>
+
+  <div class="grid">
+    <section>
+      <h2>Заливка и плавная линия</h2>
+      <sf-line-chart id="area" label="Продажи, 2026" x="month" y="sales" area curve="smooth" size="1/2"></sf-line-chart>
+    </section>
+    <section>
+      <h2>Пропуски в данных</h2>
+      <sf-line-chart id="gaps" label="Посещения за две недели" x="day" y="visits" markers="always" size="1/2"></sf-line-chart>
+    </section>
+    <section>
+      <h2>Категории и таблица</h2>
+      <sf-line-chart id="cities" label="Доля заказов по городам" x="city" y="share" y-format="percent" y-zero curve="step" table="visible" size="1/2"></sf-line-chart>
+    </section>
+    <section>
+      <h2>Загрузка, затем данные</h2>
+      <sf-line-chart id="late" label="Выручка" x="month" y="sales" data-state="loading" size="1/2"></sf-line-chart>
+    </section>
+    <section>
+      <h2>Ошибка и повтор</h2>
+      <sf-line-chart id="failed" label="Заказы" x="month" y="orders" data-state="error" size="1/2"></sf-line-chart>
+    </section>
+    <section>
+      <h2>10 000 точек</h2>
+      <sf-line-chart id="dense" label="Сигнал, 10 000 точек" x="t" y="v" size="1/2" table="hidden"></sf-line-chart>
+    </section>
+  </div>
+
+  <section>
+    <h2>События</h2>
+    <pre id="log" aria-live="polite"></pre>
+  </section>
+</main>
+<script src="/framework/core/js/core.js"></script>
+<script>
+  const months = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'];
+  const sales = [120, 132, 128, 150, 171, 165, 180, 176, 190, 204, 198, 221];
+  const plan = [125, 130, 135, 145, 160, 165, 175, 180, 185, 195, 205, 215];
+  const $ = (id) => document.getElementById(id);
+
+  $('sales').names = {sales: 'Продажи', plan: 'План'};
+  $('sales').items = months.map((month, index) => ({month, sales: sales[index], plan: plan[index]}));
+  // Columns work as well as records.
+  $('area').names = {sales: 'Продажи'};
+  $('area').items = {month: months, sales};
+  $('gaps').names = {visits: 'Посещения'};
+  $('gaps').items = [340, 362, null, null, 401, 395, 410, null, 430, 452, 440, 461, 470, 488]
+    .map((visits, index) => ({day: `2026-10-${String(index + 1).padStart(2, '0')}`, visits}));
+  $('cities').names = {share: 'Доля'};
+  $('cities').items = [['Москва', 0.31], ['Санкт-Петербург', 0.18], ['Казань', 0.09], ['Новосибирск', 0.08], ['Екатеринбург', 0.07]]
+    .map(([city, share]) => ({city, share}));
+  setTimeout(() => {
+    $('late').names = {sales: 'Выручка'};
+    $('late').items = months.map((month, index) => ({month, sales: sales[index] * 3}));
+    $('late').dataState = 'auto';
+  }, 1500);
+  $('dense').names = {v: 'Сигнал'};
+  $('dense').items = Array.from({length: 10000}, (_, t) => ({t, v: Math.round((Math.sin(t / 90) * 40 + Math.sin(t / 7) * 6) * 10) / 10}));
+
+  const log = (text) => { $('log').textContent = `${text}\n${$('log').textContent}`.split('\n').slice(0, 8).join('\n'); };
+  document.addEventListener('sf-line-chart-select', (event) => log(`select ${JSON.stringify(event.detail)}`));
+  document.addEventListener('sf-line-chart-toggle', (event) => log(`toggle ${JSON.stringify(event.detail)}`));
+  $('failed').addEventListener('sf-line-chart-refresh', () => {
+    log('refresh: данные загружены заново');
+    $('failed').names = {orders: 'Заказы'};
+    $('failed').items = months.map((month, index) => ({month, orders: Math.round(sales[index] / 4)}));
+    $('failed').dataState = 'auto';
+  });
+  $('theme').addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('theme-dark');
+    document.documentElement.classList.toggle('theme-light', !dark);
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    $('theme').textContent = dark ? 'Светлая тема' : 'Тёмная тема';
+  });
+</script>
+</body>
+</html>

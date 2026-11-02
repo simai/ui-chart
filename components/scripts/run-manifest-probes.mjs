@@ -48,6 +48,13 @@ for (const [product, [folder, inner]] of Object.entries(products)) {
   if (product === 'smart') cpSync(from, join(combined, folder, inner), {recursive: true});
   else symlinkSync(from, join(combined, folder, inner));
 }
+// A ui distribution ships another package's rule file as smart/rule.js (the
+// one it serves under its own base); the free Framework has none there, and
+// this package's takes its place.
+const strayRule = join(combined, 'smart', 'smart', 'rule.js');
+if (existsSync(strayRule) && /registerPackage\(/u.test(readFileSync(strayRule, 'utf8'))) {
+  for (const file of ['rule.js', 'rule.js.gz', 'rule.min.js', 'rule.min.js.gz']) rmSync(join(combined, 'smart', 'smart', file), {force: true});
+}
 for (const entry of readdirSync(join(built, 'smart'))) {
   const destination = join(combined, 'smart', 'smart', entry);
   if (existsSync(destination)) throw new Error(`the package output would replace the free smart/${entry}`);

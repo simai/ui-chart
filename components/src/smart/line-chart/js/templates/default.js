@@ -1,4 +1,4 @@
-import {html, svg, nothing} from 'lit';
+import {html, nothing} from 'lit';
 import './default.css';
 
 // The figure of a line chart: the label and the table button, the legend,
@@ -14,51 +14,61 @@ import './default.css';
 const colourOf = (place) => `sf-line-chart-series--c${(place % 4) + 1}${place > 0 ? ` sf-line-chart-series--d${Math.min(place, 7)}` : ''}`;
 const px = (value) => `${Math.round(value * 10) / 10}`;
 
-function renderAxes(g) {
+// The plot's inside is SVG markup set as the svg element's innerHTML (a
+// property, so lit writes no part markers inside it: a first-paint snapshot
+// of the plot is the same on every run). Every text is escaped.
+const ESCAPES = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
+const esc = (value) => String(value).replace(/[&<>"']/gu, (one) => ESCAPES[one]);
+
+function axesMarkup(g) {
   const {inner} = g;
-  return svg`
-    <g class="sf-line-chart-axes" aria-hidden="true">
-      ${g.grid === 'y' || g.grid === 'both'
-        ? g.yTicks.map((tick) => svg`<line class=${tick.zero ? 'sf-line-chart-baseline' : 'sf-line-chart-grid'} x1=${px(inner.left)} x2=${px(inner.right)} y1=${px(tick.at)} y2=${px(tick.at)}></line>`)
-        : nothing}
-      ${g.grid === 'x' || g.grid === 'both'
-        ? g.xTicks.map((tick) => svg`<line class="sf-line-chart-grid" x1=${px(tick.at)} x2=${px(tick.at)} y1=${px(inner.top)} y2=${px(inner.bottom)}></line>`)
-        : nothing}
-      <line class="sf-line-chart-baseline" x1=${px(inner.left)} x2=${px(inner.right)} y1=${px(inner.bottom)} y2=${px(inner.bottom)}></line>
-      ${g.yTicks.map((tick) => svg`<text class="sf-line-chart-tick" x=${px(inner.left - 6)} y=${px(tick.at)} text-anchor="end" dominant-baseline="middle">${tick.text}</text>`)}
-      ${g.xTicks.map((tick) => svg`<text class="sf-line-chart-tick" x=${px(tick.at)} y=${px(inner.bottom + g.font * 1.2)} text-anchor="middle" dominant-baseline="middle">${tick.text}</text>`)}
-      ${g.yLabel ? svg`<text class="sf-line-chart-axis-label" x=${px(inner.left)} y=${px(g.font)} text-anchor="start">${g.yLabel}</text>` : nothing}
-      ${g.xLabel ? svg`<text class="sf-line-chart-axis-label" x=${px((inner.left + inner.right) / 2)} y=${px(g.height - 4)} text-anchor="middle">${g.xLabel}</text>` : nothing}
-    </g>
-  `;
+  let out = '<g class="sf-line-chart-axes" aria-hidden="true">';
+  if (g.grid === 'y' || g.grid === 'both') {
+    for (const tick of g.yTicks) {
+      out += `<line class="${tick.zero ? 'sf-line-chart-baseline' : 'sf-line-chart-grid'}" x1="${px(inner.left)}" x2="${px(inner.right)}" y1="${px(tick.at)}" y2="${px(tick.at)}"/>`;
+    }
+  }
+  if (g.grid === 'x' || g.grid === 'both') {
+    for (const tick of g.xTicks) {
+      out += `<line class="sf-line-chart-grid" x1="${px(tick.at)}" x2="${px(tick.at)}" y1="${px(inner.top)}" y2="${px(inner.bottom)}"/>`;
+    }
+  }
+  out += `<line class="sf-line-chart-baseline" x1="${px(inner.left)}" x2="${px(inner.right)}" y1="${px(inner.bottom)}" y2="${px(inner.bottom)}"/>`;
+  for (const tick of g.yTicks) {
+    out += `<text class="sf-line-chart-tick" x="${px(inner.left - 6)}" y="${px(tick.at)}" text-anchor="end" dominant-baseline="middle">${esc(tick.text)}</text>`;
+  }
+  for (const tick of g.xTicks) {
+    out += `<text class="sf-line-chart-tick sf-line-chart-tick--x" x="${px(tick.at)}" y="${px(inner.bottom + g.font * 1.2)}" text-anchor="${tick.anchor}" dominant-baseline="middle">${esc(tick.text)}</text>`;
+  }
+  if (g.yLabel) out += `<text class="sf-line-chart-axis-label" x="${px(inner.left)}" y="${px(g.font)}" text-anchor="start">${esc(g.yLabel)}</text>`;
+  if (g.xLabel) out += `<text class="sf-line-chart-axis-label" x="${px((inner.left + inner.right) / 2)}" y="${px(g.height - 4)}" text-anchor="middle">${esc(g.xLabel)}</text>`;
+  return `${out}</g>`;
 }
 
-function renderLines(g, cursor) {
-  return svg`
-    <g class="sf-line-chart-marks" aria-hidden="true">
-      ${g.lines.map((line) => svg`
-        <g class=${['sf-line-chart-series', colourOf(line.place), cursor && cursor.series !== line.key ? 'sf-line-chart-series--dim' : ''].filter(Boolean).join(' ')} data-series=${line.key}>
-          ${line.area ? svg`<path class="sf-line-chart-area" d=${line.area}></path>` : nothing}
-          <path class="sf-line-chart-line" d=${line.d}></path>
-          ${line.dots.map(([x, y]) => svg`<circle class="sf-line-chart-dot" cx=${px(x)} cy=${px(y)} r="2.5"></circle>`)}
-        </g>
-      `)}
-      ${cursor ? renderCursor(g, cursor) : nothing}
-    </g>
-  `;
-}
-
-function renderCursor(g, cursor) {
+function cursorMarkup(g, cursor) {
   const x = g.px[cursor.index];
-  return svg`
-    <line class="sf-line-chart-crosshair" x1=${px(x)} x2=${px(x)} y1=${px(g.inner.top)} y2=${px(g.inner.bottom)}></line>
-    ${g.lines.map((line) => {
-      const value = line.values[cursor.index];
-      if (value === null) return nothing;
-      return svg`<circle class=${['sf-line-chart-focus', colourOf(line.place), line.key === cursor.series ? 'sf-line-chart-focus--current' : ''].filter(Boolean).join(' ')}
-        cx=${px(x)} cy=${px(g.y(value))} r=${line.key === cursor.series ? 5 : 3.5}></circle>`;
-    })}
-  `;
+  let out = `<line class="sf-line-chart-crosshair" x1="${px(x)}" x2="${px(x)}" y1="${px(g.inner.top)}" y2="${px(g.inner.bottom)}"/>`;
+  for (const line of g.lines) {
+    const value = line.values[cursor.index];
+    if (value === null) continue;
+    const current = line.key === cursor.series;
+    out += `<circle class="sf-line-chart-focus ${colourOf(line.place)}${current ? ' sf-line-chart-focus--current' : ''}" cx="${px(x)}" cy="${px(g.y(value))}" r="${current ? 5 : 3.5}"/>`;
+  }
+  return out;
+}
+
+function linesMarkup(g, cursor) {
+  let out = '<g class="sf-line-chart-marks" aria-hidden="true">';
+  for (const line of g.lines) {
+    const dim = cursor && cursor.series !== line.key ? ' sf-line-chart-series--dim' : '';
+    out += `<g class="sf-line-chart-series ${colourOf(line.place)}${dim}" data-series="${esc(line.key)}">`;
+    if (line.area) out += `<path class="sf-line-chart-area" d="${line.area}"/>`;
+    out += `<path class="sf-line-chart-line" d="${line.d}"/>`;
+    for (const [x, y] of line.dots) out += `<circle class="sf-line-chart-dot" cx="${px(x)}" cy="${px(y)}" r="2.5"/>`;
+    out += '</g>';
+  }
+  if (cursor) out += cursorMarkup(g, cursor);
+  return `${out}</g>`;
 }
 
 function renderTooltip(context, g, cursor) {
@@ -151,9 +161,8 @@ function renderPlot(context) {
          @pointermove=${(event) => component.onPointerMove(event)}
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
-         @blur=${() => component.setCursor(null)}>
-      ${renderAxes({...g, grid: context.grid, xLabel: context.xLabel, yLabel: context.yLabel})}
-      ${renderLines(g, cursor)}
+         @blur=${() => component.setCursor(null)}
+         .innerHTML=${axesMarkup({...g, grid: context.grid, xLabel: context.xLabel, yLabel: context.yLabel}) + linesMarkup(g, cursor)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;
