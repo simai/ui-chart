@@ -1,5 +1,5 @@
 import {html, nothing} from 'lit';
-import {guard} from 'lit/directives/guard.js';
+import {keptView} from '../../../chart-core/settle.js';
 import './default.css';
 
 // The figure of a pie chart: the label and the table button, the plot (SVG)
@@ -81,7 +81,9 @@ function renderLegend(context) {
 function renderTable(context) {
   const shownTable = context.table === 'visible' || (context.table === 'toggle' && context.view === 'table');
   if (context.state !== 'ready' || (!shownTable && context.table !== 'hidden')) return nothing;
-  return guard(context.tableKey, () => tableMarkup(context, shownTable));
+  const {component} = context;
+  component._tableView = component._tableView ?? {};
+  return keptView(component._tableView, context.tableKey, () => tableMarkup(context, shownTable));
 }
 
 function tableMarkup(context, shownTable) {

@@ -21,6 +21,6 @@
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "c03710590346d1a06cb4e8b74fbf5f20acc87d6803ece62bbadfdb5e54caf1f4",
+  "content_sha256": "aeacda5701fa0fd8375f96231af0fc29023e75385b2325f407c920352aee2e05",
   "dependencies": []
 }

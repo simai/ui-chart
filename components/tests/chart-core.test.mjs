@@ -11,7 +11,7 @@ import {areaPath, bandPath, linePath, runs} from '../src/smart/chart-core/path.j
 import {minMaxIndexes} from '../src/smart/chart-core/decimate.js';
 import {seriesFacts, trendOf} from '../src/smart/chart-core/describe.js';
 import {moveCursor} from '../src/smart/chart-core/cursor.js';
-import {settled} from '../src/smart/chart-core/settle.js';
+import {keptView, settled} from '../src/smart/chart-core/settle.js';
 
 test('records and columns read into the same rows', () => {
   const records = [{m: 'a', v: 1}, {m: 'b', v: 2}];
@@ -213,4 +213,15 @@ test('a settled table follows a stream at most once per wait, the latest last', 
   assert.equal(asked, 1, 'one render is asked for the held change');
   assert.equal(holder.shown, c, 'the latest value is the one shown');
   assert.equal(settled(holder, b, {wait: 40, later, now: Date.now() + 100}), b, 'after a quiet spell a change shows at once');
+});
+
+test('a kept view is built again only when a part of its key changes', () => {
+  const holder = {};
+  let built = 0;
+  const make = () => ({n: (built += 1)});
+  const model = {};
+  const first = keptView(holder, [model, 'ru'], make);
+  assert.equal(keptView(holder, [model, 'ru'], make), first);
+  assert.notEqual(keptView(holder, [model, 'en'], make), first);
+  assert.equal(built, 2);
 });

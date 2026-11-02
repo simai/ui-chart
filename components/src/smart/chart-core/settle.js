@@ -30,3 +30,17 @@ export function settled(holder, value, {wait = 1000, later, now = Date.now()} = 
   }
   return holder.shown;
 }
+
+/**
+ * The view `make` builds, kept while every part of `key` is the same value
+ * (===) as last time: a template result reused is not built again. `holder`
+ * keeps the last key and view (one per element).
+ */
+export function keptView(holder, key, make) {
+  const same = holder.key && holder.key.length === key.length && key.every((part, index) => part === holder.key[index]);
+  if (!same) {
+    holder.key = key;
+    holder.view = make();
+  }
+  return holder.view;
+}
