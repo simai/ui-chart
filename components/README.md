@@ -9,7 +9,7 @@ built and tested over the free Framework release pinned in
 
 | Folder | What it is |
 |---|---|
-| `src/smart/line-chart/` | `sf-line-chart`, one or more series over time, a number or categories |
+| `src/smart/line-chart/` | `sf-line-chart`, one or more series over time, a number or categories, as lines or stacked areas |
 | `src/smart/bar-chart/` | `sf-bar-chart`, values by category: grouped, stacked or shares, vertical or horizontal |
 | `src/smart/pie-chart/` | `sf-pie-chart`, the parts of one whole as a circle or a ring |
 | `src/smart/sparkline/` | `sf-sparkline`, one series word-sized, for tables and tiles |
