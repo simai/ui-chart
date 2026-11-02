@@ -1,0 +1,39 @@
+{
+  "title": "Line chart",
+  "runtime": {
+    "untitled": "Chart",
+    "roledescription": "chart",
+    "summary-range": "{from} to {to}.",
+    "summary-series": "{name}: from {first} to {last}, highest {max} ({maxAt}), lowest {min} ({minAt}).",
+    "summary-empty": "No data.",
+    "trend-up": "rising",
+    "trend-down": "falling",
+    "trend-flat": "no notable change",
+    "cursor": "{x}. {name}: {value}",
+    "gap": "no data",
+    "show-table": "Table",
+    "show-chart": "Chart",
+    "legend": "Series",
+    "hidden-series": "{name}, hidden",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data",
+    "x-column": "X value"
+  },
+  "events": {
+    "toggle": {
+      "label": "Hide or show a series"
+    },
+    "select": {
+      "label": "Choose a point"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Show every series"
+    }
+  }
+}

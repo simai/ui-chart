@@ -1,0 +1,9 @@
+{
+  "schema": "simai.framework.product-package-source-lock",
+  "schema_version": 1,
+  "summary": "The ui-source revision the chart component package is built and tested against: the free release ui-2d39b617a719 (npm @simai-studio/ui@5.20261102.1106, tarball sha256 084c2e9d29ec6407ff3e5dc206865b58e958abed49de508e4370e17e2b198175, ui-builder a89508ce28ac; ui-control COMPATIBILITY_LEDGER framework_pair_ui_2d39b617a719_package_pro_effects_about_2026_11_02). The overlay is ui-source at this revision with this folder laid over it (scripts/overlay.mjs), and ui-builder's product-package build builds the same (standard simai.component-package).",
+  "source": {
+    "repository": "simai/ui-source",
+    "revision": "426123e2946b96e9e8275f85eeed7d745171dc79"
+  }
+}

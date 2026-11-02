@@ -8,3 +8,5 @@ dist/
 .mirai/
 .claude/
 work/
+.overlay/
+.overlay.package/

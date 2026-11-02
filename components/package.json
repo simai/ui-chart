@@ -1,0 +1,13 @@
+{
+  "name": "@simai/ui-chart-components",
+  "version": "0.1.0",
+  "description": "The SIMAI Chart Smart components, the component package chart: sf-line-chart first, then sf-bar-chart, sf-pie-chart, sf-sparkline and sf-metric (docs/DECISIONS.md D1, D2)",
+  "private": true,
+  "license": "PolyForm-Small-Business-1.0.0 OR PolyForm-Noncommercial-1.0.0 OR LicenseRef-SIMAI-Commercial",
+  "author": "Rim Zabarov",
+  "scripts": {
+    "overlay": "node scripts/overlay.mjs",
+    "test": "node scripts/test.mjs",
+    "test:browser": "node scripts/run-browser-probes.mjs"
+  }
+}

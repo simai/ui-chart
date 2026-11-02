@@ -1,0 +1,142 @@
+// The chart core (src/smart/chart-core): the pure parts every chart shares,
+// held without a browser.
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import {extent, readNumber, readRows, readSeries, readTime, xKindOf} from '../src/smart/chart-core/data.js';
+import {linearScale, nearestIndex, niceTicks, tickCount, timeTicks} from '../src/smart/chart-core/scale.js';
+import {formatNumber, formatTime, numberOptions, timeUnitOf} from '../src/smart/chart-core/format.js';
+import {areaPath, linePath, runs} from '../src/smart/chart-core/path.js';
+import {minMaxIndexes} from '../src/smart/chart-core/decimate.js';
+import {seriesFacts, trendOf} from '../src/smart/chart-core/describe.js';
+import {moveCursor} from '../src/smart/chart-core/cursor.js';
+
+test('records and columns read into the same rows', () => {
+  const records = [{m: 'a', v: 1}, {m: 'b', v: 2}];
+  assert.deepEqual(readRows({m: ['a', 'b'], v: [1, 2]}), records);
+  assert.deepEqual(readRows(records), records);
+  assert.deepEqual(readRows(null), []);
+  assert.deepEqual(readRows('a,b'), []);
+});
+
+test('a missing value is a gap, never a zero', () => {
+  for (const gap of [null, undefined, '', 'n/a', NaN, Infinity, true]) assert.equal(readNumber(gap), null, String(gap));
+  assert.equal(readNumber('0'), 0);
+  assert.equal(readNumber(' 12.5 '), 12.5);
+  const {series} = readSeries([{x: 1, y: 3}, {x: 2, y: null}, {x: 3, y: 0}], {x: 'x', y: 'y'});
+  assert.deepEqual(series[0].values, [3, null, 0]);
+});
+
+test('the x kind is read from the values', () => {
+  assert.equal(xKindOf(['2026-01', '2026-02']), 'time');
+  assert.equal(xKindOf(['2026-01-05T10:00:00Z']), 'time');
+  assert.equal(xKindOf([1, '2', 3.5]), 'number');
+  assert.equal(xKindOf(['Москва', 'Казань']), 'category');
+  assert.equal(xKindOf([1, 2], 'category'), 'category');
+  assert.equal(xKindOf(['a'], 'linear'), 'number');
+  assert.equal(readTime('2026-03'), new Date(2026, 2, 1).getTime(), 'a bare month is local midnight');
+  assert.equal(readTime('03.2026'), null);
+});
+
+test('the wide form gives a series per y field, the long form a series per value', () => {
+  const wide = readSeries([{d: '2026-02', a: 2, b: 5}, {d: '2026-01', a: 1, b: 4}], {x: 'd', y: 'a, b'});
+  assert.equal(wide.kind, 'time');
+  assert.deepEqual(wide.series.map((one) => one.key), ['a', 'b']);
+  assert.deepEqual(wide.series[0].values, [1, 2], 'time x is sorted');
+  const long = readSeries([
+    {d: 1, city: 'A', v: 10}, {d: 1, city: 'B', v: 20}, {d: 2, city: 'A', v: 11},
+  ], {x: 'd', y: 'v', series: 'city', names: {B: 'Бета'}});
+  assert.deepEqual(long.series.map((one) => [one.key, one.name, one.values]), [['A', 'A', [10, 11]], ['B', 'Бета', [20, null]]]);
+  const guessed = readSeries([{x: 'q1', a: 1, note: 'n', b: '2'}], {});
+  assert.deepEqual(guessed.series.map((one) => one.key), ['a', 'b'], 'no y: every numeric field');
+  assert.deepEqual(extent(long.series), [10, 20]);
+  assert.equal(extent([{values: [null]}]), null);
+});
+
+test('ticks are round and cover the data', () => {
+  const ticks = niceTicks(3, 97, 5);
+  assert.deepEqual([ticks.min, ticks.max, ticks.step], [0, 100, 20]);
+  assert.deepEqual(niceTicks(0.12, 0.31, 4).ticks, [0.1, 0.15, 0.2, 0.25, 0.3, 0.35]);
+  assert.deepEqual(niceTicks(40, 60, 4, {zero: true}).ticks, [0, 20, 40, 60]);
+  const flat = niceTicks(5, 5, 4);
+  assert.ok(flat.min < 5 && flat.max > 5, 'a flat series still has a span');
+  const scale = linearScale([0, 100], [200, 0]);
+  assert.equal(scale(25), 150);
+  assert.equal(scale.invert(150), 25);
+  assert.equal(tickCount(300, 60), 5);
+  assert.equal(nearestIndex([0, 10, 20, 30], 14), 1);
+  assert.equal(nearestIndex([0, 10, 20, 30], 16), 2);
+});
+
+test('time ticks fall on calendar units', () => {
+  const months = timeTicks(new Date(2026, 0, 1).getTime(), new Date(2026, 11, 1).getTime(), 6);
+  assert.equal(months.unit, 'month');
+  for (const time of months.ticks) assert.equal(new Date(time).getDate(), 1);
+  const years = timeTicks(new Date(2000, 5, 1).getTime(), new Date(2026, 0, 1).getTime(), 6);
+  assert.equal(years.unit, 'year');
+  for (const time of years.ticks) assert.equal(new Date(time).getMonth(), 0);
+  assert.equal(timeUnitOf([new Date(2026, 0, 1).getTime(), new Date(2026, 1, 1).getTime()]), 'month');
+  assert.equal(timeUnitOf([new Date(2026, 0, 1).getTime(), new Date(2026, 0, 2).getTime()]), 'day');
+});
+
+test('formats speak the page language', () => {
+  assert.equal(formatNumber(1234.5, 'ru', 'number').replace(/\s/gu, ' '), '1 234,5');
+  assert.equal(formatNumber(1234.5, 'en', 'integer'), '1,235');
+  assert.equal(formatNumber(0.125, 'en', 'percent'), '12.5%');
+  assert.equal(formatNumber(1500, 'en', 'compact'), '1.5K');
+  assert.match(formatNumber(10, 'ru', 'currency-RUB'), /₽/u);
+  assert.equal(formatNumber(null, 'ru'), '—');
+  assert.deepEqual(numberOptions('decimal-2'), {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  assert.equal(formatNumber(0.25, 'en', 'number', {step: 0.05}), '0.25');
+  assert.match(formatTime(new Date(2026, 2, 1).getTime(), 'ru', 'month', {form: 'full'}), /март/u);
+  assert.equal(formatTime(null, 'ru'), '—');
+});
+
+test('paths break at a gap, or connect over it', () => {
+  const points = [[0, 0], [10, 10], null, [20, 0], [30, 10]];
+  assert.equal(runs(points).length, 2);
+  assert.equal(runs(points, 'connect').length, 1);
+  assert.equal(linePath(points), 'M0 0L10 10M20 0L30 10');
+  assert.equal(linePath([[0, 0], [10, 10]], {curve: 'step'}), 'M0 0H5V10H10');
+  assert.equal(linePath([[5, 5]]), 'M5 5h0', 'a lone point still draws');
+  assert.equal(areaPath([[0, 0], [10, 10]], 20), 'M0 0L10 10L10 20L0 20Z');
+});
+
+test('the smooth curve stays between its points', () => {
+  const d = linePath([[0, 10], [10, 0], [20, 0], [30, 10]], {curve: 'smooth'});
+  const ys = [...d.matchAll(/C([\d. -]+)/gu)].flatMap(([, list]) => list.trim().split(/\s+/u).filter((_, index) => index % 2 === 1).map(Number));
+  for (const y of ys) assert.ok(y >= 0 && y <= 10, `control y ${y} leaves the data's range`);
+});
+
+test('decimation keeps the peaks and the gaps', () => {
+  const n = 10000;
+  const px = Array.from({length: n}, (_, index) => (index / n) * 100);
+  const values = Array.from({length: n}, (_, index) => Math.sin(index / 50));
+  values[5000] = 99;
+  values[7000] = null;
+  const kept = minMaxIndexes(px, values, 100);
+  assert.ok(kept.length <= 100 * 4 + 1, `${kept.length} points for 100 columns`);
+  assert.ok(kept.includes(5000), 'the peak survives');
+  assert.ok(kept.includes(7000), 'the gap survives');
+  assert.deepEqual([...kept].sort((a, b) => a - b), kept, 'in order');
+  assert.equal(minMaxIndexes([0, 1, 2], [1, 2, 3], 100).length, 3, 'few points are all kept');
+});
+
+test('facts and trend of a series', () => {
+  assert.deepEqual(seriesFacts([null, 3, 1, 5, null]), {first: 1, last: 3, min: 1, max: 5, minAt: 2, maxAt: 3, count: 3});
+  assert.equal(seriesFacts([null]), null);
+  assert.equal(trendOf([1, 2, 10]), 'up');
+  assert.equal(trendOf([10, 2, 1]), 'down');
+  assert.equal(trendOf([5, 9, 5]), 'flat');
+});
+
+test('the cursor moves by point, series, page and bucket', () => {
+  const shown = ['a', 'b'];
+  assert.deepEqual(moveCursor(null, 'ArrowRight', {count: 10, shown}), {index: 0, series: 'a'}, 'the first key lands on the first point');
+  assert.deepEqual(moveCursor({index: 9, series: 'a'}, 'ArrowRight', {count: 10, shown}), {index: 9, series: 'a'});
+  assert.deepEqual(moveCursor({index: 3, series: 'a'}, 'ArrowDown', {count: 10, shown}), {index: 3, series: 'b'});
+  assert.deepEqual(moveCursor({index: 3, series: 'a'}, 'End', {count: 10, shown}), {index: 9, series: 'a'});
+  assert.deepEqual(moveCursor({index: 0, series: 'a'}, 'PageDown', {count: 100, shown}), {index: 10, series: 'a'});
+  assert.deepEqual(moveCursor({index: 0, series: 'a'}, 'ArrowRight', {count: 10000, shown}), {index: 100, series: 'a'}, 'past 200 points an arrow is a bucket');
+  assert.equal(moveCursor({index: 0, series: 'a'}, 'x', {count: 10, shown}), null);
+  assert.equal(moveCursor(null, 'ArrowRight', {count: 0, shown}), null);
+});
