@@ -1,0 +1,297 @@
+{
+  "schema_version": 2,
+  "id": "smart.sparkline",
+  "version": "0.1.0",
+  "title": "Sparkline",
+  "summary": "A sparkline: one series as a word-sized line, area or bars without axes, for a table cell, a line of text or a metric tile, named by its label and a sentence of what the data does.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "sparkline",
+    "trend",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "responsive"
+  ],
+  "custom_element": "sf-sparkline",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": ""
+      },
+      "root-style": {
+        "type": "string",
+        "default": ""
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the sparkline shows, in a few words: the start of its accessible name, before the sentence of what the data does. Without it the sparkline is named «Мини-график»."
+      },
+      "x": {
+        "type": "string",
+        "default": "",
+        "description": "For records: the field of the order (time, a number or categories); the first field when unset. A list of numbers is in its own order."
+      },
+      "y": {
+        "type": "string",
+        "default": "",
+        "description": "For records: the field of the values; the first numeric field but x when unset."
+      },
+      "shape": {
+        "type": "string",
+        "default": "line",
+        "description": "line: one line; area: the line with the ground under it filled lightly; bar: one thin bar per value, from zero.",
+        "enum": [
+          "line",
+          "area",
+          "bar"
+        ]
+      },
+      "curve": {
+        "type": "string",
+        "default": "linear",
+        "description": "linear joins the points straight; step holds a value until the next; smooth is a curve that never goes past its points.",
+        "enum": [
+          "linear",
+          "step",
+          "smooth"
+        ]
+      },
+      "mark": {
+        "type": "string",
+        "default": "last",
+        "description": "A dot on the last value (last), on the highest and the lowest (extremes), or none. For bar the marked bars are drawn in full tone.",
+        "enum": [
+          "last",
+          "extremes",
+          "none"
+        ]
+      },
+      "y-zero": {
+        "type": "boolean",
+        "default": false,
+        "description": "The value axis takes zero in. bar always does."
+      },
+      "y-format": {
+        "type": "string",
+        "default": "number",
+        "description": "How the values are said in the accessible sentence: number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the height. 1/2 sits in a line of small text or a dense table, 1 in a table row, 2 in a metric tile.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: the accessible name says what the data does after the label (the first and the last value, the highest and the lowest); none: the label alone, when the text around already says it.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with data, empty without. loading holds the box with a quiet skeleton; empty draws a dotted baseline and says «нет данных».",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of numbers ([3, 5, 4]), a list of records ([{day, visits}, …]) or an object of columns. A missing value (null, '', a word) is a gap, never a zero."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {},
+  "events": {},
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "img",
+    "accessible_name": "required",
+    "keyboard": [],
+    "focus": "None: not a Tab stop. The accessible name is the label and the sentence of what the data does."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/sparkline/index.js",
+        "sha256": "63a2e25418f15dbf0d4f819bdda018ed40ba790d415424cac879d2290ec81d2b"
+      },
+      {
+        "path": "src/smart/sparkline/js/templates/default.js",
+        "sha256": "d4cf4d460e34848a749ebe38ec68ca2c4b0504cd67198c3fc1746d317adc75d3"
+      },
+      {
+        "path": "src/smart/sparkline/js/templates/default.css",
+        "sha256": "eef3e7c40b498fab37bf27e197b763541dfb1b512b9f223f1f799eb47c4aa468"
+      },
+      {
+        "path": "src/smart/sparkline/rule.js",
+        "sha256": "6aa90f55e5af7f37e43357fa70dae4b5c9de2f196eaae97c2f40d6572c2c5014"
+      },
+      {
+        "path": "src/smart/sparkline/docs.md",
+        "sha256": "69a7b38b330bd865acee04c83c77e41e5664529bf31cf5baaa7bc0c0f44da8b9"
+      },
+      {
+        "path": "src/smart/sparkline/component.json",
+        "sha256": "491e92e926845b34b70f78a0e4793e2456d333e1059a61b5ef5936886ea5884f"
+      },
+      {
+        "path": "src/smart/sparkline/lang/en.json",
+        "sha256": "90313749017124be2f3731c6335dba344c14688b7c78c2f86baf6124b0f2d049"
+      },
+      {
+        "path": "src/smart/sparkline/lang/ru.json",
+        "sha256": "68a3659156f6ad1ac8c98978235907c9cac2f1afd88c942ed9cd2edd30ea1420"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-sparkline for the shape of one series beside a number: in a table row, a sentence or the chart slot of sf-metric.",
+    "do_not": [
+      "Do not use it where a person must read the values; that is sf-line-chart with its axes and table",
+      "Do not replace missing values with zero",
+      "Do not draw it without a label"
+    ],
+    "required_reads": [
+      "inputs",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-sparkline label=\"Посещения за неделю\"></sf-sparkline>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

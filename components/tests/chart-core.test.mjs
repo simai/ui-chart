@@ -3,7 +3,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {extent, readNumber, readRows, readSeries, readTime, xKindOf} from '../src/smart/chart-core/data.js';
-import {linearScale, nearestIndex, niceTicks, tickCount, timeTicks} from '../src/smart/chart-core/scale.js';
+import {bandScale, linearScale, nearestIndex, niceTicks, tickCount, timeTicks} from '../src/smart/chart-core/scale.js';
+import {stackExtent, stackSeries} from '../src/smart/chart-core/stack.js';
+import {arcMiddle, arcPath, pieSlices} from '../src/smart/chart-core/arc.js';
 import {formatNumber, formatTime, numberOptions, timeUnitOf} from '../src/smart/chart-core/format.js';
 import {areaPath, linePath, runs} from '../src/smart/chart-core/path.js';
 import {minMaxIndexes} from '../src/smart/chart-core/decimate.js';
@@ -139,4 +141,34 @@ test('the cursor moves by point, series, page and bucket', () => {
   assert.deepEqual(moveCursor({index: 0, series: 'a'}, 'ArrowRight', {count: 10000, shown}), {index: 100, series: 'a'}, 'past 200 points an arrow is a bucket');
   assert.equal(moveCursor({index: 0, series: 'a'}, 'x', {count: 10, shown}), null);
   assert.equal(moveCursor(null, 'ArrowRight', {count: 0, shown}), null);
+});
+
+test('a stack climbs up and down from zero and keeps its gaps', () => {
+  const series = [{values: [2, -1, null]}, {values: [3, -2, 4]}];
+  assert.deepEqual(stackSeries(series, 'none'), [[[0, 2], [0, -1], null], [[0, 3], [0, -2], [0, 4]]]);
+  assert.deepEqual(stackSeries(series, 'stacked'), [[[0, 2], [0, -1], null], [[2, 5], [-1, -3], [0, 4]]]);
+  const shares = stackSeries([{values: [1, 0]}, {values: [3, 0]}], 'normalized');
+  assert.deepEqual(shares, [[[0, 0.25], [0, 0]], [[0.25, 1], [0, 0]]]);
+  assert.deepEqual(stackExtent(stackSeries(series, 'stacked')), [-3, 5]);
+});
+
+test('slices are shares of the positive parts, clockwise from the top', () => {
+  const slices = pieSlices([1, null, 3, 0, -2]);
+  assert.deepEqual(slices.map(({index}) => index), [0, 2]);
+  assert.equal(slices[0].share, 0.25);
+  assert.equal(slices[0].start, 0);
+  assert.ok(Math.abs(slices[1].end - Math.PI * 2) < 1e-9);
+  assert.deepEqual(pieSlices([null, 0]), []);
+  const box = {cx: 50, cy: 50, outer: 40};
+  assert.equal(arcPath({start: 0, end: Math.PI / 2}, box), 'M50,50L50,10A40,40 0 0 1 90,50Z');
+  assert.match(arcPath({start: 0, end: Math.PI * 2}, {...box, inner: 20}), /^M50,10A40,40 0 1 1 50,90A40,40 0 1 1 50,10ZM50,30/u);
+  assert.deepEqual(arcMiddle({start: 0, end: Math.PI}, box, 10), [60, 50]);
+});
+
+test('bands share the range with their padding', () => {
+  const band = bandScale(4, [0, 100], {padding: 0.2});
+  assert.equal(band.step, 25);
+  assert.equal(band.width, 20);
+  assert.equal(band.at(0), 2.5);
+  assert.equal(band.at(3), 77.5);
 });

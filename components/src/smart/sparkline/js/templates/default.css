@@ -1,0 +1,94 @@
+@layer sf.components {
+  /* sf-sparkline. Every value is a Framework token; light and dark come
+     from the roles. The public variables (component.json css-variables) are
+     read here and never set:
+       --sf-sparkline-width       the box's inline size (fluid in a slot)
+       --sf-sparkline-height      the box's height (by size rung)
+       --sf-sparkline-color       the line, the area and the bars
+       --sf-sparkline-mark-color  the marked values
+       --sf-sparkline-line-width  the line */
+  /* The box is the inner span's, so the static first paint (where the host
+     is display: contents) and the live element have the same size. */
+  sf-sparkline {
+    display: inline-flex;
+    max-inline-size: 100%;
+    vertical-align: middle;
+  }
+
+  .sf-sparkline {
+    --sf-sparkline--height: var(--sf-sparkline-height, var(--sf-c6));
+    --sf-sparkline--ink: var(--sf-sparkline-color, var(--sf-on-primary-container-graphic));
+    --sf-sparkline--mark: var(--sf-sparkline-mark-color, var(--sf-on-surface));
+    --sf-sparkline--line: var(--sf-sparkline-line-width, var(--sf-a2));
+    display: inline-block;
+    inline-size: var(--sf-sparkline-width, var(--sf-e6));
+    max-inline-size: 100%;
+    block-size: var(--sf-sparkline--height);
+    vertical-align: middle;
+  }
+
+  .sf-sparkline--size-1-2 {
+    --sf-sparkline--height: var(--sf-sparkline-height, var(--sf-c0));
+    --sf-sparkline--line: var(--sf-sparkline-line-width, var(--sf-a1));
+  }
+
+  .sf-sparkline--size-2 {
+    --sf-sparkline--height: var(--sf-sparkline-height, var(--sf-d6));
+  }
+
+  .sf-sparkline-svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: visible;
+  }
+
+  .sf-sparkline-line {
+    fill: none;
+    stroke: var(--sf-sparkline--ink);
+    stroke-width: var(--sf-sparkline--line);
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .sf-sparkline-area {
+    fill: var(--sf-sparkline--ink);
+    fill-opacity: 0.16;
+    stroke: none;
+  }
+
+  .sf-sparkline-mark {
+    fill: var(--sf-sparkline--mark);
+    stroke: var(--sf-surface-1);
+    stroke-width: var(--sf-a1);
+  }
+
+  .sf-sparkline-bar {
+    fill: var(--sf-sparkline--ink);
+    fill-opacity: 0.56;
+  }
+
+  .sf-sparkline-bar--mark {
+    fill-opacity: 1;
+  }
+
+  .sf-sparkline-empty {
+    stroke: var(--sf-outline);
+    stroke-width: var(--sf-a1);
+    stroke-dasharray: 2 3;
+  }
+
+  /* loading: a still block of the same box, so nothing moves when the data
+     arrives. */
+  .sf-sparkline--loading {
+    border-radius: var(--sf-radius-1);
+    background: var(--sf-surface-1);
+  }
+
+  @media (forced-colors: active) {
+    .sf-sparkline { --sf-sparkline--ink: CanvasText; --sf-sparkline--mark: CanvasText; }
+    .sf-sparkline-area { fill-opacity: 0; }
+    .sf-sparkline-bar { fill-opacity: 1; }
+    .sf-sparkline--loading { background: GrayText; }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Sparkline",
+  "runtime": {
+    "untitled": "Sparkline",
+    "name": "{label}: {summary}",
+    "summary": "from {first} to {last}, highest {max}, lowest {min}",
+    "summary-one": "{value}",
+    "no-data": "no data",
+    "loading": "loading"
+  }
+}

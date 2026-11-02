@@ -10,14 +10,16 @@
     "src/smart/chart-core/"
   ],
   "files": [
+    "src/smart/chart-core/arc.js",
     "src/smart/chart-core/cursor.js",
     "src/smart/chart-core/data.js",
     "src/smart/chart-core/decimate.js",
     "src/smart/chart-core/describe.js",
     "src/smart/chart-core/format.js",
     "src/smart/chart-core/path.js",
-    "src/smart/chart-core/scale.js"
+    "src/smart/chart-core/scale.js",
+    "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "fbe7e6fadd18244ecc83157b4ac5d6dfaac4418daa89d2011af953bdd22aadb6",
+  "content_sha256": "38bb4bb38a04dc77fcb267b0eb8029a258490d8542c89153c6450a07e3c5e3e2",
   "dependencies": []
 }

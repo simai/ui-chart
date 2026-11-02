@@ -13,7 +13,9 @@ import {describe, exampleFiles, givesLateData, sizeProblem} from '../scripts/fir
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const smart = join(root, 'src', 'smart');
-const PACKAGE = ['line-chart'];
+const PACKAGE = ['line-chart', 'sparkline'];
+// The element that holds each chart's box from the first paint.
+const BOX = {'line-chart': 'sf-line-chart-plot', sparkline: 'sf-sparkline'};
 
 test('every example of every package component has its static markup and sheets', () => {
   for (const folder of PACKAGE) {
@@ -39,7 +41,7 @@ test('a chart holds its plot box in the static markup and its skeleton, so nothi
     for (const example of component.examples) {
       const files = exampleFiles(component, example);
       for (const file of [files.html, files.skeleton].filter((one) => existsSync(one))) {
-        assert.match(readFileSync(file, 'utf8'), /class="sf-line-chart-plot"/u, `${file}: the plot's box is printed`);
+        assert.match(readFileSync(file, 'utf8'), new RegExp(`class="${BOX[folder]}[" ]`, 'u'), `${file}: the plot's box is printed`);
       }
     }
   }

@@ -1,0 +1,14 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.sparkline",
+  "title": "sparkline reference",
+  "summary": "Deterministic reference fixture for sf-sparkline.",
+  "locale": "ru",
+  "props": {
+    "label": "Посещения, 12 недель",
+    "y-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

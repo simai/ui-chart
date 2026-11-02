@@ -124,3 +124,15 @@ export function nearestIndex(xs, value) {
   }
   return Math.abs(xs[high] - value) < Math.abs(xs[low] - value) ? high : low;
 }
+
+/**
+ * A band scale for categories: `count` bands across [r0, r1], each with an
+ * inner padding share. Returns {at(index), width, step}: `at` is a band's
+ * start, `width` the drawn width, `step` the band and its padding.
+ */
+export function bandScale(count, [r0, r1], {padding = 0.2} = {}) {
+  const step = (r1 - r0) / Math.max(1, count);
+  const width = step * (1 - padding);
+  const at = (index) => r0 + index * step + (step - width) / 2;
+  return {at, width, step};
+}

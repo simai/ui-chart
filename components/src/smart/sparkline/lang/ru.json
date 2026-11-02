@@ -1,0 +1,11 @@
+{
+  "title": "Мини-график",
+  "runtime": {
+    "untitled": "Мини-график",
+    "name": "{label}: {summary}",
+    "summary": "от {first} до {last}, наибольшее {max}, наименьшее {min}",
+    "summary-one": "{value}",
+    "no-data": "нет данных",
+    "loading": "загрузка"
+  }
+}

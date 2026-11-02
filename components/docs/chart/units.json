@@ -8,7 +8,7 @@
       "version": "0.1.0",
       "recorded_on": "2026-11-02",
       "change": "added",
-      "summary": "The chart core: data read from records or columns with a field mapping (a missing value is a gap), linear and calendar scales with round ticks, Intl number and date formats, line, step and monotone paths with gaps, min-max decimation past two points per pixel column, series facts for the summary, and the keyboard cursor."
+      "summary": "The chart core: data read from records or columns with a field mapping (a missing value is a gap), linear and calendar scales with round ticks, Intl number and date formats, line, step and monotone paths with gaps, min-max decimation past two points per pixel column, band scales, stacks (stacked and normalized, positive and negative apart, gaps kept), pie and donut slices, series facts for the summary, and the keyboard cursor. Not yet released, so the M1 additions stay in 0.1.0."
     },
     {
       "unit": "smart.line-chart",
@@ -16,6 +16,13 @@
       "recorded_on": "2026-11-02",
       "change": "added",
       "summary": "sf-line-chart, the first chart of the package: one or more series over time, a number or categories; axes, grid, a legend that hides series, a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table (toggle, visible, hidden), loading, empty and error states."
+    },
+    {
+      "unit": "smart.sparkline",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-02",
+      "change": "added",
+      "summary": "sf-sparkline: one series as a word-sized line, area or bars without axes, with a mark on the last value or the extremes; an image named by its label and a sentence of the data; loading and empty states."
     }
   ]
 }
