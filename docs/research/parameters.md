@@ -551,7 +551,38 @@ grid), plus at most two of their own, for example `--sf-pie-gap-color`.
 | drill-down | | | | `open` | | | |
 | export | ● (`export="png,svg,csv"`) | | | `download` | `download` | | |
 
-## 15. What this needs from the Framework
+## 15. `sf-metric`: the metric tile
+
+`sf-metric` is the KPI of the catalogue. It is also the "metric tile" Larena
+asked for: server load, storage, traffic, queue depth, licence limits. The
+dispatcher asked for one general component that serves both
+(bus `msg-d0bbcfb263ca49d2ba05`, 2026-11-02).
+
+| Need | Parameter | Carrier | Notes |
+|---|---|---|---|
+| label | `label` | attribute | required; the accessible name |
+| value with unit | `value`, `format` (e.g. `unit:gigabyte`, `percent`, `currency:RUB`) | attribute | Intl formatting (§10); compact form optional |
+| a limit, drawn as a meter | `max`, `limit-text` | attribute | shows "value of max" with a linear meter, ARIA `meter` semantics. It reuses the look of `sf-progress-bar` through its public surface, not a copy |
+| change against a previous period | `previous` (a number) or `delta`; `delta-format` `absolute`, `percent` or `both`; `period-text` | attribute | the delta is computed from `previous` when it is not given. Its direction is shown by an arrow and in words, not by colour alone |
+| status tone with a short hint | `status`: `ok`, `warning`, `error` or `neutral`; `hint` | attribute | the page's statement. Thresholds are the page's and never inferred from the value. The tones map to the success, warning, error and neutral roles (§8.4) |
+| the meaning of the change | `better`: `up`, `down` or `none` | attribute | whether a rise is good (server load: `down`), so the delta's tone follows the meaning, not the sign |
+| skeleton | — | the initial view | the data state `loading` (§2.3) draws a skeleton of the same size |
+| a link or a press | `href`, or the `open` event | attribute, event | the whole tile is one target. `href` makes it a link; otherwise a press emits `sf-metric-open` when `openable` is set. No nested controls |
+| a chart inside | the `chart` slot | slot | takes `sf-sparkline`, or any `chart`-family component, through `accepts` (standard §4.5.1) |
+| rows and grids on a phone | — | layout | the tile is fluid and the page lays tiles out. The tile sets a minimum inline size on the ladder, and the value line never wraps mid-number |
+
+Public CSS variables (5–10, standard §6):
+
+- `--sf-metric-background-color`
+- `--sf-metric-label-color`
+- `--sf-metric-value-color`
+- `--sf-metric-positive-color`
+- `--sf-metric-negative-color`
+- `--sf-metric-meter-color`
+- `--sf-metric-hover-background-color`
+- `--sf-metric-min-inline-size`
+
+## 16. What this needs from the Framework
 
 These go to the dispatcher as orders, not local code (`CLAUDE.md`, write
 scope):

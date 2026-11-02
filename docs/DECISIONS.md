@@ -268,7 +268,7 @@ and status hues cannot serve as categories because they carry meaning.
 
 | # | Answer | Date | Record |
 |---|---|---|---|
-| D1 | asked of the dispatcher | 2026-11-02 | bus `msg-501cef5e07e8459a9d99` |
+| D1 | A: line, bar, pie, sparkline, metric; `line` is M0. `sf-metric` also serves as Larena's metric tile (parameters.md §15) | 2026-11-02 | dispatcher, bus `msg-d0bbcfb263ca49d2ba05` |
 | D2 | A: `sf-line-chart`, `sf-bar-chart`, `sf-pie-chart`, `sf-sparkline`, `sf-metric`, family `chart` | 2026-11-02 | `q-3c406a3c9e`, decided by the recommendation under the owner's delegation |
 | D3 | A: rows + a field mapping, `items` | 2026-11-02 | `q-13d6497296`, decided by the recommendation under the owner's delegation |
 | D4 | A: the token order sent to the dispatcher | 2026-11-02 | bus `msg-a61844188d13497380fd` |
