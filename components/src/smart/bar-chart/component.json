@@ -1,0 +1,470 @@
+{
+  "$comment": "The source of sf-bar-chart (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart (§7 stacking), the renderer and the keyboard docs/research/rendering.md, the name and the family docs/DECISIONS.md D2.",
+  "id": "smart.bar-chart",
+  "tag": "sf-bar-chart",
+  "version": "0.1.0",
+  "kind": "leaf",
+  "family": "chart",
+  "settings": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "summary": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Диаграмма»."
+    },
+    "items": {
+      "type": "list",
+      "default": [],
+      "of": "object",
+      "summary": "The data: a list of records ([{city, sales}, …]) or an object of columns. One bar per category and series. A missing value (null, '', a word) is a gap: no bar, never a zero."
+    },
+    "names": {
+      "type": "object",
+      "default": {},
+      "summary": "What each series is called, by its key: {sales: «Продажи»}. A series without a name is called by its key."
+    },
+    "x": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the categories; the first field when unset."
+    },
+    "y": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the values, or a comma list of fields, one series per field (the wide form); every numeric field when unset."
+    },
+    "series": {
+      "type": "string",
+      "default": "",
+      "summary": "The long form: one series per distinct value of this field, the values from the first y field."
+    },
+    "x-scale": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "time",
+        "category"
+      ],
+      "default": "auto",
+      "summary": "auto reads the categories: dates stand in time order and read as dates, anything else stays in the order given. A bar chart's axis is always bands."
+    },
+    "y-max": {
+      "type": "number",
+      "optional": true,
+      "summary": "The end of the value axis; the data's own when unset. Ignored by normalized."
+    },
+    "stack": {
+      "type": "enum",
+      "values": [
+        "none",
+        "stacked",
+        "normalized"
+      ],
+      "default": "none",
+      "summary": "none: the series' bars stand side by side in each category; stacked: on one another, positive up and negative down from zero; normalized: each stack as shares of its whole, 0–100 %."
+    },
+    "orientation": {
+      "type": "enum",
+      "values": [
+        "vertical",
+        "horizontal"
+      ],
+      "default": "vertical",
+      "summary": "vertical: columns over categories along the bottom; horizontal: bars from the left, categories down the side, for long names and rankings."
+    },
+    "sort": {
+      "type": "enum",
+      "values": [
+        "none",
+        "ascending",
+        "descending"
+      ],
+      "default": "none",
+      "summary": "The order of the categories: as given, or by their total, smallest or largest first."
+    },
+    "value-labels": {
+      "type": "enum",
+      "values": [
+        "none",
+        "end"
+      ],
+      "default": "none",
+      "summary": "end: each bar's value (a stack's total) at its end, where it fits; never in normalized."
+    },
+    "legend": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "top",
+        "bottom",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto shows the legend above the plot when there are two series or more. Each entry is a button that hides and shows its series."
+    },
+    "tooltip": {
+      "type": "enum",
+      "values": [
+        "axis",
+        "none"
+      ],
+      "default": "axis",
+      "summary": "axis: under the pointer or the cursor, every series' value in that category; in normalized, its share and its value."
+    },
+    "grid": {
+      "type": "enum",
+      "values": [
+        "value",
+        "none"
+      ],
+      "default": "value",
+      "summary": "value: guide lines across the plot at the value ticks; none: only the zero line."
+    },
+    "x-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the categories, under a vertical chart; it heads the table's first column (the x field's own name when unset)."
+    },
+    "y-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the values, above a vertical chart and under a horizontal one."
+    },
+    "x-format": {
+      "type": "string",
+      "default": "auto",
+      "summary": "For dates as categories: auto, or an Intl date style (short, medium, long, full)."
+    },
+    "y-format": {
+      "type": "string",
+      "default": "number",
+      "summary": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "default": "1",
+      "summary": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own."
+    },
+    "table": {
+      "type": "enum",
+      "values": [
+        "toggle",
+        "visible",
+        "hidden"
+      ],
+      "default": "toggle",
+      "summary": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text."
+    },
+    "summary": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a sentence of the data (how many categories, each series' highest and lowest), said before the plot and kept for screen readers. The description slot adds the host's own words."
+    },
+    "data-state": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ],
+      "default": "auto",
+      "summary": "auto: ready with data, empty without. loading draws the frame without bars; error offers «Повторить», which sends refresh."
+    }
+  },
+  "values": {
+    "hidden-series": {
+      "type": "list",
+      "default": [],
+      "of": "string",
+      "summary": "The keys of the series the person hid with the legend."
+    }
+  },
+  "events": {
+    "toggle": {
+      "carries": {
+        "id": "string",
+        "hidden": "boolean"
+      },
+      "summary": "The person hid or showed a series with its legend button; applied at once (the vocabulary's local toggle)."
+    },
+    "select": {
+      "carries": {
+        "series": "string",
+        "index": "number",
+        "x": "string",
+        "value": "number"
+      },
+      "summary": "The person chose a bar: a click on the plot, or Enter or Space on the keyboard cursor."
+    },
+    "refresh": {
+      "carries": {},
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items."
+    }
+  },
+  "actions": {
+    "reset": {
+      "with": {},
+      "x-outcomes": [
+        "applied"
+      ],
+      "summary": "Shows every series again and takes the cursor away."
+    }
+  },
+  "slots": {
+    "description": {
+      "$comment": "The host's own words about the chart: said with the summary (aria-describedby) and shown under the plot."
+    }
+  },
+  "keyboard": {
+    "host": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "PageUp": "focus:prev",
+      "PageDown": "focus:next",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    }
+  },
+  "relations": [
+    {
+      "name": "cl-empty-state"
+    }
+  ],
+  "templates": {
+    "default": {
+      "file": "js/templates/default.js",
+      "$comment": "The Lit template in JavaScript, the migration form of §5.2 (§16); the plot's inside is SVG markup set as a property."
+    }
+  },
+  "styles": "js/templates/default.css",
+  "examples": "examples.json",
+  "docs": "docs.md",
+  "lang": "lang/",
+  "presentation": {
+    "skeleton": {
+      "$comment": "The items arrive after the first paint when the host loads them: the derived skeleton holds the plot's box (its height is the size rung's) until they do (standard 1.3.8 §5.4).",
+      "late": [
+        "items"
+      ]
+    }
+  },
+  "accessibility": {
+    "role": "figure",
+    "name": {
+      "from": [
+        "label",
+        "runtime.untitled"
+      ]
+    },
+    "keys": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "PageUp": "focus:prev",
+      "PageDown": "focus:next",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    },
+    "x-keys": "The plot is one Tab stop (role group, aria-roledescription «диаграмма»). The arrows along the categories move the cursor from bar to bar (Left and Right on a vertical chart, Up and Down on a horizontal one), the other two across the shown series; Home and End go to the ends, Page Up and Page Down a tenth at a time. Each move is said in a polite live region. Enter and Space choose the bar (select); Escape takes the cursor away. The legend entries and the table button are buttons of their own."
+  },
+  "css-variables": {
+    "--sf-bar-chart-height": {
+      "type": "length",
+      "state": "default"
+    },
+    "--sf-bar-chart-grid-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-bar-chart-baseline-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-bar-chart-label-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-bar-chart-hover-background-color": {
+      "type": "color",
+      "state": "hover"
+    },
+    "--sf-bar-chart-hidden-color": {
+      "type": "color",
+      "state": "disabled"
+    },
+    "--sf-bar-chart-bar-radius": {
+      "type": "length",
+      "state": "default"
+    }
+  },
+  "x-summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
+  "x-source": {
+    "package": "chart",
+    "folder": "bar-chart",
+    "research": "simai/ui-chart docs/research/parameters.md (§7), docs/research/rendering.md"
+  },
+  "x-words": [
+    "label",
+    "x-label",
+    "y-label"
+  ],
+  "x-decisions": [
+    "name: sf-bar-chart, the head noun last (§21.1), family chart (docs/DECISIONS.md D2, agreed by the dispatcher); stacking and the orientation are settings, not tags (D1).",
+    "data: items with a field mapping x, y, series (D3), as sf-line-chart; a missing value is no bar, and in a stack adds nothing.",
+    "value axis from zero, always: a bar's length is its value, so a cut axis would lie; y-max only lengthens it.",
+    "stack: positive values stack up and negative ones down from zero, apart, so a mixed stack never overlaps itself; normalized is shares of the absolute total.",
+    "renderer: own SVG (D5). Canvas past 2,000 marks waits for the charts that need it (scatter, Tier 2): a bar chart past a few hundred categories has bars under a pixel and is a line chart's case.",
+    "colour: until the Framework's categorical roles --sf-chart-1..8 arrive (ordered, D4), series take the primary, secondary, tertiary and neutral graphic tones; in forced colours the first series is solid and every other an outline with its own dash.",
+    "select: the vocabulary's select is {ids} for a list; a bar is no entry with an id, so it carries {series, index, x, value}, as sf-line-chart (accepted by the dispatcher).",
+    "table: never none; the default toggle keeps the page short, hidden keeps it for screen readers.",
+    "hidden-series: not hidden, which is the browser's own member of every element (§3.1)."
+  ],
+  "x-registry": {
+    "capabilities": [
+      "interaction",
+      "keyboard",
+      "responsive",
+      "live-announcement"
+    ],
+    "persistence": {
+      "mode": "none",
+      "source_of_truth": "host",
+      "network_owner": "host",
+      "revision_field": null
+    },
+    "readiness": {
+      "level": "runnable",
+      "required_checks": [
+        "manifest",
+        "fixture",
+        "runtime-upgrade",
+        "keyboard",
+        "responsive",
+        "a11y"
+      ]
+    },
+    "tags": [
+      "chart",
+      "bar",
+      "column",
+      "stacked",
+      "data-visualization"
+    ],
+    "state": {
+      "machines": {
+        "data-state": [
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "visual_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "ownership": {
+      "source": "simai/ui-chart",
+      "data": "host",
+      "effects": "host",
+      "forbidden_client_responsibilities": [
+        "fetching data",
+        "aggregating on a server"
+      ]
+    },
+    "security": {
+      "permissions_owner": "host",
+      "untrusted_inputs": [
+        "props"
+      ],
+      "network_policy": "deny"
+    },
+    "presentation": {
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "locales": [
+        "ru",
+        "en"
+      ],
+      "responsive": [
+        "desktop",
+        "mobile",
+        "ltr",
+        "rtl",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "skeleton": {
+        "shape": "block",
+        "while_loading": "template"
+      }
+    },
+    "ai_guidance": {
+      "use_when": "Use sf-bar-chart to compare values across categories, or the parts of each category's whole (stack).",
+      "do_not": [
+        "Do not draw a chart without a label",
+        "Do not replace missing values with zero",
+        "Do not use it for a long series over time; that is sf-line-chart"
+      ],
+      "required_reads": [
+        "inputs",
+        "events",
+        "accessibility"
+      ],
+      "minimal_example": "<sf-bar-chart label=\"Продажи по городам\" x=\"city\" y=\"sales\"></sf-bar-chart>",
+      "owner_commands": [
+        "node scripts/test.mjs"
+      ]
+    },
+    "accessibility": {
+      "accessible_name": "required",
+      "keyboard": [
+        "Tab",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Home",
+        "End",
+        "PageUp",
+        "PageDown",
+        "Enter",
+        "Space",
+        "Escape"
+      ],
+      "focus": "One Tab stop on the plot, then the legend buttons and the table button. The summary is the plot's description; each cursor move is said politely."
+    }
+  },
+  "x-rule": {
+    "$comment": [
+      "The chart draws its empty and error states as sf-empty-state; a tag it renders is a tag it fetches.",
+      "Its own buttons (the legend, the table toggle) are native buttons, so it fetches no sf-button."
+    ]
+  }
+}

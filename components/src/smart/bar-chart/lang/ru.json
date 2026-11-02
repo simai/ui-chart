@@ -1,0 +1,35 @@
+{
+  "title": "Столбчатая диаграмма",
+  "runtime": {
+    "untitled": "Диаграмма",
+    "roledescription": "диаграмма",
+    "summary-empty": "Нет данных.",
+    "cursor": "{x}, {name}: {value}",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "legend": "Ряды",
+    "loading": "Загрузка данных диаграммы",
+    "empty-title": "Нет данных для диаграммы",
+    "error-title": "Не удалось загрузить данные",
+    "x-column": "Категория",
+    "summary-count": "Категорий: {count}.",
+    "summary-series": "{name}: наибольшее {max} ({maxAt}), наименьшее {min} ({minAt}).",
+    "share": "{share} ({value})"
+  },
+  "events": {
+    "toggle": {
+      "label": "Скрыть или показать ряд"
+    },
+    "select": {
+      "label": "Выбрать столбец"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Показать все ряды"
+    }
+  }
+}

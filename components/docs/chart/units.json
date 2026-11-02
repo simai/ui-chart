@@ -23,6 +23,13 @@
       "recorded_on": "2026-11-02",
       "change": "added",
       "summary": "sf-sparkline: one series as a word-sized line, area or bars without axes, with a mark on the last value or the extremes; an image named by its label and a sentence of the data; loading and empty states."
+    },
+    {
+      "unit": "smart.bar-chart",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-02",
+      "change": "added",
+      "summary": "sf-bar-chart: values by category as columns or horizontal bars, side by side, stacked or normalized to shares, sorted on request, with values at the bar ends; a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
     }
   ]
 }

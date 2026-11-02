@@ -35,7 +35,7 @@ export function packageNameOf(ruleFile) {
   return found ? found[1] : PACKAGE_NAME;
 }
 export const OVERLAY_DIRECTORIES = ['src', 'tests', 'docs'];
-export const PACKAGE_COMPONENTS = ['line-chart', 'sparkline'];
+export const PACKAGE_COMPONENTS = ['line-chart', 'sparkline', 'bar-chart'];
 
 export function readLock(root = PACKAGE_ROOT) {
   const lock = JSON.parse(readFileSync(join(root, 'framework.lock.json'), 'utf8'));
