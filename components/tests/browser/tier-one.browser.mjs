@@ -327,6 +327,65 @@ try {
     await forced.close();
   }
 
+  // 3b. A page's own colours (colors, docs/DECISIONS.md D6): by key, not by
+  // place; a role follows the theme; a value that is not a colour is dropped;
+  // a colour under 3:1 is reported; forced colours win.
+  {
+    const page = await open();
+    const warnings = [];
+    page.on('console', (message) => { if (message.type() === 'warning') warnings.push(message.text()); });
+    const fillsOf = (selector) => page.evaluate((selector) => Object.fromEntries([...document.querySelectorAll(selector)]
+      .map((node) => [node.dataset.series || node.dataset.part, getComputedStyle(node.querySelector('rect, path')).fill])), selector);
+    const roleOf = (role) => page.evaluate((role) => {
+      const probe = document.createElement('span');
+      probe.style.color = `var(--sf-on-${role}-container-graphic)`;
+      document.getElementById('box').append(probe);
+      const colour = getComputedStyle(probe).color;
+      probe.remove();
+      return colour;
+    }, role);
+    const error = await roleOf('error');
+    const colours = {q1: 'error', q2: '#0a7f6f'};
+    await make(page, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities, colors: colours});
+    const given = await fillsOf('.sf-chart-bar-series');
+    await make(page, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q2,q1'}, {items: cities, colors: colours});
+    const swapped = await fillsOf('.sf-chart-bar-series');
+    if (given.q1 !== error || given.q2 !== 'rgb(10, 127, 111)') note({case: 'colors: a role is its graphic tone and a CSS colour is itself', got: given, want: {q1: error}});
+    if (swapped.q1 !== given.q1 || swapped.q2 !== given.q2) note({case: 'colors: a series keeps its colour when the data is reordered', got: swapped, want: given});
+    const legend = await page.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-bar-legend-item[data-series="q2"] .sf-chart-bar-swatch')).backgroundColor);
+    if (legend !== 'rgb(10, 127, 111)') note({case: 'colors: the legend swatch is the series colour', got: legend});
+
+    await make(page, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities, colors: {q1: 'red; background: url(x)', q2: 'banana'}});
+    const dropped = await page.evaluate(() => [...document.querySelectorAll('.sf-chart-bar-series')].map((node) => [node.className.baseVal, node.getAttribute('style')]));
+    if (dropped.some(([name, style]) => /custom/u.test(name) || style)) note({case: 'colors: a value that is not a colour is dropped', got: dropped});
+    if (warnings.filter((said) => /neither a role/u.test(said)).length < 2) note({case: 'colors: a dropped value is reported in the console', got: warnings});
+
+    await make(page, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities, colors: {q1: '#f4f4f4'}});
+    if (!warnings.some((said) => /sf-chart-bar.*q1.*3:1/u.test(said))) note({case: 'colors: a colour under 3:1 is reported in the console', got: warnings});
+    const pale = await page.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-bar-series[data-series="q1"] .sf-chart-bar-bar')).fill);
+    if (pale !== 'rgb(244, 244, 244)') note({case: 'colors: a pale colour is drawn all the same', got: pale});
+
+    await make(page, 'sf-chart-pie', {label: 'Заказы', category: 'channel', value: 'orders'}, {items: channels, colors: {phone: 'error'}});
+    const pie = await fillsOf('.sf-chart-pie-series');
+    if (pie.phone !== error || pie.web === error) note({case: 'colors: a pie part takes its colour by its category, the rest keep the palette', got: pie});
+    await make(page, 'sf-chart-parts', {label: 'Диск', category: 'kind', value: 'size', max: '100'}, {items: disk, colors: {docs: '#0a7f6f'}});
+    const parts = await page.evaluate(() => [...document.querySelectorAll('.sf-chart-parts-part')].map((node) => getComputedStyle(node).backgroundColor));
+    if (parts[2] !== 'rgb(10, 127, 111)' || parts[0] === parts[2]) note({case: 'colors: a parts bar part takes its colour by its category', got: parts});
+    const success = await roleOf('success');
+    await make(page, 'sf-chart-sparkline', {label: 'Посещения', color: 'success'}, {items: week});
+    const spark = await page.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-sparkline-line')).stroke);
+    if (spark !== success) note({case: 'sparkline: color is a role\'s graphic tone', got: spark, want: success});
+    evidence.pageColours = {bar: given, swapped, pie, parts, sparkline: spark, warnings: warnings.length};
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities, colors: {q1: '#0a7f6f'}});
+    const ink = await forced.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-bar-series[data-series="q1"] .sf-chart-bar-bar')).fill);
+    if (ink === 'rgb(10, 127, 111)') note({case: 'colors: in forced colours the system colour wins over a page colour', got: ink});
+    evidence.pageColours.forced = ink;
+    await forced.close();
+  }
+
   // 4. Many bars at a 4x CPU slowdown (standard gate 17).
   {
     const page = await open({width: 1280});

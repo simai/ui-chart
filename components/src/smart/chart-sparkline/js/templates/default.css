@@ -17,7 +17,8 @@
 
   .sf-chart-sparkline {
     --sf-chart-sparkline--height: var(--sf-chart-sparkline-height, var(--sf-c6));
-    --sf-chart-sparkline--ink: var(--sf-chart-sparkline-color, var(--sf-on-primary-container-graphic));
+    /* The color setting (docs/DECISIONS.md D6) wins over the page's variable. */
+    --sf-chart-sparkline--ink: var(--sf-chart-sparkline--own, var(--sf-chart-sparkline-color, var(--sf-on-primary-container-graphic)));
     --sf-chart-sparkline--mark: var(--sf-chart-sparkline-mark-color, var(--sf-on-surface));
     --sf-chart-sparkline--line: var(--sf-chart-sparkline-line-width, var(--sf-a2));
     display: inline-block;

@@ -11,6 +11,7 @@
 | Parts bar 0.1.0 | done (2026-11-02), to hand to the dispatcher: `sf-chart-parts`, the parts of one whole in one thin bar with the free remainder of a capacity (the owner's decision of the name) | `components/src/smart/chart-parts/`, `docs/evidence/chart-parts-0.1.0.md` |
 | Bar chart 0.2.0 | done (2026-11-02), to hand to the dispatcher: `lines` on `sf-chart-bar` (bars and lines in one chart, the lines on the shared axis or their own; the owner's decision of the form) | `components/src/smart/chart-bar/`, `docs/evidence/chart-bar-0.2.0.md` |
 | Rename to block `chart` | done (2026-11-02), on the dispatcher's order from the owner's naming rule `sf-[set]-<block>[-<variant>]`: `sf-chart-line`, `-bar`, `-pie`, `-sparkline`, `-parts`, `-metric`; folders, ids, tags, events, classes, variables, examples and docs renamed, no aliases | `docs/evidence/rename-chart-block.md` |
+| Page colours | done (2026-11-02), to hand to the dispatcher: `colors` (key → Framework role or CSS colour) on line 0.3.0, bar 0.3.0, pie 0.2.0 and parts 0.2.0, `color` on sparkline 0.2.0; the shared `chart-core/colors.js` (the owner's decision D6) | `components/src/smart/chart-core/colors.js`, `docs/evidence/page-colours.md` |
 | M2+. The catalogue by tiers | — | — |
 | Release | waits for the Framework pair with parts 1–10 of the M0 and M1 evidence (the dispatcher's order) | — |
 

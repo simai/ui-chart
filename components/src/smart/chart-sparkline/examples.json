@@ -41,6 +41,48 @@
       }
     },
     {
+      "name": "colors",
+      "title": "Цвет успеха",
+      "settings": {
+        "label": "Посещения, 12 недель",
+        "items": [
+          340,
+          362,
+          355,
+          401,
+          395,
+          410,
+          430,
+          452,
+          440,
+          461,
+          470,
+          488
+        ],
+        "y-format": "integer",
+        "color": "success"
+      },
+      "expect": {
+        "name": "Посещения, 12 недель: от 340 до 488, наибольшее 488, наименьшее 340",
+        "role": "img"
+      },
+      "studio": {
+        "title": "sparkline colors",
+        "props": {
+          "label": "Посещения, 12 недель",
+          "y-format": "integer",
+          "color": "success"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
       "name": "area",
       "title": "Площадь и крайние значения",
       "settings": {

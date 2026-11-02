@@ -55,6 +55,66 @@
       }
     },
     {
+      "name": "colors",
+      "title": "Свой цвет у каждого канала",
+      "settings": {
+        "label": "Заказы по каналам, октябрь",
+        "category": "channel",
+        "value": "orders",
+        "names": {
+          "web": "Сайт",
+          "shop": "Магазин",
+          "partners": "Партнёры",
+          "phone": "Телефон"
+        },
+        "value-format": "integer",
+        "items": [
+          {
+            "channel": "web",
+            "orders": 540
+          },
+          {
+            "channel": "shop",
+            "orders": 310
+          },
+          {
+            "channel": "partners",
+            "orders": 120
+          },
+          {
+            "channel": "phone",
+            "orders": 30
+          }
+        ],
+        "colors": {
+          "web": "primary",
+          "shop": "tertiary",
+          "partners": "secondary",
+          "phone": "neutral"
+        }
+      },
+      "expect": {
+        "name": "Заказы по каналам, октябрь",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "pie chart colors",
+        "props": {
+          "label": "Заказы по каналам, октябрь",
+          "category": "channel",
+          "value": "orders",
+          "value-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
       "name": "ring",
       "title": "Кольцо с суммой",
       "settings": {

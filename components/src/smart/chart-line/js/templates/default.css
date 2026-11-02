@@ -117,6 +117,8 @@
   .sf-chart-line-series--c2 { --sf-chart-line--series: var(--sf-on-secondary-container-graphic); }
   .sf-chart-line-series--c3 { --sf-chart-line--series: var(--sf-on-tertiary-container-graphic); }
   .sf-chart-line-series--c4 { --sf-chart-line--series: var(--sf-on-neutral-container-graphic); }
+  /* A page's own colour (colors, docs/DECISIONS.md D6), set in a style. */
+  .sf-chart-line-series--custom { --sf-chart-line--series: var(--sf-chart-line--custom); }
 
   .sf-chart-line-series--d1 { --sf-chart-line--dash: 6 3; }
   .sf-chart-line-series--d2 { --sf-chart-line--dash: 2 3; }

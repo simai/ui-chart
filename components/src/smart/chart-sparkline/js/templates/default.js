@@ -1,9 +1,10 @@
-import {html} from 'lit';
+import {html, nothing} from 'lit';
 import './default.css';
 
 // A sparkline: one SVG image named by the label and a sentence of the data.
 // The inside is markup set as the svg element's innerHTML (a property, so
 // lit writes no part markers there and a first-paint snapshot is stable).
+// A page's own colour (the color setting) is a variable in a style.
 
 const px = (value) => `${Math.round(value * 10) / 10}`;
 
@@ -28,6 +29,7 @@ export function renderChartSparklineTemplate(context) {
   const size = String(context.size).replace('/', '-');
   return html`
     <span class=${['sf-chart-sparkline', `sf-chart-sparkline--size-${size}`, `sf-chart-sparkline--${state}`, `sf-chart-sparkline--${context.shape}`, context.rootClass].filter(Boolean).join(' ')}
+          style=${context.paint ? `--sf-chart-sparkline--own: ${context.paint}` : nothing}
           role="img" aria-label=${name} aria-busy=${state === 'loading' ? 'true' : 'false'}>
       <svg class="sf-chart-sparkline-svg" aria-hidden="true" focusable="false"
            width=${g ? g.width : 0} height=${g ? g.height : 0} viewBox=${g ? `0 0 ${g.width} ${g.height}` : '0 0 0 0'}

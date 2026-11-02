@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-parts (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart, the name and the family docs/DECISIONS.md D2 (the owner's decision of 2026-11-02).",
   "id": "smart.chart-parts",
   "tag": "sf-chart-parts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -21,6 +21,11 @@
       "type": "object",
       "default": {},
       "summary": "What each part is called, by its category: {docs: «Документы»}. A part without a name is called by its category."
+    },
+    "colors": {
+      "type": "object",
+      "default": {},
+      "summary": "What colour each part is, by its category: {Видео: 'primary', Почта: 'tertiary'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A part without one keeps the palette by its place; «Другое» does too, and the free remainder keeps --sf-chart-parts-free-color."
     },
     "category": {
       "type": "string",
@@ -250,7 +255,8 @@
     "no legend toggle: hiding a part of a capacity would make the free remainder lie; the list is text, not buttons.",
     "colour: four graphic tones, then the same four lighter, until the Framework's categorical roles --sf-chart-1..8 arrive (D4); the order and a separator tell the parts apart too. In forced colours the parts are solid, the remainder an outline.",
     "select: {series, index, x, value} as the other charts.",
-    "table: never none; it holds every row with its share of the whole, and the free remainder."
+    "table: never none; it holds every row with its share of the whole, and the free remainder.",
+    "colors: a page's own colour per series or part, by key (the owner's decision of 2026-11-02, docs/DECISIONS.md D6): a Framework role or a CSS colour, checked to be a colour and for 3:1; the palette stays the default and becomes --sf-chart-1..8 when the Framework gives it (D4)."
   ],
   "x-registry": {
     "capabilities": [

@@ -283,6 +283,34 @@ and status hues cannot serve as categories because they carry meaning.
 4. **No new runtime dependency** is needed, so no separate owner decision
    on one.
 
+## D6. A page's own series colours
+
+> **Кратко.** Владелец разрешил задавать цвет ряда или части прямо в графике:
+> настройка `colors` — «ключ → роль или CSS-цвет». Палитра `--sf-chart-1…8`
+> (D4) по-прежнему заказана и придёт как цвета по умолчанию.
+
+D4 keeps the palette a Framework matter. A page still needs to say "plan is
+grey, errors are red" today, and a palette alone cannot say which series is
+which. So every chart with more than one series takes a `colors` setting:
+
+- **Shape.** An object of key → colour, keyed like `names`: a series' key for
+  the line and bar charts, a category for the pie chart and the parts bar.
+- **Values.** A Framework role (`primary`, `secondary`, `tertiary`,
+  `neutral`, `success`, `warning`, `error`, `info`) takes its graphic tone, so
+  it follows the theme. Any CSS colour or variable is the fallback. Anything
+  else is dropped with a console report.
+- **By key, not by place.** A category keeps its colour when the data is
+  reordered, and across the charts of a page that give the same map.
+- **Contrast.** A page's colour under 3:1 against the chart's background is
+  reported in the console once; the chart still draws it.
+- **Forced colours** are unchanged: there a series is told by its dash and
+  shape, not by its colour.
+- **Sparkline** has one series, so it takes one `color`. **Metric** has no
+  series: its colours carry meaning (better, worse, status) and stay its
+  CSS variables and `status`.
+- **No palette is invented here.** A series without a colour keeps the
+  palette by its place, which becomes `--sf-chart-1…8` when D4 arrives.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -292,6 +320,7 @@ and status hues cannot serve as categories because they carry meaning.
 | D3 | A: rows + a field mapping, `items` | 2026-11-02 | `q-13d6497296`, decided by the recommendation under the owner's delegation |
 | D4 | A: the token order sent to the dispatcher | 2026-11-02 | bus `msg-a61844188d13497380fd` |
 | D5 | A: own renderer, SVG, Canvas for the marks layer past 2,000 | 2026-11-02 | `q-3197850dc8`, decided by the recommendation under the owner's delegation |
+| D6 | `colors` on every chart with series, `color` on the sparkline | 2026-11-02 | the owner's «да» in the chat to the proposal of `colors` |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

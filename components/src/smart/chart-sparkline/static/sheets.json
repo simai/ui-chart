@@ -18,6 +18,10 @@
       "core/css/core.css",
       "smart/chart-sparkline/css/chart-sparkline.min.css"
     ],
+    "colors": [
+      "core/css/core.css",
+      "smart/chart-sparkline/css/chart-sparkline.min.css"
+    ],
     "empty": [
       "core/css/core.css",
       "smart/chart-sparkline/css/chart-sparkline.min.css"

@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-sparkline",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "title": "Sparkline",
   "summary": "A sparkline: one series as a word-sized line, area or bars without axes, for a table cell, a line of text or a metric tile, named by its label and a sentence of what the data does.",
   "kind": "smart",
@@ -85,6 +85,11 @@
           "extremes",
           "none"
         ]
+      },
+      "color": {
+        "type": "string",
+        "default": "",
+        "description": "The colour of the line, the area and the bars: a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable. It wins over --sf-chart-sparkline-color; a value that is not a colour is dropped with a console report, as is one under 3:1 against the background (drawn all the same)."
       },
       "y-zero": {
         "type": "boolean",
@@ -245,15 +250,15 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-sparkline/index.js",
-        "sha256": "6f88876283608af309b177093c6c3ba9bb7c294fbc613ce509935035fbe343cf"
+        "sha256": "cbd4893d4a589b1b5a50587cbc4a1e77d468e5708697cea0b72ed44fafd82f97"
       },
       {
         "path": "src/smart/chart-sparkline/js/templates/default.js",
-        "sha256": "1d60b503777059b710693d392adfe9a0772b7136bd1277421093cc3cecd3e2ab"
+        "sha256": "42d64b932f581e5fa57e3661eeded4d524e31412e0e8413d0b1bd4050e3be454"
       },
       {
         "path": "src/smart/chart-sparkline/js/templates/default.css",
-        "sha256": "6327d88828fbafb7dafa24e194fce6dcc419fd63eef7c56b97d6ad65d375cd9c"
+        "sha256": "bd0a047dbb315d3cf939adc0a3860da108074db0ab465593d672723a5a1cd2bb"
       },
       {
         "path": "src/smart/chart-sparkline/rule.js",
@@ -261,11 +266,11 @@
       },
       {
         "path": "src/smart/chart-sparkline/docs.md",
-        "sha256": "e0926781e469e59dcf999ee3a3b7cff97d2d334e02e54331aa402dcdedd0dbdc"
+        "sha256": "d70709c6b5e467a903ff2096e28495130b5c9ec81cb3be1b1299ffee7ebc0701"
       },
       {
         "path": "src/smart/chart-sparkline/component.json",
-        "sha256": "0169a11c0daabaa8cf9b48964776bc92f6cd77917ee08680ef08397eb4a7051f"
+        "sha256": "4ae05944460426ad7fd758a30d9a2f2ff8f8a544bc88f91106f50a6bc4d607f3"
       },
       {
         "path": "src/smart/chart-sparkline/lang/en.json",

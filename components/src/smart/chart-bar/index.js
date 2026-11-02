@@ -21,6 +21,7 @@ import {linePath} from '../chart-core/path.js';
 import {seriesFacts} from '../chart-core/describe.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
+import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
 import {renderBarChartTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';
@@ -78,6 +79,12 @@ class SfBarChart extends ChartBarElement {
 
   afterRender(changed) {
     if (typeof changed === 'function') return super.afterRender(changed);
+    const colours = this.colours();
+    const checked = coloursKey(colours);
+    if (checked !== this._coloursChecked && this.isConnected) {
+      this._coloursChecked = checked;
+      checkContrast(this, colours, 'sf-chart-bar');
+    }
     const plot = this.querySelector('.sf-chart-bar-plot');
     if (plot && plot !== this._observed && typeof ResizeObserver === 'function') {
       this._observer?.disconnect();
@@ -92,6 +99,16 @@ class SfBarChart extends ChartBarElement {
       this._observer.observe(plot);
     }
     return undefined;
+  }
+
+  // The page's own colours by key (chart-core/colors), read again only when
+  // the setting changes.
+  colours() {
+    if (this.colors !== this._coloursRaw || !this._colours) {
+      this._coloursRaw = this.colors;
+      this._colours = readColours(this.colors, (said) => console.warn(`<sf-chart-bar> ${said}`));
+    }
+    return this._colours;
   }
 
   words(key, vars) {
@@ -479,6 +496,7 @@ class SfBarChart extends ChartBarElement {
       summaryText: state === 'ready' ? this.summarize(model, shown) : '',
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
+      paint: this.colours(),
       rootClass: this.getRootClass(),
     });
   }

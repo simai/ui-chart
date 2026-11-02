@@ -120,6 +120,8 @@
   .sf-chart-parts-series--c2 { --sf-chart-parts--series: var(--sf-on-secondary-container-graphic); }
   .sf-chart-parts-series--c3 { --sf-chart-parts--series: var(--sf-on-tertiary-container-graphic); }
   .sf-chart-parts-series--c4 { --sf-chart-parts--series: var(--sf-on-neutral-container-graphic); }
+  /* A page's own colour (colors, docs/DECISIONS.md D6), set in a style. */
+  .sf-chart-parts-series--custom { --sf-chart-parts--series: var(--sf-chart-parts--custom); }
   .sf-chart-parts-series--free { --sf-chart-parts--series: var(--sf-chart-parts-free-color, var(--sf-surface-3)); }
 
   .sf-chart-parts-part {

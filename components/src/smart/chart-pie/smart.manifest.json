@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-pie",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "title": "Pie chart",
   "summary": "A pie chart: the parts of one whole as slices of a circle or a ring with the total in the middle, the smallest folded into «Другое», with shares inside the slices, a legend that hides parts, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -177,6 +177,11 @@
         "type": "object",
         "default": {},
         "description": "What each part is called, by its category: {web: «Сайт»}. A part without a name is called by its category."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "What colour each part is, by its category: {Сайт: 'primary', Почта: 'tertiary'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A part without one keeps the palette by its place; «Другое» always does."
       },
       "hidden-parts": {
         "type": "array",
@@ -375,15 +380,15 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-pie/index.js",
-        "sha256": "550dde0ace6c60cdf2029ebfa42cf21e3c7d81c6829fdded4b97d586e76c6ada"
+        "sha256": "3805f92965219ef26740e09d664029bb493aef979781c676e434232c74f8431f"
       },
       {
         "path": "src/smart/chart-pie/js/templates/default.js",
-        "sha256": "f038801d88966d7b784806017bee486558fdc2b8596b70482cdda27d90f9e2b9"
+        "sha256": "4be1efeabdbf8e4c10b662dfc47bb3cd2228306fd5b7a518cbe98b4bc0df0ac8"
       },
       {
         "path": "src/smart/chart-pie/js/templates/default.css",
-        "sha256": "c1155915e2c010bb22f3a00c6c86955a504c99a8fcc34322c6b1a55fad5a0a91"
+        "sha256": "bd6e608c144c3807d5acc506c31a392aa80230094d6f33f3c01bb7a2063e5fce"
       },
       {
         "path": "src/smart/chart-pie/rule.js",
@@ -391,11 +396,11 @@
       },
       {
         "path": "src/smart/chart-pie/docs.md",
-        "sha256": "07c8c477f9e4e3fb1cf956a15c680d7e82f7563067d041482173aef6f27bbeeb"
+        "sha256": "593f3e2f7647cbeaf31a7eee595892fc926dd2a82211714b1ae54ef007aa44cb"
       },
       {
         "path": "src/smart/chart-pie/component.json",
-        "sha256": "a576a1b4ce872780fff930cee78cc7d67b770896751b024eb562d06d00769f65"
+        "sha256": "cebd7222c81d4cd2069eebff2ef692d401bf77b78c6457549b8c7f7d2e66ea76"
       },
       {
         "path": "src/smart/chart-pie/lang/en.json",

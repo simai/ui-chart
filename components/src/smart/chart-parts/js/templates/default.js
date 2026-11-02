@@ -10,21 +10,30 @@ import './default.css';
 // by the summary; its parts are aria-hidden, because the summary, the live
 // line, the list and the table say what they show. A colour is a class
 // (--c1..--c4, then lighter --t2); the order and a separator tell the parts
-// apart as well, and the free remainder is a neutral track.
+// apart as well, and the free remainder is a neutral track. A page's own
+// colour (the colors setting, by the category) is --custom with its value in
+// a style; the free remainder keeps its own variable.
 
-const colourOf = (part) => (part.free ? 'sf-chart-parts-series--free'
+const paintOf = (paint) => (paint ? `--sf-chart-parts--custom: ${paint}` : '');
+const colourOf = (part, paint) => (part.free ? 'sf-chart-parts-series--free'
+  : paint ? 'sf-chart-parts-series--custom'
   : `sf-chart-parts-series--c${(part.place % 4) + 1}${part.place >= 4 ? ' sf-chart-parts-series--t2' : ''}`);
 const grow = (share) => `${Math.round(share * 10000) / 10000}`;
+// A page's colour is checked to be a colour (chart-core/colors), and escaped
+// all the same, since it is written into markup.
+const ESCAPES = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
+const esc = (value) => String(value).replace(/[&<>"']/gu, (one) => ESCAPES[one]);
 
 // The bar's inside is markup set as the element's innerHTML (a property, so
 // lit writes no part markers inside it: a first-paint snapshot of the bar is
 // the same on every run). Every part shares the width by its value.
-function partsMarkup(segments, cursor) {
+function partsMarkup(segments, cursor, paint) {
   let out = '';
   for (const part of segments) {
     const dim = cursor && cursor.index !== part.place ? ' sf-chart-parts-part--dim' : '';
     const current = cursor && cursor.index === part.place ? ' sf-chart-parts-part--current' : '';
-    out += `<span class="sf-chart-parts-part ${colourOf(part)}${dim}${current}" data-place="${part.place}" style="flex-grow: ${grow(part.share)}"></span>`;
+    const own = part.free ? '' : paint.get(part.key);
+    out += `<span class="sf-chart-parts-part ${colourOf(part, own)}${dim}${current}" data-place="${part.place}" style="flex-grow: ${grow(part.share)}${own ? `; ${esc(paintOf(own))}` : ''}"></span>`;
   }
   return out;
 }
@@ -41,7 +50,8 @@ function renderTooltip(context, cursor) {
   return html`
     <div class=${`sf-chart-parts-tooltip sf-chart-parts-tooltip--${align}`} aria-hidden="true"
          style=${`inset-inline-start: ${Math.round(middle * 10) / 10}%`}>
-      <div class=${`sf-chart-parts-tooltip-row ${colourOf(part)}`}>
+      <div class=${`sf-chart-parts-tooltip-row ${colourOf(part, part.free ? '' : context.paint.get(part.key))}`}
+           style=${(!part.free && paintOf(context.paint.get(part.key))) || nothing}>
         <span class="sf-chart-parts-swatch"></span>
         <span class="sf-chart-parts-tooltip-name">${part.name}</span>
         <span class="sf-chart-parts-tooltip-value">${component.sayPart(part)}</span>
@@ -57,7 +67,8 @@ function renderLegend(context) {
   return html`
     <ul class=${`sf-chart-parts-list${inline ? ' sf-chart-parts-list--inline' : ''}`} aria-label=${component.words('legend')}>
       ${segments.map((part) => html`
-        <li class=${`sf-chart-parts-item ${colourOf(part)}`}>
+        <li class=${`sf-chart-parts-item ${colourOf(part, part.free ? '' : context.paint.get(part.key))}`}
+            style=${(!part.free && paintOf(context.paint.get(part.key))) || nothing}>
           <span class="sf-chart-parts-swatch" aria-hidden="true"></span>
           <span class="sf-chart-parts-item-name">${part.name}</span>
           ${inline ? nothing : html`<span class="sf-chart-parts-item-value">${component.sayY(part.value)}</span>`}
@@ -130,7 +141,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${partsMarkup(segments, cursor)}></div>
+         .innerHTML=${partsMarkup(segments, cursor, context.paint)}></div>
     ${renderTooltip(context, cursor)}
   `;
 }

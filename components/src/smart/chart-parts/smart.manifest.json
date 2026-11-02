@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-parts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "title": "Parts bar",
   "summary": "A parts bar: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (a disk, a quota, a model's context), the smallest folded into «Другое», a list of the parts with values and shares, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -170,6 +170,11 @@
         "type": "object",
         "default": {},
         "description": "What each part is called, by its category: {docs: «Документы»}. A part without a name is called by its category."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "What colour each part is, by its category: {Видео: 'primary', Почта: 'tertiary'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A part without one keeps the palette by its place; «Другое» does too, and the free remainder keeps --sf-chart-parts-free-color."
       }
     },
     "additionalProperties": false
@@ -336,15 +341,15 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-parts/index.js",
-        "sha256": "a2ec63335411d6257deb3523e0aff4301dad414af619763df05e969c1423bf61"
+        "sha256": "2ac8abba28d8492288fe53ccd6eb43addf53444c4a039d348dd8bfe0aed94d20"
       },
       {
         "path": "src/smart/chart-parts/js/templates/default.js",
-        "sha256": "4d01e03ab905bbb7d6f20c47c71c8a04f70c7305238a48ce344bcd5115374813"
+        "sha256": "2f23c8de1390b836777b39ce4fff59a9b681d6a45cdf8c12e2d9c708e6d999c7"
       },
       {
         "path": "src/smart/chart-parts/js/templates/default.css",
-        "sha256": "d0a64ead635a2acd469bc364f49664d0c075b7dea5230744653b2cb4c0bdb90c"
+        "sha256": "7b954cf6a0696f152c5a552716975ee360aa012aebe0dc7365689ec5ca2799c8"
       },
       {
         "path": "src/smart/chart-parts/rule.js",
@@ -352,11 +357,11 @@
       },
       {
         "path": "src/smart/chart-parts/docs.md",
-        "sha256": "1cc0b5e8cbf79bef15e9cc4fad84b47d03fb6c68536f624c244270551b39d95c"
+        "sha256": "0ab728c39dbbbfffb4f020cd86fe352e9d1aaeb616f9411973c50eb2dd424496"
       },
       {
         "path": "src/smart/chart-parts/component.json",
-        "sha256": "924fb13852d03e474690064f38b0d211addfaab749c231809f4ca76ad94b7777"
+        "sha256": "429ef2bd4522194f3c1fc725622080dcd1ec32c06e34515aedf1d48d8d412646"
       },
       {
         "path": "src/smart/chart-parts/lang/en.json",

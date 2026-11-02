@@ -11,6 +11,7 @@
   ],
   "files": [
     "src/smart/chart-core/arc.js",
+    "src/smart/chart-core/colors.js",
     "src/smart/chart-core/cursor.js",
     "src/smart/chart-core/data.js",
     "src/smart/chart-core/decimate.js",
@@ -21,6 +22,6 @@
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "aeacda5701fa0fd8375f96231af0fc29023e75385b2325f407c920352aee2e05",
+  "content_sha256": "5da6aad5559ccac8825b5e5659937937aeeed2c109a4780d8322f31c8a50d378",
   "dependencies": []
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-bar",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "title": "Bar chart",
   "summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -238,6 +238,11 @@
         "default": {},
         "description": "What each series is called, by its key: {sales: «Продажи»}. A series without a name is called by its key."
       },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "What colour each series is, by its key, bars and lines alike: {fact: 'primary', plan: 'neutral'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A series without one keeps the palette by its place. In forced colours a series is its dash."
+      },
       "hidden-series": {
         "type": "array",
         "default": [],
@@ -437,15 +442,15 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-bar/index.js",
-        "sha256": "b5f42cc9d46efd28b18a5ef4e603b63d0d6650beead82b9fb371665394665005"
+        "sha256": "27118eaf58d2243dd57645f0a9f03aee95254b20b103e0738187f2940442d1a5"
       },
       {
         "path": "src/smart/chart-bar/js/templates/default.js",
-        "sha256": "396291e402553b13a8e598bb1b94af2608c65d81ceddec653559d76e9e265c3b"
+        "sha256": "2d10262a26b9318ac2b717273fead3858fbd06e1cda4b284ebacfa1724701045"
       },
       {
         "path": "src/smart/chart-bar/js/templates/default.css",
-        "sha256": "6f17f7f98abf2441a90c79891ff3d3010913cd03d7c58733fc728415c24916fd"
+        "sha256": "3a6ed03137f580a353e74fd6f4c5747277eaba2e9a2c4781da568b1a6fcb0401"
       },
       {
         "path": "src/smart/chart-bar/rule.js",
@@ -453,11 +458,11 @@
       },
       {
         "path": "src/smart/chart-bar/docs.md",
-        "sha256": "3b4df946e9a819ed4d5cbef9930f1cadf380146fdb42107c11974af0368ca824"
+        "sha256": "414ed1f21032eb87b8d9f263da162af021f8defeac85968aa54db098ac2c6a1a"
       },
       {
         "path": "src/smart/chart-bar/component.json",
-        "sha256": "ad1920914a21066896364e59cb2ac954f85170981b0c27fca37ad644345f0dbb"
+        "sha256": "fc7898747a6bb7eff0cf1ba98d4fa264ca1cf01966d40771f9bdcf736ef8cae0"
       },
       {
         "path": "src/smart/chart-bar/lang/en.json",

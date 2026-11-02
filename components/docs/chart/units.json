@@ -103,6 +103,46 @@
       "change": "minor",
       "summary": "lines: series named in lines are drawn as lines with points over the bars (a plan over the facts), never stacked; line-axis own puts them on a scale of their own with its ticks on the far side (a margin over a revenue), always so over a normalized stack; line-format formats their values in the ticks, the tooltip, the live line and the table; the summary says which series are lines; the cursor walks onto a line and select carries it. Vertical bars only.",
       "consumer": "Nothing to do: lines defaults to empty, so a chart without it draws as before; name series in lines to draw them as lines."
+    },
+    {
+      "unit": "smart.chart-line",
+      "version": "0.3.0",
+      "recorded_on": "2026-11-02",
+      "change": "minor",
+      "summary": "colors: a page's own colour per series, by its key, a Framework role (which follows the theme) or a CSS colour; a value that is not a colour is dropped and one under 3:1 against the background is reported in the console; a series without one keeps the palette by its place, and forced colours are unchanged.",
+      "consumer": "Nothing to do: colors defaults to empty, so a chart draws as before; give it {key: colour} to colour a series of your own."
+    },
+    {
+      "unit": "smart.chart-bar",
+      "version": "0.3.0",
+      "recorded_on": "2026-11-02",
+      "change": "minor",
+      "summary": "colors: a page's own colour per series, by its key, a Framework role (which follows the theme) or a CSS colour; a value that is not a colour is dropped and one under 3:1 against the background is reported in the console; a series without one keeps the palette by its place, and forced colours are unchanged.",
+      "consumer": "Nothing to do: colors defaults to empty, so a chart draws as before; give it {key: colour} to colour a series of your own."
+    },
+    {
+      "unit": "smart.chart-pie",
+      "version": "0.2.0",
+      "recorded_on": "2026-11-02",
+      "change": "minor",
+      "summary": "colors: a page's own colour per part, by its category, a Framework role (which follows the theme) or a CSS colour; a value that is not a colour is dropped and one under 3:1 against the background is reported in the console; a part without one keeps the palette by its place, and forced colours are unchanged.",
+      "consumer": "Nothing to do: colors defaults to empty, so a chart draws as before; give it {key: colour} to colour a part of your own."
+    },
+    {
+      "unit": "smart.chart-parts",
+      "version": "0.2.0",
+      "recorded_on": "2026-11-02",
+      "change": "minor",
+      "summary": "colors: a page's own colour per part, by its category, a Framework role (which follows the theme) or a CSS colour; a value that is not a colour is dropped and one under 3:1 against the background is reported in the console; a part without one keeps the palette by its place, and forced colours are unchanged.",
+      "consumer": "Nothing to do: colors defaults to empty, so a chart draws as before; give it {key: colour} to colour a part of your own."
+    },
+    {
+      "unit": "smart.chart-sparkline",
+      "version": "0.2.0",
+      "recorded_on": "2026-11-02",
+      "change": "minor",
+      "summary": "color: the line's own colour, a Framework role (which follows the theme) or a CSS colour, over --sf-chart-sparkline-color; a value that is not a colour is dropped and one under 3:1 against the background is reported in the console.",
+      "consumer": "Nothing to do: color defaults to empty, so a sparkline draws as before."
     }
   ]
 }

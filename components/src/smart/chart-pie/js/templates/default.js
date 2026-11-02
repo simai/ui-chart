@@ -10,9 +10,13 @@ import './default.css';
 // by the summary; its slices are aria-hidden, because the summary, the live
 // line, the legend and the table say what they show. A colour is a class
 // (--c1..--c4, then lighter --t2); the order, a separator and the share
-// inside tell the parts apart as well.
+// inside tell the parts apart as well. A page's own colour (the colors
+// setting, by the category) is --custom with its value in a style.
 
-const colourOf = (place) => `sf-chart-pie-series--c${(place % 4) + 1}${place >= 4 ? ' sf-chart-pie-series--t2' : ''}`;
+const colourOf = (place, paint) => (paint ? 'sf-chart-pie-series--custom'
+  : `sf-chart-pie-series--c${(place % 4) + 1}${place >= 4 ? ' sf-chart-pie-series--t2' : ''}`);
+const paintOf = (paint) => (paint ? `--sf-chart-pie--custom: ${paint}` : '');
+const paintAttr = (paint) => (paint ? ` style="${esc(paintOf(paint))}"` : '');
 const px = (value) => `${Math.round(value * 10) / 10}`;
 
 // The plot's inside is SVG markup set as the svg element's innerHTML (a
@@ -21,11 +25,11 @@ const px = (value) => `${Math.round(value * 10) / 10}`;
 const ESCAPES = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
 const esc = (value) => String(value).replace(/[&<>"']/gu, (one) => ESCAPES[one]);
 
-function slicesMarkup(g, cursor) {
+function slicesMarkup(g, cursor, paint) {
   let out = '<g class="sf-chart-pie-marks" aria-hidden="true">';
   for (const slice of g.slices) {
     const dim = cursor && cursor.index !== slice.index ? ' sf-chart-pie-series--dim' : '';
-    out += `<g class="sf-chart-pie-series ${colourOf(slice.place)}${dim}" data-part="${esc(slice.key)}">`;
+    out += `<g class="sf-chart-pie-series ${colourOf(slice.place, paint.get(slice.key))}${dim}"${paintAttr(paint.get(slice.key))} data-part="${esc(slice.key)}">`;
     out += `<path class="sf-chart-pie-slice" d="${slice.d}"/>`;
     if (slice.label) out += `<text class="sf-chart-pie-share" x="${px(slice.label.x)}" y="${px(slice.label.y)}" text-anchor="middle" dominant-baseline="middle">${esc(slice.label.text)}</text>`;
     out += '</g>';
@@ -49,7 +53,8 @@ function renderTooltip(context, g, cursor) {
   return html`
     <div class=${`sf-chart-pie-tooltip${flip ? ' sf-chart-pie-tooltip--flip' : ''}`} aria-hidden="true"
          style=${`inset-inline-start: ${px(slice.tip.x)}px; inset-block-start: ${px(slice.tip.y)}px`}>
-      <div class=${`sf-chart-pie-tooltip-row sf-chart-pie-tooltip-row--current ${colourOf(slice.place)}`}>
+      <div class=${`sf-chart-pie-tooltip-row sf-chart-pie-tooltip-row--current ${colourOf(slice.place, context.paint.get(slice.key))}`}
+           style=${paintOf(context.paint.get(slice.key)) || nothing}>
         <span class="sf-chart-pie-swatch"></span>
         <span class="sf-chart-pie-tooltip-name">${part.name}</span>
         <span class="sf-chart-pie-tooltip-value">${component.sayPart(part)}</span>
@@ -65,7 +70,8 @@ function renderLegend(context) {
   return html`
     <div class="sf-chart-pie-legend" role="group" aria-label=${component.words('legend')}>
       ${parts.map((part) => html`
-        <button type="button" class=${`sf-chart-pie-legend-item ${colourOf(part.place)}`} aria-pressed=${hidden.has(part.key) ? 'false' : 'true'}
+        <button type="button" class=${`sf-chart-pie-legend-item ${colourOf(part.place, context.paint.get(part.key))}`}
+                style=${paintOf(context.paint.get(part.key)) || nothing} aria-pressed=${hidden.has(part.key) ? 'false' : 'true'}
                 data-part=${part.key} @click=${() => component.togglePart(part.key)}>
           <span class="sf-chart-pie-swatch" aria-hidden="true"></span>
           <span class="sf-chart-pie-legend-name">${part.name}</span>
@@ -140,7 +146,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${slicesMarkup(g, cursor)}>
+         .innerHTML=${slicesMarkup(g, cursor, context.paint)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;

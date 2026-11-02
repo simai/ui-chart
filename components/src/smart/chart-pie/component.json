@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-pie (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart, the renderer and the keyboard docs/research/rendering.md, the name and the family docs/DECISIONS.md D2.",
   "id": "smart.chart-pie",
   "tag": "sf-chart-pie",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -21,6 +21,11 @@
       "type": "object",
       "default": {},
       "summary": "What each part is called, by its category: {web: «Сайт»}. A part without a name is called by its category."
+    },
+    "colors": {
+      "type": "object",
+      "default": {},
+      "summary": "What colour each part is, by its category: {Сайт: 'primary', Почта: 'tertiary'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A part without one keeps the palette by its place; «Другое» always does."
     },
     "category": {
       "type": "string",
@@ -284,7 +289,8 @@
     "colour: four graphic tones, then the same four lighter, until the Framework's categorical roles --sf-chart-1..8 arrive (D4); the order, a separator and the share inside tell the parts apart too. In forced colours the slices are outlines with their shares.",
     "select: {series, index, x, value} as sf-chart-line and sf-chart-bar (accepted by the dispatcher); series is the value field, x the category.",
     "table: never none; it holds every row with its share of the positive total.",
-    "hidden-parts: a pie's parts are not series, and hidden is the browser's own member of every element (§3.1)."
+    "hidden-parts: a pie's parts are not series, and hidden is the browser's own member of every element (§3.1).",
+    "colors: a page's own colour per series or part, by key (the owner's decision of 2026-11-02, docs/DECISIONS.md D6): a Framework role or a CSS colour, checked to be a colour and for 3:1; the palette stays the default and becomes --sf-chart-1..8 when the Framework gives it (D4)."
   ],
   "x-registry": {
     "capabilities": [

@@ -12,6 +12,7 @@ import {minMaxIndexes} from '../src/smart/chart-core/decimate.js';
 import {seriesFacts, trendOf} from '../src/smart/chart-core/describe.js';
 import {moveCursor} from '../src/smart/chart-core/cursor.js';
 import {keptView, settled} from '../src/smart/chart-core/settle.js';
+import {colourValue, contrast, coloursKey, readColours} from '../src/smart/chart-core/colors.js';
 
 test('records and columns read into the same rows', () => {
   const records = [{m: 'a', v: 1}, {m: 'b', v: 2}];
@@ -224,4 +225,19 @@ test('a kept view is built again only when a part of its key changes', () => {
   assert.equal(keptView(holder, [model, 'ru'], make), first);
   assert.notEqual(keptView(holder, [model, 'en'], make), first);
   assert.equal(built, 2);
+});
+
+test('a page colour is a Framework role or a CSS colour, never markup', () => {
+  assert.equal(colourValue('error'), 'var(--sf-on-error-container-graphic)');
+  assert.equal(colourValue(' #0a7f6f '), '#0a7f6f');
+  assert.equal(colourValue('var(--brand)'), 'var(--brand)');
+  for (const bad of ['', 'banana', 'red; background: url(x)', '"><script>', null]) assert.equal(colourValue(bad), '');
+  const warned = [];
+  const colours = readColours('{"fact": "primary", "plan": "nope"}', (said) => warned.push(said));
+  assert.deepEqual([...colours], [['fact', 'var(--sf-on-primary-container-graphic)']]);
+  assert.equal(warned.length, 1);
+  assert.equal(readColours('{oops', (said) => warned.push(said)).size, 0);
+  assert.equal(readColours(['primary']).size, 0);
+  assert.equal(coloursKey(readColours({a: 'info'})), 'a=var(--sf-on-info-container-graphic)');
+  assert.equal(Math.round(contrast([255, 255, 255], [0, 0, 0])), 21);
 });

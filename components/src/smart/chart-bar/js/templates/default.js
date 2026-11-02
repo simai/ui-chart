@@ -11,9 +11,13 @@ import './default.css';
 // the live line and the table say what they show. A colour is a class
 // (--c1..--c4), and in forced colours a dash (--d1..--d7) on an outline.
 // A series named in lines is a line with points over the bars, on the
-// bars' axis or on its own scale with its ticks on the far side.
+// bars' axis or on its own scale with its ticks on the far side. A page's
+// own colour (the colors setting, by the series' key) is --custom with its
+// value in a style: the dash stays.
 
-const colourOf = (place) => `sf-chart-bar-series--c${(place % 4) + 1}${place > 0 ? ` sf-chart-bar-series--d${Math.min(place, 7)}` : ' sf-chart-bar-series--solid'}`;
+const paintOf = (paint) => (paint ? `--sf-chart-bar--custom: ${paint}` : '');
+const paintAttr = (paint) => (paint ? ` style="${esc(paintOf(paint))}"` : '');
+const colourOf = (place, paint) => `sf-chart-bar-series--${paint ? 'custom' : `c${(place % 4) + 1}`}${place > 0 ? ` sf-chart-bar-series--d${Math.min(place, 7)}` : ' sf-chart-bar-series--solid'}`;
 const px = (value) => `${Math.round(value * 10) / 10}`;
 
 // The plot's inside is SVG markup set as the svg element's innerHTML (a
@@ -57,7 +61,7 @@ function axesMarkup(g) {
   return `${out}</g>`;
 }
 
-function barsMarkup(g, cursor) {
+function barsMarkup(g, cursor, paint) {
   let out = '<g class="sf-chart-bar-marks" aria-hidden="true">';
   if (cursor) {
     const band = g.bands[cursor.index];
@@ -67,7 +71,7 @@ function barsMarkup(g, cursor) {
   }
   for (const group of g.groups) {
     const dim = cursor && cursor.series !== group.key ? ' sf-chart-bar-series--dim' : '';
-    out += `<g class="sf-chart-bar-series ${colourOf(group.place)}${dim}" data-series="${esc(group.key)}">`;
+    out += `<g class="sf-chart-bar-series ${colourOf(group.place, paint.get(group.key))}${dim}"${paintAttr(paint.get(group.key))} data-series="${esc(group.key)}">`;
     for (const bar of group.bars) out += `<rect class="sf-chart-bar-bar" x="${px(bar.x)}" y="${px(bar.y)}" width="${px(bar.width)}" height="${px(bar.height)}"/>`;
     out += '</g>';
   }
@@ -80,7 +84,7 @@ function barsMarkup(g, cursor) {
     : `<line class="sf-chart-bar-baseline" x1="${px(g.inner.left)}" x2="${px(g.inner.right)}" y1="${px(g.zero)}" y2="${px(g.zero)}"/>`;
   for (const line of g.lines) {
     const dim = cursor && cursor.series !== line.key ? ' sf-chart-bar-series--dim' : '';
-    out += `<g class="sf-chart-bar-series sf-chart-bar-series--line ${colourOf(line.place)}${dim}" data-series="${esc(line.key)}">`;
+    out += `<g class="sf-chart-bar-series sf-chart-bar-series--line ${colourOf(line.place, paint.get(line.key))}${dim}"${paintAttr(paint.get(line.key))} data-series="${esc(line.key)}">`;
     out += `<path class="sf-chart-bar-line" d="${line.d}"/>`;
     if (g.dots) for (const point of line.points) if (point) out += `<circle class="sf-chart-bar-dot" cx="${px(point[0])}" cy="${px(point[1])}" r="3"/>`;
     out += '</g>';
@@ -107,7 +111,8 @@ function renderTooltip(context, g, cursor) {
     <div class=${`sf-chart-bar-tooltip${flip ? ' sf-chart-bar-tooltip--flip' : ''}`} aria-hidden="true" style=${at}>
       <div class="sf-chart-bar-tooltip-x">${component.sayX(model, cursor.index)}</div>
       ${[...g.groups, ...g.lines].sort((a, b) => a.place - b.place).map((group) => html`
-        <div class=${['sf-chart-bar-tooltip-row', colourOf(group.place), group.line ? 'sf-chart-bar-series--line' : '', group.key === cursor.series ? 'sf-chart-bar-tooltip-row--current' : ''].filter(Boolean).join(' ')}>
+        <div class=${['sf-chart-bar-tooltip-row', colourOf(group.place, context.paint.get(group.key)), group.line ? 'sf-chart-bar-series--line' : '', group.key === cursor.series ? 'sf-chart-bar-tooltip-row--current' : ''].filter(Boolean).join(' ')}
+             style=${paintOf(context.paint.get(group.key)) || nothing}>
           <span class="sf-chart-bar-swatch"></span>
           <span class="sf-chart-bar-tooltip-name">${group.name}</span>
           <span class="sf-chart-bar-tooltip-value">${component.sayValue(group, cursor.index)}</span>
@@ -124,7 +129,8 @@ function renderLegend(context, place) {
   return html`
     <div class=${`sf-chart-bar-legend sf-chart-bar-legend--${place}`} role="group" aria-label=${component.words('legend')}>
       ${model.series.map((one, index) => html`
-        <button type="button" class=${`sf-chart-bar-legend-item ${colourOf(index)}${context.lineKeys.has(one.key) ? ' sf-chart-bar-series--line' : ''}`} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
+        <button type="button" class=${`sf-chart-bar-legend-item ${colourOf(index, context.paint.get(one.key))}${context.lineKeys.has(one.key) ? ' sf-chart-bar-series--line' : ''}`}
+                style=${paintOf(context.paint.get(one.key)) || nothing} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
                 data-series=${one.key} @click=${() => component.toggleSeries(one.key)}>
           <span class="sf-chart-bar-swatch" aria-hidden="true"></span>
           <span class="sf-chart-bar-legend-name">${one.name}</span>
@@ -196,7 +202,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${axesMarkup({...g, grid: context.grid}) + barsMarkup(g, cursor)}>
+         .innerHTML=${axesMarkup({...g, grid: context.grid}) + barsMarkup(g, cursor, context.paint)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;

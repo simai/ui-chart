@@ -10,9 +10,12 @@ import './default.css';
 // by the summary; its axes and lines are aria-hidden, because the summary,
 // the live line and the table say what they show. A colour is a class
 // (--c1..--c4) and a dash (--d1..--d7), so a series stays itself in forced
-// colours and in print.
+// colours and in print. A page's own colour (the colors setting, by the
+// series' key) is --custom with its value in a style: the dash stays.
 
-const colourOf = (place) => `sf-chart-line-series--c${(place % 4) + 1}${place > 0 ? ` sf-chart-line-series--d${Math.min(place, 7)}` : ''}`;
+const colourOf = (place, paint) => `sf-chart-line-series--${paint ? 'custom' : `c${(place % 4) + 1}`}${place > 0 ? ` sf-chart-line-series--d${Math.min(place, 7)}` : ''}`;
+const paintOf = (paint) => (paint ? `--sf-chart-line--custom: ${paint}` : '');
+const paintAttr = (paint) => (paint ? ` style="${esc(paintOf(paint))}"` : '');
 const px = (value) => `${Math.round(value * 10) / 10}`;
 
 // The plot's inside is SVG markup set as the svg element's innerHTML (a
@@ -46,29 +49,29 @@ function axesMarkup(g) {
   return `${out}</g>`;
 }
 
-function cursorMarkup(g, cursor) {
+function cursorMarkup(g, cursor, paint) {
   const x = g.px[cursor.index];
   let out = `<line class="sf-chart-line-crosshair" x1="${px(x)}" x2="${px(x)}" y1="${px(g.inner.top)}" y2="${px(g.inner.bottom)}"/>`;
   for (const line of g.lines) {
     const at = line.ys[cursor.index];
     if (at === null) continue;
     const current = line.key === cursor.series;
-    out += `<circle class="sf-chart-line-focus ${colourOf(line.place)}${current ? ' sf-chart-line-focus--current' : ''}" cx="${px(x)}" cy="${px(at)}" r="${current ? 5 : 3.5}"/>`;
+    out += `<circle class="sf-chart-line-focus ${colourOf(line.place, paint.get(line.key))}${current ? ' sf-chart-line-focus--current' : ''}"${paintAttr(paint.get(line.key))} cx="${px(x)}" cy="${px(at)}" r="${current ? 5 : 3.5}"/>`;
   }
   return out;
 }
 
-function linesMarkup(g, cursor) {
+function linesMarkup(g, cursor, paint) {
   let out = '<g class="sf-chart-line-marks" aria-hidden="true">';
   for (const line of g.lines) {
     const dim = cursor && cursor.series !== line.key ? ' sf-chart-line-series--dim' : '';
-    out += `<g class="sf-chart-line-series ${colourOf(line.place)}${dim}" data-series="${esc(line.key)}">`;
+    out += `<g class="sf-chart-line-series ${colourOf(line.place, paint.get(line.key))}${dim}"${paintAttr(paint.get(line.key))} data-series="${esc(line.key)}">`;
     if (line.area) out += `<path class="sf-chart-line-area${g.stacked ? ' sf-chart-line-area--layer' : ''}" d="${line.area}"/>`;
     out += `<path class="sf-chart-line-line" d="${line.d}"/>`;
     for (const [x, y] of line.dots) out += `<circle class="sf-chart-line-dot" cx="${px(x)}" cy="${px(y)}" r="2.5"/>`;
     out += '</g>';
   }
-  if (cursor) out += cursorMarkup(g, cursor);
+  if (cursor) out += cursorMarkup(g, cursor, paint);
   return `${out}</g>`;
 }
 
@@ -82,7 +85,8 @@ function renderTooltip(context, g, cursor) {
          style=${`inset-inline-start: ${px(x)}px; inset-block-start: ${px(g.inner.top)}px`}>
       <div class="sf-chart-line-tooltip-x">${component.sayX(model, cursor.index)}</div>
       ${g.lines.map((line) => html`
-        <div class=${['sf-chart-line-tooltip-row', colourOf(line.place), line.key === cursor.series ? 'sf-chart-line-tooltip-row--current' : ''].filter(Boolean).join(' ')}>
+        <div class=${['sf-chart-line-tooltip-row', colourOf(line.place, context.paint.get(line.key)), line.key === cursor.series ? 'sf-chart-line-tooltip-row--current' : ''].filter(Boolean).join(' ')}
+             style=${paintOf(context.paint.get(line.key)) || nothing}>
           <span class="sf-chart-line-swatch"></span>
           <span class="sf-chart-line-tooltip-name">${line.name}</span>
           <span class="sf-chart-line-tooltip-value">${component.sayValue(line, cursor.index)}</span>
@@ -99,7 +103,8 @@ function renderLegend(context, place) {
   return html`
     <div class=${`sf-chart-line-legend sf-chart-line-legend--${place}`} role="group" aria-label=${component.words('legend')}>
       ${model.series.map((one, index) => html`
-        <button type="button" class=${`sf-chart-line-legend-item ${colourOf(index)}`} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
+        <button type="button" class=${`sf-chart-line-legend-item ${colourOf(index, context.paint.get(one.key))}`}
+                style=${paintOf(context.paint.get(one.key)) || nothing} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
                 data-series=${one.key} @click=${() => component.toggleSeries(one.key)}>
           <span class="sf-chart-line-swatch" aria-hidden="true"></span>
           <span class="sf-chart-line-legend-name">${one.name}</span>
@@ -171,7 +176,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${axesMarkup({...g, grid: context.grid, xLabel: context.xLabel, yLabel: context.yLabel}) + linesMarkup(g, cursor)}>
+         .innerHTML=${axesMarkup({...g, grid: context.grid, xLabel: context.xLabel, yLabel: context.yLabel}) + linesMarkup(g, cursor, context.paint)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;

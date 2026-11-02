@@ -97,6 +97,106 @@
       }
     },
     {
+      "name": "colors",
+      "title": "Продажи фирменным цветом, план нейтральным",
+      "settings": {
+        "label": "Продажи и план, 2026",
+        "x": "month",
+        "y": "sales,plan",
+        "names": {
+          "sales": "Продажи",
+          "plan": "План"
+        },
+        "y-format": "integer",
+        "items": [
+          {
+            "month": "2026-01",
+            "sales": 120,
+            "plan": 125
+          },
+          {
+            "month": "2026-02",
+            "sales": 132,
+            "plan": 130
+          },
+          {
+            "month": "2026-03",
+            "sales": 128,
+            "plan": 135
+          },
+          {
+            "month": "2026-04",
+            "sales": 150,
+            "plan": 145
+          },
+          {
+            "month": "2026-05",
+            "sales": 171,
+            "plan": 160
+          },
+          {
+            "month": "2026-06",
+            "sales": 165,
+            "plan": 165
+          },
+          {
+            "month": "2026-07",
+            "sales": 180,
+            "plan": 175
+          },
+          {
+            "month": "2026-08",
+            "sales": 176,
+            "plan": 180
+          },
+          {
+            "month": "2026-09",
+            "sales": 190,
+            "plan": 185
+          },
+          {
+            "month": "2026-10",
+            "sales": 204,
+            "plan": 195
+          },
+          {
+            "month": "2026-11",
+            "sales": 198,
+            "plan": 205
+          },
+          {
+            "month": "2026-12",
+            "sales": 221,
+            "plan": 215
+          }
+        ],
+        "colors": {
+          "sales": "primary",
+          "plan": "neutral"
+        }
+      },
+      "expect": {
+        "name": "Продажи и план, 2026",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "line chart colors",
+        "props": {
+          "label": "Продажи и план, 2026",
+          "x": "month",
+          "y": "sales,plan",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
       "name": "area",
       "title": "Один ряд с заливкой",
       "settings": {

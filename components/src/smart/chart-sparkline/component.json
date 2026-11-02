@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-sparkline (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). A word-sized chart without axes for a table cell, a line of text or the chart slot of sf-chart-metric (docs/DECISIONS.md D1, D2 of ui-chart).",
   "id": "smart.chart-sparkline",
   "tag": "sf-chart-sparkline",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -56,6 +56,11 @@
       ],
       "default": "last",
       "summary": "A dot on the last value (last), on the highest and the lowest (extremes), or none. For bar the marked bars are drawn in full tone."
+    },
+    "color": {
+      "type": "string",
+      "default": "",
+      "summary": "The colour of the line, the area and the bars: a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable. It wins over --sf-chart-sparkline-color; a value that is not a colour is dropped with a console report, as is one under 3:1 against the background (drawn all the same)."
     },
     "y-zero": {
       "type": "boolean",
@@ -163,7 +168,8 @@
     "data: items as numbers, records or columns with x and y (D3); one series, a missing value is a gap.",
     "not interactive: no tooltip, cursor or events; a sparkline lives inside rows and tiles that are targets themselves, and a second Tab stop per row would make a table slow to walk. Its text is its accessible name.",
     "no table and no error state: the host around it (a table, sf-chart-metric) holds the numbers and the failure; data-state stops at empty, so the public-api-axes gate has nothing to exempt.",
-    "colour: one series on the primary graphic tone until the Framework's categorical roles arrive (D4); marks on the on-surface tone, so a mark differs by tone and shape, not by colour alone."
+    "colour: one series on the primary graphic tone until the Framework's categorical roles arrive (D4); marks on the on-surface tone, so a mark differs by tone and shape, not by colour alone.",
+    "color: the sparkline's own colour as a setting (the owner's decision of 2026-11-02, docs/DECISIONS.md D6): one colour, since a sparkline has one series; a Framework role or a CSS colour, checked to be a colour and for 3:1."
   ],
   "x-registry": {
     "capabilities": [

@@ -17,6 +17,7 @@ import {formatNumber} from '../chart-core/format.js';
 import {areaPath, linePath} from '../chart-core/path.js';
 import {minMaxIndexes} from '../chart-core/decimate.js';
 import {seriesFacts} from '../chart-core/describe.js';
+import {checkContrast, colourValue} from '../chart-core/colors.js';
 import {renderChartSparklineTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';
@@ -63,7 +64,23 @@ class SfChartSparkline extends ChartSparklineElement {
       });
       this._observer.observe(box);
     }
+    const own = this.colour();
+    if (own !== this._colourChecked && this.isConnected) {
+      this._colourChecked = own;
+      if (own) checkContrast(this, new Map([['color', own]]), 'sf-chart-sparkline');
+    }
     return undefined;
+  }
+
+  // The page's own colour (the color setting: a Framework role or a CSS
+  // colour, chart-core/colors), '' when unset or not a colour.
+  colour() {
+    if (this.color !== this._colourRaw) {
+      this._colourRaw = this.color;
+      this._colour = colourValue(this.color);
+      if (this.color && !this._colour) console.warn(`<sf-chart-sparkline> color «${this.color}» is neither a Framework role nor a CSS colour`);
+    }
+    return this._colour || '';
   }
 
   words(key, vars) {
@@ -180,6 +197,7 @@ class SfChartSparkline extends ChartSparklineElement {
       state,
       geometry: this.geometry(model, state),
       name: this.accessibleName(model, state),
+      paint: this.colour(),
       rootClass: this.getRootClass(),
     });
   }

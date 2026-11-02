@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-line",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "title": "Line chart",
   "summary": "A line chart: one or more series over time, a number or categories, with axes, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -245,6 +245,11 @@
         "default": {},
         "description": "What each series is called, by its key: {sales: «Продажи»}. A series without a name is called by its key."
       },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "What colour each series is, by its key: {fact: 'primary', plan: 'neutral'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A series without one keeps the palette by its place. In forced colours a series is its dash."
+      },
       "hidden-series": {
         "type": "array",
         "default": [],
@@ -444,15 +449,15 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-line/index.js",
-        "sha256": "295d18bf3b66c98e112d0bc45afbc864c630517d23079cf6b3e76e9e8dd6a12f"
+        "sha256": "04e4d4f01b7050576f693f0651d983b2f7722574328e8101f3fd1a2c6490b2c6"
       },
       {
         "path": "src/smart/chart-line/js/templates/default.js",
-        "sha256": "36edfdfe1e33547f4d7b0aab837d6a2782bfd7a9a0516dd49c90f79d988f5346"
+        "sha256": "baa9feb362cf5eb6fbc6aa572e49db1adbbdaedb4d6a832ddb36e8a86ddbf982"
       },
       {
         "path": "src/smart/chart-line/js/templates/default.css",
-        "sha256": "8e724267d5d71b2568b73cc876ba845550b672f44784569056d9c798ef35b17f"
+        "sha256": "bf12b1c74c72d256afc47dc3f20dfe8ffd7de1e00de2c0cb4572d1611a77e1c5"
       },
       {
         "path": "src/smart/chart-line/rule.js",
@@ -460,11 +465,11 @@
       },
       {
         "path": "src/smart/chart-line/docs.md",
-        "sha256": "6f820eb4dd98464291546cbc98dfed46b88ee4236ccda4cf5be0e1533c0deef4"
+        "sha256": "31212a7932ad0f9cceeeb84058008eac80c27f2d2c249efe0cb258638e51ae61"
       },
       {
         "path": "src/smart/chart-line/component.json",
-        "sha256": "30d4e1c82ac276ec6f5803428ba030303bc355dc080e6c03202488a350d3fcc1"
+        "sha256": "744559c0436a565bed336aa398b5747e43938807d14be01267e483fb745f73b2"
       },
       {
         "path": "src/smart/chart-line/lang/en.json",

@@ -133,6 +133,8 @@
   .sf-chart-pie-series--c2 { --sf-chart-pie--series: var(--sf-on-secondary-container-graphic); }
   .sf-chart-pie-series--c3 { --sf-chart-pie--series: var(--sf-on-tertiary-container-graphic); }
   .sf-chart-pie-series--c4 { --sf-chart-pie--series: var(--sf-on-neutral-container-graphic); }
+  /* A page's own colour (colors, docs/DECISIONS.md D6), set in a style. */
+  .sf-chart-pie-series--custom { --sf-chart-pie--series: var(--sf-chart-pie--custom); }
 
 
   .sf-chart-pie-slice {
