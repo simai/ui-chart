@@ -12,6 +12,9 @@ import {minMaxIndexes} from '../src/smart/chart-core/decimate.js';
 import {seriesFacts, trendOf} from '../src/smart/chart-core/describe.js';
 import {moveCursor} from '../src/smart/chart-core/cursor.js';
 import {keptView, settled} from '../src/smart/chart-core/settle.js';
+import {execFileSync} from 'node:child_process';
+import {existsSync} from 'node:fs';
+import {PALETTES} from '../src/smart/chart-core/palettes.js';
 import {colourValue, contrast, coloursKey, readColours} from '../src/smart/chart-core/colors.js';
 
 test('records and columns read into the same rows', () => {
@@ -240,4 +243,17 @@ test('a page colour is a Framework role or a CSS colour, never markup', () => {
   assert.equal(readColours(['primary']).size, 0);
   assert.equal(coloursKey(readColours({a: 'info'})), 'a=var(--sf-on-info-container-graphic)');
   assert.equal(Math.round(contrast([255, 255, 255], [0, 0, 0])), 21);
+});
+
+// The generator lives in the package's scripts/, which the build overlay
+// does not carry: the check runs where the tests sit beside it.
+const generator = new URL('../scripts/chart-palettes.mjs', import.meta.url).pathname;
+test('the named palettes are what the generator writes', {skip: !existsSync(generator) && 'the generator is not beside the tests'}, () => {
+  execFileSync(process.execPath, [generator, '--check'], {stdio: 'pipe'});
+});
+
+test('every named palette colour adapts to the theme', () => {
+  assert.deepEqual(Object.keys(PALETTES), ['vivid', 'soft', 'warm', 'cool', 'brand']);
+  assert.deepEqual(Object.values(PALETTES).map((set) => set.length), [8, 8, 6, 6, 4]);
+  for (const set of Object.values(PALETTES)) for (const colour of set) assert.match(colour, /light-dark\(|var\(--sf-on-primary-container-graphic\)/u);
 });

@@ -137,6 +137,74 @@
       }
     },
     {
+      "name": "palette",
+      "title": "Готовый набор soft",
+      "settings": {
+        "label": "Продажи по городам, 2026",
+        "x": "city",
+        "y": "q1,q2",
+        "names": {
+          "q1": "I квартал",
+          "q2": "II квартал"
+        },
+        "y-format": "integer",
+        "items": [
+          {
+            "city": "Москва",
+            "q1": 420,
+            "q2": 465
+          },
+          {
+            "city": "Санкт-Петербург",
+            "q1": 310,
+            "q2": 298
+          },
+          {
+            "city": "Казань",
+            "q1": 180,
+            "q2": 214
+          },
+          {
+            "city": "Новосибирск",
+            "q1": 150,
+            "q2": 171
+          },
+          {
+            "city": "Екатеринбург",
+            "q1": 164,
+            "q2": 159
+          },
+          {
+            "city": "Нижний Новгород",
+            "q1": 120,
+            "q2": null
+          }
+        ],
+        "palette": "soft"
+      },
+      "expect": {
+        "name": "Продажи по городам, 2026",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "bar chart palette",
+        "props": {
+          "label": "Продажи по городам, 2026",
+          "x": "city",
+          "y": "q1,q2",
+          "y-format": "integer",
+          "palette": "soft"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
       "name": "stacked",
       "title": "Каналы продаж стопкой",
       "settings": {

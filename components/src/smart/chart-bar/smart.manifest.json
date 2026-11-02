@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-bar",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "title": "Bar chart",
   "summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -51,6 +51,19 @@
         "type": "string",
         "default": "",
         "description": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Диаграмма»."
+      },
+      "palette": {
+        "type": "string",
+        "default": "theme",
+        "description": "The seriess' colours as a named set, by place, each a light and a dark tone that change with the theme and hold 3:1 against surfaces 0-2: theme (the theme's own tones, as before), vivid (8, the first the brand's), soft (8, muted), warm (6), cool (6), brand (4 steps of the primary family, for ordered data). Past its size a set starts again. colors wins for the seriess it names.",
+        "enum": [
+          "theme",
+          "vivid",
+          "soft",
+          "warm",
+          "cool",
+          "brand"
+        ]
       },
       "x": {
         "type": "string",
@@ -442,7 +455,7 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-bar/index.js",
-        "sha256": "27118eaf58d2243dd57645f0a9f03aee95254b20b103e0738187f2940442d1a5"
+        "sha256": "ff133ab60bf516cf35fc3e095f1e541f565b4b1592798bc94c9b31b837510618"
       },
       {
         "path": "src/smart/chart-bar/js/templates/default.js",
@@ -458,11 +471,11 @@
       },
       {
         "path": "src/smart/chart-bar/docs.md",
-        "sha256": "414ed1f21032eb87b8d9f263da162af021f8defeac85968aa54db098ac2c6a1a"
+        "sha256": "b233adb4a0e90fdda38001ef2d33fa3dfb7562f4d3169d16cbb8e157235a0c54"
       },
       {
         "path": "src/smart/chart-bar/component.json",
-        "sha256": "fc7898747a6bb7eff0cf1ba98d4fa264ca1cf01966d40771f9bdcf736ef8cae0"
+        "sha256": "a2adf7b6dbef61282bb04247d7f5132f9279e8cec1bdb227bce5f7f5cadc547c"
       },
       {
         "path": "src/smart/chart-bar/lang/en.json",

@@ -119,6 +119,64 @@
       }
     },
     {
+      "name": "palette",
+      "title": "Готовый набор cool",
+      "settings": {
+        "label": "Диск",
+        "category": "kind",
+        "value": "size",
+        "max": 100,
+        "names": {
+          "system": "Система",
+          "apps": "Приложения",
+          "docs": "Документы",
+          "photos": "Фото"
+        },
+        "value-format": "integer",
+        "items": [
+          {
+            "kind": "system",
+            "size": 22
+          },
+          {
+            "kind": "apps",
+            "size": 13
+          },
+          {
+            "kind": "docs",
+            "size": 7
+          },
+          {
+            "kind": "photos",
+            "size": 3
+          }
+        ],
+        "palette": "cool"
+      },
+      "expect": {
+        "name": "Диск",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "parts bar palette",
+        "props": {
+          "label": "Диск",
+          "category": "kind",
+          "value": "size",
+          "max": 100,
+          "value-format": "integer",
+          "palette": "cool"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
       "name": "context",
       "title": "Контекст модели",
       "settings": {

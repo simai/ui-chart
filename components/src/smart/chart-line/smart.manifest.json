@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-line",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "title": "Line chart",
   "summary": "A line chart: one or more series over time, a number or categories, with axes, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -50,6 +50,19 @@
         "type": "string",
         "default": "",
         "description": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «График»."
+      },
+      "palette": {
+        "type": "string",
+        "default": "theme",
+        "description": "The seriess' colours as a named set, by place, each a light and a dark tone that change with the theme and hold 3:1 against surfaces 0-2: theme (the theme's own tones, as before), vivid (8, the first the brand's), soft (8, muted), warm (6), cool (6), brand (4 steps of the primary family, for ordered data). Past its size a set starts again. colors wins for the seriess it names.",
+        "enum": [
+          "theme",
+          "vivid",
+          "soft",
+          "warm",
+          "cool",
+          "brand"
+        ]
       },
       "x": {
         "type": "string",
@@ -449,7 +462,7 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-line/index.js",
-        "sha256": "04e4d4f01b7050576f693f0651d983b2f7722574328e8101f3fd1a2c6490b2c6"
+        "sha256": "1fc803a7834d85a816065a091430b34c1563a03bae993dbcb2d93f9d2afa5229"
       },
       {
         "path": "src/smart/chart-line/js/templates/default.js",
@@ -465,11 +478,11 @@
       },
       {
         "path": "src/smart/chart-line/docs.md",
-        "sha256": "31212a7932ad0f9cceeeb84058008eac80c27f2d2c249efe0cb258638e51ae61"
+        "sha256": "00ac0da0d9b91cca8a27654e0028aa17b044f73c4ba189e17556d65607b58562"
       },
       {
         "path": "src/smart/chart-line/component.json",
-        "sha256": "744559c0436a565bed336aa398b5747e43938807d14be01267e483fb745f73b2"
+        "sha256": "d700cda8a74093d399b900178d1b29fa771f7d9780915a5813125e7bfe09a90e"
       },
       {
         "path": "src/smart/chart-line/lang/en.json",

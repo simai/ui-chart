@@ -22,6 +22,7 @@ import {seriesFacts} from '../chart-core/describe.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
+import {PALETTES} from '../chart-core/palettes.js';
 import {renderBarChartTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';
@@ -109,6 +110,20 @@ class SfBarChart extends ChartBarElement {
       this._colours = readColours(this.colors, (said) => console.warn(`<sf-chart-bar> ${said}`));
     }
     return this._colours;
+  }
+
+  // Each series' colour by key: the page's own (colors) or the named
+  // palette's by place (chart-core/palettes, D7). With neither, the template
+  // keeps the theme's colours.
+  paints(list) {
+    const own = this.colours();
+    const set = PALETTES[this.palette];
+    if (!set) return own;
+    const out = new Map(own);
+    list.forEach((one, place) => {
+      if (!out.has(one.key)) out.set(one.key, set[place % set.length]);
+    });
+    return out;
   }
 
   words(key, vars) {
@@ -496,7 +511,7 @@ class SfBarChart extends ChartBarElement {
       summaryText: state === 'ready' ? this.summarize(model, shown) : '',
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
-      paint: this.colours(),
+      paint: this.paints(model?.series ?? []),
       rootClass: this.getRootClass(),
     });
   }

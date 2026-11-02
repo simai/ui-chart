@@ -375,8 +375,18 @@ try {
     await make(page, 'sf-chart-sparkline', {label: 'Посещения', color: 'success'}, {items: week});
     const spark = await page.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-sparkline-line')).stroke);
     if (spark !== success) note({case: 'sparkline: color is a role\'s graphic tone', got: spark, want: success});
-    evidence.pageColours = {bar: given, swapped, pie, parts, sparkline: spark, warnings: warnings.length};
+    await make(page, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2', palette: 'warm'}, {items: cities, colors: {q2: '#0a7f6f'}});
+    const warm = await fillsOf('.sf-chart-bar-series');
+    if (warm.q1 !== 'rgb(213, 66, 52)' || warm.q2 !== 'rgb(10, 127, 111)') note({case: 'palette: a series takes the set\'s colour by place, colors wins for the ones it names', got: warm});
+    evidence.pageColours = {bar: given, swapped, pie, parts, sparkline: spark, warm, warnings: warnings.length};
     await page.close();
+
+    const dark = await open({theme: 'dark'});
+    await make(dark, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2', palette: 'warm'}, {items: cities});
+    const night = await dark.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-bar-series[data-series="q1"] .sf-chart-bar-bar')).fill);
+    if (night !== 'rgb(245, 95, 75)') note({case: 'palette: in the dark theme a colour takes its dark tone', got: night});
+    evidence.pageColours.warmDark = night;
+    await dark.close();
 
     const forced = await open({colors: 'active'});
     await make(forced, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities, colors: {q1: '#0a7f6f'}});

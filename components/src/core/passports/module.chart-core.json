@@ -17,11 +17,17 @@
     "src/smart/chart-core/decimate.js",
     "src/smart/chart-core/describe.js",
     "src/smart/chart-core/format.js",
+    "src/smart/chart-core/palettes.js",
     "src/smart/chart-core/path.js",
     "src/smart/chart-core/scale.js",
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "5da6aad5559ccac8825b5e5659937937aeeed2c109a4780d8322f31c8a50d378",
-  "dependencies": []
+  "content_sha256": "43194371c67750bec7c77643ff1f9388837bc0d88518d5445d899bf0a01681fe",
+  "dependencies": [
+    {
+      "id": "tokens.colour",
+      "range": "^1.1.0"
+    }
+  ]
 }

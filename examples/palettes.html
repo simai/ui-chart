@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru" class="theme-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palettes — SIMAI Chart</title>
+  <!-- Every named palette (docs/DECISIONS.md D7) on a bar chart and a pie
+       chart, in the light and the dark theme. Served like dashboard.html:
+       see serve.mjs. -->
+  <script>
+    window.sfPath = '/framework/';
+    window.sfSmartPath = '/framework/';
+    window.SF_BOOT_CONFIG = {packages: {chart: {base: '/package/smart/'}}};
+  </script>
+  <link rel="stylesheet" href="/framework/core/css/core.css">
+  <style>
+    body { margin: 0; background: var(--sf-surface-0); color: var(--sf-on-surface); font-family: var(--sf-text--family); }
+    main { display: grid; gap: var(--sf-space-2); max-inline-size: 72rem; margin-inline: auto; padding: var(--sf-space-1); }
+    header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sf-space-1\/2); }
+    h1 { margin: 0; font-size: var(--sf-heading-4--size); line-height: var(--sf-heading-4--height); }
+    h2 { margin: 0 0 var(--sf-space-1\/2); font-size: var(--sf-heading-6--size); line-height: var(--sf-heading-6--height); }
+    .row { display: grid; gap: var(--sf-space-1); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Готовые наборы цветов</h1>
+    <button type="button" id="theme">Тёмная тема</button>
+  </header>
+  <div id="sets"></div>
+</main>
+<script src="/framework/core/js/core.js"></script>
+<script type="module">
+  const SETS = [
+    ['theme', 'Тема (по умолчанию)'],
+    ['vivid', 'Разноцветный'],
+    ['soft', 'Спокойный'],
+    ['warm', 'Тёплый'],
+    ['cool', 'Холодный'],
+    ['brand', 'Фирменный'],
+  ];
+  const months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'];
+  const series = ['web', 'shop', 'partners', 'phone'];
+  const names = {web: 'Сайт', shop: 'Магазин', partners: 'Партнёры', phone: 'Телефон', mail: 'Почта', other: 'Прочее'};
+  const items = months.map((month, index) => Object.fromEntries([['month', month], ...series.map((key, at) => [key, Math.round(60 + 40 * Math.sin(index / 1.5 + at) + at * 15)])]));
+  const parts = ['web', 'shop', 'partners', 'phone', 'mail', 'other'].map((channel, index) => ({channel, orders: [540, 310, 220, 160, 90, 50][index]}));
+  const box = document.getElementById('sets');
+  for (const [palette, title] of SETS) {
+    const section = document.createElement('section');
+    section.innerHTML = `<h2>${title} · <code>${palette}</code></h2><div class="row"></div>`;
+    const bar = document.createElement('sf-chart-bar');
+    Object.entries({label: `Заказы по месяцам, ${title}`, x: 'month', y: series.join(','), palette, 'y-format': 'integer'}).forEach(([key, value]) => bar.setAttribute(key, value));
+    const pie = document.createElement('sf-chart-pie');
+    Object.entries({label: `Доли каналов, ${title}`, category: 'channel', value: 'orders', palette, hole: 'ring', 'value-format': 'integer'}).forEach(([key, value]) => pie.setAttribute(key, value));
+    section.querySelector('.row').append(bar, pie);
+    box.append(section);
+  }
+  // A property set before the element is defined would hide its setter, so
+  // the data waits for the Loader to define the charts.
+  await Promise.all(['sf-chart-bar', 'sf-chart-pie'].map((tag) => customElements.whenDefined(tag)));
+  for (const section of box.children) {
+    const [bar, pie] = section.querySelector('.row').children;
+    bar.names = names;
+    bar.items = items;
+    pie.names = names;
+    pie.items = parts;
+  }
+  const button = document.getElementById('theme');
+  button.addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('theme-dark');
+    document.documentElement.classList.toggle('theme-light', !dark);
+    button.textContent = dark ? 'Светлая тема' : 'Тёмная тема';
+  });
+</script>
+</body>
+</html>

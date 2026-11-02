@@ -143,6 +143,38 @@
       "change": "minor",
       "summary": "color: the line's own colour, a Framework role (which follows the theme) or a CSS colour, over --sf-chart-sparkline-color; a value that is not a colour is dropped and one under 3:1 against the background is reported in the console.",
       "consumer": "Nothing to do: color defaults to empty, so a sparkline draws as before."
+    },
+    {
+      "unit": "smart.chart-line",
+      "version": "0.4.0",
+      "recorded_on": "2026-11-03",
+      "change": "minor",
+      "summary": "palette: the seriess' colours as a named set (vivid, soft, warm, cool, brand), each colour a light-dark pair on the Framework's tone ladder, 3:1 against surfaces 0-2 in both themes and, for the first five, told apart under the three common colour-vision deficiencies; colors still wins for the seriess it names.",
+      "consumer": "Nothing to do: palette defaults to theme, so a chart draws as before; set palette to use a named set."
+    },
+    {
+      "unit": "smart.chart-bar",
+      "version": "0.4.0",
+      "recorded_on": "2026-11-03",
+      "change": "minor",
+      "summary": "palette: the seriess' colours as a named set (vivid, soft, warm, cool, brand), each colour a light-dark pair on the Framework's tone ladder, 3:1 against surfaces 0-2 in both themes and, for the first five, told apart under the three common colour-vision deficiencies; colors still wins for the seriess it names.",
+      "consumer": "Nothing to do: palette defaults to theme, so a chart draws as before; set palette to use a named set."
+    },
+    {
+      "unit": "smart.chart-pie",
+      "version": "0.3.0",
+      "recorded_on": "2026-11-03",
+      "change": "minor",
+      "summary": "palette: the parts' colours as a named set (vivid, soft, warm, cool, brand), each colour a light-dark pair on the Framework's tone ladder, 3:1 against surfaces 0-2 in both themes and, for the first five, told apart under the three common colour-vision deficiencies; colors still wins for the parts it names.",
+      "consumer": "Nothing to do: palette defaults to theme, so a chart draws as before; set palette to use a named set."
+    },
+    {
+      "unit": "smart.chart-parts",
+      "version": "0.3.0",
+      "recorded_on": "2026-11-03",
+      "change": "minor",
+      "summary": "palette: the parts' colours as a named set (vivid, soft, warm, cool, brand), each colour a light-dark pair on the Framework's tone ladder, 3:1 against surfaces 0-2 in both themes and, for the first five, told apart under the three common colour-vision deficiencies; colors still wins for the parts it names.",
+      "consumer": "Nothing to do: palette defaults to theme, so a chart draws as before; set palette to use a named set."
     }
   ]
 }

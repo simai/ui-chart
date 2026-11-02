@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-parts",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "title": "Parts bar",
   "summary": "A parts bar: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (a disk, a quota, a model's context), the smallest folded into «Другое», a list of the parts with values and shares, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -52,6 +52,19 @@
         "type": "string",
         "default": "",
         "description": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Полоса частей»."
+      },
+      "palette": {
+        "type": "string",
+        "default": "theme",
+        "description": "The parts' colours as a named set, by place, each a light and a dark tone that change with the theme and hold 3:1 against surfaces 0-2: theme (the theme's own tones, as before), vivid (8, the first the brand's), soft (8, muted), warm (6), cool (6), brand (4 steps of the primary family, for ordered data). Past its size a set starts again. colors wins for the parts it names.",
+        "enum": [
+          "theme",
+          "vivid",
+          "soft",
+          "warm",
+          "cool",
+          "brand"
+        ]
       },
       "category": {
         "type": "string",
@@ -341,7 +354,7 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-parts/index.js",
-        "sha256": "2ac8abba28d8492288fe53ccd6eb43addf53444c4a039d348dd8bfe0aed94d20"
+        "sha256": "1c4efc32b4ddf48ddedb0dde36341a35768f0ef18194344c92ed6e2a83799510"
       },
       {
         "path": "src/smart/chart-parts/js/templates/default.js",
@@ -357,11 +370,11 @@
       },
       {
         "path": "src/smart/chart-parts/docs.md",
-        "sha256": "0ab728c39dbbbfffb4f020cd86fe352e9d1aaeb616f9411973c50eb2dd424496"
+        "sha256": "802b41c0c72306b9080735927331dd23719ef5ebe5b9fde7d7a85daee0e7cf81"
       },
       {
         "path": "src/smart/chart-parts/component.json",
-        "sha256": "429ef2bd4522194f3c1fc725622080dcd1ec32c06e34515aedf1d48d8d412646"
+        "sha256": "8ad7a05eba07eabd7876aabb7c0b9417ca26c1f2fdab818dbfb4d68af2b1631d"
       },
       {
         "path": "src/smart/chart-parts/lang/en.json",

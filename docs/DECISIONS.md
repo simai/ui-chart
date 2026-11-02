@@ -311,6 +311,36 @@ which. So every chart with more than one series takes a `colors` setting:
 - **No palette is invented here.** A series without a colour keeps the
   palette by its place, which becomes `--sf-chart-1…8` when D4 arrives.
 
+## D7. Palettes made in the package
+
+> **Кратко.** Владелец решил: готовые наборы цветов делаем у себя, не дожидаясь
+> Фреймворка. Наборы не придуманы на глаз и не взяты у других: их строит наш
+> генератор на лестнице тонов Фреймворка, поэтому они сами переходят в тёмную
+> тему.
+
+This changes D4 option C ("no local palette") for named sets.
+
+- **Generator.** `components/scripts/chart-palettes.mjs` builds every colour
+  as a hue at a light tone (CIELAB L* 40–55) and a dark tone 10 above it,
+  the step the Framework takes from tone 50 to 60 for its graphic colours.
+  Every next colour is the candidate farthest from the chosen ones, in
+  both themes. For the first five it is also farthest under protanopia,
+  deuteranopia and tritanopia. Every colour holds 3:1 against surfaces 0–2
+  in its theme. It writes `chart-core/palettes.js`, and a test fails when
+  that file is stale.
+- **Sets**, chosen by `palette` on the line, bar, pie and parts charts:
+  - `vivid`: 8 colours, the first being the brand's graphic tone. Each
+    colour is `var(--sf-chart-<n>, …)`, so the Framework's roles take its
+    place when D4 delivers them.
+  - `soft`: 8 muted colours.
+  - `warm`: 6 colours.
+  - `cool`: 6 colours.
+  - `brand`: 4 steps of the theme's primary family, for ordered data.
+  - `theme` is the default and draws as before.
+- **`colors` still wins** for the series it names (D6).
+- **Status hues are not categories.** The sets are hues for telling
+  series apart, not meanings.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -321,6 +351,7 @@ which. So every chart with more than one series takes a `colors` setting:
 | D4 | A: the token order sent to the dispatcher | 2026-11-02 | bus `msg-a61844188d13497380fd` |
 | D5 | A: own renderer, SVG, Canvas for the marks layer past 2,000 | 2026-11-02 | `q-3197850dc8`, decided by the recommendation under the owner's delegation |
 | D6 | `colors` on every chart with series, `color` on the sparkline | 2026-11-02 | the owner's «да» in the chat to the proposal of `colors` |
+| D7 | Named palettes made by the package's generator on the Framework's tone ladder, `palette` setting | 2026-11-03 | the owner's «Yes, into the package» in the chat |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

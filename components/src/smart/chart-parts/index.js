@@ -19,6 +19,7 @@ import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
+import {PALETTES} from '../chart-core/palettes.js';
 import {renderPartsBarTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';
@@ -71,6 +72,20 @@ class SfPartsBar extends ChartPartsElement {
       this._colours = readColours(this.colors, (said) => console.warn(`<sf-chart-parts> ${said}`));
     }
     return this._colours;
+  }
+
+  // Each part's colour by key: the page's own (colors) or the named
+  // palette's by place (chart-core/palettes, D7). With neither, the template
+  // keeps the theme's colours.
+  paints(list) {
+    const own = this.colours();
+    const set = PALETTES[this.palette];
+    if (!set) return own;
+    const out = new Map(own);
+    list.forEach((one, place) => {
+      if (!out.has(one.key)) out.set(one.key, set[place % set.length]);
+    });
+    return out;
   }
 
   words(key, vars) {
@@ -278,7 +293,7 @@ class SfPartsBar extends ChartPartsElement {
       summaryText: state === 'ready' ? this.summarize(model, segments) : '',
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
-      paint: this.colours(),
+      paint: this.paints(model?.parts ?? []),
       rootClass: this.getRootClass(),
     });
   }
