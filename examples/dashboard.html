@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru" class="theme-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tier 1 dashboard — SIMAI Chart</title>
+  <!-- Every Tier 1 chart on one page, as a dashboard uses them. The free
+       Framework at the pinned release (ui-2d39b617a719) is served under
+       /framework/, the chart package build under /package/: see serve.mjs.
+       The page declares the package before the core starts; the Loader then
+       fetches each chart when the page uses it. -->
+  <script>
+    window.sfPath = '/framework/';
+    window.sfSmartPath = '/framework/';
+    window.SF_BOOT_CONFIG = {packages: {chart: {base: '/package/smart/'}}};
+  </script>
+  <link rel="stylesheet" href="/framework/core/css/core.css">
+  <style>
+    body { margin: 0; background: var(--sf-surface-0); color: var(--sf-on-surface); font-family: var(--sf-text--family); }
+    main { display: grid; gap: var(--sf-space-2); max-inline-size: 72rem; margin-inline: auto; padding: var(--sf-space-1); }
+    .tiles { display: grid; gap: var(--sf-space-1); grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+    .grid { display: grid; gap: var(--sf-space-1); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+    header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sf-space-1\/2); }
+    h1 { margin: 0; font-size: var(--sf-heading-4--size); line-height: var(--sf-heading-4--height); }
+    h2 { margin: 0 0 var(--sf-space-1\/2); font-size: var(--sf-heading-6--size); line-height: var(--sf-heading-6--height); }
+    table { border-collapse: collapse; font-size: var(--sf-text-small--size); }
+    th, td { padding: var(--sf-a4) var(--sf-space-1\/2); border-block-end: var(--sf-px) solid var(--sf-outline-variant); text-align: start; }
+    #log { min-block-size: 3lh; margin: 0; padding: var(--sf-space-1\/2); border: var(--sf-px) solid var(--sf-outline-variant); border-radius: var(--sf-radius-1); font-size: var(--sf-text-small--size); white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Панель: первый уровень графиков</h1>
+    <button type="button" id="theme">Тёмная тема</button>
+  </header>
+
+  <section class="tiles" aria-label="Показатели">
+    <sf-metric label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе">
+      <sf-sparkline id="revenue-trend" slot="chart" label="Выручка за 12 недель" shape="area" summary="none"></sf-sparkline>
+    </sf-metric>
+    <sf-metric label="Нагрузка CPU" value="0.82" previous="0.64" format="percent" better="down" status="warning" hint="Выше 80 % пятнадцать минут" period-text="за час"></sf-metric>
+    <sf-metric label="Хранилище" value="45.25" max="100" format="unit-gigabyte" status="success" hint="Свободно 55 %"></sf-metric>
+    <sf-metric id="queue" label="Очередь заданий" value="14" delta="-6" delta-format="absolute" better="down" format="integer" openable></sf-metric>
+    <sf-metric id="traffic" label="Трафик" format="unit-megabit-per-second" data-state="loading"></sf-metric>
+  </section>
+
+  <div class="grid">
+    <section>
+      <h2>Продажи по городам</h2>
+      <sf-bar-chart id="cities" label="Продажи по городам, 2026" x="city" y="q1,q2" y-format="integer"></sf-bar-chart>
+    </section>
+    <section>
+      <h2>Каналы стопкой</h2>
+      <sf-bar-chart id="channels" label="Заказы по каналам" x="month" y="web,shop,partners" stack="stacked" value-labels="end"></sf-bar-chart>
+    </section>
+    <section>
+      <h2>Доли каналов</h2>
+      <sf-bar-chart id="shares" label="Доля каналов" x="month" y="web,shop,partners" stack="normalized" size="1/2"></sf-bar-chart>
+    </section>
+    <section>
+      <h2>Рейтинг</h2>
+      <sf-bar-chart id="ranking" label="Продажи за I квартал" x="city" y="q1" orientation="horizontal" sort="descending" value-labels="end" y-format="integer" size="1/2"></sf-bar-chart>
+    </section>
+    <section>
+      <h2>Части целого</h2>
+      <sf-pie-chart id="pie" label="Заказы по каналам, октябрь" category="channel" value="orders" value-format="integer"></sf-pie-chart>
+    </section>
+    <section>
+      <h2>Кольцо и «Другое»</h2>
+      <sf-pie-chart id="ring" label="Системы посетителей" category="os" value="share" hole="ring" max-parts="5" value-format="decimal-1"></sf-pie-chart>
+    </section>
+  </div>
+
+  <section>
+    <h2>Мини-графики в таблице</h2>
+    <table>
+      <thead><tr><th scope="col">Сервер</th><th scope="col">Нагрузка за сутки</th><th scope="col">Запросы</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">api-1</th><td><sf-sparkline id="s1" label="api-1, нагрузка" y-format="percent" mark="extremes"></sf-sparkline></td><td><sf-sparkline id="r1" label="api-1, запросы" shape="bar" size="1/2"></sf-sparkline></td></tr>
+        <tr><th scope="row">api-2</th><td><sf-sparkline id="s2" label="api-2, нагрузка" y-format="percent" mark="extremes"></sf-sparkline></td><td><sf-sparkline id="r2" label="api-2, запросы" shape="bar" size="1/2"></sf-sparkline></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>События</h2>
+    <pre id="log" aria-live="polite"></pre>
+  </section>
+</main>
+<script src="/framework/core/js/core.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const cities = [
+    {city: 'Москва', q1: 420, q2: 465}, {city: 'Санкт-Петербург', q1: 310, q2: 298}, {city: 'Казань', q1: 180, q2: 214},
+    {city: 'Новосибирск', q1: 150, q2: 171}, {city: 'Екатеринбург', q1: 164, q2: 159}, {city: 'Нижний Новгород', q1: 120, q2: null},
+  ];
+  const channels = [
+    {month: '2026-07', web: 42, shop: 30, partners: 12}, {month: '2026-08', web: 45, shop: 28, partners: 15}, {month: '2026-09', web: 51, shop: 26, partners: 14},
+    {month: '2026-10', web: 55, shop: 25, partners: 18}, {month: '2026-11', web: 58, shop: 24, partners: 20}, {month: '2026-12', web: 66, shop: 29, partners: 22},
+  ];
+  const channelNames = {web: 'Сайт', shop: 'Магазин', partners: 'Партнёры', phone: 'Телефон'};
+  const wave = (count, base, swing, step) => Array.from({length: count}, (_, index) => Math.round((base + swing * Math.sin(index / step)) * 100) / 100);
+
+  $('revenue-trend').items = [0.98, 1.02, 1.0, 1.05, 1.08, 1.04, 1.1, 1.12, 1.1, 1.15, 1.1, 1.25].map((value) => value * 1000000);
+  $('cities').names = {q1: 'I квартал', q2: 'II квартал'};
+  $('cities').items = cities;
+  for (const id of ['channels', 'shares']) {
+    $(id).names = channelNames;
+    $(id).items = channels;
+  }
+  $('ranking').items = cities;
+  $('pie').names = channelNames;
+  $('pie').items = [{channel: 'web', orders: 540}, {channel: 'shop', orders: 310}, {channel: 'partners', orders: 120}, {channel: 'phone', orders: 30}];
+  $('ring').items = [['Windows', 61], ['macOS', 17], ['Linux', 9], ['Android', 6], ['iOS', 4], ['ChromeOS', 1.5], ['FreeBSD', 0.8]].map(([os, share]) => ({os, share}));
+  $('s1').items = wave(24, 0.55, 0.25, 3);
+  $('s2').items = wave(24, 0.35, 0.1, 5);
+  $('r1').items = wave(12, 120, 40, 2).map(Math.round);
+  $('r2').items = wave(12, 80, 30, 3).map(Math.round);
+  setTimeout(() => {
+    $('traffic').setAttribute('value', '412');
+    $('traffic').setAttribute('previous', '380');
+    $('traffic').setAttribute('data-state', 'auto');
+  }, 1500);
+
+  const log = (text) => { $('log').textContent = `${text}\n${$('log').textContent}`.split('\n').slice(0, 8).join('\n'); };
+  for (const tag of ['sf-bar-chart', 'sf-pie-chart']) {
+    for (const verb of ['select', 'toggle']) document.addEventListener(`${tag}-${verb}`, (event) => log(`${tag} ${verb} ${JSON.stringify(event.detail)}`));
+  }
+  $('queue').addEventListener('sf-metric-open', () => log('sf-metric open: очередь заданий'));
+  $('theme').addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('theme-dark');
+    document.documentElement.classList.toggle('theme-light', !dark);
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    $('theme').textContent = dark ? 'Светлая тема' : 'Тёмная тема';
+  });
+</script>
+</body>
+</html>
