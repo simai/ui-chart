@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ru" class="theme-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chart stand — SIMAI Chart</title>
+  <!-- The stand of the chart package: every chart with every setting, built
+       from the package itself. It reads each chart's component.json (the
+       settings form) and examples.json (the presets) from the build under
+       /package/, so a new setting or example shows here without a change to
+       this page. The free Framework at the pinned release (ui-2d39b617a719)
+       is served under /framework/: see serve.mjs. -->
+  <script>
+    window.sfPath = '/framework/';
+    window.sfSmartPath = '/framework/';
+    window.SF_BOOT_CONFIG = {packages: {chart: {base: '/package/smart/'}}};
+  </script>
+  <link rel="stylesheet" href="/framework/core/css/core.css">
+  <style>
+    body { margin: 0; background: var(--sf-surface-0); color: var(--sf-on-surface); font-family: var(--sf-text--family); }
+    .stand { display: grid; grid-template-columns: minmax(16rem, 20rem) 1fr; min-block-size: 100vh; }
+    @media (max-width: 52rem) { .stand { grid-template-columns: 1fr; } }
+    aside { display: flex; flex-direction: column; gap: var(--sf-space-1); padding: var(--sf-space-1); border-inline-end: var(--sf-px) solid var(--sf-outline-variant); background: var(--sf-surface-1); }
+    main { display: flex; flex-direction: column; gap: var(--sf-space-1); padding: var(--sf-space-1); min-inline-size: 0; }
+    h1 { margin: 0; font-size: var(--sf-heading-5--size); line-height: var(--sf-heading-5--height); }
+    h2 { margin: 0 0 var(--sf-space-1\/2); font-size: var(--sf-heading-6--size); line-height: var(--sf-heading-6--height); }
+    nav { display: flex; flex-wrap: wrap; gap: var(--sf-space-1\/2); font-size: var(--sf-text-small--size); }
+    a { color: var(--sf-primary); }
+    fieldset { margin: 0; padding: 0; border: 0; display: grid; gap: var(--sf-space-1\/2); }
+    legend { padding: 0; margin-block-end: var(--sf-space-1\/2); font-weight: 600; }
+    label.field { display: grid; grid-template-columns: 8rem 1fr; align-items: center; gap: var(--sf-space-1\/2); font-size: var(--sf-text-small--size); }
+    label.field > span { overflow-wrap: anywhere; font-family: var(--sf-code--family, monospace); }
+    label.field.wide { grid-template-columns: 1fr; }
+    input:not([type=checkbox]):not([type=range]), select, textarea { inline-size: 100%; box-sizing: border-box; font: inherit; padding: var(--sf-a4); color: inherit; background: var(--sf-surface-0); border: var(--sf-px) solid var(--sf-outline); border-radius: var(--sf-radius-1); }
+    textarea { font-family: var(--sf-code--family, monospace); font-size: var(--sf-text-small--size); min-block-size: 8rem; resize: vertical; }
+    textarea[aria-invalid=true] { border-color: var(--sf-error); }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sf-space-1\/2) var(--sf-space-1); }
+    .chips { display: flex; flex-wrap: wrap; gap: var(--sf-a4); }
+    .chips button, .toolbar button { font: inherit; font-size: var(--sf-text-small--size); padding: var(--sf-a4) var(--sf-space-1\/2); color: inherit; background: var(--sf-surface-0); border: var(--sf-px) solid var(--sf-outline); border-radius: var(--sf-radius-1); cursor: pointer; }
+    .chips button[aria-pressed=true] { background: var(--sf-primary); color: var(--sf-on-primary); border-color: var(--sf-primary); }
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sf-space-1\/2) var(--sf-space-1); font-size: var(--sf-text-small--size); }
+    .preview { padding: var(--sf-space-1); border: var(--sf-px) dashed var(--sf-outline-variant); border-radius: var(--sf-radius-1); overflow: auto; }
+    .frame { margin-inline: auto; }
+    .note { margin: 0; font-size: var(--sf-text-small--size); color: var(--sf-on-surface-variant); }
+    pre { margin: 0; padding: var(--sf-space-1\/2); max-block-size: 18rem; overflow: auto; border: var(--sf-px) solid var(--sf-outline-variant); border-radius: var(--sf-radius-1); font-size: var(--sf-text-small--size); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .panels { display: grid; gap: var(--sf-space-1); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+  </style>
+</head>
+<body>
+<div class="stand">
+  <aside>
+    <h1>Стенд графиков</h1>
+    <nav aria-label="Страницы">
+      <a href="/stand.html">Стенд</a>
+      <a href="/dashboard.html">Панель</a>
+      <a href="/line-chart.html">Линейный график</a>
+    </nav>
+    <section>
+      <h2>График</h2>
+      <div class="chips" id="charts" role="group" aria-label="График"></div>
+    </section>
+    <section>
+      <h2>Примеры</h2>
+      <div class="chips" id="examples" role="group" aria-label="Примеры"></div>
+    </section>
+    <form id="settings" autocomplete="off"></form>
+  </aside>
+  <main>
+    <div class="toolbar">
+      <label>Доставка данных
+        <select id="delivery">
+          <option value="property">свойство items из скрипта</option>
+          <option value="island">в разметке: JSON-остров data-sf-settings</option>
+          <option value="late">позже: загрузка, затем данные</option>
+          <option value="error">ошибка, затем «Повторить»</option>
+        </select>
+      </label>
+      <label>Ширина <input type="range" id="width" min="240" max="1280" step="8" value="760"> <output id="width-out">760 px</output></label>
+      <label>Язык
+        <select id="lang"><option value="ru">ru</option><option value="en">en</option></select>
+      </label>
+      <button type="button" id="theme">Тёмная тема</button>
+      <button type="button" id="rebuild">Собрать заново</button>
+    </div>
+    <p class="note" id="delivery-note"></p>
+    <div class="preview"><div class="frame" id="frame"></div></div>
+    <div class="panels">
+      <section>
+        <h2>Разметка</h2>
+        <pre id="code"></pre>
+      </section>
+      <section>
+        <h2>События</h2>
+        <pre id="log" aria-live="polite"></pre>
+      </section>
+    </div>
+  </main>
+</div>
+<script src="/framework/core/js/core.js"></script>
+<script type="module">
+  const CHARTS = [
+    ['line-chart', 'Линии'], ['bar-chart', 'Столбцы'], ['pie-chart', 'Круг'], ['sparkline', 'Мини-график'], ['metric', 'Показатель'],
+  ];
+  // Settings the stand draws as JSON, and those it never offers as a field.
+  const DATA = new Set(['items', 'names']);
+  const NOTES = {
+    property: 'Страница присваивает chart.items = […] и chart.names = {…} после того, как элемент в документе.',
+    island: 'Списки и объекты лежат внутри тега: <script type="application/json" data-sf-settings>. Скрипт страницы не нужен; сервер печатает так первую отрисовку (стандарт §5.4).',
+    late: 'Сначала data-state="loading": график держит свой размер. Через 1,5 с страница даёт данные и ставит data-state="auto".',
+    error: 'data-state="error": кнопка «Повторить» шлёт событие refresh, страница загружает данные заново.',
+  };
+  const $ = (id) => document.getElementById(id);
+  const cache = {};
+  const state = {chart: 'line-chart', example: null, values: {}};
+  let element = null;
+  let timer = 0;
+
+  const fetchJson = async (path) => (await fetch(path)).json();
+  async function load(chart) {
+    if (!cache[chart]) {
+      const [manifest, examples] = await Promise.all([
+        fetchJson(`/package/smart/${chart}/component.json`),
+        fetchJson(`/package/smart/${chart}/examples.json`),
+      ]);
+      cache[chart] = {manifest, examples: examples.examples.filter((one) => !one.script)};
+    }
+    return cache[chart];
+  }
+
+  const log = (text) => { $('log').textContent = `${text}\n${$('log').textContent}`.split('\n').slice(0, 12).join('\n'); };
+
+  // The form: one field per setting, by its type in component.json.
+  function renderForm({manifest}) {
+    const form = $('settings');
+    form.replaceChildren();
+    const groups = {data: document.createElement('fieldset'), view: document.createElement('fieldset')};
+    groups.data.innerHTML = '<legend>Данные</legend>';
+    groups.view.innerHTML = '<legend>Настройки</legend>';
+    for (const [name, setting] of Object.entries(manifest.settings)) {
+      const label = document.createElement('label');
+      label.className = DATA.has(name) ? 'field wide' : 'field';
+      label.title = setting.summary ?? '';
+      label.innerHTML = `<span>${name}</span>`;
+      let input;
+      if (setting.type === 'enum') {
+        input = document.createElement('select');
+        for (const value of setting.values) input.append(new Option(value, value));
+      } else if (setting.type === 'boolean') {
+        input = document.createElement('input');
+        input.type = 'checkbox';
+      } else if (setting.type === 'list' || setting.type === 'object') {
+        input = document.createElement('textarea');
+        input.spellcheck = false;
+      } else {
+        input = document.createElement('input');
+        input.type = setting.type === 'number' ? 'number' : 'text';
+        if (setting.type === 'number') input.step = 'any';
+      }
+      input.name = name;
+      label.append(input);
+      (DATA.has(name) || ['x', 'y', 'series', 'category', 'value'].includes(name) ? groups.data : groups.view).append(label);
+    }
+    form.append(groups.data, groups.view);
+    fillForm(manifest);
+  }
+
+  function fillForm(manifest) {
+    for (const [name, setting] of Object.entries(manifest.settings)) {
+      const input = $('settings').elements[name];
+      const value = state.values[name] ?? setting.default;
+      if (input.type === 'checkbox') input.checked = Boolean(value);
+      else if (input.tagName === 'TEXTAREA') input.value = value === undefined ? '' : JSON.stringify(value, null, 1);
+      else input.value = value ?? '';
+      input.removeAttribute('aria-invalid');
+    }
+  }
+
+  function readForm(manifest) {
+    const values = {};
+    for (const [name, setting] of Object.entries(manifest.settings)) {
+      const input = $('settings').elements[name];
+      if (input.type === 'checkbox') {
+        if (input.checked) values[name] = true;
+      } else if (input.tagName === 'TEXTAREA') {
+        if (!input.value.trim()) continue;
+        try {
+          values[name] = JSON.parse(input.value);
+          input.removeAttribute('aria-invalid');
+        } catch {
+          input.setAttribute('aria-invalid', 'true');
+        }
+      } else if (input.value !== '' && String(input.value) !== String(setting.default ?? '')) {
+        values[name] = input.value;
+      }
+    }
+    return values;
+  }
+
+  const escape = (text) => String(text).replace(/&/gu, '&amp;').replace(/"/gu, '&quot;').replace(/</gu, '&lt;');
+
+  // The page markup and script that make the same chart, as the delivery says.
+  function code(tag, attributes, data, delivery) {
+    const attrs = Object.entries(attributes).map(([name, value]) => (value === true ? ` ${name}` : ` ${name}="${escape(value)}"`)).join('');
+    const json = JSON.stringify(data);
+    if (delivery === 'island' && Object.keys(data).length) {
+      return `<${tag} id="chart"${attrs}>\n  <script type="application/json" data-sf-settings>${json}</` + `script>\n</${tag}>`;
+    }
+    const sets = Object.entries(data).map(([name, value]) => `chart.${name} = ${JSON.stringify(value)};`).join('\n');
+    if (delivery === 'late') {
+      return `<${tag} id="chart"${attrs} data-state="loading"></${tag}>\n<script>\n  const chart = document.getElementById('chart');\n  load().then(() => {\n    ${sets.replaceAll('\n', '\n    ')}\n    chart.setAttribute('data-state', 'auto');\n  });\n</` + 'script>';
+    }
+    if (delivery === 'error') {
+      return `<${tag} id="chart"${attrs} data-state="error"></${tag}>\n<script>\n  const chart = document.getElementById('chart');\n  chart.addEventListener('${tag}-refresh', () => load().then(() => {\n    ${sets.replaceAll('\n', '\n    ')}\n    chart.setAttribute('data-state', 'auto');\n  }));\n</` + 'script>';
+    }
+    return `<${tag} id="chart"${attrs}></${tag}>${sets ? `\n<script>\n  const chart = document.getElementById('chart');\n  ${sets.replaceAll('\n', '\n  ')}\n</` + 'script>' : ''}`;
+  }
+
+  // A new element on every change: the stand shows the chart as a page
+  // would make it, never a chart patched in place.
+  function build() {
+    const {manifest} = cache[state.chart];
+    const tag = manifest.tag;
+    const delivery = $('delivery').value;
+    state.values = readForm(manifest);
+    clearTimeout(timer);
+    const attributes = {};
+    const data = {};
+    for (const [name, value] of Object.entries(state.values)) {
+      if (DATA.has(name)) data[name] = value;
+      else attributes[name] = value;
+    }
+    const states = manifest.settings['data-state']?.values ?? [];
+    const late = delivery === 'late' || (delivery === 'error' && !states.includes('error'));
+    const asked = late ? 'loading' : delivery === 'error' ? 'error' : null;
+    // Settings the page gives with the data: a metric's value comes late too.
+    const lateAttributes = manifest.settings.items ? {} : Object.fromEntries(['value', 'previous', 'delta', 'max'].filter((name) => name in attributes).map((name) => [name, attributes[name]]));
+
+    element = document.createElement(tag);
+    element.id = 'chart';
+    for (const [name, value] of Object.entries(attributes)) {
+      if (asked && name in lateAttributes) continue;
+      element.setAttribute(name, value === true ? '' : value);
+    }
+    if (asked) element.setAttribute('data-state', asked);
+    if (delivery === 'island' && Object.keys(data).length) {
+      const island = document.createElement('script');
+      island.type = 'application/json';
+      island.dataset.sfSettings = '';
+      island.textContent = JSON.stringify(data);
+      element.append(island);
+    }
+    if (tag === 'sf-metric' && state.example?.chart) {
+      const spark = document.createElement('sf-sparkline');
+      spark.slot = 'chart';
+      spark.setAttribute('label', state.example.chart.label);
+      spark.setAttribute('shape', 'area');
+      spark.setAttribute('summary', 'none');
+      spark.items = state.example.chart.items;
+      element.append(spark);
+    }
+    for (const verb of Object.keys(manifest.events ?? {})) {
+      element.addEventListener(`${tag}-${verb}`, (event) => {
+        log(`${tag}-${verb} ${JSON.stringify(event.detail)}`);
+        if (verb === 'refresh') give(element, data, lateAttributes, 600);
+      });
+    }
+    $('frame').replaceChildren(element);
+    if (delivery === 'property') Object.assign(element, data);
+    if (late) give(element, data, lateAttributes, 1500);
+    $('code').textContent = code(tag, attributes, data, delivery);
+    $('delivery-note').textContent = NOTES[delivery] + (delivery === 'error' && !states.includes('error') ? ` У ${tag} нет состояния error: показана загрузка.` : '');
+  }
+
+  function give(target, data, attributes, wait) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      Object.assign(target, data);
+      for (const [name, value] of Object.entries(attributes)) target.setAttribute(name, value);
+      target.setAttribute('data-state', 'auto');
+      log('данные пришли');
+    }, wait);
+  }
+
+  async function choose(chart, exampleName) {
+    state.chart = chart;
+    const {manifest, examples} = await load(chart);
+    const example = examples.find((one) => one.name === exampleName) ?? examples[0];
+    state.example = chart === 'metric' && example.name === 'reference'
+      ? {chart: {label: 'Выручка за 12 недель', items: [0.98, 1.02, 1, 1.05, 1.08, 1.04, 1.1, 1.12, 1.1, 1.15, 1.1, 1.25]}}
+      : null;
+    state.values = {...example.settings};
+    for (const button of $('charts').children) button.setAttribute('aria-pressed', String(button.dataset.chart === chart));
+    $('examples').replaceChildren(...examples.map((one) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = one.title ?? one.name;
+      button.title = one.name;
+      button.setAttribute('aria-pressed', String(one === example));
+      button.addEventListener('click', () => choose(chart, one.name));
+      return button;
+    }));
+    renderForm({manifest});
+    try { history.replaceState(null, '', `#${chart}/${example.name}`); } catch { /* a sandboxed frame keeps its address */ }
+    build();
+  }
+
+  $('charts').append(...CHARTS.map(([chart, title]) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = title;
+    button.dataset.chart = chart;
+    button.addEventListener('click', () => choose(chart));
+    return button;
+  }));
+  $('settings').addEventListener('change', build);
+  $('settings').addEventListener('submit', (event) => event.preventDefault());
+  $('delivery').addEventListener('change', build);
+  $('rebuild').addEventListener('click', build);
+  $('width').addEventListener('input', () => {
+    $('frame').style.maxInlineSize = `${$('width').value}px`;
+    $('width-out').textContent = `${$('width').value} px`;
+  });
+  $('frame').style.maxInlineSize = `${$('width').value}px`;
+  $('lang').addEventListener('change', () => {
+    document.documentElement.lang = $('lang').value;
+    build();
+  });
+  $('theme').addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('theme-dark');
+    document.documentElement.classList.toggle('theme-light', !dark);
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+    $('theme').textContent = dark ? 'Светлая тема' : 'Тёмная тема';
+  });
+
+  const [chart, example] = location.hash.slice(1).split('/');
+  choose(CHARTS.some(([one]) => one === chart) ? chart : 'line-chart', example);
+</script>
+</body>
+</html>

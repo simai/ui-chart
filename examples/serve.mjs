@@ -34,8 +34,8 @@ createServer((request, response) => {
   const [prefix, root] = mounts.find(([mount]) => path.startsWith(mount));
   let file = normalize(join(root, path.slice(prefix.length)));
   if (!file.startsWith(root)) { response.writeHead(403).end(); return; }
-  if (existsSync(file) && statSync(file).isDirectory()) file = join(file, 'line-chart.html');
+  if (existsSync(file) && statSync(file).isDirectory()) file = join(file, 'stand.html');
   if (!existsSync(file)) { response.writeHead(404).end(); return; }
   response.writeHead(200, {'content-type': TYPES[extname(file)] ?? 'application/octet-stream', 'cache-control': 'no-store'});
   createReadStream(file).pipe(response);
-}).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/line-chart.html`));
+}).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/stand.html`));

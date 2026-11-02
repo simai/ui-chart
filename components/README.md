@@ -70,10 +70,20 @@ A page declares the package before the Framework core starts:
 window.SF_BOOT_CONFIG = {packages: {chart: {base: '/assets/ui-chart/smart/'}}};
 ```
 
+`../examples/stand.html` is the stand: any chart, any of its examples, every
+setting as a field (read from the built `component.json` and `examples.json`,
+so a new setting shows without a change to the page), four ways to deliver
+the data (the `items` property, a `data-sf-settings` island, late data after
+a loading state, an error and a refresh), width, language and theme, the
+markup that makes the same chart and the events it sends.
 `../examples/line-chart.html` is the line chart's reference page and
-`../examples/dashboard.html` every Tier 1 chart on one dashboard;
+`../examples/dashboard.html` every Tier 1 chart on one dashboard.
 `../examples/serve.mjs` serves them over a Framework `distr` and a package
-build.
+build, the stand at `/`:
+
+```bash
+node examples/serve.mjs <ui distr at the pin> <package build output>
+```
 
 Nothing here is published: a package release goes through the SIMAI
 Framework dispatcher's release route.
