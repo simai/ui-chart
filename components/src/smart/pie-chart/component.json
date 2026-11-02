@@ -1,0 +1,414 @@
+{
+  "$comment": "The source of sf-pie-chart (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart, the renderer and the keyboard docs/research/rendering.md, the name and the family docs/DECISIONS.md D2.",
+  "id": "smart.pie-chart",
+  "tag": "sf-pie-chart",
+  "version": "0.1.0",
+  "kind": "leaf",
+  "family": "chart",
+  "settings": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "summary": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Диаграмма»."
+    },
+    "items": {
+      "type": "list",
+      "default": [],
+      "of": "object",
+      "summary": "The data: a list of records ([{channel, orders}, …]) or an object of columns; one part per category. Only a positive value is a slice; a zero, a negative or a missing value stays in the table and is said there."
+    },
+    "names": {
+      "type": "object",
+      "default": {},
+      "summary": "What each part is called, by its category: {web: «Сайт»}. A part without a name is called by its category."
+    },
+    "category": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the parts' names; the first field when unset."
+    },
+    "value": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the parts' values; the first numeric field but category when unset."
+    },
+    "hole": {
+      "type": "enum",
+      "values": [
+        "none",
+        "ring"
+      ],
+      "default": "none",
+      "summary": "none: a full circle; ring: a ring with the total in the middle."
+    },
+    "total": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a ring says the total of the shown parts in its middle; none: the middle stays empty."
+    },
+    "share-labels": {
+      "type": "enum",
+      "values": [
+        "inside",
+        "none"
+      ],
+      "default": "inside",
+      "summary": "inside: each part's share written in its slice where it fits; none: the legend and the tooltip say it."
+    },
+    "max-parts": {
+      "type": "number",
+      "default": 7,
+      "summary": "Past this many parts the smallest fold into one «Другое», so no slice is a sliver; the table keeps every row."
+    },
+    "legend": {
+      "type": "enum",
+      "values": [
+        "visible",
+        "none"
+      ],
+      "default": "visible",
+      "summary": "visible: the parts with their shares beside the plot when the chart is wide, under it when narrow; each is a button that hides and shows its part."
+    },
+    "tooltip": {
+      "type": "enum",
+      "values": [
+        "part",
+        "none"
+      ],
+      "default": "part",
+      "summary": "part: under the pointer or the cursor, the part's name, share and value."
+    },
+    "category-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the parts: the table's first column (the category field's own name when unset)."
+    },
+    "value-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the values: the table's second column (the value field's own name when unset)."
+    },
+    "value-format": {
+      "type": "string",
+      "default": "number",
+      "summary": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "default": "1",
+      "summary": "The rung of the size ladder: the plot's height (the circle's diameter), the text and the gaps. 1/2 for a card, 2 for a page of its own."
+    },
+    "table": {
+      "type": "enum",
+      "values": [
+        "toggle",
+        "visible",
+        "hidden"
+      ],
+      "default": "toggle",
+      "summary": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text."
+    },
+    "summary": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a sentence of the whole (how many parts, the total, each part's share and value, the largest first), said before the plot and kept for screen readers. The description slot adds the host's own words."
+    },
+    "data-state": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ],
+      "default": "auto",
+      "summary": "auto: ready with data, empty without. loading draws the frame without slices; error offers «Повторить», which sends refresh."
+    }
+  },
+  "values": {
+    "hidden-parts": {
+      "type": "list",
+      "default": [],
+      "of": "string",
+      "summary": "The categories of the parts the person hid with the legend («other» for «Другое»); the others' shares are then of the rest."
+    }
+  },
+  "events": {
+    "toggle": {
+      "carries": {
+        "id": "string",
+        "hidden": "boolean"
+      },
+      "summary": "The person hid or showed a part with its legend button; applied at once (the vocabulary's local toggle)."
+    },
+    "select": {
+      "carries": {
+        "series": "string",
+        "index": "number",
+        "x": "string",
+        "value": "number"
+      },
+      "summary": "The person chose a part: a click on its slice, or Enter or Space on the keyboard cursor. x is its category as the data gave it (empty for «Другое»), index its row (-1 for «Другое»)."
+    },
+    "refresh": {
+      "carries": {},
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items."
+    }
+  },
+  "actions": {
+    "reset": {
+      "with": {},
+      "x-outcomes": [
+        "applied"
+      ],
+      "summary": "Shows every part again and takes the cursor away."
+    }
+  },
+  "slots": {
+    "description": {
+      "$comment": "The host's own words about the chart: said with the summary (aria-describedby) and shown under the plot."
+    }
+  },
+  "keyboard": {
+    "host": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    }
+  },
+  "relations": [
+    {
+      "name": "cl-empty-state"
+    }
+  ],
+  "templates": {
+    "default": {
+      "file": "js/templates/default.js",
+      "$comment": "The Lit template in JavaScript, the migration form of §5.2 (§16); the plot's inside is SVG markup set as a property."
+    }
+  },
+  "styles": "js/templates/default.css",
+  "examples": "examples.json",
+  "docs": "docs.md",
+  "lang": "lang/",
+  "presentation": {
+    "skeleton": {
+      "$comment": "The items arrive after the first paint when the host loads them: the derived skeleton holds the plot's box (its height is the size rung's) until they do (standard 1.3.8 §5.4).",
+      "late": [
+        "items"
+      ]
+    }
+  },
+  "accessibility": {
+    "role": "figure",
+    "name": {
+      "from": [
+        "label",
+        "runtime.untitled"
+      ]
+    },
+    "keys": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    },
+    "x-keys": "The plot is one Tab stop (role group, aria-roledescription «круговая диаграмма»). Right and Down move the cursor to the next part clockwise, Left and Up back, Home and End to the first and the last; each move is said in a polite live region with the part's share and value. Enter and Space choose the part (select); Escape takes the cursor away. The legend entries and the table button are buttons of their own."
+  },
+  "css-variables": {
+    "--sf-pie-chart-height": {
+      "type": "length",
+      "state": "default"
+    },
+    "--sf-pie-chart-label-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-pie-chart-hover-background-color": {
+      "type": "color",
+      "state": "hover"
+    },
+    "--sf-pie-chart-hidden-color": {
+      "type": "color",
+      "state": "disabled"
+    },
+    "--sf-pie-chart-gap-width": {
+      "type": "length",
+      "state": "default"
+    }
+  },
+  "x-summary": "A pie chart: the parts of one whole as slices of a circle or a ring with the total in the middle, the smallest folded into «Другое», with shares inside the slices, a legend that hides parts, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
+  "x-source": {
+    "package": "chart",
+    "folder": "pie-chart",
+    "research": "simai/ui-chart docs/research/parameters.md, docs/research/rendering.md"
+  },
+  "x-words": [
+    "label",
+    "category-label",
+    "value-label"
+  ],
+  "x-decisions": [
+    "name: sf-pie-chart, the head noun last (§21.1), family chart (docs/DECISIONS.md D2, agreed by the dispatcher); the ring is a setting (hole), not a tag (D1).",
+    "data: items with a field mapping category and value (D3, the names of parameters.md §14 for a part-of-whole chart); one series.",
+    "only positive values are slices: a share of a whole has no negative part; a zero, a negative or a gap is a table row, said there.",
+    "max-parts folds the smallest into «Другое» (7 by default), so no slice is a sliver and the colours do not run out; the table keeps every row.",
+    "legend beside the plot or under it by a container query, not by a measured width, so the first paint is the drawn chart.",
+    "colour: four graphic tones, then the same four lighter, until the Framework's categorical roles --sf-chart-1..8 arrive (D4); the order, a separator and the share inside tell the parts apart too. In forced colours the slices are outlines with their shares.",
+    "select: {series, index, x, value} as sf-line-chart and sf-bar-chart (accepted by the dispatcher); series is the value field, x the category.",
+    "table: never none; it holds every row with its share of the positive total.",
+    "hidden-parts: a pie's parts are not series, and hidden is the browser's own member of every element (§3.1)."
+  ],
+  "x-registry": {
+    "capabilities": [
+      "interaction",
+      "keyboard",
+      "responsive",
+      "live-announcement"
+    ],
+    "persistence": {
+      "mode": "none",
+      "source_of_truth": "host",
+      "network_owner": "host",
+      "revision_field": null
+    },
+    "readiness": {
+      "level": "runnable",
+      "required_checks": [
+        "manifest",
+        "fixture",
+        "runtime-upgrade",
+        "keyboard",
+        "responsive",
+        "a11y"
+      ]
+    },
+    "tags": [
+      "chart",
+      "pie",
+      "donut",
+      "part-of-whole",
+      "data-visualization"
+    ],
+    "state": {
+      "machines": {
+        "data-state": [
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "visual_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "ownership": {
+      "source": "simai/ui-chart",
+      "data": "host",
+      "effects": "host",
+      "forbidden_client_responsibilities": [
+        "fetching data",
+        "aggregating on a server"
+      ]
+    },
+    "security": {
+      "permissions_owner": "host",
+      "untrusted_inputs": [
+        "props"
+      ],
+      "network_policy": "deny"
+    },
+    "presentation": {
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "locales": [
+        "ru",
+        "en"
+      ],
+      "responsive": [
+        "desktop",
+        "mobile",
+        "ltr",
+        "rtl",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "skeleton": {
+        "shape": "block",
+        "while_loading": "template"
+      }
+    },
+    "ai_guidance": {
+      "use_when": "Use sf-pie-chart for the parts of one whole, up to about seven, when the shares matter more than the exact values.",
+      "do_not": [
+        "Do not draw a chart without a label",
+        "Do not compare wholes with several pies; that is a stacked sf-bar-chart",
+        "Do not use it for values that are not parts of one whole"
+      ],
+      "required_reads": [
+        "inputs",
+        "events",
+        "accessibility"
+      ],
+      "minimal_example": "<sf-pie-chart label=\"Заказы по каналам\" category=\"channel\" value=\"orders\"></sf-pie-chart>",
+      "owner_commands": [
+        "node scripts/test.mjs"
+      ]
+    },
+    "accessibility": {
+      "accessible_name": "required",
+      "keyboard": [
+        "Tab",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Home",
+        "End",
+        "Enter",
+        "Space",
+        "Escape"
+      ],
+      "focus": "One Tab stop on the plot, then the legend buttons and the table button. The summary is the plot's description; each cursor move is said politely."
+    }
+  },
+  "x-rule": {
+    "$comment": [
+      "The chart draws its empty and error states as sf-empty-state; a tag it renders is a tag it fetches.",
+      "Its own buttons (the legend, the table toggle) are native buttons, so it fetches no sf-button."
+    ]
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "component": "sf-pie-chart",
+  "probe": "sf-pie-chart against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+  "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+  "page": {
+    "lang": "ru",
+    "body": [
+      "<main style=\"inline-size: 40rem\">",
+      "  <sf-pie-chart id=\"c\" label=\"Заказы по каналам\" category=\"channel\" value=\"orders\" value-format=\"integer\"></sf-pie-chart>",
+      "  <sf-pie-chart id=\"r\" label=\"Системы\" category=\"os\" value=\"share\" hole=\"ring\" max-parts=\"5\" table=\"hidden\"></sf-pie-chart>",
+      "  <sf-pie-chart id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-pie-chart>",
+      "</main>"
+    ]
+  },
+  "probes": [
+    {
+      "id": "p1-figure-and-summary",
+      "title": "a figure named by its label; the plot is one group described by the parts' shares, the largest first",
+      "covers": "accessibility (role figure, name label), settings.items, settings.summary",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\", \"phone\": \"Телефон\"}; c.items = [{\"channel\": \"web\", \"orders\": 540}, {\"channel\": \"shop\", \"orders\": 310}, {\"channel\": \"partners\", \"orders\": 120}, {\"channel\": \"phone\", \"orders\": 30}]; const r = document.querySelector('#r'); r.items = [{\"os\": \"Windows\", \"share\": 61}, {\"os\": \"macOS\", \"share\": 17}, {\"os\": \"Linux\", \"share\": 9}, {\"os\": \"Android\", \"share\": 6}, {\"os\": \"iOS\", \"share\": 4}, {\"os\": \"ChromeOS\", \"share\": 1.5}, {\"os\": \"FreeBSD\", \"share\": 0.8}, {\"os\": \"Другие\", \"share\": 0.7}, {\"os\": \"Неизвестно\", \"share\": null}]; return true; })()",
+          "wait": 250,
+          "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0/gu, ' '); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Заказы по каналам' && s.getAttribute('aria-roledescription') === 'круговая диаграмма' && /^Частей: 4, всего 1 000\\. Сайт: 54 ?% \\(540\\)\\./u.test(d) && document.querySelectorAll('#c .sf-pie-chart-slice').length === 4; })()"
+        }
+      ]
+    },
+    {
+      "id": "p2-keyboard-cursor",
+      "title": "the arrows walk the parts clockwise and each move is said; Enter chooses the part",
+      "covers": "keyboard.host (ArrowRight, ArrowLeft, End, Enter, Escape), events.select",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\", \"phone\": \"Телефон\"}; c.items = [{\"channel\": \"web\", \"orders\": 540}, {\"channel\": \"shop\", \"orders\": 310}, {\"channel\": \"partners\", \"orders\": 120}, {\"channel\": \"phone\", \"orders\": 30}]; const r = document.querySelector('#r'); r.items = [{\"os\": \"Windows\", \"share\": 61}, {\"os\": \"macOS\", \"share\": 17}, {\"os\": \"Linux\", \"share\": 9}, {\"os\": \"Android\", \"share\": 6}, {\"os\": \"iOS\", \"share\": 4}, {\"os\": \"ChromeOS\", \"share\": 1.5}, {\"os\": \"FreeBSD\", \"share\": 0.8}, {\"os\": \"Другие\", \"share\": 0.7}, {\"os\": \"Неизвестно\", \"share\": null}]; return true; })()",
+          "wait": 250
+        },
+        {
+          "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-pie-chart-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()",
+          "wait": 60
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => /^Сайт: 54 ?% \\(540\\)$/u.test(document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0/gu, ' ')))()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => /^Магазин: 31 ?% \\(310\\)$/u.test(document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0/gu, ' ')))()"
+        },
+        {
+          "user": "keyboard:End",
+          "wait": 80,
+          "check": "(() => /^Телефон: 3 ?% \\(30\\)$/u.test(document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0/gu, ' ')))()"
+        },
+        {
+          "user": "keyboard:Enter",
+          "wait": 80,
+          "check": "(() => window.__chosen && window.__chosen.x === 'phone' && window.__chosen.value === 30 && window.__chosen.series === 'orders')()"
+        },
+        {
+          "user": "keyboard:Escape",
+          "wait": 80,
+          "check": "(() => !document.querySelector('#c .sf-pie-chart-focus'))()"
+        }
+      ]
+    },
+    {
+      "id": "p3-fold-and-ring",
+      "title": "past max-parts the smallest fold into «Другое»; a ring says the total; the table keeps every row",
+      "covers": "settings.max-parts, settings.hole, settings.total, settings.table",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\", \"phone\": \"Телефон\"}; c.items = [{\"channel\": \"web\", \"orders\": 540}, {\"channel\": \"shop\", \"orders\": 310}, {\"channel\": \"partners\", \"orders\": 120}, {\"channel\": \"phone\", \"orders\": 30}]; const r = document.querySelector('#r'); r.items = [{\"os\": \"Windows\", \"share\": 61}, {\"os\": \"macOS\", \"share\": 17}, {\"os\": \"Linux\", \"share\": 9}, {\"os\": \"Android\", \"share\": 6}, {\"os\": \"iOS\", \"share\": 4}, {\"os\": \"ChromeOS\", \"share\": 1.5}, {\"os\": \"FreeBSD\", \"share\": 0.8}, {\"os\": \"Другие\", \"share\": 0.7}, {\"os\": \"Неизвестно\", \"share\": null}]; return true; })()",
+          "wait": 250,
+          "check": "(() => { const names = [...document.querySelectorAll('#r .sf-pie-chart-legend-name')].map((one) => one.textContent.trim()); return names.length === 5 && names[4] === 'Другое' && document.querySelector('#r .sf-pie-chart-total').textContent.trim() === '100' && document.querySelectorAll('#r table tbody tr').length === 9; })()"
+        }
+      ]
+    },
+    {
+      "id": "p4-legend-toggle",
+      "title": "a legend button hides its part, the others' shares are of the rest; reset shows every part",
+      "covers": "events.toggle, values.hidden-parts, actions.reset",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\", \"phone\": \"Телефон\"}; c.items = [{\"channel\": \"web\", \"orders\": 540}, {\"channel\": \"shop\", \"orders\": 310}, {\"channel\": \"partners\", \"orders\": 120}, {\"channel\": \"phone\", \"orders\": 30}]; const r = document.querySelector('#r'); r.items = [{\"os\": \"Windows\", \"share\": 61}, {\"os\": \"macOS\", \"share\": 17}, {\"os\": \"Linux\", \"share\": 9}, {\"os\": \"Android\", \"share\": 6}, {\"os\": \"iOS\", \"share\": 4}, {\"os\": \"ChromeOS\", \"share\": 1.5}, {\"os\": \"FreeBSD\", \"share\": 0.8}, {\"os\": \"Другие\", \"share\": 0.7}, {\"os\": \"Неизвестно\", \"share\": null}]; return true; })()",
+          "wait": 250
+        },
+        {
+          "script": "(() => { window.__toggled = null; const c = document.querySelector('#c'); c.addEventListener('sf-pie-chart-toggle', (event) => { window.__toggled = event.detail; }); c.querySelector('.sf-pie-chart-legend-item[data-part=web]').click(); return true; })()",
+          "wait": 120,
+          "check": "(() => window.__toggled && window.__toggled.id === 'web' && window.__toggled.hidden === true && document.querySelectorAll('#c .sf-pie-chart-slice').length === 3 && /^67/u.test(document.querySelector('#c .sf-pie-chart-legend-item[data-part=shop] .sf-pie-chart-legend-share').textContent.trim()))()"
+        },
+        {
+          "script": "(document.querySelector('#c').reset(), true)",
+          "wait": 120,
+          "check": "(() => document.querySelectorAll('#c .sf-pie-chart-slice').length === 4)()"
+        }
+      ]
+    },
+    {
+      "id": "p5-error-refresh",
+      "title": "the error state offers a retry that sends refresh",
+      "covers": "settings.data-state, events.refresh",
+      "steps": [
+        {
+          "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-pie-chart-refresh', () => { window.__refresh += 1; }); return true; })()",
+          "wait": 200
+        },
+        {
+          "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+          "wait": 120,
+          "check": "(() => window.__refresh === 1)()"
+        }
+      ]
+    }
+  ]
+}

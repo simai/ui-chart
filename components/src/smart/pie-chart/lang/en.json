@@ -1,0 +1,39 @@
+{
+  "title": "Pie chart",
+  "runtime": {
+    "untitled": "Pie chart",
+    "roledescription": "pie chart",
+    "summary-empty": "No data.",
+    "cursor": "{name}: {part}",
+    "gap": "no data",
+    "show-table": "Table",
+    "legend": "Parts",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data",
+    "summary-total": "Parts: {count}, total {total}.",
+    "summary-part": "{name}: {part}.",
+    "part": "{share} ({value})",
+    "other": "Other",
+    "total": "total",
+    "share-column": "Share",
+    "category-column": "Part",
+    "value-column": "Value"
+  },
+  "events": {
+    "toggle": {
+      "label": "Hide or show a part"
+    },
+    "select": {
+      "label": "Choose a part"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Show every part"
+    }
+  }
+}

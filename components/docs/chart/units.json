@@ -30,6 +30,13 @@
       "recorded_on": "2026-11-02",
       "change": "added",
       "summary": "sf-bar-chart: values by category as columns or horizontal bars, side by side, stacked or normalized to shares, sorted on request, with values at the bar ends; a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "smart.pie-chart",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-02",
+      "change": "added",
+      "summary": "sf-pie-chart: the parts of one whole as slices of a circle or a ring with the total in the middle, the smallest folded into «Другое» past max-parts; shares inside the slices, a legend with shares that hides parts (beside or under the plot by a container query), a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
     }
   ]
 }
