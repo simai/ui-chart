@@ -37,6 +37,13 @@
       "recorded_on": "2026-11-02",
       "change": "added",
       "summary": "sf-pie-chart: the parts of one whole as slices of a circle or a ring with the total in the middle, the smallest folded into «Другое» past max-parts; shares inside the slices, a legend with shares that hides parts (beside or under the plot by a container query), a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "smart.metric",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-02",
+      "change": "added",
+      "summary": "sf-metric: one number with its label in a number, currency or unit format; the change against a previous period with its meaning (better) said by tone, arrow and word; a limit as a meter with sf-progress-bar's look; the page's status with a hint; a chart slot for an sf-sparkline; the whole tile as one link or button; loading and empty states."
     }
   ]
 }

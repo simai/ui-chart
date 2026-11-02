@@ -20,6 +20,6 @@
     "src/smart/chart-core/scale.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "38bb4bb38a04dc77fcb267b0eb8029a258490d8542c89153c6450a07e3c5e3e2",
+  "content_sha256": "f76298989157970dab94487bbf33207ad90d3580d970b66d96f90972f350a142",
   "dependencies": []
 }

@@ -7,6 +7,7 @@
 //   percent           a share 0..1 shown as 12 %
 //   compact           1,2 тыс.
 //   currency-<CODE>   1 234,50 ₽ (an ISO 4217 code)
+//   unit-<unit>       45,3 ГБ (an Intl unit: gigabyte, megabit-per-second)
 
 const cache = new Map();
 
@@ -16,7 +17,13 @@ function intl(locale, options) {
     try {
       cache.set(key, new Intl.NumberFormat(locale || undefined, options));
     } catch {
-      cache.set(key, new Intl.NumberFormat(undefined, options));
+      // An unknown locale falls back to the browser's; an unknown unit or
+      // currency to a plain number.
+      try {
+        cache.set(key, new Intl.NumberFormat(undefined, options));
+      } catch {
+        cache.set(key, new Intl.NumberFormat(locale || undefined, {maximumFractionDigits: 2}));
+      }
     }
   }
   return cache.get(key);
@@ -30,6 +37,9 @@ export function numberOptions(format = 'number', step = 0) {
   if (word === 'compact') return {notation: 'compact', maximumFractionDigits: 1};
   const decimal = /^decimal-(\d)$/u.exec(word);
   if (decimal) return {minimumFractionDigits: Number(decimal[1]), maximumFractionDigits: Number(decimal[1])};
+  // unit-<Intl unit>: unit-gigabyte, unit-megabit-per-second, unit-percent.
+  const unit = /^unit-([a-z]+(?:-per-[a-z]+)?)$/u.exec(word);
+  if (unit) return {style: 'unit', unit: unit[1], unitDisplay: 'short', maximumFractionDigits: 1};
   const currency = /^currency-([A-Z]{3})$/u.exec(word);
   if (currency) return {style: 'currency', currency: currency[1]};
   // number: as many digits as the tick step needs, at most 6.

@@ -1,0 +1,16 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.metric",
+  "title": "metric reference",
+  "summary": "Deterministic reference fixture for sf-metric.",
+  "locale": "ru",
+  "props": {
+    "label": "Выручка за неделю",
+    "value": 1250000,
+    "previous": 1100000,
+    "format": "currency-RUB"
+  },
+  "children": [],
+  "state": "default"
+}

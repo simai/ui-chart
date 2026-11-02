@@ -14,7 +14,7 @@ import test from 'node:test';
 import {run} from '../scripts/generate-component-files.mjs';
 
 const root = resolve(import.meta.dirname, '..');
-const COMPONENTS = ['line-chart', 'sparkline', 'bar-chart', 'pie-chart'];
+const COMPONENTS = ['line-chart', 'sparkline', 'bar-chart', 'pie-chart', 'metric'];
 
 // Gate 1 (§4): the top-level fields of component.json are a closed list.
 const TOP_FIELDS = ['id', 'tag', 'version', 'kind', 'family', 'package', 'traits', 'implements', 'settings', 'values', 'events',

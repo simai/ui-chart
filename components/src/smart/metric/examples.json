@@ -1,0 +1,191 @@
+{
+  "examples": [
+    {
+      "name": "reference",
+      "title": "Выручка с изменением",
+      "settings": {
+        "label": "Выручка за неделю",
+        "value": 1250000,
+        "previous": 1100000,
+        "format": "currency-RUB",
+        "period-text": "к прошлой неделе"
+      },
+      "expect": {
+        "name": "Выручка за неделю",
+        "role": "group"
+      },
+      "studio": {
+        "title": "metric reference",
+        "props": {
+          "label": "Выручка за неделю",
+          "value": 1250000,
+          "previous": 1100000,
+          "format": "currency-RUB"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "load",
+      "title": "Нагрузка: рост — это плохо",
+      "settings": {
+        "label": "Нагрузка CPU",
+        "value": 0.82,
+        "previous": 0.64,
+        "format": "percent",
+        "better": "down",
+        "status": "warning",
+        "hint": "Выше 80 % пятнадцать минут",
+        "period-text": "за час"
+      },
+      "expect": {
+        "role": "group"
+      }
+    },
+    {
+      "name": "storage",
+      "title": "Хранилище с пределом",
+      "settings": {
+        "label": "Хранилище",
+        "value": 45.25,
+        "max": 100,
+        "format": "unit-gigabyte",
+        "status": "success",
+        "hint": "Свободно 55 %"
+      },
+      "expect": {
+        "role": "group"
+      }
+    },
+    {
+      "name": "link",
+      "title": "Плитка-ссылка",
+      "settings": {
+        "label": "Очередь заданий",
+        "value": 14,
+        "delta": -6,
+        "delta-format": "absolute",
+        "better": "down",
+        "format": "integer",
+        "href": "#queue",
+        "size": "1/2"
+      },
+      "expect": {
+        "role": "link"
+      }
+    },
+    {
+      "name": "loading",
+      "title": "Загрузка",
+      "settings": {
+        "label": "Трафик",
+        "data-state": "loading"
+      },
+      "expect": {
+        "name": "Трафик"
+      }
+    },
+    {
+      "name": "empty",
+      "title": "Нет значения",
+      "settings": {
+        "label": "Трафик"
+      },
+      "expect": {
+        "name": "Трафик"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "conformance",
+      "title": "sf-metric against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+      "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+      "page": {
+        "lang": "ru",
+        "body": [
+          "<main style=\"inline-size: 40rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem\">",
+          "  <sf-metric id=\"r\" label=\"Выручка за неделю\" value=\"1250000\" previous=\"1100000\" format=\"currency-RUB\" period-text=\"к прошлой неделе\"></sf-metric>",
+          "  <sf-metric id=\"l\" label=\"Нагрузка CPU\" value=\"0.82\" previous=\"0.64\" format=\"percent\" better=\"down\" status=\"warning\" hint=\"Выше 80 %\"></sf-metric>",
+          "  <sf-metric id=\"s\" label=\"Хранилище\" value=\"45.25\" max=\"100\" format=\"unit-gigabyte\"></sf-metric>",
+          "  <sf-metric id=\"o\" label=\"Очередь\" value=\"14\" delta=\"-6\" delta-format=\"absolute\" better=\"down\" openable><sf-sparkline slot=\"chart\" label=\"Очередь за день\" summary=\"none\"></sf-sparkline></sf-metric>",
+          "  <sf-metric id=\"e\" label=\"Трафик\"></sf-metric>",
+          "</main>"
+        ]
+      },
+      "checks": [
+        {
+          "id": "p1-group-value-change",
+          "title": "a plain tile is a group named by its label; the value is formatted and the change says its direction in words",
+          "covers": "accessibility (role group, name label), settings.value, settings.previous, settings.format, settings.period-text",
+          "steps": [
+            {
+              "wait": 300,
+              "check": "(() => { const g = document.querySelector('#r [role=group]'); const t = (s) => s.replace(/[\\u00a0\\u202f]/gu, ' ').replace(/\\s+/gu, ' ').trim(); return g && document.getElementById(g.getAttribute('aria-labelledby')).textContent.trim() === 'Выручка за неделю' && t(document.querySelector('#r .sf-metric-value').textContent) === '1 250 000,00 ₽' && t(document.querySelector('#r .sf-metric-change').textContent) === '▲ рост +13,6 %' && document.querySelector('#r .sf-metric-change--positive') && !document.querySelector('#r [tabindex]'); })()"
+            }
+          ]
+        },
+        {
+          "id": "p2-better-down",
+          "title": "better down makes a rise a change for the worse; the status is said in words before the hint",
+          "covers": "settings.better, settings.status, settings.hint",
+          "steps": [
+            {
+              "wait": 300,
+              "check": "(() => document.querySelector('#l .sf-metric-change--negative') && document.querySelector('#l .sf-metric-status--warning .sf-metric-sr').textContent.trim() === 'Внимание:' && document.querySelector('#l .sf-metric-hint').textContent.trim() === 'Выше 80 %')()"
+            }
+          ]
+        },
+        {
+          "id": "p3-limit-meter",
+          "title": "max draws a meter with its value text; the bar inside is hidden from the accessibility tree",
+          "covers": "settings.max, settings.limit-text, relations cl-progress-bar",
+          "steps": [
+            {
+              "wait": 400,
+              "check": "(() => { const m = document.querySelector('#s [role=meter]'); const t = (s) => s.replace(/[\\u00a0\\u202f]/gu, ' '); return m && m.getAttribute('aria-valuemax') === '100' && m.getAttribute('aria-valuenow') === '45.25' && t(m.getAttribute('aria-valuetext')) === '45,3 ГБ из 100 ГБ' && document.querySelector('#s sf-progress-bar').getAttribute('aria-hidden') === 'true' && document.querySelector('#s sf-progress-bar').getAttribute('value') === '45'; })()"
+            }
+          ]
+        },
+        {
+          "id": "p4-openable",
+          "title": "an openable tile is one button: Enter sends open; the chart slot holds the sparkline",
+          "covers": "settings.openable, events.open, slots.chart, keyboard",
+          "steps": [
+            {
+              "script": "(() => { window.__opened = 0; const o = document.querySelector('#o'); o.addEventListener('sf-metric-open', () => { window.__opened += 1; }); o.querySelector('sf-sparkline').items = [20, 18, 22, 17, 14]; o.querySelector('button.sf-metric').focus(); return true; })()",
+              "wait": 300
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 120,
+              "check": "(() => window.__opened === 1 && document.querySelector('#o .sf-metric-change--positive') && /−6/u.test(document.querySelector('#o .sf-metric-change').textContent) && document.activeElement === document.querySelector('#o button.sf-metric') && document.querySelector('#o .sf-metric-chart sf-sparkline') && document.querySelectorAll('#o button a, #o button button').length === 0)()"
+            }
+          ]
+        },
+        {
+          "id": "p5-empty-and-loading",
+          "title": "without a value the tile says «—»; loading keeps its size and is busy",
+          "covers": "settings.data-state",
+          "steps": [
+            {
+              "wait": 300,
+              "check": "(() => document.querySelector('#e .sf-metric-value').textContent.trim() === '—' && document.querySelector('#e .sf-metric--empty'))()"
+            },
+            {
+              "script": "(() => { const e = document.querySelector('#e'); window.__h = e.getBoundingClientRect().height; e.setAttribute('data-state', 'loading'); return true; })()",
+              "wait": 200,
+              "check": "(() => document.querySelector('#e [aria-busy=true]') && document.querySelector('#e .sf-metric-skeleton') && Math.abs(document.querySelector('#e').getBoundingClientRect().height - window.__h) <= 2)()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

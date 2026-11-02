@@ -172,3 +172,12 @@ test('bands share the range with their padding', () => {
   assert.equal(band.at(0), 2.5);
   assert.equal(band.at(3), 77.5);
 });
+
+test('a unit format says the unit in the page language', () => {
+  assert.deepEqual(numberOptions('unit-gigabyte'), {style: 'unit', unit: 'gigabyte', unitDisplay: 'short', maximumFractionDigits: 1});
+  assert.equal(formatNumber(45.25, 'en', 'unit-gigabyte'), '45.3 GB');
+  assert.match(formatNumber(12, 'ru', 'unit-megabit-per-second'), /^12 Мбит\/[cс]$/u);
+  assert.deepEqual(numberOptions('unit-'), {maximumFractionDigits: 2});
+  assert.equal(formatNumber(3, 'en', 'unit-parsec-of-stars'), '3');
+  assert.equal(formatNumber(3, 'en', 'unit-furlong'), '3');
+});
