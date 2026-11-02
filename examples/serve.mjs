@@ -29,8 +29,50 @@ const mounts = [['/framework/', framework], ['/package/', built], ['/', here]];
 const TYPES = {'.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.woff': 'font/woff'};
 
+// A stand-in data server for the live page: /demo/orders?period=…&group=…
+// answers rows after a short delay, the same rows for the same query (a
+// seeded generator), and fails on fail=1 so the page can show an error and a
+// retry. It stands for the host's own endpoint; a chart never calls it.
+const GROUPS = {channel: ['web', 'shop', 'partners', 'phone'], city: ['msk', 'spb', 'kzn', 'nsk', 'ekb']};
+const PERIODS = {week: 7, month: 30, quarter: 13, year: 12};
+const seeded = (seed) => () => {
+  seed = (seed * 1103515245 + 12345) % 2147483648;
+  return seed / 2147483648;
+};
+function orders(query) {
+  const period = PERIODS[query.get('period')] ? query.get('period') : 'month';
+  const group = GROUPS[query.get('group')] ? query.get('group') : 'channel';
+  const random = seeded(period.length * 97 + group.length * 13);
+  const count = PERIODS[period];
+  const start = new Date(Date.UTC(2026, period === 'year' ? 0 : 9, 1));
+  const rows = [];
+  for (let index = 0; index < count; index += 1) {
+    const at = new Date(start);
+    if (period === 'year') at.setUTCMonth(index);
+    else if (period === 'quarter') at.setUTCDate(1 + index * 7);
+    else at.setUTCDate(1 + index);
+    const x = period === 'year' ? at.toISOString().slice(0, 7) : at.toISOString().slice(0, 10);
+    GROUPS[group].forEach((key, place) => {
+      const base = (GROUPS[group].length - place) * 40;
+      rows.push({x, key, orders: Math.round(base * (0.8 + random() * 0.4) * (1 + index / count / 2))});
+    });
+  }
+  return {period, group, rows};
+}
+
 createServer((request, response) => {
-  const path = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
+  const url = new URL(request.url, 'http://localhost');
+  if (url.pathname === '/demo/orders') {
+    setTimeout(() => {
+      if (url.searchParams.get('fail') === '1') {
+        response.writeHead(503, {'content-type': 'application/json; charset=utf-8'}).end('{"error":"unavailable"}');
+        return;
+      }
+      response.writeHead(200, {'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store'}).end(JSON.stringify(orders(url.searchParams)));
+    }, 700);
+    return;
+  }
+  const path = decodeURIComponent(url.pathname);
   const [prefix, root] = mounts.find(([mount]) => path.startsWith(mount));
   let file = normalize(join(root, path.slice(prefix.length)));
   if (!file.startsWith(root)) { response.writeHead(403).end(); return; }

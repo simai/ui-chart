@@ -76,6 +76,10 @@ so a new setting shows without a change to the page), four ways to deliver
 the data (the `items` property, a `data-sf-settings` island, late data after
 a loading state, an error and a refresh), width, language and theme, the
 markup that makes the same chart and the events it sends.
+`../examples/live.html` brings data while the page is open: a monitor stream
+the page appends to (a sliding window, a rate, the cost of each update) and
+rows asked from a stand-in server (`/demo/orders` in `serve.mjs`) when the
+query changes, with loading, a cancelled request, an error and a refresh.
 `../examples/line-chart.html` is the line chart's reference page and
 `../examples/dashboard.html` every Tier 1 chart on one dashboard.
 `../examples/serve.mjs` serves them over a Framework `distr` and a package
