@@ -2,7 +2,7 @@
 
 | Stage | State | Result |
 |---|---|---|
-| R. Research | in progress: `systems.md`, `catalogue.md` done (2026-11-02); parameters, rendering next | `docs/research/` |
+| R. Research | in progress: `systems.md`, `catalogue.md`, `parameters.md` done (2026-11-02); rendering next | `docs/research/` |
 | D. Decisions for the owner | — | `docs/DECISIONS.md` |
 | M0. Package skeleton and the first chart | — | `components/`, pinned pair |
 | M1+. The catalogue by tiers | — | — |
