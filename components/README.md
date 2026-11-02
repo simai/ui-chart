@@ -1,6 +1,7 @@
 # The chart component package
 
-The Smart chart components of SIMAI Chart, the component package `chart`
+The Smart chart components of SIMAI Chart, the component package `chart`:
+Tier 1 of docs/DECISIONS.md D1
 (standard `simai.component-package` 1.1.1). Laid out as
 `simai/ui-pro/components/`: one folder per component in `src/smart/<name>/`,
 built and tested over the free Framework release pinned in
@@ -8,8 +9,12 @@ built and tested over the free Framework release pinned in
 
 | Folder | What it is |
 |---|---|
-| `src/smart/line-chart/` | `sf-line-chart`, the first chart (docs/DECISIONS.md D1) |
-| `src/smart/chart-core/` | the chart core every chart shares: data, scales, formats, paths, decimation, the words and the keyboard cursor; a helper folder (no rule file), its passport `src/core/passports/module.chart-core.json` |
+| `src/smart/line-chart/` | `sf-line-chart`, one or more series over time, a number or categories |
+| `src/smart/bar-chart/` | `sf-bar-chart`, values by category: grouped, stacked or shares, vertical or horizontal |
+| `src/smart/pie-chart/` | `sf-pie-chart`, the parts of one whole as a circle or a ring |
+| `src/smart/sparkline/` | `sf-sparkline`, one series word-sized, for tables and tiles |
+| `src/smart/metric/` | `sf-metric`, one number with its change, limit and status (the KPI and Larena's metric tile) |
+| `src/smart/chart-core/` | the chart core every chart shares: data, scales and bands, stacks, slices, formats, paths, decimation, the words and the keyboard cursor; a helper folder (no rule file), its passport `src/core/passports/module.chart-core.json` |
 | `docs/chart/` | the unit journal (one entry per version of each unit) and the change journal (renames and removals) |
 | `tests/` | the package's unit and contract tests; `tests/browser/` its browser probes |
 | `scripts/` | the overlay, the test runner, the probe runners, the passports |
@@ -65,8 +70,10 @@ A page declares the package before the Framework core starts:
 window.SF_BOOT_CONFIG = {packages: {chart: {base: '/assets/ui-chart/smart/'}}};
 ```
 
-`../examples/line-chart.html` is the reference page; `../examples/serve.mjs`
-serves it over a Framework `distr` and a package build.
+`../examples/line-chart.html` is the line chart's reference page and
+`../examples/dashboard.html` every Tier 1 chart on one dashboard;
+`../examples/serve.mjs` serves them over a Framework `distr` and a package
+build.
 
 Nothing here is published: a package release goes through the SIMAI
 Framework dispatcher's release route.
