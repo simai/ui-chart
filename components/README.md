@@ -14,6 +14,7 @@ built and tested over the free Framework release pinned in
 | `src/smart/pie-chart/` | `sf-pie-chart`, the parts of one whole as a circle or a ring |
 | `src/smart/sparkline/` | `sf-sparkline`, one series word-sized, for tables and tiles |
 | `src/smart/metric/` | `sf-metric`, one number with its change, limit and status (the KPI and Larena's metric tile) |
+| `src/smart/parts-bar/` | `sf-parts-bar`, the parts of one whole in one thin bar, with the free remainder of a capacity (a disk, a quota, a model's context) |
 | `src/smart/chart-core/` | the chart core every chart shares: data, scales and bands, stacks, slices, formats, paths, decimation, the words and the keyboard cursor; a helper folder (no rule file), its passport `src/core/passports/module.chart-core.json` |
 | `docs/chart/` | the unit journal (one entry per version of each unit) and the change journal (renames and removals) |
 | `tests/` | the package's unit and contract tests; `tests/browser/` its browser probes |

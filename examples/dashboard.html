@@ -70,6 +70,11 @@
       <h2>Кольцо и «Другое»</h2>
       <sf-pie-chart id="ring" label="Системы посетителей" category="os" value="share" hole="ring" max-parts="5" value-format="decimal-1"></sf-pie-chart>
     </section>
+    <section style="display: grid; gap: var(--sf-space-1); align-content: start">
+      <h2 style="margin: 0">Полоса частей: ёмкость</h2>
+      <sf-parts-bar id="disk" label="Хранилище" category="kind" value="size" max="100" value-format="unit-gigabyte"></sf-parts-bar>
+      <sf-parts-bar id="context" label="Контекст модели" category="part" value="tokens" max="200000" value-format="compact" legend="inline" size="1/2" table="hidden"></sf-parts-bar>
+    </section>
   </div>
 
   <section>
@@ -112,6 +117,10 @@
   $('ranking').items = cities;
   $('pie').names = channelNames;
   $('pie').items = [{channel: 'web', orders: 540}, {channel: 'shop', orders: 310}, {channel: 'partners', orders: 120}, {channel: 'phone', orders: 30}];
+  $('disk').names = {system: 'Система', apps: 'Приложения', docs: 'Документы', photos: 'Фото'};
+  $('disk').items = [{kind: 'system', size: 22.4}, {kind: 'apps', size: 13.1}, {kind: 'docs', size: 6.8}, {kind: 'photos', size: 2.95}];
+  $('context').names = {system: 'Системный промпт', tools: 'Инструменты', memory: 'Память', messages: 'Сообщения'};
+  $('context').items = [{part: 'system', tokens: 3200}, {part: 'tools', tokens: 14800}, {part: 'memory', tokens: 1200}, {part: 'messages', tokens: 26400}];
   $('ring').items = [['Windows', 61], ['macOS', 17], ['Linux', 9], ['Android', 6], ['iOS', 4], ['ChromeOS', 1.5], ['FreeBSD', 0.8]].map(([os, share]) => ({os, share}));
   $('s1').items = wave(24, 0.55, 0.25, 3);
   $('s2').items = wave(24, 0.35, 0.1, 5);

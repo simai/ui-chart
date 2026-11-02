@@ -25,6 +25,7 @@ const PENDING = [
   {component: 'line-chart', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'bar-chart', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'pie-chart', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
+  {component: 'parts-bar', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
 ];
 
 // The free rule's words, as ui-source writes them at the pin.

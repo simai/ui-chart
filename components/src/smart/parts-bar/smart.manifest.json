@@ -1,0 +1,389 @@
+{
+  "schema_version": 2,
+  "id": "smart.parts-bar",
+  "version": "0.1.0",
+  "title": "Parts bar",
+  "summary": "A parts bar: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (a disk, a quota, a model's context), the smallest folded into «Другое», a list of the parts with values and shares, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "parts",
+    "capacity",
+    "usage",
+    "part-of-whole",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-parts-bar",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": ""
+      },
+      "root-style": {
+        "type": "string",
+        "default": ""
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Полоса частей»."
+      },
+      "category": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the parts' names; the first field when unset."
+      },
+      "value": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the parts' values; the first numeric field but category when unset."
+      },
+      "max": {
+        "type": "number",
+        "description": "The capacity (a disk, a quota, a model's context): the bar is the whole of it, and what the parts leave is the free remainder, the last part of the bar. Unset, the bar is the sum of the parts. Parts past the capacity fill the bar, and the summary says by how much they exceed it."
+      },
+      "free-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the free remainder when max is set: «Свободно» when unset."
+      },
+      "max-parts": {
+        "type": "number",
+        "default": 7,
+        "description": "Past this many parts the smallest fold into one «Другое», so no part is a sliver and the colours do not run out; the table keeps every row."
+      },
+      "total": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: the head says the whole beside the label: «45 из 100 (45 %)» with max, «всего 1 000» without; none: the label alone.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "legend": {
+        "type": "string",
+        "default": "list",
+        "description": "list: under the bar, a row per part with its name, value and share, the free remainder last; inline: the names with their shares in one wrapping line, for a tile; none: the bar alone (the summary and the table still say every part).",
+        "enum": [
+          "list",
+          "inline",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "part",
+        "description": "part: under the pointer or the cursor, the part's name, value and share.",
+        "enum": [
+          "part",
+          "none"
+        ]
+      },
+      "category-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the parts: the table's first column (the category field's own name when unset)."
+      },
+      "value-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the values: the table's second column (the value field's own name when unset)."
+      },
+      "value-format": {
+        "type": "string",
+        "default": "number",
+        "description": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the bar's thickness, the text and the gaps. 1/2 for a tile, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the bar for it, visible shows it under the bar, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of the whole (how much of the capacity is used, or the total; each part's value and share, the largest first; the free remainder), kept for screen readers. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with data, empty without. loading draws the bar's track without parts; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records ([{kind, size}, …]) or an object of columns; one part per category. Only a positive value is a part of the bar; a zero, a negative or a missing value stays in the table and is said there."
+      },
+      "names": {
+        "type": "object",
+        "default": {},
+        "description": "What each part is called, by its category: {docs: «Документы»}. A part without a name is called by its category."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {},
+  "events": {
+    "sf-parts-bar-select": {
+      "summary": "The person chose a part: a click on it, or Enter or Space on the keyboard cursor. x is its category as the data gave it (empty for «Другое»), index its row (-1 for «Другое»). The free remainder is not a part to choose.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "series",
+          "index",
+          "x",
+          "value"
+        ],
+        "properties": {
+          "series": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          },
+          "x": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-parts-bar-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the bar, then the table button. The summary is the bar's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/parts-bar/index.js",
+        "sha256": "35da1c29de745737bab5346da8a51c5445893a8b5b3b3b4869abef8223a80ae1"
+      },
+      {
+        "path": "src/smart/parts-bar/js/templates/default.js",
+        "sha256": "bd969077bb47f7ef377c5915291ead9033493328f8e9df5c9b647bf27cb26cc4"
+      },
+      {
+        "path": "src/smart/parts-bar/js/templates/default.css",
+        "sha256": "fea51c77d81b5017e14f9574af077f44f490e4dbe11171421dd32564f1ea71e4"
+      },
+      {
+        "path": "src/smart/parts-bar/rule.js",
+        "sha256": "0c237e589b43a8151ebbae4076b293454b790d37245ff27baef00edad062c502"
+      },
+      {
+        "path": "src/smart/parts-bar/docs.md",
+        "sha256": "16625d817d7337d36685453e9bbef872a3ad778f5e73408e6cd44b820b88d678"
+      },
+      {
+        "path": "src/smart/parts-bar/component.json",
+        "sha256": "5067e30334cbfd721fa0779cf9a40a164283523110ed8480c857d1ba3e9b3c7b"
+      },
+      {
+        "path": "src/smart/parts-bar/lang/en.json",
+        "sha256": "a70007933d1b8915d38807b3e1ea49e2111aa3c17fd335b70e2caa27e0f7b521"
+      },
+      {
+        "path": "src/smart/parts-bar/lang/ru.json",
+        "sha256": "3474f4928627b31b703a127ecb8bcdab021960a33e0aa64d8af862cfa9c7d36b"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-parts-bar for the parts of one whole in little room: what fills a disk, a quota or a model's context, a budget by category, with the free remainder when there is a capacity.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not compare several wholes; that is a stacked sf-bar-chart",
+      "Do not use it for one value against a limit; that is sf-metric with max or sf-progress-bar"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-parts-bar label=\"Диск\" category=\"kind\" value=\"size\" max=\"100\" value-format=\"integer\"></sf-parts-bar>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

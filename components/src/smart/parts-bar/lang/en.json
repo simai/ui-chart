@@ -1,0 +1,34 @@
+{
+  "title": "Parts bar",
+  "runtime": {
+    "untitled": "Parts bar",
+    "roledescription": "parts bar",
+    "cursor": "{name}: {part}",
+    "gap": "no data",
+    "show-table": "Table",
+    "legend": "Parts",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data",
+    "summary-used": "{used} of {max} used ({share}).",
+    "summary-over": "{used} of {max} used: {over} over.",
+    "summary-total": "Parts: {count}, total {total}.",
+    "summary-part": "{name}: {part}.",
+    "part": "{value} ({share})",
+    "head-used": "{used} of {max} ({share})",
+    "head-total": "total {total}",
+    "other": "Other",
+    "free": "Free",
+    "share-column": "Share",
+    "category-column": "Part",
+    "value-column": "Value"
+  },
+  "events": {
+    "select": {
+      "label": "Choose a part"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  }
+}

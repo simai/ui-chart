@@ -1,0 +1,381 @@
+{
+  "$comment": "The source of sf-parts-bar (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart, the name and the family docs/DECISIONS.md D2 (the owner's decision of 2026-11-02).",
+  "id": "smart.parts-bar",
+  "tag": "sf-parts-bar",
+  "version": "0.1.0",
+  "kind": "leaf",
+  "family": "chart",
+  "settings": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "summary": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Полоса частей»."
+    },
+    "items": {
+      "type": "list",
+      "default": [],
+      "of": "object",
+      "summary": "The data: a list of records ([{kind, size}, …]) or an object of columns; one part per category. Only a positive value is a part of the bar; a zero, a negative or a missing value stays in the table and is said there."
+    },
+    "names": {
+      "type": "object",
+      "default": {},
+      "summary": "What each part is called, by its category: {docs: «Документы»}. A part without a name is called by its category."
+    },
+    "category": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the parts' names; the first field when unset."
+    },
+    "value": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the parts' values; the first numeric field but category when unset."
+    },
+    "max": {
+      "type": "number",
+      "optional": true,
+      "summary": "The capacity (a disk, a quota, a model's context): the bar is the whole of it, and what the parts leave is the free remainder, the last part of the bar. Unset, the bar is the sum of the parts. Parts past the capacity fill the bar, and the summary says by how much they exceed it."
+    },
+    "free-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the free remainder when max is set: «Свободно» when unset."
+    },
+    "max-parts": {
+      "type": "number",
+      "default": 7,
+      "summary": "Past this many parts the smallest fold into one «Другое», so no part is a sliver and the colours do not run out; the table keeps every row."
+    },
+    "total": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: the head says the whole beside the label: «45 из 100 (45 %)» with max, «всего 1 000» without; none: the label alone."
+    },
+    "legend": {
+      "type": "enum",
+      "values": [
+        "list",
+        "inline",
+        "none"
+      ],
+      "default": "list",
+      "summary": "list: under the bar, a row per part with its name, value and share, the free remainder last; inline: the names with their shares in one wrapping line, for a tile; none: the bar alone (the summary and the table still say every part)."
+    },
+    "tooltip": {
+      "type": "enum",
+      "values": [
+        "part",
+        "none"
+      ],
+      "default": "part",
+      "summary": "part: under the pointer or the cursor, the part's name, value and share."
+    },
+    "category-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the parts: the table's first column (the category field's own name when unset)."
+    },
+    "value-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the values: the table's second column (the value field's own name when unset)."
+    },
+    "value-format": {
+      "type": "string",
+      "default": "number",
+      "summary": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "default": "1",
+      "summary": "The rung of the size ladder: the bar's thickness, the text and the gaps. 1/2 for a tile, 2 for a page of its own."
+    },
+    "table": {
+      "type": "enum",
+      "values": [
+        "toggle",
+        "visible",
+        "hidden"
+      ],
+      "default": "toggle",
+      "summary": "The same data as a table: toggle offers a button that swaps the bar for it, visible shows it under the bar, hidden keeps it for screen readers only. Never none: the table is the chart's text."
+    },
+    "summary": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a sentence of the whole (how much of the capacity is used, or the total; each part's value and share, the largest first; the free remainder), kept for screen readers. The description slot adds the host's own words."
+    },
+    "data-state": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ],
+      "default": "auto",
+      "summary": "auto: ready with data, empty without. loading draws the bar's track without parts; error offers «Повторить», which sends refresh."
+    }
+  },
+  "events": {
+    "select": {
+      "carries": {
+        "series": "string",
+        "index": "number",
+        "x": "string",
+        "value": "number"
+      },
+      "summary": "The person chose a part: a click on it, or Enter or Space on the keyboard cursor. x is its category as the data gave it (empty for «Другое»), index its row (-1 for «Другое»). The free remainder is not a part to choose."
+    },
+    "refresh": {
+      "carries": {},
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items."
+    }
+  },
+  "slots": {
+    "description": {
+      "$comment": "The host's own words about the chart: said with the summary (aria-describedby) and shown under the bar."
+    }
+  },
+  "keyboard": {
+    "host": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    }
+  },
+  "relations": [
+    {
+      "name": "cl-empty-state"
+    }
+  ],
+  "templates": {
+    "default": {
+      "file": "js/templates/default.js",
+      "$comment": "The Lit template in JavaScript, the migration form of §5.2 (§16); the bar's inside is markup set as a property."
+    }
+  },
+  "styles": "js/templates/default.css",
+  "examples": "examples.json",
+  "docs": "docs.md",
+  "lang": "lang/",
+  "presentation": {
+    "skeleton": {
+      "$comment": "The items arrive after the first paint when the host loads them: the derived skeleton holds the bar's box (its thickness is the size rung's) until they do (standard 1.3.8 §5.4).",
+      "late": [
+        "items"
+      ]
+    }
+  },
+  "accessibility": {
+    "role": "figure",
+    "name": {
+      "from": [
+        "label",
+        "runtime.untitled"
+      ]
+    },
+    "keys": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    },
+    "x-keys": "The bar is one Tab stop (role group, aria-roledescription «полоса частей»). Right and Down move the cursor to the next part along the bar (in the reading direction: Right goes left in a right-to-left page), Left and Up back, Home and End to the first part and the last, the free remainder included; each move is said in a polite live region with the part's value and share. Enter and Space choose the part (select); Escape takes the cursor away. The table button is a button of its own."
+  },
+  "css-variables": {
+    "--sf-parts-bar-thickness": {
+      "type": "length",
+      "state": "default"
+    },
+    "--sf-parts-bar-free-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-parts-bar-label-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-parts-bar-gap-width": {
+      "type": "length",
+      "state": "default"
+    }
+  },
+  "x-summary": "A parts bar: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (a disk, a quota, a model's context), the smallest folded into «Другое», a list of the parts with values and shares, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
+  "x-source": {
+    "package": "chart",
+    "folder": "parts-bar",
+    "research": "simai/ui-chart docs/research/parameters.md, docs/research/rendering.md"
+  },
+  "x-words": [
+    "label",
+    "free-label",
+    "category-label",
+    "value-label"
+  ],
+  "x-decisions": [
+    "name: sf-parts-bar, the head noun last (§21.1), as sf-progress-bar, family chart (docs/DECISIONS.md D2, the owner's decision of 2026-11-02); a stacked sf-bar-chart compares several wholes, this bar is one whole.",
+    "data: items with a field mapping category and value (D3), as sf-pie-chart; one series.",
+    "max is the capacity: the free remainder is the bar's last part, a neutral track, named «Свободно» (free-label); it is said and walked, never chosen. Without max the bar is the sum of the parts.",
+    "the bar is HTML, not SVG: its parts are boxes that share the width by their values, so it needs no measured width and the first paint is the drawn bar at any width.",
+    "only positive values are parts; max-parts folds the smallest into «Другое» (7 by default); the table keeps every row.",
+    "no legend toggle: hiding a part of a capacity would make the free remainder lie; the list is text, not buttons.",
+    "colour: four graphic tones, then the same four lighter, until the Framework's categorical roles --sf-chart-1..8 arrive (D4); the order and a separator tell the parts apart too. In forced colours the parts are solid, the remainder an outline.",
+    "select: {series, index, x, value} as the other charts.",
+    "table: never none; it holds every row with its share of the whole, and the free remainder."
+  ],
+  "x-registry": {
+    "capabilities": [
+      "interaction",
+      "keyboard",
+      "responsive",
+      "live-announcement"
+    ],
+    "persistence": {
+      "mode": "none",
+      "source_of_truth": "host",
+      "network_owner": "host",
+      "revision_field": null
+    },
+    "readiness": {
+      "level": "runnable",
+      "required_checks": [
+        "manifest",
+        "fixture",
+        "runtime-upgrade",
+        "keyboard",
+        "responsive",
+        "a11y"
+      ]
+    },
+    "tags": [
+      "chart",
+      "parts",
+      "capacity",
+      "usage",
+      "part-of-whole",
+      "data-visualization"
+    ],
+    "state": {
+      "machines": {
+        "data-state": [
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "visual_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "ownership": {
+      "source": "simai/ui-chart",
+      "data": "host",
+      "effects": "host",
+      "forbidden_client_responsibilities": [
+        "fetching data",
+        "aggregating on a server"
+      ]
+    },
+    "security": {
+      "permissions_owner": "host",
+      "untrusted_inputs": [
+        "props"
+      ],
+      "network_policy": "deny"
+    },
+    "presentation": {
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "locales": [
+        "ru",
+        "en"
+      ],
+      "responsive": [
+        "desktop",
+        "mobile",
+        "ltr",
+        "rtl",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "skeleton": {
+        "shape": "block",
+        "while_loading": "template"
+      }
+    },
+    "ai_guidance": {
+      "use_when": "Use sf-parts-bar for the parts of one whole in little room: what fills a disk, a quota or a model's context, a budget by category, with the free remainder when there is a capacity.",
+      "do_not": [
+        "Do not draw a chart without a label",
+        "Do not compare several wholes; that is a stacked sf-bar-chart",
+        "Do not use it for one value against a limit; that is sf-metric with max or sf-progress-bar"
+      ],
+      "required_reads": [
+        "inputs",
+        "events",
+        "accessibility"
+      ],
+      "minimal_example": "<sf-parts-bar label=\"Диск\" category=\"kind\" value=\"size\" max=\"100\" value-format=\"integer\"></sf-parts-bar>",
+      "owner_commands": [
+        "node scripts/test.mjs"
+      ]
+    },
+    "accessibility": {
+      "accessible_name": "required",
+      "keyboard": [
+        "Tab",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Home",
+        "End",
+        "Enter",
+        "Space",
+        "Escape"
+      ],
+      "focus": "One Tab stop on the bar, then the table button. The summary is the bar's description; each cursor move is said politely."
+    }
+  },
+  "x-rule": {
+    "$comment": [
+      "The chart draws its empty and error states as sf-empty-state; a tag it renders is a tag it fetches.",
+      "Its table toggle is a native button, so it fetches no sf-button."
+    ]
+  }
+}

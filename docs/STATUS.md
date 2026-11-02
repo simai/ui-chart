@@ -8,6 +8,7 @@
 | M1. The rest of Tier 1 | done (2026-11-02), accepted by the dispatcher: `sf-bar-chart`, `sf-pie-chart`, `sf-sparkline`, `sf-metric` 0.1.0, built reproducibly | `components/`, `examples/dashboard.html`, `docs/evidence/M1.md` |
 | Line chart 0.2.0 | done (2026-11-02), handed to the dispatcher: `stack` (stacked and normalized areas) on `sf-line-chart`, the core's `bandPath`, built reproducibly | `components/src/smart/line-chart/`, `docs/evidence/line-chart-0.2.0.md` |
 | Stand and live data | done (2026-11-02): the chart stand, the live data page; the data table no longer rebuilds on every update (line 0.2.1, bar and pie 0.1.1) | `examples/stand.html`, `examples/live.html`, `docs/evidence/table-settle.md` |
+| Parts bar 0.1.0 | done (2026-11-02), to hand to the dispatcher: `sf-parts-bar`, the parts of one whole in one thin bar with the free remainder of a capacity (the owner's decision of the name) | `components/src/smart/parts-bar/`, `docs/evidence/parts-bar-0.1.0.md` |
 | M2+. The catalogue by tiers | — | — |
 | Release | waits for the Framework pair with parts 1–10 of the M0 and M1 evidence (the dispatcher's order) | — |
 

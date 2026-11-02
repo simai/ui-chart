@@ -13,9 +13,9 @@ import {describe, exampleFiles, givesLateData, sizeProblem} from '../scripts/fir
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const smart = join(root, 'src', 'smart');
-const PACKAGE = ['line-chart', 'sparkline', 'bar-chart', 'pie-chart', 'metric'];
+const PACKAGE = ['line-chart', 'sparkline', 'bar-chart', 'pie-chart', 'metric', 'parts-bar'];
 // The element that holds each chart's box from the first paint.
-const BOX = {'line-chart': 'sf-line-chart-plot', sparkline: 'sf-sparkline', 'bar-chart': 'sf-bar-chart-plot', 'pie-chart': 'sf-pie-chart-plot', metric: 'sf-metric'};
+const BOX = {'line-chart': 'sf-line-chart-plot', sparkline: 'sf-sparkline', 'bar-chart': 'sf-bar-chart-plot', 'pie-chart': 'sf-pie-chart-plot', metric: 'sf-metric', 'parts-bar': 'sf-parts-bar-plot'};
 
 test('every example of every package component has its static markup and sheets', () => {
   for (const folder of PACKAGE) {

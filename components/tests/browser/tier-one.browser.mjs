@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 // Usage: node this-file /absolute/path/to/output
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-sparkline,
-// sf-bar-chart, sf-pie-chart and sf-metric.
+// sf-bar-chart, sf-pie-chart, sf-metric and sf-parts-bar.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
 //   (the parts) differ;
-// - keyboard and screen reader: the bar and the pie charts are one Tab stop
+// - the parts bar: its rung's thickness, its parts in reading order (right to
+//   left on a right-to-left page), the free remainder last;
+// - keyboard and screen reader: the bar and the pie charts and the parts bar
+//   are one Tab stop
 //   with a cursor that is said; an openable metric is one button; a sparkline
 //   takes no focus and is named by its data;
 // - reduced motion and forced colours;
@@ -17,7 +20,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['sparkline', 'bar-chart', 'pie-chart', 'metric'];
+const CHARTS = ['sparkline', 'bar-chart', 'pie-chart', 'metric', 'parts-bar'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -42,6 +45,8 @@ const cities = [
   {city: 'Новосибирск', q1: 150, q2: 171}, {city: 'Екатеринбург', q1: 164, q2: 159}, {city: 'Нижний Новгород', q1: 120, q2: null},
 ];
 const channels = [{channel: 'web', orders: 540}, {channel: 'shop', orders: 310}, {channel: 'partners', orders: 120}, {channel: 'phone', orders: 30}];
+const disk = [{kind: 'system', size: 22}, {kind: 'apps', size: 13}, {kind: 'docs', size: 7}, {kind: 'photos', size: 3}];
+const diskNames = {system: 'Система', apps: 'Приложения', docs: 'Документы', photos: 'Фото'};
 const week = [340, 362, 355, 401, 395, 410, 430, 452, 440, 461, 470, 488];
 
 const browser = await chromium.launch();
@@ -116,6 +121,27 @@ const shapeOf = (page, selectors) => page.evaluate(({selectors}) => {
 
 const RUNG = {'1/2': 160, 1: 240, 2: 384};
 const SPARK = {'1/2': 20, 1: 32, 2: 64};
+const THICK = {'1/2': 6, 1: 12, 2: 20};
+
+// The parts bar: its track, its parts in the order drawn, their colours.
+const partsOf = (page) => page.evaluate(() => {
+  const chart = document.getElementById('chart');
+  const track = chart.querySelector('.sf-parts-bar-track').getBoundingClientRect();
+  const parts = [...chart.querySelectorAll('.sf-parts-bar-part')];
+  const boxes = parts.map((node) => node.getBoundingClientRect());
+  return {
+    height: Math.round(track.height),
+    width: Math.round(track.width),
+    pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    listOverflow: [...chart.querySelectorAll('.sf-parts-bar-item')].filter((item) => item.scrollWidth > item.clientWidth + 1).length,
+    outside: boxes.filter((box) => box.left < track.left - 1 || box.right > track.right + 1).length,
+    marks: parts.length,
+    free: parts.at(-1)?.classList.contains('sf-parts-bar-series--free') ?? false,
+    firstAtLeft: boxes.length > 1 && boxes[0].left < boxes.at(-1).left,
+    fills: parts.map((node) => getComputedStyle(node).backgroundColor),
+    background: getComputedStyle(document.body).backgroundColor,
+  };
+});
 
 try {
   // 1. Geometry and colour on the size ladder, both themes, three widths.
@@ -167,8 +193,20 @@ try {
           };
         });
         if (metric.overflow > 0 || metric.pageOverflow > 0 || metric.valueLines !== 1) note({case: `metric: one value line, nothing leaves the tile (${where})`, got: metric});
+        await make(page, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer', size}, {items: disk, names: diskNames});
+        const parts = await partsOf(page);
+        if (parts.height !== THICK[size]) note({case: `parts bar: the bar is its rung's thickness (${where})`, got: parts.height, want: THICK[size]});
+        if (parts.outside || parts.pageOverflow > 0 || parts.listOverflow) note({case: `parts bar: nothing leaves the bar, the list or the page (${where})`, got: parts});
+        if (parts.marks !== 5 || !parts.free || !parts.firstAtLeft) note({case: `parts bar: one box per part in reading order, the free remainder last (${where})`, got: parts});
+        const [page3, ...partFills] = await rgbOf(page, [parts.background, ...new Set(parts.fills.slice(0, 3))]);
+        const partsContrast = partFills.map((fill) => Math.round(contrast(fill, page3) * 100) / 100);
+        if (partFills.length < 3) note({case: `parts bar: the first three parts differ (${where})`, got: parts.fills});
+        if (partsContrast.some((ratio) => ratio < 3)) note({case: `parts bar: a part holds 3:1 against the page (${where})`, got: partsContrast});
+        const [free] = await rgbOf(page, [parts.fills.at(-1)]);
+        const freeContrast = Math.round(contrast(free, page3) * 100) / 100;
+
         if (!evidence.contrast) evidence.contrast = {};
-        evidence.contrast[`${theme}`] = {bar: barContrast, pie: pieContrast, sparkline: sparkContrast};
+        evidence.contrast[`${theme}`] = {bar: barContrast, pie: pieContrast, sparkline: sparkContrast, parts: partsContrast, free: freeContrast};
       }
       await page.close();
     }
@@ -224,7 +262,34 @@ try {
     const opened = await page.evaluate(() => window.events.filter(({verb}) => verb === 'open').length);
     const said = await page.evaluate(() => document.querySelector('#chart .sf-metric-change').textContent.replace(/\s+/gu, ' ').trim());
     if (!metricFocus || opened !== 2 || said !== '▼ снижение −30 %') note({case: 'metric: an openable tile is one button; Enter and Space open; the change says its direction', got: {metricFocus, opened, said}});
-    evidence.keyboard = {barSaid, turned, pieSaid, sparkline: spark.name, metric: said};
+    await make(page, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer', table: 'hidden'}, {items: disk, names: diskNames});
+    await page.focus('#before');
+    await page.keyboard.press('Tab');
+    const partsFocus = await page.evaluate(() => document.activeElement?.matches('.sf-parts-bar-track[role=group][tabindex="0"]'));
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('ArrowRight');
+    await page.waitForTimeout(80);
+    const partsSaid = await page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/\u00a0/gu, ' '));
+    await page.keyboard.press('End');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(80);
+    const freeSaid = await page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/\u00a0/gu, ' '));
+    const freeChosen = await page.evaluate(() => window.events.filter(({verb}) => verb === 'select').length);
+    if (!partsFocus || !/^Приложения: 13 \(13 ?%\)$/u.test(partsSaid) || !/^Свободно: 55 \(55 ?%\)$/u.test(freeSaid) || freeChosen) note({case: 'parts bar: one Tab stop; the arrows walk the parts and the free remainder; the remainder is not chosen', got: {partsFocus, partsSaid, freeSaid, freeChosen}});
+
+    // On a right-to-left page the first part is at the right, and Left goes
+    // to the next part.
+    await page.evaluate(() => { document.documentElement.dir = 'rtl'; });
+    await make(page, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer'}, {items: disk, names: diskNames});
+    const rtl = await partsOf(page);
+    await page.focus('#chart .sf-parts-bar-track');
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('ArrowLeft');
+    await page.waitForTimeout(80);
+    const rtlSaid = await page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/\u00a0/gu, ' '));
+    await page.evaluate(() => { document.documentElement.dir = 'ltr'; });
+    if (rtl.firstAtLeft || !/^Приложения: 13/u.test(rtlSaid)) note({case: 'parts bar: right to left, the first part is at the right and Left walks forward', got: {firstAtLeft: rtl.firstAtLeft, rtlSaid}});
+    evidence.keyboard = {barSaid, turned, pieSaid, sparkline: spark.name, metric: said, parts: partsSaid, free: freeSaid, rtl: rtlSaid};
     await page.close();
   }
 
@@ -249,7 +314,10 @@ try {
       shares: document.querySelectorAll('.sf-pie-chart-share').length,
     }));
     if (slices.stroke === 'none' || slices.shares < 3) note({case: 'pie: in forced colours the slices are outlines with their shares', got: slices});
-    evidence.forcedColours = {bars, slices};
+    await make(forced, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100'}, {items: disk});
+    const boxes = await forced.evaluate(() => [...document.querySelectorAll('.sf-parts-bar-part')].map((node) => getComputedStyle(node).backgroundColor));
+    if (new Set(boxes.slice(0, -1)).size !== 1 || boxes.at(-1) === boxes[0]) note({case: 'parts bar: in forced colours the parts are solid and the free remainder is not', got: boxes});
+    evidence.forcedColours = {bars, slices, parts: boxes};
     await forced.close();
   }
 

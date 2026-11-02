@@ -88,6 +88,13 @@
       "recorded_on": "2026-11-02",
       "change": "patch",
       "summary": "The data table is rebuilt only when the data changes, never on a pointer or cursor move, and at most once per second while data streams; the first data shows at once. A pie chart with table=\"hidden\" updating 1,200 points went from 31 ms to 5 ms per update."
+    },
+    {
+      "unit": "smart.parts-bar",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-02",
+      "change": "added",
+      "summary": "sf-parts-bar: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (max) named «Свободно»; the smallest folded into «Другое» past max-parts; the whole beside the label, a list of the parts with values and shares (or one inline line for a tile), a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
     }
   ]
 }

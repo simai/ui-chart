@@ -85,6 +85,12 @@ Why `line` first:
   | pie | `sf-pie-chart` | `chart` |
   | sparkline | `sf-sparkline` | `chart` |
   | metric | `sf-metric` | `chart` |
+  | parts of a whole in one bar | `sf-parts-bar` | `chart` |
+
+  `sf-parts-bar` was added on 2026-11-02 by the owner's decision in chat:
+  one thin bar split into the parts of a whole, with a remainder when a
+  capacity is set (disk, quota, a model's context). Its head noun is
+  *bar*, as in `sf-progress-bar`.
 
   Later tiers follow the same pattern: `sf-scatter-chart`, `sf-heatmap`,
   `sf-box-plot`, `sf-funnel-chart`, `sf-gauge`, `sf-radar-chart`,
