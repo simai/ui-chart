@@ -13,7 +13,10 @@
     "loading": "Загрузка данных графика",
     "empty-title": "Нет данных для графика",
     "error-title": "Не удалось загрузить данные",
-    "x-column": "Значение по оси X"
+    "x-column": "Значение по оси X",
+    "share": "{share} ({value})",
+    "summary-stacked": "Ряды сложены стопкой.",
+    "summary-normalized": "Ряды показаны долями от общей суммы."
   },
   "events": {
     "toggle": {

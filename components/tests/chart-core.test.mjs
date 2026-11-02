@@ -7,7 +7,7 @@ import {bandScale, linearScale, nearestIndex, niceTicks, tickCount, timeTicks} f
 import {stackExtent, stackSeries} from '../src/smart/chart-core/stack.js';
 import {arcMiddle, arcPath, pieSlices} from '../src/smart/chart-core/arc.js';
 import {formatNumber, formatTime, numberOptions, timeUnitOf} from '../src/smart/chart-core/format.js';
-import {areaPath, linePath, runs} from '../src/smart/chart-core/path.js';
+import {areaPath, bandPath, linePath, runs} from '../src/smart/chart-core/path.js';
 import {minMaxIndexes} from '../src/smart/chart-core/decimate.js';
 import {seriesFacts, trendOf} from '../src/smart/chart-core/describe.js';
 import {moveCursor} from '../src/smart/chart-core/cursor.js';
@@ -101,6 +101,21 @@ test('paths break at a gap, or connect over it', () => {
   assert.equal(linePath([[0, 0], [10, 10]], {curve: 'step'}), 'M0 0H5V10H10');
   assert.equal(linePath([[5, 5]]), 'M5 5h0', 'a lone point still draws');
   assert.equal(areaPath([[0, 0], [10, 10]], 20), 'M0 0L10 10L10 20L0 20Z');
+});
+
+test('a band runs along its top and back along its bottom, broken where either has a gap', () => {
+  assert.equal(bandPath([[0, 0], [10, 5]], [[0, 10], [10, 20]]), 'M0 0L10 5L10 20L0 10Z');
+  const upper = [[0, 0], [10, 5], null, [30, 0], [40, 5]];
+  const lower = [[0, 9], [10, 9], [20, 9], [30, 9], [40, 9]];
+  assert.equal(bandPath(upper, lower), 'M0 0L10 5L10 9L0 9ZM30 0L40 5L40 9L30 9Z');
+  assert.equal(bandPath(upper, lower, {gaps: 'connect'}), 'M0 0L10 5L30 0L40 5L40 9L30 9L10 9L0 9Z');
+  // A layer's smooth top is the same curve as the bottom of the layer on it.
+  const middle = [[0, 4], [10, 2], [20, 6], [30, 3]];
+  const above = bandPath([[0, 1], [10, 0], [20, 2], [30, 1]], middle, {curve: 'smooth'});
+  const below = bandPath(middle, [[0, 9], [10, 9], [20, 9], [30, 9]], {curve: 'smooth'});
+  const forward = linePath(middle, {curve: 'smooth'});
+  assert.ok(below.startsWith(forward));
+  assert.ok(above.includes('L0 4') || above.endsWith('0 4Z'), 'the band above comes back to where the middle edge starts');
 });
 
 test('the smooth curve stays between its points', () => {

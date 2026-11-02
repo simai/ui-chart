@@ -161,6 +161,119 @@
       }
     },
     {
+      "name": "stacked",
+      "title": "Заказы по каналам стопкой",
+      "settings": {
+        "label": "Заказы по каналам",
+        "x": "month",
+        "y": "web,shop,partners",
+        "names": {
+          "web": "Сайт",
+          "shop": "Магазин",
+          "partners": "Партнёры"
+        },
+        "stack": "stacked",
+        "y-format": "integer",
+        "items": [
+          {
+            "month": "2026-07",
+            "web": 42,
+            "shop": 30,
+            "partners": 12
+          },
+          {
+            "month": "2026-08",
+            "web": 45,
+            "shop": 28,
+            "partners": 15
+          },
+          {
+            "month": "2026-09",
+            "web": 51,
+            "shop": null,
+            "partners": 14
+          },
+          {
+            "month": "2026-10",
+            "web": 55,
+            "shop": 25,
+            "partners": 18
+          },
+          {
+            "month": "2026-11",
+            "web": 58,
+            "shop": 24,
+            "partners": 20
+          },
+          {
+            "month": "2026-12",
+            "web": 66,
+            "shop": 29,
+            "partners": 22
+          }
+        ]
+      },
+      "expect": {
+        "name": "Заказы по каналам"
+      }
+    },
+    {
+      "name": "normalized",
+      "title": "Доли каналов, 100 %",
+      "settings": {
+        "label": "Доля каналов",
+        "x": "month",
+        "y": "web,shop,partners",
+        "names": {
+          "web": "Сайт",
+          "shop": "Магазин",
+          "partners": "Партнёры"
+        },
+        "stack": "normalized",
+        "items": [
+          {
+            "month": "2026-07",
+            "web": 42,
+            "shop": 30,
+            "partners": 12
+          },
+          {
+            "month": "2026-08",
+            "web": 45,
+            "shop": 28,
+            "partners": 15
+          },
+          {
+            "month": "2026-09",
+            "web": 51,
+            "shop": null,
+            "partners": 14
+          },
+          {
+            "month": "2026-10",
+            "web": 55,
+            "shop": 25,
+            "partners": 18
+          },
+          {
+            "month": "2026-11",
+            "web": 58,
+            "shop": 24,
+            "partners": 20
+          },
+          {
+            "month": "2026-12",
+            "web": 66,
+            "shop": 29,
+            "partners": 22
+          }
+        ]
+      },
+      "expect": {
+        "name": "Доля каналов"
+      }
+    },
+    {
       "name": "gaps",
       "title": "Пропуски в данных",
       "settings": {
@@ -327,6 +440,7 @@
           "  <sf-line-chart id=\"c\" label=\"Продажи и план, 2026\" x=\"month\" y=\"sales,plan\" y-format=\"integer\"></sf-line-chart>",
           "  <sf-line-chart id=\"g\" label=\"Посещения\" x=\"day\" y=\"visits\"></sf-line-chart>",
           "  <sf-line-chart id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-line-chart>",
+          "  <sf-line-chart id=\"s\" label=\"Доля каналов\" x=\"month\" y=\"web,shop,partners\" stack=\"normalized\"></sf-line-chart>",
           "</main>"
         ]
       },
@@ -503,6 +617,22 @@
                   }
                 ]
               }
+            }
+          ]
+        },
+        {
+          "id": "p7-normalized-layers",
+          "title": "normalized stacks the series as layers to 100 %; a gap breaks its layer, and the cursor says the share and the value",
+          "covers": "settings.stack, settings.gaps, settings.summary",
+          "steps": [
+            {
+              "script": "(() => { const s = document.querySelector('#s'); s.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\"}; s.items = [{\"month\": \"2026-07\", \"web\": 42, \"shop\": 30, \"partners\": 12}, {\"month\": \"2026-08\", \"web\": 45, \"shop\": 28, \"partners\": 15}, {\"month\": \"2026-09\", \"web\": 51, \"shop\": null, \"partners\": 14}, {\"month\": \"2026-10\", \"web\": 55, \"shop\": 25, \"partners\": 18}, {\"month\": \"2026-11\", \"web\": 58, \"shop\": 24, \"partners\": 20}, {\"month\": \"2026-12\", \"web\": 66, \"shop\": 29, \"partners\": 22}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(document.querySelector('#s').setCursor({index: 0, series: 'web'}, {say: true}), true)",
+              "wait": 120,
+              "check": "(() => { const s = document.querySelector('#s'); const layers = s.querySelectorAll('.sf-line-chart-area--layer'); const shop = s.querySelector('[data-series=shop] .sf-line-chart-area'); const ticks = [...s.querySelectorAll('.sf-line-chart-tick:not(.sf-line-chart-tick--x)')].map((t) => t.textContent); const live = s.querySelector('[aria-live=polite]').textContent; const summary = document.getElementById(s.querySelector('svg[role=group]').getAttribute('aria-describedby')).textContent; return layers.length === 3 && (shop.getAttribute('d').match(/M/gu) || []).length === 2 && /^100\\s?%$/u.test(ticks[ticks.length - 1]) && /Сайт: 50\\s?%\\s\\(42\\)/u.test(live) && /долями/u.test(summary); })()"
             }
           ]
         }

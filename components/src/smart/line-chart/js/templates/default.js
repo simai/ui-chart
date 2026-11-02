@@ -49,10 +49,10 @@ function cursorMarkup(g, cursor) {
   const x = g.px[cursor.index];
   let out = `<line class="sf-line-chart-crosshair" x1="${px(x)}" x2="${px(x)}" y1="${px(g.inner.top)}" y2="${px(g.inner.bottom)}"/>`;
   for (const line of g.lines) {
-    const value = line.values[cursor.index];
-    if (value === null) continue;
+    const at = line.ys[cursor.index];
+    if (at === null) continue;
     const current = line.key === cursor.series;
-    out += `<circle class="sf-line-chart-focus ${colourOf(line.place)}${current ? ' sf-line-chart-focus--current' : ''}" cx="${px(x)}" cy="${px(g.y(value))}" r="${current ? 5 : 3.5}"/>`;
+    out += `<circle class="sf-line-chart-focus ${colourOf(line.place)}${current ? ' sf-line-chart-focus--current' : ''}" cx="${px(x)}" cy="${px(at)}" r="${current ? 5 : 3.5}"/>`;
   }
   return out;
 }
@@ -62,7 +62,7 @@ function linesMarkup(g, cursor) {
   for (const line of g.lines) {
     const dim = cursor && cursor.series !== line.key ? ' sf-line-chart-series--dim' : '';
     out += `<g class="sf-line-chart-series ${colourOf(line.place)}${dim}" data-series="${esc(line.key)}">`;
-    if (line.area) out += `<path class="sf-line-chart-area" d="${line.area}"/>`;
+    if (line.area) out += `<path class="sf-line-chart-area${g.stacked ? ' sf-line-chart-area--layer' : ''}" d="${line.area}"/>`;
     out += `<path class="sf-line-chart-line" d="${line.d}"/>`;
     for (const [x, y] of line.dots) out += `<circle class="sf-line-chart-dot" cx="${px(x)}" cy="${px(y)}" r="2.5"/>`;
     out += '</g>';
@@ -84,7 +84,7 @@ function renderTooltip(context, g, cursor) {
         <div class=${['sf-line-chart-tooltip-row', colourOf(line.place), line.key === cursor.series ? 'sf-line-chart-tooltip-row--current' : ''].filter(Boolean).join(' ')}>
           <span class="sf-line-chart-swatch"></span>
           <span class="sf-line-chart-tooltip-name">${line.name}</span>
-          <span class="sf-line-chart-tooltip-value">${component.sayY(line.values[cursor.index])}</span>
+          <span class="sf-line-chart-tooltip-value">${component.sayValue(line, cursor.index)}</span>
         </div>
       `)}
     </div>

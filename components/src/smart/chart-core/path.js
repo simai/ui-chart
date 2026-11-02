@@ -82,3 +82,17 @@ export function areaPath(points, baseline, {curve = 'linear', gaps = 'break'} = 
     return `${line}L${round(last)} ${round(baseline)}L${round(first)} ${round(baseline)}Z`;
   }).join('');
 }
+
+/**
+ * The `d` of a band between two edges, per run: along the upper points, then
+ * back along the lower ones. A stacked area is the band between its own top
+ * and the top of the layer under it. Both edges share their gaps.
+ */
+export function bandPath(upper, lower, {curve = 'linear', gaps = 'break'} = {}) {
+  const pairs = upper.map((point, index) => (point === null || lower[index] === null ? null : [point, lower[index]]));
+  return runs(pairs, gaps).map((run) => {
+    const top = segment(run.map(([point]) => point), curve);
+    const back = segment(run.map(([, point]) => point).reverse(), curve);
+    return `${top}L${back.slice(1)}Z`;
+  }).join('');
+}

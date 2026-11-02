@@ -2,7 +2,7 @@
   "$comment": "The source of sf-line-chart (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart, the renderer and the keyboard docs/research/rendering.md, the name and the family docs/DECISIONS.md D2.",
   "id": "smart.line-chart",
   "tag": "sf-line-chart",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -77,6 +77,16 @@
       "type": "boolean",
       "default": false,
       "summary": "Fills the ground under each line, lightly, down to zero or the axis bottom."
+    },
+    "stack": {
+      "type": "enum",
+      "values": [
+        "none",
+        "stacked",
+        "normalized"
+      ],
+      "default": "none",
+      "summary": "none: each line from its own values; stacked: the series as layers on one another, each line its layer's top and its area the band under it, positive up and negative down from zero; normalized: the layers as shares of their whole at each x, 0–100 %."
     },
     "gaps": {
       "type": "enum",
@@ -355,7 +365,8 @@
     "select: the vocabulary's select is {ids} for a list; a point is no entry with an id, so it carries {series, index, x, value}.",
     "table: never none; the default toggle keeps the page short, hidden keeps it for screen readers.",
     "first paint: the frame (axes room, the label, the legend's place) holds its height from the size rung before data or width arrive, so nothing moves when the lines are drawn.",
-    "hidden-series: not hidden, which is the browser's own member of every element (§3.1)."
+    "hidden-series: not hidden, which is the browser's own member of every element (§3.1).",
+    "stack: stacked areas live on the line chart, not in a chart of their own (D1). A stacked layer always fills its band, whatever area says; layers share their kept points when decimated, so no band leaves a seam; in forced colours a layer is its outlines."
   ],
   "x-registry": {
     "capabilities": [

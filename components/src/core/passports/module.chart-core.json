@@ -3,7 +3,7 @@
   "schema_version": 1,
   "id": "module.chart-core",
   "kind": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "owner": "simai/ui-chart",
   "summary": "The SIMAI Chart core: data, scales, formats, paths, decimation, the words and the keyboard cursor every chart shares.",
   "includes": [
@@ -20,6 +20,6 @@
     "src/smart/chart-core/scale.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "f76298989157970dab94487bbf33207ad90d3580d970b66d96f90972f350a142",
+  "content_sha256": "e19e63c7b5d7555d9c80affd8d1bf2755f183da5fa3098ba64ba33e3d599972f",
   "dependencies": []
 }

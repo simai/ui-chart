@@ -13,7 +13,10 @@
     "loading": "Loading the chart's data",
     "empty-title": "No data for the chart",
     "error-title": "Could not load the data",
-    "x-column": "X value"
+    "x-column": "X value",
+    "share": "{share} ({value})",
+    "summary-stacked": "The series are stacked.",
+    "summary-normalized": "The series are shown as shares of their total."
   },
   "events": {
     "toggle": {

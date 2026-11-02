@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.line-chart",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "title": "Line chart",
   "summary": "A line chart: one or more series over time, a number or categories, with axes, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -104,6 +104,16 @@
         "type": "boolean",
         "default": false,
         "description": "Fills the ground under each line, lightly, down to zero or the axis bottom."
+      },
+      "stack": {
+        "type": "string",
+        "default": "none",
+        "description": "none: each line from its own values; stacked: the series as layers on one another, each line its layer's top and its area the band under it, positive up and negative down from zero; normalized: the layers as shares of their whole at each x, 0–100 %.",
+        "enum": [
+          "none",
+          "stacked",
+          "normalized"
+        ]
       },
       "gaps": {
         "type": "string",
@@ -434,15 +444,15 @@
     "source_artifacts": [
       {
         "path": "src/smart/line-chart/index.js",
-        "sha256": "82eed698702dc8eaa6b922756c61050e97e46b6721f3ace3d6582975818a4998"
+        "sha256": "22a1cb5c0482f625aeea5b8ed5eb39c8bb8da5f3893729944970004e19935c2e"
       },
       {
         "path": "src/smart/line-chart/js/templates/default.js",
-        "sha256": "3717a660b313b6b01ac9e0f5ce2a08c8c8f5954656c6f4b8310cdd297c449e5a"
+        "sha256": "e2c7ee87d1e0a0219a53e188914d2f1abcb9154853a29bc48b630a7cb8b29bb1"
       },
       {
         "path": "src/smart/line-chart/js/templates/default.css",
-        "sha256": "a020da783149bfecb4a930e03fd629258b97ede35c4a1ff6bc8cfcb2549bc0b5"
+        "sha256": "a86091f7d4882476d69fda0ef5976a2b363bcf0c75b6ef6984c9cc18e7a85893"
       },
       {
         "path": "src/smart/line-chart/rule.js",
@@ -450,19 +460,19 @@
       },
       {
         "path": "src/smart/line-chart/docs.md",
-        "sha256": "d0de64ddcc85a2cc10b4efb8c875d2aa25481c5060dc4494204c137d8f5f96cb"
+        "sha256": "6d6f4841e632f5af6980d1241292e812bf16823db72900c4a888b453a84140e0"
       },
       {
         "path": "src/smart/line-chart/component.json",
-        "sha256": "27077d7ee76f4b2d4876988aaa28464bab649a56820765f634c0d3e49dddb7e0"
+        "sha256": "5c5039b52c031713be8acb1d1511ebc4f4b339253c9b476d9e47342614b27f32"
       },
       {
         "path": "src/smart/line-chart/lang/en.json",
-        "sha256": "21d352ea93f05b6d0a08bfe2b134ba2b082bc6e886f4c8edfc9161c58c0a6f83"
+        "sha256": "a85e093448225208b6d12649fa69caf28da05cc3345ee3eac933b53adf217a13"
       },
       {
         "path": "src/smart/line-chart/lang/ru.json",
-        "sha256": "77f9a6d96150ed3348a3eebd927a58a8275c1dddafd192a2a39072e934bf51a7"
+        "sha256": "b958ba6e517c8cd919364c52a3c7a15846370cc6593e772d218f8ac0a53291a1"
       }
     ],
     "generated_runtime": []

@@ -346,6 +346,49 @@ try {
     evidence['10000-points-4x'] = result;
     await page.close();
   }
+
+  // 7. Stacks: the top layer of a normalized stack is the 100 % line; every
+  // band stays in the plot; decimated layers meet without a seam; in forced
+  // colours a layer is its outlines.
+  {
+    const page = await open({width: 1280});
+    const channels = items.map(({month, sales, plan, fact}) => ({month, web: sales, shop: plan, partners: fact}));
+    await make(page, {label: 'Доля каналов', x: 'month', y: 'web,shop,partners', stack: 'normalized'}, channels);
+    const normalized = await page.evaluate(() => {
+      const svg = document.querySelector('#chart svg[role=group]').getBoundingClientRect();
+      const ticks = [...document.querySelectorAll('#chart .sf-line-chart-tick:not(.sf-line-chart-tick--x)')];
+      const hundred = ticks.find((tick) => /^100\s?%$/u.test(tick.textContent));
+      const top = document.querySelector('#chart [data-series=partners] .sf-line-chart-line').getBBox();
+      const bands = [...document.querySelectorAll('#chart .sf-line-chart-area--layer')].map((node) => node.getBoundingClientRect());
+      return {
+        hundred: hundred ? Number(hundred.getAttribute('y')) : null,
+        top: [Math.round(top.y * 10) / 10, Math.round(top.height * 10) / 10],
+        inside: bands.every((band) => band.top >= svg.top - 1 && band.bottom <= svg.bottom + 1),
+        layers: bands.length,
+      };
+    });
+    if (normalized.hundred === null || Math.abs(normalized.top[0] - normalized.hundred) > 1 || normalized.top[1] > 1 || !normalized.inside || normalized.layers !== 3) {
+      note({case: 'a normalized stack tops out at the 100 % line, three layers inside the plot', got: normalized});
+    }
+    const wide = Array.from({length: 6000}, (_, t) => ({t, a: 20 + Math.sin(t / 50) * 10, b: 15 + ((t * 7919) % 11), c: 10 + Math.cos(t / 30) * 5}));
+    await make(page, {label: 'Слои, 6 000 точек', x: 't', y: 'a,b,c', stack: 'stacked'}, wide);
+    const seam = await page.evaluate(() => {
+      const xs = (d) => [...d.matchAll(/[ML]([\d.-]+) /gu)].map(([, x]) => x);
+      const top = document.querySelector('#chart [data-series=a] .sf-line-chart-line').getAttribute('d');
+      const band = document.querySelector('#chart [data-series=b] .sf-line-chart-area').getAttribute('d');
+      const lower = xs(band).slice(xs(band).length / 2).reverse();
+      return {same: JSON.stringify(xs(top)) === JSON.stringify(lower), points: xs(top).length};
+    });
+    if (!seam.same) note({case: 'decimated layers share their kept points, so a band meets the layer under it', got: seam});
+    evidence.stack = {normalized, decimated: seam};
+    await page.close();
+    const forced = await open({width: 768, colors: 'active'});
+    await make(forced, {label: 'Доля каналов', x: 'month', y: 'web,shop,partners', stack: 'normalized'}, channels);
+    const fills = await forced.evaluate(() => [...document.querySelectorAll('#chart .sf-line-chart-area--layer')].map((node) => getComputedStyle(node).fill));
+    if (!fills.length || fills.some((fill) => fill !== 'none')) note({case: 'in forced colours a stacked layer is its outlines', got: fills});
+    evidence.stack['forced-colors'] = fills;
+    await forced.close();
+  }
 } finally {
   await browser.close();
 }

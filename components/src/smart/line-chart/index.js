@@ -6,7 +6,9 @@
 // (chart-core/scale, path, decimate). A person reaches the plot with one Tab
 // stop and walks it with the arrows (chart-core/cursor); every move is said
 // in a polite live region, the chart as a whole in a summary sentence
-// (chart-core/describe), and the same data is a table on request.
+// (chart-core/describe), and the same data is a table on request. Stacked,
+// the series are layers (chart-core/stack): each line is its layer's top and
+// its area the band down to the layer under it.
 //
 // It renders into its own light DOM, like every Smart component.
 import SfBaseElement from '../../core/js/smart-base';
@@ -15,7 +17,8 @@ import {pageLocale} from '../../core/js/page-language';
 import {extent, readSeries} from '../chart-core/data.js';
 import {linearScale, nearestIndex, niceTicks, tickCount, timeTicks} from '../chart-core/scale.js';
 import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
-import {areaPath, linePath} from '../chart-core/path.js';
+import {areaPath, bandPath, linePath} from '../chart-core/path.js';
+import {stackExtent, stackSeries} from '../chart-core/stack.js';
 import {minMaxIndexes} from '../chart-core/decimate.js';
 import {seriesFacts} from '../chart-core/describe.js';
 import {moveCursor} from '../chart-core/cursor.js';
@@ -119,6 +122,15 @@ class SfLineChart extends LineChartElement {
     return formatNumber(value, pageLocale(this), this.yFormat, {step, gap: this.words('gap')});
   }
 
+  // A series' value at an x as the cursor and the tooltip say it: in a
+  // normalized stack, its share of the whole and then the value itself.
+  sayValue(line, index) {
+    const raw = line.values[index];
+    const segment = line.segments?.[index];
+    if (this.stack !== 'normalized' || raw === null || !segment) return this.sayY(raw);
+    return this.words('share', {share: formatNumber(segment[1] - segment[0], pageLocale(this), 'percent'), value: this.sayY(raw)});
+  }
+
   // Where everything goes: the plot's inner box, the scales, the ticks and
   // one path per shown series. Null until the plot has a width.
   geometry(model, shown) {
@@ -130,16 +142,23 @@ class SfLineChart extends LineChartElement {
     // y-min and y-max hold only when given: an unset number reads as 0.
     const yMin = this.hasAttribute('y-min') && Number.isFinite(this.yMin) ? this.yMin : null;
     const yMax = this.hasAttribute('y-max') && Number.isFinite(this.yMax) ? this.yMax : null;
-    let [low, high] = extent(shown) ?? [0, 1];
-    if (yMin !== null) low = yMin;
-    if (yMax !== null) high = yMax;
+    // Stacked, the axis spans the layers' ends; normalized, 0–100 % always.
+    const stacked = this.stack !== 'none';
+    const normalized = this.stack === 'normalized';
+    const segments = stacked ? stackSeries(shown, this.stack) : null;
+    let [low, high] = normalized ? [0, 1] : stacked ? stackExtent(segments) : extent(shown) ?? [0, 1];
+    if (!normalized && yMin !== null) low = yMin;
+    if (!normalized && yMax !== null) high = yMax;
+    if (high === low) high = low + 1;
     const top = GAP + (this.yLabel ? font * 1.5 : 0);
     const bottom = font * 1.5 + GAP + (this.xLabel ? font * 1.5 : 0);
     const yTicks = niceTicks(low, high, tickCount(height - top - bottom, font * 3.5), {
-      zero: this.yZero || this.area,
-      nice: yMin === null && yMax === null,
+      zero: this.yZero || this.area || stacked,
+      nice: normalized || (yMin === null && yMax === null),
     });
-    const yLabels = yTicks.ticks.map((value) => this.sayY(value, yTicks.step));
+    const yLabels = yTicks.ticks.map((value) => (normalized
+      ? formatNumber(value, pageLocale(this), 'percent', {step: yTicks.step})
+      : this.sayY(value, yTicks.step)));
     const left = Math.ceil(Math.max(...yLabels.map((text) => text.length)) * font * CHAR) + GAP * 1.5;
     const right = GAP * 2;
     const inner = {left, top, right: Math.max(left + 1, width - right), bottom: Math.max(top + 1, height - bottom)};
@@ -176,19 +195,43 @@ class SfLineChart extends LineChartElement {
     const px = model.xs.map((value) => x(value));
     const baseline = y(Math.max(yTicks.min, Math.min(yTicks.max, 0)));
     const markers = this.markers === 'always' || (this.markers === 'auto' && count <= 200 && (inner.right - inner.left) / Math.max(1, count) >= 12);
-    const lines = shown.map((one) => {
-      const keep = this.decimate === 'none' ? null : minMaxIndexes(px, one.values, inner.right - inner.left);
+    const room = inner.right - inner.left;
+    const options = {curve: this.curve, gaps: this.gaps};
+    // Each series at each x as a height on the plot: its value, or stacked
+    // its layer's top. A gap stays null.
+    const tops = shown.map((one, place) => one.values.map((value, index) => {
+      if (value === null) return null;
+      return y(segments ? segments[place][index][1] : value);
+    }));
+    // Layers share one set of kept points, so each band meets the one under it.
+    let shared = null;
+    if (segments && this.decimate !== 'none') {
+      const kept = new Set();
+      for (const one of shown) for (const index of minMaxIndexes(px, one.values, room) ?? one.values.map((_, at) => at)) kept.add(index);
+      shared = [...kept].sort((a, b) => a - b);
+    }
+    const lines = shown.map((one, place) => {
+      const keep = segments ? shared : this.decimate === 'none' ? null : minMaxIndexes(px, one.values, room);
       const indexes = keep ?? one.values.map((_, index) => index);
-      const points = indexes.map((index) => (one.values[index] === null ? null : [px[index], y(one.values[index])]));
+      const points = indexes.map((index) => (tops[place][index] === null ? null : [px[index], tops[place][index]]));
+      let area = '';
+      if (segments) {
+        const lower = indexes.map((index) => (segments[place][index] === null ? null : [px[index], y(segments[place][index][0])]));
+        area = bandPath(points, lower, options);
+      } else if (this.area) {
+        area = areaPath(points, baseline, options);
+      }
       return {
         ...one,
-        d: linePath(points, {curve: this.curve, gaps: this.gaps}),
-        area: this.area ? areaPath(points, baseline, {curve: this.curve, gaps: this.gaps}) : '',
-        dots: markers ? one.values.map((value, index) => (value === null ? null : [px[index], y(value), index])).filter(Boolean) : [],
+        segments: segments?.[place] ?? null,
+        ys: tops[place],
+        d: linePath(points, options),
+        area,
+        dots: markers ? tops[place].map((at, index) => (at === null ? null : [px[index], at, index])).filter(Boolean) : [],
       };
     });
     return {
-      width, height, font, inner, x, y, px, lines, baseline,
+      width, height, font, inner, x, y, px, lines, baseline, stacked,
       yTicks: yTicks.ticks.map((value, index) => ({at: y(value), text: yLabels[index], zero: value === 0})),
       xTicks,
     };
@@ -200,6 +243,7 @@ class SfLineChart extends LineChartElement {
     // The sentence ends with its own full stop: an abbreviation the date
     // ends with («2026 г.») gives it, not a second one.
     const parts = [this.words('summary-range', {from: this.sayX(model, 0), to: this.sayX(model, model.xs.length - 1).replace(/\.$/u, '')})];
+    if (this.stack !== 'none' && shown.length > 1) parts.push(this.words(`summary-${this.stack}`));
     for (const one of shown) {
       const facts = seriesFacts(one.values);
       if (!facts) continue;
@@ -220,7 +264,8 @@ class SfLineChart extends LineChartElement {
   cursorLine(model, cursor) {
     const one = model.series.find((series) => series.key === cursor.series);
     if (!one) return '';
-    return this.words('cursor', {x: this.sayX(model, cursor.index), name: one.name, value: this.sayY(one.values[cursor.index])});
+    const line = this._geometry?.lines.find((shown) => shown.key === one.key) ?? one;
+    return this.words('cursor', {x: this.sayX(model, cursor.index), name: one.name, value: this.sayValue(line, cursor.index)});
   }
 
   setCursor(cursor, {say = false} = {}) {
@@ -260,9 +305,9 @@ class SfLineChart extends LineChartElement {
     if (index < 0) return null;
     let best = null;
     for (const line of geometry.lines) {
-      const value = line.values[index];
-      if (value === null) continue;
-      const distance = Math.abs(geometry.y(value) - py);
+      const at = line.ys[index];
+      if (at === null) continue;
+      const distance = Math.abs(at - py);
       if (!best || distance < best.distance) best = {series: line.key, distance};
     }
     return best ? {index, series: best.series} : null;

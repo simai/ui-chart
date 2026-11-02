@@ -44,6 +44,22 @@
       "recorded_on": "2026-11-02",
       "change": "added",
       "summary": "sf-metric: one number with its label in a number, currency or unit format; the change against a previous period with its meaning (better) said by tone, arrow and word; a limit as a meter with sf-progress-bar's look; the page's status with a hint; a chart slot for an sf-sparkline; the whole tile as one link or button; loading and empty states."
+    },
+    {
+      "unit": "module.chart-core",
+      "version": "0.2.0",
+      "recorded_on": "2026-11-02",
+      "change": "minor",
+      "summary": "bandPath: the band between an upper and a lower edge, per run, sharing their gaps; a stacked layer's smooth top is the same curve as the bottom of the layer on it.",
+      "consumer": "Nothing to do: bandPath is new, and areaPath and linePath draw as before."
+    },
+    {
+      "unit": "smart.line-chart",
+      "version": "0.2.0",
+      "recorded_on": "2026-11-02",
+      "change": "minor",
+      "summary": "stack: none, stacked (the series as layers, positive up and negative down from zero) or normalized (shares of the whole at each x on a 0–100 % axis, the cursor and the tooltip saying the share and the value); a layer always fills its band, keeps its gaps and shares its kept points with the other layers; the summary says the series are stacked.",
+      "consumer": "Nothing to do: stack defaults to none, so a chart without it draws as before; set stack to stack the series."
     }
   ]
 }

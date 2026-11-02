@@ -147,6 +147,12 @@
     stroke: none;
   }
 
+  /* A stacked layer is filled stronger than the light area under a line:
+     the layers are the reading, and each one's top line marks where it ends. */
+  .sf-line-chart-area--layer {
+    fill-opacity: 0.32;
+  }
+
   .sf-line-chart-dot {
     fill: var(--sf-line-chart--series);
     stroke: var(--sf-surface-0);
@@ -354,6 +360,7 @@
   @media (forced-colors: active) {
     .sf-line-chart-series { --sf-line-chart--series: CanvasText; }
     .sf-line-chart-line { stroke-dasharray: var(--sf-line-chart--dash, none); }
+    .sf-line-chart-area--layer { fill: none; }
     .sf-line-chart-legend-item[aria-pressed='false'] { color: GrayText; }
     .sf-line-chart-legend-item[aria-pressed='false'] .sf-line-chart-swatch { background: GrayText; }
     .sf-line-chart-swatch { background: CanvasText; forced-color-adjust: none; }
