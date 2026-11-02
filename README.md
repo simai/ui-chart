@@ -16,5 +16,10 @@ The repository is at its start: the first stage is research, see
 
 ## Licence
 
-Not chosen yet; the owner sets it before the repository opens. Until then all
-rights are reserved by Rim Zabarov. See [LICENSE.md](LICENSE.md).
+Free for small businesses (PolyForm Small Business 1.0.0) and for
+non-commercial use (PolyForm Noncommercial 1.0.0); everyone else needs the
+SIMAI Commercial License, available on request from SIMAI. Use as part of
+Larena is covered by Larena's licence. See [LICENSE.md](LICENSE.md).
+
+The repository is private until the first release, then opens (owner
+decision q-26247b733d, 2026-11-02).

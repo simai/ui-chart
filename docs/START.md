@@ -157,8 +157,8 @@ these and a studied library disagree, the standard wins.
 
 - **Write scope:** `simai/ui-chart` only. Framework gaps are orders to the
   dispatcher. The ui-pro components are not edited from here; if a chart needs one (e.g. `sf-data-view` for the table fallback), use its public surface.
-- **Licence:** no licence is chosen yet. Copy no code, styles, palettes or icons from any studied library. Record every external idea with its source link.
-- **Publishing:** keep the repository private. Do not publish a package, release or docs page; the dispatcher's route does that.
+- **Licence:** the same as SIMAI Pro (PolyForm Small Business or Noncommercial, or the SIMAI Commercial License; owner, 2026-11-02); `components/package.json` carries `PolyForm-Small-Business-1.0.0 OR PolyForm-Noncommercial-1.0.0 OR LicenseRef-SIMAI-Commercial`. Copy no code, styles, palettes or icons from any studied library. Record every external idea with its source link.
+- **Publishing:** keep the repository private until the first release (then it opens). Do not publish a package, release or docs page; the dispatcher's route does that.
 - **Stop and report to the dispatcher if:**
   - a chart cannot be made without a third-party runtime;
   - the Smart standard cannot express a chart (a new port kind, a new manifest field);

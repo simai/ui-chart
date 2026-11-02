@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you refer to SIMAI Chart, please cite it as below."
+title: "SIMAI Chart"
+abstract: "Smart chart components built on SIMAI Framework (sf-chart-*), the component package chart."
+type: software
+authors:
+  - family-names: "Zabarov"
+    given-names: "Rim"
+    email: "rim@zabarov.com"
+license-url: "https://github.com/simai/ui-chart/blob/main/LICENSE.md"
+repository-code: "https://github.com/simai/ui-chart"
+url: "https://ui.simai.io/"
