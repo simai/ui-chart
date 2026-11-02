@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Usage: node this-file /absolute/path/to/output
-// The rest of Tier 1 on the built bytes (docs/START.md M1): sf-sparkline,
-// sf-bar-chart, sf-pie-chart, sf-metric and sf-parts-bar.
+// The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
+// sf-chart-bar, sf-chart-pie, sf-chart-metric and sf-chart-parts.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -20,7 +20,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['sparkline', 'bar-chart', 'pie-chart', 'metric', 'parts-bar'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -126,17 +126,17 @@ const THICK = {'1/2': 6, 1: 12, 2: 20};
 // The parts bar: its track, its parts in the order drawn, their colours.
 const partsOf = (page) => page.evaluate(() => {
   const chart = document.getElementById('chart');
-  const track = chart.querySelector('.sf-parts-bar-track').getBoundingClientRect();
-  const parts = [...chart.querySelectorAll('.sf-parts-bar-part')];
+  const track = chart.querySelector('.sf-chart-parts-track').getBoundingClientRect();
+  const parts = [...chart.querySelectorAll('.sf-chart-parts-part')];
   const boxes = parts.map((node) => node.getBoundingClientRect());
   return {
     height: Math.round(track.height),
     width: Math.round(track.width),
     pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-    listOverflow: [...chart.querySelectorAll('.sf-parts-bar-item')].filter((item) => item.scrollWidth > item.clientWidth + 1).length,
+    listOverflow: [...chart.querySelectorAll('.sf-chart-parts-item')].filter((item) => item.scrollWidth > item.clientWidth + 1).length,
     outside: boxes.filter((box) => box.left < track.left - 1 || box.right > track.right + 1).length,
     marks: parts.length,
-    free: parts.at(-1)?.classList.contains('sf-parts-bar-series--free') ?? false,
+    free: parts.at(-1)?.classList.contains('sf-chart-parts-series--free') ?? false,
     firstAtLeft: boxes.length > 1 && boxes[0].left < boxes.at(-1).left,
     fills: parts.map((node) => getComputedStyle(node).backgroundColor),
     background: getComputedStyle(document.body).backgroundColor,
@@ -151,8 +151,8 @@ try {
       for (const size of ['1/2', '1', '2']) {
         const where = `${theme} ${width}px size ${size}`;
 
-        await make(page, 'sf-bar-chart', {label: 'Продажи', x: 'city', y: 'q1,q2', size}, {items: cities});
-        const bar = await shapeOf(page, {frame: '.sf-bar-chart-plot', marks: '.sf-bar-chart-bar'});
+        await make(page, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2', size}, {items: cities});
+        const bar = await shapeOf(page, {frame: '.sf-chart-bar-plot', marks: '.sf-chart-bar-bar'});
         if (bar.height !== RUNG[size]) note({case: `bar: the plot is its rung's height (${where})`, got: bar.height, want: RUNG[size]});
         if (bar.outside || bar.pageOverflow > 0) note({case: `bar: nothing leaves the plot or the page (${where})`, got: bar});
         if (bar.marks !== 11) note({case: `bar: one bar per value, none for a gap (${where})`, got: bar.marks});
@@ -161,8 +161,8 @@ try {
         if (barFills.length < 2) note({case: `bar: the two series differ (${where})`, got: bar.fills});
         if (barContrast.some((ratio) => ratio < 3)) note({case: `bar: a bar holds 3:1 against the page (${where})`, got: barContrast});
 
-        await make(page, 'sf-pie-chart', {label: 'Заказы', category: 'channel', value: 'orders', size}, {items: channels});
-        const pie = await shapeOf(page, {frame: '.sf-pie-chart-plot', marks: '.sf-pie-chart-slice', texts: '.sf-pie-chart-share'});
+        await make(page, 'sf-chart-pie', {label: 'Заказы', category: 'channel', value: 'orders', size}, {items: channels});
+        const pie = await shapeOf(page, {frame: '.sf-chart-pie-plot', marks: '.sf-chart-pie-slice', texts: '.sf-chart-pie-share'});
         if (pie.height !== RUNG[size]) note({case: `pie: the plot is its rung's height (${where})`, got: pie.height, want: RUNG[size]});
         if (pie.outside || pie.pageOverflow > 0) note({case: `pie: no slice or share leaves the plot or the page (${where})`, got: pie});
         if (pie.marks !== 4) note({case: `pie: one slice per positive part (${where})`, got: pie.marks});
@@ -171,18 +171,18 @@ try {
         if (pieFills.length < 3) note({case: `pie: the first three parts differ (${where})`, got: pie.fills});
         if (pieContrast.some((ratio) => ratio < 3)) note({case: `pie: a slice holds 3:1 against the page (${where})`, got: pieContrast});
 
-        await make(page, 'sf-sparkline', {label: 'Посещения', size}, {items: week});
-        const spark = await shapeOf(page, {frame: '.sf-sparkline', marks: '.sf-sparkline-line, .sf-sparkline-mark', texts: 'none'});
+        await make(page, 'sf-chart-sparkline', {label: 'Посещения', size}, {items: week});
+        const spark = await shapeOf(page, {frame: '.sf-chart-sparkline', marks: '.sf-chart-sparkline-line, .sf-chart-sparkline-mark', texts: 'none'});
         if (spark.height !== SPARK[size]) note({case: `sparkline: its rung's height (${where})`, got: spark.height, want: SPARK[size]});
         if (spark.outside || spark.marks !== 2) note({case: `sparkline: the line and the mark stay inside (${where})`, got: spark});
         const [page2, line] = await rgbOf(page, [spark.background, spark.strokes[0]]);
         const sparkContrast = Math.round(contrast(line, page2) * 100) / 100;
         if (sparkContrast < 3) note({case: `sparkline: the line holds 3:1 against the page (${where})`, got: sparkContrast});
 
-        await make(page, 'sf-metric', {label: 'Выручка за неделю', value: '1250000', previous: '1100000', format: 'currency-RUB', 'period-text': 'к прошлой неделе', max: '2000000', size});
+        await make(page, 'sf-chart-metric', {label: 'Выручка за неделю', value: '1250000', previous: '1100000', format: 'currency-RUB', 'period-text': 'к прошлой неделе', max: '2000000', size});
         const metric = await page.evaluate(() => {
-          const tile = document.querySelector('#chart .sf-metric');
-          const value = tile.querySelector('.sf-metric-value');
+          const tile = document.querySelector('#chart .sf-chart-metric');
+          const value = tile.querySelector('.sf-chart-metric-value');
           const box = tile.getBoundingClientRect();
           return {
             overflow: tile.scrollWidth - tile.clientWidth,
@@ -193,7 +193,7 @@ try {
           };
         });
         if (metric.overflow > 0 || metric.pageOverflow > 0 || metric.valueLines !== 1) note({case: `metric: one value line, nothing leaves the tile (${where})`, got: metric});
-        await make(page, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer', size}, {items: disk, names: diskNames});
+        await make(page, 'sf-chart-parts', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer', size}, {items: disk, names: diskNames});
         const parts = await partsOf(page);
         if (parts.height !== THICK[size]) note({case: `parts bar: the bar is its rung's thickness (${where})`, got: parts.height, want: THICK[size]});
         if (parts.outside || parts.pageOverflow > 0 || parts.listOverflow) note({case: `parts bar: nothing leaves the bar, the list or the page (${where})`, got: parts});
@@ -215,12 +215,12 @@ try {
   // 2. Keyboard and screen reader.
   {
     const page = await open();
-    await make(page, 'sf-bar-chart', {label: 'Продажи', x: 'city', y: 'q1,q2', table: 'hidden'}, {items: cities, names: {q1: 'I квартал', q2: 'II квартал'}});
+    await make(page, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2', table: 'hidden'}, {items: cities, names: {q1: 'I квартал', q2: 'II квартал'}});
     await page.focus('#before');
     await page.keyboard.press('Tab');
     await page.keyboard.press('Tab');
     await page.keyboard.press('Tab');
-    const barFocus = await page.evaluate(() => document.activeElement?.matches('svg.sf-bar-chart-svg[role=group][tabindex="0"]'));
+    const barFocus = await page.evaluate(() => document.activeElement?.matches('svg.sf-chart-bar-svg[role=group][tabindex="0"]'));
     await page.keyboard.press('ArrowRight');
     await page.keyboard.press('ArrowDown');
     await page.waitForTimeout(80);
@@ -228,10 +228,10 @@ try {
     await page.keyboard.press('Enter');
     const barChosen = await page.evaluate(() => window.events.find(({verb}) => verb === 'select')?.detail);
     if (!barFocus || barSaid !== 'Москва, II квартал: 465' || barChosen?.x !== 'Москва') note({case: 'bar: Tab reaches the plot after the legend; the cursor is said; Enter chooses', got: {barFocus, barSaid, barChosen}});
-    const barTable = await page.evaluate(() => document.querySelectorAll('#chart .sf-bar-chart-sr table tbody tr').length);
+    const barTable = await page.evaluate(() => document.querySelectorAll('#chart .sf-chart-bar-sr table tbody tr').length);
     if (barTable !== 6) note({case: 'bar: table hidden keeps every category for screen readers', got: barTable});
 
-    await make(page, 'sf-bar-chart', {label: 'Рейтинг', x: 'city', y: 'q1', orientation: 'horizontal', legend: 'none', table: 'visible'}, {items: cities});
+    await make(page, 'sf-chart-bar', {label: 'Рейтинг', x: 'city', y: 'q1', orientation: 'horizontal', legend: 'none', table: 'visible'}, {items: cities});
     await page.focus('#chart svg');
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('ArrowDown');
@@ -239,7 +239,7 @@ try {
     const turned = await page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim());
     if (!/^Санкт-Петербург, q1: 310$/u.test(turned)) note({case: 'bar: on a horizontal chart Down walks the bars', got: turned});
 
-    await make(page, 'sf-pie-chart', {label: 'Заказы', category: 'channel', value: 'orders', 'value-format': 'integer'}, {items: channels, names: {web: 'Сайт', shop: 'Магазин', partners: 'Партнёры', phone: 'Телефон'}});
+    await make(page, 'sf-chart-pie', {label: 'Заказы', category: 'channel', value: 'orders', 'value-format': 'integer'}, {items: channels, names: {web: 'Сайт', shop: 'Магазин', partners: 'Партнёры', phone: 'Телефон'}});
     await page.focus('#chart svg');
     await page.keyboard.press('ArrowRight');
     await page.keyboard.press('ArrowLeft');
@@ -249,23 +249,23 @@ try {
     const pieName = await page.evaluate(() => document.getElementById(document.querySelector('#chart svg').getAttribute('aria-describedby')).textContent.replace(/ /gu, ' '));
     if (pieSaid !== 'Телефон: 3 % (30)' || !/^Частей: 4, всего 1 000\./u.test(pieName)) note({case: 'pie: the cursor is said with share and value; the summary says the whole', got: {pieSaid, pieName}});
 
-    await make(page, 'sf-sparkline', {label: 'Посещения', 'y-format': 'integer'}, {items: week});
+    await make(page, 'sf-chart-sparkline', {label: 'Посещения', 'y-format': 'integer'}, {items: week});
     const spark = await page.evaluate(() => ({name: document.querySelector('#chart [role=img]').getAttribute('aria-label'), focusable: document.querySelectorAll('#chart [tabindex]').length}));
     if (spark.name !== 'Посещения: от 340 до 488, наибольшее 488, наименьшее 340' || spark.focusable) note({case: 'sparkline: an image named by its data, no Tab stop', got: spark});
 
-    await make(page, 'sf-metric', {label: 'Очередь', value: '14', previous: '20', better: 'down', openable: ''});
+    await make(page, 'sf-chart-metric', {label: 'Очередь', value: '14', previous: '20', better: 'down', openable: ''});
     await page.focus('#before');
     await page.keyboard.press('Tab');
-    const metricFocus = await page.evaluate(() => document.activeElement?.matches('button.sf-metric'));
+    const metricFocus = await page.evaluate(() => document.activeElement?.matches('button.sf-chart-metric'));
     await page.keyboard.press('Enter');
     await page.keyboard.press('Space');
     const opened = await page.evaluate(() => window.events.filter(({verb}) => verb === 'open').length);
-    const said = await page.evaluate(() => document.querySelector('#chart .sf-metric-change').textContent.replace(/\s+/gu, ' ').trim());
+    const said = await page.evaluate(() => document.querySelector('#chart .sf-chart-metric-change').textContent.replace(/\s+/gu, ' ').trim());
     if (!metricFocus || opened !== 2 || said !== '▼ снижение −30 %') note({case: 'metric: an openable tile is one button; Enter and Space open; the change says its direction', got: {metricFocus, opened, said}});
-    await make(page, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer', table: 'hidden'}, {items: disk, names: diskNames});
+    await make(page, 'sf-chart-parts', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer', table: 'hidden'}, {items: disk, names: diskNames});
     await page.focus('#before');
     await page.keyboard.press('Tab');
-    const partsFocus = await page.evaluate(() => document.activeElement?.matches('.sf-parts-bar-track[role=group][tabindex="0"]'));
+    const partsFocus = await page.evaluate(() => document.activeElement?.matches('.sf-chart-parts-track[role=group][tabindex="0"]'));
     await page.keyboard.press('ArrowRight');
     await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(80);
@@ -280,9 +280,9 @@ try {
     // On a right-to-left page the first part is at the right, and Left goes
     // to the next part.
     await page.evaluate(() => { document.documentElement.dir = 'rtl'; });
-    await make(page, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer'}, {items: disk, names: diskNames});
+    await make(page, 'sf-chart-parts', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer'}, {items: disk, names: diskNames});
     const rtl = await partsOf(page);
-    await page.focus('#chart .sf-parts-bar-track');
+    await page.focus('#chart .sf-chart-parts-track');
     await page.keyboard.press('ArrowLeft');
     await page.keyboard.press('ArrowLeft');
     await page.waitForTimeout(80);
@@ -296,32 +296,32 @@ try {
   // 3. Reduced motion and forced colours.
   {
     const still = await open({motion: 'reduce'});
-    await make(still, 'sf-bar-chart', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities});
-    const motion = await still.evaluate(() => getComputedStyle(document.querySelector('.sf-bar-chart-series')).transitionDuration);
+    await make(still, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities});
+    const motion = await still.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-bar-series')).transitionDuration);
     if (motion !== '0s') note({case: 'bar: no transition under reduced motion', got: motion});
     await still.close();
 
     const forced = await open({colors: 'active'});
-    await make(forced, 'sf-bar-chart', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities});
-    const bars = await forced.evaluate(() => [...document.querySelectorAll('.sf-bar-chart-series')].map((group) => {
-      const style = getComputedStyle(group.querySelector('.sf-bar-chart-bar'));
+    await make(forced, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2'}, {items: cities});
+    const bars = await forced.evaluate(() => [...document.querySelectorAll('.sf-chart-bar-series')].map((group) => {
+      const style = getComputedStyle(group.querySelector('.sf-chart-bar-bar'));
       return `${style.fill}|${style.strokeDasharray}`;
     }));
     if (new Set(bars).size !== 2) note({case: 'bar: in forced colours the series differ by fill and dash', got: bars});
-    await make(forced, 'sf-bar-chart', {label: 'Продажи', x: 'city', y: 'q1,q2', lines: 'q2'}, {items: cities});
+    await make(forced, 'sf-chart-bar', {label: 'Продажи', x: 'city', y: 'q1,q2', lines: 'q2'}, {items: cities});
     const line = await forced.evaluate(() => {
-      const style = getComputedStyle(document.querySelector('.sf-bar-chart-line'));
-      return {stroke: style.stroke, dash: style.strokeDasharray, dots: document.querySelectorAll('.sf-bar-chart-dot').length, bars: document.querySelectorAll('.sf-bar-chart-bar').length};
+      const style = getComputedStyle(document.querySelector('.sf-chart-bar-line'));
+      return {stroke: style.stroke, dash: style.strokeDasharray, dots: document.querySelectorAll('.sf-chart-bar-dot').length, bars: document.querySelectorAll('.sf-chart-bar-bar').length};
     });
     if (line.stroke === 'none' || line.dash === 'none' || line.dots !== 5 || line.bars !== 6) note({case: 'bar: in forced colours a line keeps its stroke and dash, a point per value, the bars stay bars', got: line});
-    await make(forced, 'sf-pie-chart', {label: 'Заказы', category: 'channel', value: 'orders'}, {items: channels});
+    await make(forced, 'sf-chart-pie', {label: 'Заказы', category: 'channel', value: 'orders'}, {items: channels});
     const slices = await forced.evaluate(() => ({
-      stroke: getComputedStyle(document.querySelector('.sf-pie-chart-slice')).stroke,
-      shares: document.querySelectorAll('.sf-pie-chart-share').length,
+      stroke: getComputedStyle(document.querySelector('.sf-chart-pie-slice')).stroke,
+      shares: document.querySelectorAll('.sf-chart-pie-share').length,
     }));
     if (slices.stroke === 'none' || slices.shares < 3) note({case: 'pie: in forced colours the slices are outlines with their shares', got: slices});
-    await make(forced, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100'}, {items: disk});
-    const boxes = await forced.evaluate(() => [...document.querySelectorAll('.sf-parts-bar-part')].map((node) => getComputedStyle(node).backgroundColor));
+    await make(forced, 'sf-chart-parts', {label: 'Диск', category: 'kind', value: 'size', max: '100'}, {items: disk});
+    const boxes = await forced.evaluate(() => [...document.querySelectorAll('.sf-chart-parts-part')].map((node) => getComputedStyle(node).backgroundColor));
     if (new Set(boxes.slice(0, -1)).size !== 1 || boxes.at(-1) === boxes[0]) note({case: 'parts bar: in forced colours the parts are solid and the free remainder is not', got: boxes});
     evidence.forcedColours = {bars, line, slices, parts: boxes};
     await forced.close();
@@ -336,7 +336,7 @@ try {
       const data = Array.from({length: 1000}, (_, index) => ({day: `d${index}`, a: 50 + 40 * Math.sin(index / 20), b: 30 + 20 * Math.cos(index / 15)}));
       const box = document.getElementById('box');
       box.replaceChildren();
-      const chart = document.createElement('sf-bar-chart');
+      const chart = document.createElement('sf-chart-bar');
       chart.setAttribute('label', 'Много столбцов');
       chart.setAttribute('x', 'day');
       chart.setAttribute('y', 'a,b');
@@ -346,10 +346,10 @@ try {
       const start = performance.now();
       chart.items = data;
       await new Promise((done) => {
-        const check = () => (chart.querySelector('.sf-bar-chart-bar') ? done() : requestAnimationFrame(check));
+        const check = () => (chart.querySelector('.sf-chart-bar-bar') ? done() : requestAnimationFrame(check));
         check();
       });
-      return {first: Math.round(performance.now() - start), bars: chart.querySelectorAll('.sf-bar-chart-bar').length, ticks: chart.querySelectorAll('.sf-bar-chart-tick').length};
+      return {first: Math.round(performance.now() - start), bars: chart.querySelectorAll('.sf-chart-bar-bar').length, ticks: chart.querySelectorAll('.sf-chart-bar-tick').length};
     });
     await session.send('Emulation.setCPUThrottlingRate', {rate: 1});
     if (result.first > 1500 || result.bars !== 2000) note({case: '1,000 stacked categories draw within 1.5 s at 4x CPU (gate 17)', got: result});

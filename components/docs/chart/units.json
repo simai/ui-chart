@@ -11,39 +11,39 @@
       "summary": "The chart core: data read from records or columns with a field mapping (a missing value is a gap), linear and calendar scales with round ticks, Intl number and date formats, line, step and monotone paths with gaps, min-max decimation past two points per pixel column, band scales, stacks (stacked and normalized, positive and negative apart, gaps kept), pie and donut slices, series facts for the summary, and the keyboard cursor. Not yet released, so the M1 additions stay in 0.1.0."
     },
     {
-      "unit": "smart.line-chart",
+      "unit": "smart.chart-line",
       "version": "0.1.0",
       "recorded_on": "2026-11-02",
       "change": "added",
-      "summary": "sf-line-chart, the first chart of the package: one or more series over time, a number or categories; axes, grid, a legend that hides series, a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table (toggle, visible, hidden), loading, empty and error states."
+      "summary": "sf-chart-line, the first chart of the package: one or more series over time, a number or categories; axes, grid, a legend that hides series, a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table (toggle, visible, hidden), loading, empty and error states."
     },
     {
-      "unit": "smart.sparkline",
+      "unit": "smart.chart-sparkline",
       "version": "0.1.0",
       "recorded_on": "2026-11-02",
       "change": "added",
-      "summary": "sf-sparkline: one series as a word-sized line, area or bars without axes, with a mark on the last value or the extremes; an image named by its label and a sentence of the data; loading and empty states."
+      "summary": "sf-chart-sparkline: one series as a word-sized line, area or bars without axes, with a mark on the last value or the extremes; an image named by its label and a sentence of the data; loading and empty states."
     },
     {
-      "unit": "smart.bar-chart",
+      "unit": "smart.chart-bar",
       "version": "0.1.0",
       "recorded_on": "2026-11-02",
       "change": "added",
-      "summary": "sf-bar-chart: values by category as columns or horizontal bars, side by side, stacked or normalized to shares, sorted on request, with values at the bar ends; a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
+      "summary": "sf-chart-bar: values by category as columns or horizontal bars, side by side, stacked or normalized to shares, sorted on request, with values at the bar ends; a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
     },
     {
-      "unit": "smart.pie-chart",
+      "unit": "smart.chart-pie",
       "version": "0.1.0",
       "recorded_on": "2026-11-02",
       "change": "added",
-      "summary": "sf-pie-chart: the parts of one whole as slices of a circle or a ring with the total in the middle, the smallest folded into «Другое» past max-parts; shares inside the slices, a legend with shares that hides parts (beside or under the plot by a container query), a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
+      "summary": "sf-chart-pie: the parts of one whole as slices of a circle or a ring with the total in the middle, the smallest folded into «Другое» past max-parts; shares inside the slices, a legend with shares that hides parts (beside or under the plot by a container query), a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
     },
     {
-      "unit": "smart.metric",
+      "unit": "smart.chart-metric",
       "version": "0.1.0",
       "recorded_on": "2026-11-02",
       "change": "added",
-      "summary": "sf-metric: one number with its label in a number, currency or unit format; the change against a previous period with its meaning (better) said by tone, arrow and word; a limit as a meter with sf-progress-bar's look; the page's status with a hint; a chart slot for an sf-sparkline; the whole tile as one link or button; loading and empty states."
+      "summary": "sf-chart-metric: one number with its label in a number, currency or unit format; the change against a previous period with its meaning (better) said by tone, arrow and word; a limit as a meter with sf-progress-bar's look; the page's status with a hint; a chart slot for an sf-chart-sparkline; the whole tile as one link or button; loading and empty states."
     },
     {
       "unit": "module.chart-core",
@@ -54,7 +54,7 @@
       "consumer": "Nothing to do: bandPath is new, and areaPath and linePath draw as before."
     },
     {
-      "unit": "smart.line-chart",
+      "unit": "smart.chart-line",
       "version": "0.2.0",
       "recorded_on": "2026-11-02",
       "change": "minor",
@@ -69,35 +69,35 @@
       "summary": "settled: the value a costly view shows for data that may change fast; a change after a quiet spell shows at once, a stream at most once per wait, the latest last."
     },
     {
-      "unit": "smart.line-chart",
+      "unit": "smart.chart-line",
       "version": "0.2.1",
       "recorded_on": "2026-11-02",
       "change": "patch",
       "summary": "The data table is rebuilt only when the data changes, never on a pointer or cursor move, and at most once per second while data streams; the first data shows at once. A line chart with table=\"hidden\" updating 1,200 points went from 31 ms to 5 ms per update."
     },
     {
-      "unit": "smart.bar-chart",
+      "unit": "smart.chart-bar",
       "version": "0.1.1",
       "recorded_on": "2026-11-02",
       "change": "patch",
       "summary": "The data table is rebuilt only when the data changes, never on a pointer or cursor move, and at most once per second while data streams; the first data shows at once. A bar chart with table=\"hidden\" updating 1,200 points went from 31 ms to 5 ms per update."
     },
     {
-      "unit": "smart.pie-chart",
+      "unit": "smart.chart-pie",
       "version": "0.1.1",
       "recorded_on": "2026-11-02",
       "change": "patch",
       "summary": "The data table is rebuilt only when the data changes, never on a pointer or cursor move, and at most once per second while data streams; the first data shows at once. A pie chart with table=\"hidden\" updating 1,200 points went from 31 ms to 5 ms per update."
     },
     {
-      "unit": "smart.parts-bar",
+      "unit": "smart.chart-parts",
       "version": "0.1.0",
       "recorded_on": "2026-11-02",
       "change": "added",
-      "summary": "sf-parts-bar: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (max) named «Свободно»; the smallest folded into «Другое» past max-parts; the whole beside the label, a list of the parts with values and shares (or one inline line for a tile), a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
+      "summary": "sf-chart-parts: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (max) named «Свободно»; the smallest folded into «Другое» past max-parts; the whole beside the label, a list of the parts with values and shares (or one inline line for a tile), a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
     },
     {
-      "unit": "smart.bar-chart",
+      "unit": "smart.chart-bar",
       "version": "0.2.0",
       "recorded_on": "2026-11-02",
       "change": "minor",

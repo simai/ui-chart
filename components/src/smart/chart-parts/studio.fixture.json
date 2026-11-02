@@ -1,0 +1,17 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-parts",
+  "title": "parts bar reference",
+  "summary": "Deterministic reference fixture for sf-chart-parts.",
+  "locale": "ru",
+  "props": {
+    "label": "Диск",
+    "category": "kind",
+    "value": "size",
+    "max": 100,
+    "value-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

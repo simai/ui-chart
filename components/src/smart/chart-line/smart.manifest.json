@@ -1,0 +1,497 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-line",
+  "version": "0.2.1",
+  "title": "Line chart",
+  "summary": "A line chart: one or more series over time, a number or categories, with axes, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "line",
+    "time-series",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-line",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": ""
+      },
+      "root-style": {
+        "type": "string",
+        "default": ""
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «График»."
+      },
+      "x": {
+        "type": "string",
+        "default": "",
+        "description": "The field along the horizontal axis; the first field when unset."
+      },
+      "y": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the values, or a comma list of fields, one series per field (the wide form); every numeric field when unset."
+      },
+      "series": {
+        "type": "string",
+        "default": "",
+        "description": "The long form: one series per distinct value of this field, the values from the first y field."
+      },
+      "x-scale": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto reads the x values: dates are time, numbers linear, anything else a category in the order given.",
+        "enum": [
+          "auto",
+          "time",
+          "linear",
+          "category"
+        ]
+      },
+      "y-min": {
+        "type": "number",
+        "description": "The bottom of the value axis; the data's own when unset."
+      },
+      "y-max": {
+        "type": "number",
+        "description": "The top of the value axis; the data's own when unset."
+      },
+      "y-zero": {
+        "type": "boolean",
+        "default": false,
+        "description": "The value axis takes zero in, so a change is seen against the whole and not only against the range."
+      },
+      "curve": {
+        "type": "string",
+        "default": "linear",
+        "description": "linear joins the points straight; step holds a value until the next; smooth is a curve that never goes past its points.",
+        "enum": [
+          "linear",
+          "step",
+          "smooth"
+        ]
+      },
+      "area": {
+        "type": "boolean",
+        "default": false,
+        "description": "Fills the ground under each line, lightly, down to zero or the axis bottom."
+      },
+      "stack": {
+        "type": "string",
+        "default": "none",
+        "description": "none: each line from its own values; stacked: the series as layers on one another, each line its layer's top and its area the band under it, positive up and negative down from zero; normalized: the layers as shares of their whole at each x, 0–100 %.",
+        "enum": [
+          "none",
+          "stacked",
+          "normalized"
+        ]
+      },
+      "gaps": {
+        "type": "string",
+        "default": "break",
+        "description": "break: the line stops where a value is missing; connect: it joins the points around the gap.",
+        "enum": [
+          "break",
+          "connect"
+        ]
+      },
+      "markers": {
+        "type": "string",
+        "default": "auto",
+        "description": "A dot at each value: auto draws them while there is room (at least 12 px a point), always and none decide.",
+        "enum": [
+          "auto",
+          "always",
+          "none"
+        ]
+      },
+      "legend": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto shows the legend above the plot when there are two series or more. Each entry is a button that hides and shows its series.",
+        "enum": [
+          "auto",
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "axis",
+        "description": "axis: under the pointer or the cursor, every series' value at that x.",
+        "enum": [
+          "axis",
+          "none"
+        ]
+      },
+      "grid": {
+        "type": "string",
+        "default": "y",
+        "description": "Which guide lines the plot draws across it.",
+        "enum": [
+          "y",
+          "x",
+          "both",
+          "none"
+        ]
+      },
+      "x-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the horizontal axis, said under it; the x field's own name heads the table's first column when unset."
+      },
+      "y-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the value axis, said above it."
+      },
+      "x-format": {
+        "type": "string",
+        "default": "auto",
+        "description": "For a time axis: auto, or an Intl date style (short, medium, long, full). For a linear axis: a number format as y-format."
+      },
+      "y-format": {
+        "type": "string",
+        "default": "number",
+        "description": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the range, each series' first and last value, its peak), said before the plot and shown under it for screen readers. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with data, empty without. loading draws the frame without lines; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "decimate": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: past two points per pixel column a line keeps, per column, its first, lowest, highest and last point, so ten thousand points draw like four hundred and every peak stays.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records ([{month, sales}, …]) or an object of columns ({month: [...], sales: [...]}). A missing value (null, '', a word) is a gap, never a zero."
+      },
+      "names": {
+        "type": "object",
+        "default": {},
+        "description": "What each series is called, by its key: {sales: «Продажи»}. A series without a name is called by its key."
+      },
+      "hidden-series": {
+        "type": "array",
+        "default": [],
+        "description": "The keys of the series the person hid with the legend."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Shows every series again and takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-line-toggle": {
+      "summary": "The person hid or showed a series with its legend button; applied at once (the vocabulary's local toggle).",
+      "payload": {
+        "type": "object",
+        "required": [
+          "id",
+          "hidden"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-line-select": {
+      "summary": "The person chose a point: a click on the plot, or Enter or Space on the keyboard cursor.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "series",
+          "index",
+          "x",
+          "value"
+        ],
+        "properties": {
+          "series": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          },
+          "x": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-line-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the legend buttons and the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-line/index.js",
+        "sha256": "295d18bf3b66c98e112d0bc45afbc864c630517d23079cf6b3e76e9e8dd6a12f"
+      },
+      {
+        "path": "src/smart/chart-line/js/templates/default.js",
+        "sha256": "36edfdfe1e33547f4d7b0aab837d6a2782bfd7a9a0516dd49c90f79d988f5346"
+      },
+      {
+        "path": "src/smart/chart-line/js/templates/default.css",
+        "sha256": "8e724267d5d71b2568b73cc876ba845550b672f44784569056d9c798ef35b17f"
+      },
+      {
+        "path": "src/smart/chart-line/rule.js",
+        "sha256": "ca868ef2449e3f8eeb41721953a79fd1e626ba2f1d59cd667f5554011a1ba076"
+      },
+      {
+        "path": "src/smart/chart-line/docs.md",
+        "sha256": "6f820eb4dd98464291546cbc98dfed46b88ee4236ccda4cf5be0e1533c0deef4"
+      },
+      {
+        "path": "src/smart/chart-line/component.json",
+        "sha256": "30d4e1c82ac276ec6f5803428ba030303bc355dc080e6c03202488a350d3fcc1"
+      },
+      {
+        "path": "src/smart/chart-line/lang/en.json",
+        "sha256": "a85e093448225208b6d12649fa69caf28da05cc3345ee3eac933b53adf217a13"
+      },
+      {
+        "path": "src/smart/chart-line/lang/ru.json",
+        "sha256": "b958ba6e517c8cd919364c52a3c7a15846370cc6593e772d218f8ac0a53291a1"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-line for one or more series that change along time or another ordered axis.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not replace missing values with zero",
+      "Do not use it for parts of a whole; that is sf-chart-pie or a stacked sf-chart-bar"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-line label=\"Продажи по месяцам\" x=\"month\" y=\"sales\"></sf-chart-line>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

@@ -9,12 +9,12 @@ built and tested over the free Framework release pinned in
 
 | Folder | What it is |
 |---|---|
-| `src/smart/line-chart/` | `sf-line-chart`, one or more series over time, a number or categories, as lines or stacked areas |
-| `src/smart/bar-chart/` | `sf-bar-chart`, values by category: grouped, stacked or shares, vertical or horizontal |
-| `src/smart/pie-chart/` | `sf-pie-chart`, the parts of one whole as a circle or a ring |
-| `src/smart/sparkline/` | `sf-sparkline`, one series word-sized, for tables and tiles |
-| `src/smart/metric/` | `sf-metric`, one number with its change, limit and status (the KPI and Larena's metric tile) |
-| `src/smart/parts-bar/` | `sf-parts-bar`, the parts of one whole in one thin bar, with the free remainder of a capacity (a disk, a quota, a model's context) |
+| `src/smart/chart-line/` | `sf-chart-line`, one or more series over time, a number or categories, as lines or stacked areas |
+| `src/smart/chart-bar/` | `sf-chart-bar`, values by category: grouped, stacked or shares, vertical or horizontal |
+| `src/smart/chart-pie/` | `sf-chart-pie`, the parts of one whole as a circle or a ring |
+| `src/smart/chart-sparkline/` | `sf-chart-sparkline`, one series word-sized, for tables and tiles |
+| `src/smart/chart-metric/` | `sf-chart-metric`, one number with its change, limit and status (the KPI and Larena's metric tile) |
+| `src/smart/chart-parts/` | `sf-chart-parts`, the parts of one whole in one thin bar, with the free remainder of a capacity (a disk, a quota, a model's context) |
 | `src/smart/chart-core/` | the chart core every chart shares: data, scales and bands, stacks, slices, formats, paths, decimation, the words and the keyboard cursor; a helper folder (no rule file), its passport `src/core/passports/module.chart-core.json` |
 | `docs/chart/` | the unit journal (one entry per version of each unit) and the change journal (renames and removals) |
 | `tests/` | the package's unit and contract tests; `tests/browser/` its browser probes |
@@ -63,7 +63,7 @@ node <ui-builder>/scripts/verify-package-reproducibility.cjs <ui-source> <new wo
   --package chart --package-source <ui-chart checkout> --package-path components --package-revision <commit>
 ```
 
-The output, `wave-1/output/package/chart`, is `smart/line-chart/…` and
+The output, `wave-1/output/package/chart`, is `smart/chart-line/…` and
 `smart/rule.js`, one `SF.RuleLoader.registerPackage("chart", {rules})` call.
 A page declares the package before the Framework core starts:
 
@@ -85,7 +85,7 @@ query changes, with loading, a cancelled request, an error and a refresh.
 own means: an assembly defined on the page, each place starting `now`,
 `visible` or `opened` (standard §7.2.1), over a printed first paint of the
 charts' shipped skeletons; a panel counts what the page fetched.
-`../examples/line-chart.html` is the line chart's reference page and
+`../examples/chart-line.html` is the line chart's reference page and
 `../examples/dashboard.html` every Tier 1 chart on one dashboard.
 `../examples/serve.mjs` serves them over a Framework `distr` and a package
 build, the stand at `/`:

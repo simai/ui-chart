@@ -55,7 +55,7 @@
       <a href="/live.html">Живые данные</a>
       <a href="/staged.html">Поэтапная загрузка</a>
       <a href="/dashboard.html">Панель</a>
-      <a href="/line-chart.html">Линейный график</a>
+      <a href="/chart-line.html">Линейный график</a>
     </nav>
     <section>
       <h2>График</h2>
@@ -101,7 +101,7 @@
 <script src="/framework/core/js/core.js"></script>
 <script type="module">
   const CHARTS = [
-    ['line-chart', 'Линии'], ['bar-chart', 'Столбцы'], ['pie-chart', 'Круг'], ['sparkline', 'Мини-график'], ['metric', 'Показатель'], ['parts-bar', 'Полоса частей'],
+    ['chart-line', 'Линии'], ['chart-bar', 'Столбцы'], ['chart-pie', 'Круг'], ['chart-sparkline', 'Мини-график'], ['chart-metric', 'Показатель'], ['chart-parts', 'Полоса частей'],
   ];
   // Settings the stand draws as JSON, and those it never offers as a field.
   const DATA = new Set(['items', 'names']);
@@ -113,7 +113,7 @@
   };
   const $ = (id) => document.getElementById(id);
   const cache = {};
-  const state = {chart: 'line-chart', example: null, values: {}};
+  const state = {chart: 'chart-line', example: null, values: {}};
   let element = null;
   let timer = 0;
 
@@ -251,8 +251,8 @@
       island.textContent = JSON.stringify(data);
       element.append(island);
     }
-    if (tag === 'sf-metric' && state.example?.chart) {
-      const spark = document.createElement('sf-sparkline');
+    if (tag === 'sf-chart-metric' && state.example?.chart) {
+      const spark = document.createElement('sf-chart-sparkline');
       spark.slot = 'chart';
       spark.setAttribute('label', state.example.chart.label);
       spark.setAttribute('shape', 'area');
@@ -287,7 +287,7 @@
     state.chart = chart;
     const {manifest, examples} = await load(chart);
     const example = examples.find((one) => one.name === exampleName) ?? examples[0];
-    state.example = chart === 'metric' && example.name === 'reference'
+    state.example = chart === 'chart-metric' && example.name === 'reference'
       ? {chart: {label: 'Выручка за 12 недель', items: [0.98, 1.02, 1, 1.05, 1.08, 1.04, 1.1, 1.12, 1.1, 1.15, 1.1, 1.25]}}
       : null;
     state.values = {...example.settings};
@@ -335,7 +335,7 @@
   });
 
   const [chart, example] = location.hash.slice(1).split('/');
-  choose(CHARTS.some(([one]) => one === chart) ? chart : 'line-chart', example);
+  choose(CHARTS.some(([one]) => one === chart) ? chart : 'chart-line', example);
 </script>
 </body>
 </html>

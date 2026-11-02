@@ -44,7 +44,7 @@
       <a href="/live.html">Живые данные</a>
       <a href="/staged.html">Поэтапная загрузка</a>
       <a href="/dashboard.html">Панель</a>
-      <a href="/line-chart.html">Линейный график</a>
+      <a href="/chart-line.html">Линейный график</a>
       <button type="button" id="theme">Тёмная тема</button>
     </nav>
   </header>
@@ -66,13 +66,13 @@
       <span>Отрисовка: <output id="cost">—</output></span>
     </div>
     <div class="tiles">
-      <sf-metric id="cpu-now" label="CPU сейчас" format="percent" better="down" period-text="к точке 10 шагов назад" data-state="loading">
-        <sf-sparkline id="cpu-spark" slot="chart" label="CPU, последние точки" shape="area" y-format="percent" summary="none"></sf-sparkline>
-      </sf-metric>
-      <sf-metric id="memory-now" label="Память" format="unit-gigabyte" max="16" data-state="loading"></sf-metric>
-      <sf-metric id="requests-now" label="Запросов в секунду" format="integer" data-state="loading"></sf-metric>
+      <sf-chart-metric id="cpu-now" label="CPU сейчас" format="percent" better="down" period-text="к точке 10 шагов назад" data-state="loading">
+        <sf-chart-sparkline id="cpu-spark" slot="chart" label="CPU, последние точки" shape="area" y-format="percent" summary="none"></sf-chart-sparkline>
+      </sf-chart-metric>
+      <sf-chart-metric id="memory-now" label="Память" format="unit-gigabyte" max="16" data-state="loading"></sf-chart-metric>
+      <sf-chart-metric id="requests-now" label="Запросов в секунду" format="integer" data-state="loading"></sf-chart-metric>
     </div>
-    <sf-line-chart id="stream" label="CPU и диск, поток" x="t" y="cpu,disk" x-scale="time" y-format="percent" y-min="0" y-max="1" data-state="loading" table="hidden"></sf-line-chart>
+    <sf-chart-line id="stream" label="CPU и диск, поток" x="t" y="cpu,disk" x-scale="time" y-format="percent" y-min="0" y-max="1" data-state="loading" table="hidden"></sf-chart-line>
   </section>
 
   <section aria-labelledby="server-title">
@@ -92,9 +92,9 @@
       <span>Запрос: <output id="request">—</output></span>
     </div>
     <div class="grid">
-      <sf-line-chart id="orders-line" label="Заказы по дням" x="x" y="orders" series="key" y-format="integer" data-state="loading"></sf-line-chart>
-      <sf-bar-chart id="orders-bar" label="Заказы стопкой" x="x" y="orders" series="key" stack="stacked" data-state="loading"></sf-bar-chart>
-      <sf-pie-chart id="orders-pie" label="Итог за период" category="key" value="orders" hole="ring" value-format="integer" data-state="loading"></sf-pie-chart>
+      <sf-chart-line id="orders-line" label="Заказы по дням" x="x" y="orders" series="key" y-format="integer" data-state="loading"></sf-chart-line>
+      <sf-chart-bar id="orders-bar" label="Заказы стопкой" x="x" y="orders" series="key" stack="stacked" data-state="loading"></sf-chart-bar>
+      <sf-chart-pie id="orders-pie" label="Итог за период" category="key" value="orders" hole="ring" value-format="integer" data-state="loading"></sf-chart-pie>
     </div>
   </section>
 

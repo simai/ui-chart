@@ -41,7 +41,7 @@ test('the unit journal is the package journal form', () => {
 
 test('every package unit at its version has a journal entry', () => {
   const units = [...smart, ...modules];
-  assert.ok(units.some((unit) => unit.id === 'smart.line-chart'));
+  assert.ok(units.some((unit) => unit.id === 'smart.chart-line'));
   assert.ok(units.some((unit) => unit.id === 'module.chart-core'));
   const recorded = new Set(journal.entries.map((entry) => `${entry.unit}@${entry.version}`));
   assert.deepEqual(units.filter((unit) => !recorded.has(`${unit.id}@${unit.version}`)).map((unit) => `${unit.id}@${unit.version}`), []);

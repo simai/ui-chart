@@ -1,0 +1,16 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-line",
+  "title": "line chart reference",
+  "summary": "Deterministic reference fixture for sf-chart-line.",
+  "locale": "ru",
+  "props": {
+    "label": "Продажи и план, 2026",
+    "x": "month",
+    "y": "sales,plan",
+    "y-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

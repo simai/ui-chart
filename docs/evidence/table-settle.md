@@ -1,7 +1,7 @@
 # Settled data table evidence
 
 The live data page (`examples/live.html`) found that the data table of
-`sf-line-chart`, `sf-bar-chart` and `sf-pie-chart` was rebuilt on every
+`sf-chart-line`, `sf-chart-bar` and `sf-chart-pie` was rebuilt on every
 render: every new point of a stream, and every pointer or cursor move. With
 `table="hidden"` (the table only for screen readers) and 1,200 points, one
 update of a line chart took 31 ms against 4.6 ms with the table folded.
@@ -13,7 +13,7 @@ Date: 2026-11-02. The pin stays `ui-2d39b617a719`.
 |---|---|
 | `settled`: what a costly view shows for data that may change fast; a change after a quiet spell shows at once, a stream at most once per second, the latest data last | `components/src/smart/chart-core/settle.js` |
 | `keptView`: the last table view, kept while its key (data, label, formats, language, table mode) is the same | same file |
-| The three charts show the table from the settled data; the first data after none shows at once | `line-chart`, `bar-chart`, `pie-chart` (`index.js`, `js/templates/default.js`, `docs.md`) |
+| The three charts show the table from the settled data; the first data after none shows at once | `chart-line`, `chart-bar`, `chart-pie` (`index.js`, `js/templates/default.js`, `docs.md`) |
 | Versions: line 0.2.1, bar and pie 0.1.1, core 0.2.1, all `patch` | `components/docs/chart/units.json` |
 
 A first try used lit's `guard` directive. It pulled a copy of lit-html into
@@ -48,9 +48,9 @@ On the release build: manifest probes 27/27, first paint 60 unchanged, gate
 
 | Chart | JS, gzip | Change |
 |---|---|---|
-| `line-chart` | 12.3 KB | +0.4 |
-| `bar-chart` | 11.3 KB | +0.4 |
-| `pie-chart` | 9.5 KB | +0.4 |
+| `chart-line` | 12.3 KB | +0.4 |
+| `chart-bar` | 11.3 KB | +0.4 |
+| `chart-pie` | 9.5 KB | +0.4 |
 | `sparkline` | 6.1 KB | — |
 | `metric` | 4.1 KB | — |
 

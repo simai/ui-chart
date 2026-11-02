@@ -69,6 +69,15 @@ Why `line` first:
 
 ## D2. Tag names
 
+> **Superseded on 2026-11-02.** The owner settled one naming rule for every
+> Smart tag, `sf-[set]-<block>[-<variant>]`, from the general to the specific
+> (ui-control `control/decisions/2026-11-02-smart-component-naming.md`). The
+> charts are block `chart`: `sf-chart-line`, `sf-chart-bar`, `sf-chart-pie`,
+> `sf-chart-sparkline`, `sf-chart-parts`, `sf-chart-metric`. Nothing of the
+> package was released, so they were renamed outright, with no aliases. The
+> reasoning below is kept as it was decided then; one tag per chart and
+> variants as settings still hold.
+
 > **Кратко.** Отдельный тег на каждый вид графика, главное слово в конце:
 > `sf-line-chart`, `sf-bar-chart`, `sf-pie-chart`, `sf-sparkline`, `sf-metric`.
 > Вариант из задания `sf-chart-line` нарушает правило имён Framework (§21.1),

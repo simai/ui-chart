@@ -54,7 +54,7 @@
 </main>
 <script src="/framework/core/js/core.js"></script>
 <script type="module">
-  const CHARTS = ['line-chart', 'bar-chart', 'pie-chart', 'sparkline', 'metric'];
+  const CHARTS = ['chart-line', 'chart-bar', 'chart-pie', 'chart-sparkline', 'chart-metric'];
 
   // ---- What the page fetched, by chart. ----
   const seen = new Map();
@@ -146,13 +146,13 @@
   }
 
   const roles = {
-    revenue: {part: 'sf-metric', settings: {label: 'Выручка за месяц', value: 221, previous: 198, format: 'integer', 'period-text': 'к прошлому месяцу'}},
-    storage: {part: 'sf-metric', settings: {label: 'Хранилище', value: 45.25, max: 100, format: 'unit-gigabyte', status: 'success'}},
-    sales: {part: 'sf-line-chart', settings: {label: 'Продажи и план', x: 'month', y: 'sales,plan', 'y-format': 'integer'}, bind: {'settings.items': 'sales', 'settings.names': 'salesNames'}},
-    channels: {part: 'sf-bar-chart', start: 'visible', settings: {label: 'Заказы по каналам', x: 'month', y: 'web,shop,partners', stack: 'stacked'}, bind: {'settings.items': 'channels', 'settings.names': 'channelNames'}},
-    shares: {part: 'sf-pie-chart', start: 'visible', settings: {label: 'Заказы по каналам, итог', category: 'channel', value: 'orders', hole: 'ring', 'value-format': 'integer'}, bind: {'settings.items': 'parts', 'settings.names': 'channelNames'}},
-    api1: {part: 'sf-sparkline', start: 'opened', settings: {label: 'api-1, нагрузка', 'y-format': 'percent', mark: 'extremes'}, bind: {'settings.items': 'load1'}},
-    api2: {part: 'sf-sparkline', start: 'opened', settings: {label: 'api-2, нагрузка', 'y-format': 'percent', mark: 'extremes'}, bind: {'settings.items': 'load2'}},
+    revenue: {part: 'sf-chart-metric', settings: {label: 'Выручка за месяц', value: 221, previous: 198, format: 'integer', 'period-text': 'к прошлому месяцу'}},
+    storage: {part: 'sf-chart-metric', settings: {label: 'Хранилище', value: 45.25, max: 100, format: 'unit-gigabyte', status: 'success'}},
+    sales: {part: 'sf-chart-line', settings: {label: 'Продажи и план', x: 'month', y: 'sales,plan', 'y-format': 'integer'}, bind: {'settings.items': 'sales', 'settings.names': 'salesNames'}},
+    channels: {part: 'sf-chart-bar', start: 'visible', settings: {label: 'Заказы по каналам', x: 'month', y: 'web,shop,partners', stack: 'stacked'}, bind: {'settings.items': 'channels', 'settings.names': 'channelNames'}},
+    shares: {part: 'sf-chart-pie', start: 'visible', settings: {label: 'Заказы по каналам, итог', category: 'channel', value: 'orders', hole: 'ring', 'value-format': 'integer'}, bind: {'settings.items': 'parts', 'settings.names': 'channelNames'}},
+    api1: {part: 'sf-chart-sparkline', start: 'opened', settings: {label: 'api-1, нагрузка', 'y-format': 'percent', mark: 'extremes'}, bind: {'settings.items': 'load1'}},
+    api2: {part: 'sf-chart-sparkline', start: 'opened', settings: {label: 'api-2, нагрузка', 'y-format': 'percent', mark: 'extremes'}, bind: {'settings.items': 'load2'}},
   };
 
   await printFirstPaint(document.getElementById('board'), layout, roles);

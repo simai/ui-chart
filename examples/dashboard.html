@@ -36,44 +36,44 @@
   </header>
 
   <section class="tiles" aria-label="Показатели">
-    <sf-metric label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе">
-      <sf-sparkline id="revenue-trend" slot="chart" label="Выручка за 12 недель" shape="area" summary="none"></sf-sparkline>
-    </sf-metric>
-    <sf-metric label="Нагрузка CPU" value="0.82" previous="0.64" format="percent" better="down" status="warning" hint="Выше 80 % пятнадцать минут" period-text="за час"></sf-metric>
-    <sf-metric label="Хранилище" value="45.25" max="100" format="unit-gigabyte" status="success" hint="Свободно 55 %"></sf-metric>
-    <sf-metric id="queue" label="Очередь заданий" value="14" delta="-6" delta-format="absolute" better="down" format="integer" openable></sf-metric>
-    <sf-metric id="traffic" label="Трафик" format="unit-megabit-per-second" data-state="loading"></sf-metric>
+    <sf-chart-metric label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе">
+      <sf-chart-sparkline id="revenue-trend" slot="chart" label="Выручка за 12 недель" shape="area" summary="none"></sf-chart-sparkline>
+    </sf-chart-metric>
+    <sf-chart-metric label="Нагрузка CPU" value="0.82" previous="0.64" format="percent" better="down" status="warning" hint="Выше 80 % пятнадцать минут" period-text="за час"></sf-chart-metric>
+    <sf-chart-metric label="Хранилище" value="45.25" max="100" format="unit-gigabyte" status="success" hint="Свободно 55 %"></sf-chart-metric>
+    <sf-chart-metric id="queue" label="Очередь заданий" value="14" delta="-6" delta-format="absolute" better="down" format="integer" openable></sf-chart-metric>
+    <sf-chart-metric id="traffic" label="Трафик" format="unit-megabit-per-second" data-state="loading"></sf-chart-metric>
   </section>
 
   <div class="grid">
     <section>
       <h2>Продажи по городам</h2>
-      <sf-bar-chart id="cities" label="Продажи по городам, 2026" x="city" y="q1,q2" y-format="integer"></sf-bar-chart>
+      <sf-chart-bar id="cities" label="Продажи по городам, 2026" x="city" y="q1,q2" y-format="integer"></sf-chart-bar>
     </section>
     <section>
       <h2>Каналы стопкой</h2>
-      <sf-bar-chart id="channels" label="Заказы по каналам" x="month" y="web,shop,partners" stack="stacked" value-labels="end"></sf-bar-chart>
+      <sf-chart-bar id="channels" label="Заказы по каналам" x="month" y="web,shop,partners" stack="stacked" value-labels="end"></sf-chart-bar>
     </section>
     <section>
       <h2>Доли каналов</h2>
-      <sf-bar-chart id="shares" label="Доля каналов" x="month" y="web,shop,partners" stack="normalized" size="1/2"></sf-bar-chart>
+      <sf-chart-bar id="shares" label="Доля каналов" x="month" y="web,shop,partners" stack="normalized" size="1/2"></sf-chart-bar>
     </section>
     <section>
       <h2>Рейтинг</h2>
-      <sf-bar-chart id="ranking" label="Продажи за I квартал" x="city" y="q1" orientation="horizontal" sort="descending" value-labels="end" y-format="integer" size="1/2"></sf-bar-chart>
+      <sf-chart-bar id="ranking" label="Продажи за I квартал" x="city" y="q1" orientation="horizontal" sort="descending" value-labels="end" y-format="integer" size="1/2"></sf-chart-bar>
     </section>
     <section>
       <h2>Части целого</h2>
-      <sf-pie-chart id="pie" label="Заказы по каналам, октябрь" category="channel" value="orders" value-format="integer"></sf-pie-chart>
+      <sf-chart-pie id="pie" label="Заказы по каналам, октябрь" category="channel" value="orders" value-format="integer"></sf-chart-pie>
     </section>
     <section>
       <h2>Кольцо и «Другое»</h2>
-      <sf-pie-chart id="ring" label="Системы посетителей" category="os" value="share" hole="ring" max-parts="5" value-format="decimal-1"></sf-pie-chart>
+      <sf-chart-pie id="ring" label="Системы посетителей" category="os" value="share" hole="ring" max-parts="5" value-format="decimal-1"></sf-chart-pie>
     </section>
     <section style="display: grid; gap: var(--sf-space-1); align-content: start">
       <h2 style="margin: 0">Полоса частей: ёмкость</h2>
-      <sf-parts-bar id="disk" label="Хранилище" category="kind" value="size" max="100" value-format="unit-gigabyte"></sf-parts-bar>
-      <sf-parts-bar id="context" label="Контекст модели" category="part" value="tokens" max="200000" value-format="compact" legend="inline" size="1/2" table="hidden"></sf-parts-bar>
+      <sf-chart-parts id="disk" label="Хранилище" category="kind" value="size" max="100" value-format="unit-gigabyte"></sf-chart-parts>
+      <sf-chart-parts id="context" label="Контекст модели" category="part" value="tokens" max="200000" value-format="compact" legend="inline" size="1/2" table="hidden"></sf-chart-parts>
     </section>
   </div>
 
@@ -82,8 +82,8 @@
     <table>
       <thead><tr><th scope="col">Сервер</th><th scope="col">Нагрузка за сутки</th><th scope="col">Запросы</th></tr></thead>
       <tbody>
-        <tr><th scope="row">api-1</th><td><sf-sparkline id="s1" label="api-1, нагрузка" y-format="percent" mark="extremes"></sf-sparkline></td><td><sf-sparkline id="r1" label="api-1, запросы" shape="bar" size="1/2"></sf-sparkline></td></tr>
-        <tr><th scope="row">api-2</th><td><sf-sparkline id="s2" label="api-2, нагрузка" y-format="percent" mark="extremes"></sf-sparkline></td><td><sf-sparkline id="r2" label="api-2, запросы" shape="bar" size="1/2"></sf-sparkline></td></tr>
+        <tr><th scope="row">api-1</th><td><sf-chart-sparkline id="s1" label="api-1, нагрузка" y-format="percent" mark="extremes"></sf-chart-sparkline></td><td><sf-chart-sparkline id="r1" label="api-1, запросы" shape="bar" size="1/2"></sf-chart-sparkline></td></tr>
+        <tr><th scope="row">api-2</th><td><sf-chart-sparkline id="s2" label="api-2, нагрузка" y-format="percent" mark="extremes"></sf-chart-sparkline></td><td><sf-chart-sparkline id="r2" label="api-2, запросы" shape="bar" size="1/2"></sf-chart-sparkline></td></tr>
       </tbody>
     </table>
   </section>
@@ -133,10 +133,10 @@
   }, 1500);
 
   const log = (text) => { $('log').textContent = `${text}\n${$('log').textContent}`.split('\n').slice(0, 8).join('\n'); };
-  for (const tag of ['sf-bar-chart', 'sf-pie-chart']) {
+  for (const tag of ['sf-chart-bar', 'sf-chart-pie']) {
     for (const verb of ['select', 'toggle']) document.addEventListener(`${tag}-${verb}`, (event) => log(`${tag} ${verb} ${JSON.stringify(event.detail)}`));
   }
-  $('queue').addEventListener('sf-metric-open', () => log('sf-metric open: очередь заданий'));
+  $('queue').addEventListener('sf-chart-metric-open', () => log('sf-chart-metric open: очередь заданий'));
   $('theme').addEventListener('click', () => {
     const dark = document.documentElement.classList.toggle('theme-dark');
     document.documentElement.classList.toggle('theme-light', !dark);
