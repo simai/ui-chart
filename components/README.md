@@ -80,6 +80,10 @@ markup that makes the same chart and the events it sends.
 the page appends to (a sliding window, a rate, the cost of each update) and
 rows asked from a stand-in server (`/demo/orders` in `serve.mjs`) when the
 query changes, with loading, a cancelled request, an error and a refresh.
+`../examples/staged.html` loads a dashboard in stages with the Framework's
+own means: an assembly defined on the page, each place starting `now`,
+`visible` or `opened` (standard §7.2.1), over a printed first paint of the
+charts' shipped skeletons; a panel counts what the page fetched.
 `../examples/line-chart.html` is the line chart's reference page and
 `../examples/dashboard.html` every Tier 1 chart on one dashboard.
 `../examples/serve.mjs` serves them over a Framework `distr` and a package

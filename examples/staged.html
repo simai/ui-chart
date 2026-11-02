@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru" class="theme-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staged dashboard — SIMAI Chart</title>
+  <!-- A dashboard that loads its charts in stages, with the Framework's own
+       means (standard simai.smart-component §7.2.1): the dashboard is an
+       assembly defined on the page from a manifest alone, and each place says
+       when its chart starts — `now` (the first screen), `visible` (when it
+       scrolls into view) or `opened` (when its section opens). A chart that
+       has not started fetches no code; the Loader fetches its module when it
+       starts. The panel at the top counts what the page fetched. The data
+       rides the assembly's keys, so the page writes no chart code. -->
+  <script>
+    window.sfPath = '/framework/';
+    window.sfSmartPath = '/framework/';
+    window.SF_BOOT_CONFIG = {packages: {chart: {base: '/package/smart/'}}};
+  </script>
+  <link rel="stylesheet" href="/framework/core/css/core.css">
+  <style>
+    body { margin: 0; background: var(--sf-surface-0); color: var(--sf-on-surface); font-family: var(--sf-text--family); }
+    main { display: grid; gap: var(--sf-space-2); max-inline-size: 72rem; margin-inline: auto; padding: var(--sf-space-1); }
+    header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sf-space-1\/2); }
+    h1 { margin: 0; font-size: var(--sf-heading-4--size); line-height: var(--sf-heading-4--height); }
+    h2 { margin: 0 0 var(--sf-space-1\/2); font-size: var(--sf-heading-6--size); line-height: var(--sf-heading-6--height); }
+    nav { display: flex; flex-wrap: wrap; gap: var(--sf-space-1); font-size: var(--sf-text-small--size); }
+    a { color: var(--sf-primary); }
+    .note { margin: 0; max-inline-size: 60rem; font-size: var(--sf-text-small--size); color: var(--sf-on-surface-variant); }
+    #fetched { position: sticky; inset-block-start: 0; z-index: 1; margin: 0; padding: var(--sf-space-1\/2); background: var(--sf-surface-1); border: var(--sf-px) solid var(--sf-outline-variant); border-radius: var(--sf-radius-1); font-size: var(--sf-text-small--size); white-space: pre-wrap; }
+    .tiles { display: grid; gap: var(--sf-space-1); grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+    .grid { display: grid; gap: var(--sf-space-1); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+    .gap { block-size: 120vh; display: grid; place-items: center; color: var(--sf-on-surface-variant); border: var(--sf-px) dashed var(--sf-outline-variant); border-radius: var(--sf-radius-1); }
+    details { border: var(--sf-px) solid var(--sf-outline-variant); border-radius: var(--sf-radius-1); padding: var(--sf-space-1\/2) var(--sf-space-1); }
+    summary { cursor: pointer; font-weight: 600; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Панель с поэтапной загрузкой</h1>
+    <nav aria-label="Страницы">
+      <a href="/stand.html">Стенд</a>
+      <a href="/live.html">Живые данные</a>
+      <a href="/staged.html">Поэтапная загрузка</a>
+      <a href="/dashboard.html">Панель</a>
+    </nav>
+  </header>
+  <p class="note">Первый экран — плитки и линейный график: их код загружается сразу. Столбцы и круг ниже
+    загружаются, когда до них долистали; мини-графики — когда открыт раздел «Серверы». Пока код не пришёл,
+    на месте графика стоит его заглушка того же размера.</p>
+  <pre id="fetched" aria-live="polite">Загружено: —</pre>
+  <demo-staged-dashboard id="board"></demo-staged-dashboard>
+</main>
+<script src="/framework/core/js/core.js"></script>
+<script type="module">
+  const CHARTS = ['line-chart', 'bar-chart', 'pie-chart', 'sparkline', 'metric'];
+
+  // ---- What the page fetched, by chart. ----
+  const seen = new Map();
+  const at0 = performance.now();
+  function count(entry) {
+    const match = /\/package\/smart\/([a-z-]+)\/(js|css)\//u.exec(entry.name);
+    if (!match) return;
+    const one = seen.get(match[1]) ?? {bytes: 0, at: Math.round(entry.startTime - at0)};
+    one.bytes += entry.encodedBodySize || entry.transferSize || 0;
+    seen.set(match[1], one);
+    const lines = [...seen].map(([chart, {bytes, at}]) => `${chart.padEnd(11)} ${(bytes / 1024).toFixed(1).padStart(5)} КБ  на ${(at / 1000).toFixed(1)} с`);
+    const total = [...seen.values()].reduce((sum, one) => sum + one.bytes, 0);
+    document.getElementById('fetched').textContent = `Загружено графиков: ${seen.size} из ${CHARTS.length}, ${(total / 1024).toFixed(1)} КБ (без сжатия)\n${lines.join('\n')}`;
+  }
+  new PerformanceObserver((list) => list.getEntries().forEach(count)).observe({type: 'resource', buffered: true});
+
+  // ---- The parts' interfaces, from the charts' own manifests. ----
+  const manifests = await Promise.all(CHARTS.map((chart) => fetch(`/package/smart/${chart}/component.json`).then((response) => response.json())));
+  const shape = (members = {}) => Object.fromEntries(Object.entries(members).map(([name, member]) => [name, {type: member.type ?? 'string'}]));
+  SF.Assembly.interfaces.registerAll(Object.fromEntries(manifests.map((manifest) => [manifest.tag, {
+    version: manifest.version,
+    settings: shape(manifest.settings),
+    values: shape(manifest.values),
+    events: Object.fromEntries(Object.keys(manifest.events ?? {}).map((name) => [name, {carries: {}}])),
+    actions: Object.fromEntries(Object.keys(manifest.actions ?? {}).map((name) => [name, {}])),
+  }])));
+
+  // ---- The data, as the assembly's keys. ----
+  const months = ['2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'];
+  const sales = [180, 176, 190, 204, 198, 221];
+  const plan = [175, 180, 185, 195, 205, 215];
+  const wave = (count, base, swing, step) => Array.from({length: count}, (_, index) => Math.round((base + swing * Math.sin(index / step)) * 100) / 100);
+  const list = (initial) => ({type: 'list', writer: 'logic', initial});
+  const object = (initial) => ({type: 'object', writer: 'logic', initial});
+
+  const layout = `
+        <section class="tiles" aria-label="Показатели"><x-role name="revenue"></x-role><x-role name="storage"></x-role></section>
+        <section><h2>Первый экран: загружается сразу</h2><x-role name="sales"></x-role></section>
+        <div class="gap">Ниже — графики, которые загрузятся при прокрутке</div>
+        <div class="grid">
+          <section><h2>По прокрутке</h2><x-role name="channels"></x-role></section>
+          <section><h2>По прокрутке</h2><x-role name="shares"></x-role></section>
+        </div>
+        <details><summary>Серверы (загрузится при открытии)</summary>
+          <p>api-1 <x-role name="api1"></x-role></p>
+          <p>api-2 <x-role name="api2"></x-role></p>
+        </details>`;
+
+  // ---- The first paint. ----
+  // A server (Larena, Bitrix) prints the dashboard's first paint: the layout,
+  // and in each place its chart's host holding the chart's skeleton
+  // (standard §5.4, §7.3). The assembly adopts each printed host in its place,
+  // so a chart that starts later keeps its box until then. This page has no
+  // server, so it composes the same markup from the skeletons the package
+  // ships (static/default/reference.skeleton.html).
+  async function printFirstPaint(host, layout, roles) {
+    const page = document.createElement('template');
+    page.innerHTML = layout;
+    for (const place of [...page.content.querySelectorAll('x-role')]) {
+      const role = place.getAttribute('name');
+      const chart = roles[role].part.replace(/^sf-/u, '');
+      const markup = await fetch(`/package/smart/${chart}/static/default/reference.skeleton.html`).then((response) => response.text());
+      const skeleton = document.createElement('template');
+      skeleton.innerHTML = markup;
+      const printed = skeleton.content.querySelector(roles[role].part);
+      // The skeleton was drawn for the chart's own example: the host takes
+      // the place's settings instead, as a server prints them.
+      printed.querySelector(':scope > script[data-sf-settings]')?.remove();
+      for (const name of printed.getAttributeNames()) {
+        if (name !== 'data-sf-first-paint' && name !== 'aria-busy') printed.removeAttribute(name);
+      }
+      for (const [name, value] of Object.entries(roles[role].settings ?? {})) printed.setAttribute(name, String(value));
+      // The snapshot prints the host as `display: contents`, so the host has
+      // no box, and the assembly watches the host for `start: "visible"`: a
+      // host without a box never meets the viewport and its chart never
+      // starts (ordered from the SIMAI Framework dispatcher). Printed without
+      // that style, the host wraps its skeleton's box until the chart takes it.
+      printed.setAttribute('data-sf-role', role);
+      // A deferred place is printed as one: the Loader leaves an unstarted
+      // part alone (a closed container for itself), so no code comes early.
+      if (roles[role].start && roles[role].start !== 'now') printed.setAttribute('data-sf-start', roles[role].start);
+      place.replaceWith(printed);
+    }
+    const printedLayout = document.createElement('div');
+    printedLayout.setAttribute('data-sf-layout', 'default');
+    printedLayout.setAttribute('data-sf-static', '');
+    printedLayout.append(page.content);
+    host.append(printedLayout);
+  }
+
+  const roles = {
+    revenue: {part: 'sf-metric', settings: {label: 'Выручка за месяц', value: 221, previous: 198, format: 'integer', 'period-text': 'к прошлому месяцу'}},
+    storage: {part: 'sf-metric', settings: {label: 'Хранилище', value: 45.25, max: 100, format: 'unit-gigabyte', status: 'success'}},
+    sales: {part: 'sf-line-chart', settings: {label: 'Продажи и план', x: 'month', y: 'sales,plan', 'y-format': 'integer'}, bind: {'settings.items': 'sales', 'settings.names': 'salesNames'}},
+    channels: {part: 'sf-bar-chart', start: 'visible', settings: {label: 'Заказы по каналам', x: 'month', y: 'web,shop,partners', stack: 'stacked'}, bind: {'settings.items': 'channels', 'settings.names': 'channelNames'}},
+    shares: {part: 'sf-pie-chart', start: 'visible', settings: {label: 'Заказы по каналам, итог', category: 'channel', value: 'orders', hole: 'ring', 'value-format': 'integer'}, bind: {'settings.items': 'parts', 'settings.names': 'channelNames'}},
+    api1: {part: 'sf-sparkline', start: 'opened', settings: {label: 'api-1, нагрузка', 'y-format': 'percent', mark: 'extremes'}, bind: {'settings.items': 'load1'}},
+    api2: {part: 'sf-sparkline', start: 'opened', settings: {label: 'api-2, нагрузка', 'y-format': 'percent', mark: 'extremes'}, bind: {'settings.items': 'load2'}},
+  };
+
+  await printFirstPaint(document.getElementById('board'), layout, roles);
+
+  SF.Assembly.define({
+    tag: 'demo-staged-dashboard', kind: 'assembly', settings: {}, values: {}, events: {}, actions: {},
+    keys: {
+      sales: list(months.map((month, index) => ({month, sales: sales[index], plan: plan[index]}))),
+      salesNames: object({sales: 'Продажи', plan: 'План'}),
+      channels: list(months.map((month, index) => ({month, web: 42 + index * 4, shop: 30 - index, partners: 12 + index * 2}))),
+      channelNames: object({web: 'Сайт', shop: 'Магазин', partners: 'Партнёры', phone: 'Телефон'}),
+      parts: list([{channel: 'web', orders: 540}, {channel: 'shop', orders: 310}, {channel: 'partners', orders: 120}, {channel: 'phone', orders: 30}]),
+      load1: list(wave(24, 0.55, 0.25, 3)),
+      load2: list(wave(24, 0.35, 0.1, 5)),
+    },
+    roles,
+    rules: [],
+  }, {
+    layouts: {
+      default: layout,
+    },
+  });
+</script>
+</body>
+</html>
