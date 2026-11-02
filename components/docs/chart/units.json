@@ -175,6 +175,13 @@
       "change": "minor",
       "summary": "palette: the parts' colours as a named set (vivid, soft, warm, cool, brand), each colour a light-dark pair on the Framework's tone ladder, 3:1 against surfaces 0-2 in both themes and, for the first five, told apart under the three common colour-vision deficiencies; colors still wins for the parts it names.",
       "consumer": "Nothing to do: palette defaults to theme, so a chart draws as before; set palette to use a named set."
+    },
+    {
+      "unit": "smart.chart-heatmap",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-03",
+      "change": "added",
+      "summary": "sf-chart-heatmap: a measure over two categories as a grid of cells (x, y and value fields), coloured by the steps of a sequential scale (one role family) or a diverging one (two families around a neutral middle, which way is better set by better) on the theme's own tones in light and dark; the value written in each cell where it fits at 4.5:1, gaps as outlined empty cells, a legend of the scale, a tooltip, a keyboard cursor over the grid said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
     }
   ]
 }

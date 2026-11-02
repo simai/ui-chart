@@ -26,6 +26,8 @@ const PENDING = [
   {component: 'chart-bar', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-pie', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-parts', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
+  {component: 'chart-heatmap', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
+  {component: 'chart-heatmap', property: 'scheme', reason: 'the role family a sequential scale is drawn in (primary ... info, as the role names of colors), a colour of the data, not a status about the world nor how a control looks'},
 ];
 
 // The free rule's words, as ui-source writes them at the pin.

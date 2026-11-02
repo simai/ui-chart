@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Usage: node this-file /absolute/path/to/output
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
-// sf-chart-bar, sf-chart-pie, sf-chart-metric and sf-chart-parts.
+// sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts and sf-chart-heatmap.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -13,6 +13,8 @@
 //   with a cursor that is said; an openable metric is one button; a sparkline
 //   takes no focus and is named by its data;
 // - reduced motion and forced colours;
+// - the heatmap: its rows' height, its values' contrast on their steps, the
+//   diverging middle, the keyboard and forced colours;
 // - many bars: 1,000 categories draw within the budget at a 4x CPU slowdown.
 import {resolve, join} from 'node:path';
 import {existsSync} from 'node:fs';
@@ -20,7 +22,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -48,6 +50,11 @@ const channels = [{channel: 'web', orders: 540}, {channel: 'shop', orders: 310},
 const disk = [{kind: 'system', size: 22}, {kind: 'apps', size: 13}, {kind: 'docs', size: 7}, {kind: 'photos', size: 3}];
 const diskNames = {system: 'Система', apps: 'Приложения', docs: 'Документы', photos: 'Фото'};
 const week = [340, 362, 355, 401, 395, 410, 430, 452, 440, 461, 470, 488];
+const hours = ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
+const load = [['mon', [32, 44, 60, 74, 80, 74, 60, 44, 32, 25]], ['tue', [34, 46, 62, 76, 82, 76, 62, 46, 34, 27]], ['wed', [30, 41, 58, 70, 78, 71, 57, 40, 31, 24]]]
+  .flatMap(([day, values]) => values.map((value, index) => ({hour: hours[index], day, load: value})));
+const days = {mon: 'Пн', tue: 'Вт', wed: 'Ср'};
+const change = [{m: 'jan', r: 'north', v: -6}, {m: 'feb', r: 'north', v: -1}, {m: 'mar', r: 'north', v: 0}, {m: 'apr', r: 'north', v: 2}, {m: 'may', r: 'north', v: 6}];
 
 const browser = await chromium.launch();
 const open = async ({width = 900, theme = 'light', motion = 'no-preference', colors = 'none'} = {}) => {
@@ -393,6 +400,101 @@ try {
     const ink = await forced.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-bar-series[data-series="q1"] .sf-chart-bar-bar')).fill);
     if (ink === 'rgb(10, 127, 111)') note({case: 'colors: in forced colours the system colour wins over a page colour', got: ink});
     evidence.pageColours.forced = ink;
+    await forced.close();
+  }
+
+  // 3c. The heatmap (docs/DECISIONS.md D8): its height is its rows' on every
+  // rung and width; a value written in a cell keeps 4.5:1 on its step in both
+  // themes; the strongest step is the most contrasting with the page; a
+  // diverging scale meets at a neutral middle and better="down" swaps its
+  // families; the grid is one Tab stop walked by the arrows; in forced
+  // colours a cell is an outline.
+  {
+    const CELL = {'1/2': 20, 1: 28, 2: 36};
+    const FONT = {'1/2': 11, 1: 12, 2: 14};
+    const heat = {label: 'Нагрузка', x: 'hour', y: 'day', value: 'load', 'value-format': 'integer'};
+    const cellsOf = (page) => page.evaluate(() => [...document.querySelectorAll('.sf-chart-heatmap-cell')].map((node) => ({
+      step: node.dataset.step === undefined ? -1 : Number(node.dataset.step),
+      fill: getComputedStyle(node.querySelector('rect')).fill,
+      ink: node.querySelector('text') ? getComputedStyle(node.querySelector('text')).fill : null,
+    })));
+    const rgb = (value) => value.match(/\d+/gu).slice(0, 3).map(Number);
+    evidence.heatmap = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-heatmap', {...heat, size}, {items: load, names: days});
+          const shape = await shapeOf(page, {frame: '.sf-chart-heatmap-plot', marks: '.sf-chart-heatmap-box', texts: '.sf-chart-heatmap-value'});
+          const want = 3 * CELL[size] + FONT[size] + 10;
+          evidence.heatmap.geometry.push({theme, width, size, height: shape.height, want, marks: shape.marks});
+          if (Math.abs(shape.height - want) > 1 || shape.marks !== 30 || shape.outside || shape.pageOverflow > 0) note({case: `heatmap ${theme} ${width}px size ${size}: its rows' height, a cell per pair, nothing leaves it`, got: shape, want});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-heatmap', heat, {items: load, names: days});
+          const cells = await cellsOf(page);
+          const written = cells.filter((one) => one.ink);
+          const worst = Math.min(...written.map((one) => contrast(rgb(one.fill), rgb(one.ink))));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const byStep = new Map(cells.map((one) => [one.step, one.fill]));
+          const weak = contrast(rgb(byStep.get(0)), background);
+          const strong = contrast(rgb(byStep.get(Math.max(...byStep.keys()))), background);
+          evidence.heatmap.contrast[theme] = {written: written.length, worstInk: Math.round(worst * 100) / 100, weak: Math.round(weak * 100) / 100, strong: Math.round(strong * 100) / 100, steps: byStep.size};
+          if (written.length !== 30 || worst < 4.5) note({case: `heatmap ${theme}: every value is written and keeps 4.5:1 on its step`, got: evidence.heatmap.contrast[theme]});
+          if (byStep.size !== 5 || strong <= weak) note({case: `heatmap ${theme}: five steps, the strongest the most contrasting with the page`, got: evidence.heatmap.contrast[theme]});
+
+          const divergingOf = async (better) => {
+            await make(page, 'sf-chart-heatmap', {label: 'Изменение', x: 'm', y: 'r', value: 'v', scale: 'diverging', better}, {items: change});
+            return (await cellsOf(page)).map((one) => one.fill);
+          };
+          const up = await divergingOf('up');
+          const down = await divergingOf('down');
+          const middle = rgb(up[2]);
+          const grey = Math.max(...middle) - Math.min(...middle) <= 12;
+          if (!grey || up[0] === up[4] || up[0] !== down[4] || up[4] !== down[0]) note({case: `heatmap ${theme}: a diverging scale meets at a neutral middle; better="down" swaps the sides`, got: {up, down}});
+          evidence.heatmap[`diverging-${theme}`] = {up, down};
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-heatmap', heat, {items: load, names: days});
+    // Tab reaches the table button, then the grid.
+    await page.focus('#before');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-heatmap-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim());
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const below = await said('ArrowDown');
+    const end = await said('End');
+    const last = await said('Control+End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-heatmap-focus').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-heatmap-svg'));
+    const keys = {focused, first, second, below, end, last, chosen, cleared, out};
+    evidence.heatmap.keyboard = keys;
+    if (!focused || first !== 'Пн, 9:00: 32' || second !== 'Пн, 10:00: 44' || below !== 'Вт, 10:00: 46' || end !== 'Вт, 18:00: 27' || last !== 'Ср, 18:00: 24'
+      || chosen.length !== 1 || chosen[0].x !== '18:00' || chosen[0].y !== 'wed' || chosen[0].value !== 24 || cleared || !out) note({case: 'heatmap: one Tab stop after the table button; the arrows, End and Ctrl+End walk the cells and each is said; Enter selects, Escape clears', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-heatmap', heat, {items: load, names: days});
+    const outline = await forced.evaluate(() => {
+      const box = getComputedStyle(document.querySelector('.sf-chart-heatmap-box'));
+      return {fills: new Set([...document.querySelectorAll('.sf-chart-heatmap-box')].map((node) => getComputedStyle(node).fill)).size, stroke: box.stroke, values: document.querySelectorAll('.sf-chart-heatmap-value').length};
+    });
+    evidence.heatmap.forced = outline;
+    if (outline.fills !== 1 || outline.stroke === 'none' || outline.values !== 30) note({case: 'heatmap: in forced colours a cell is an outline and its value is the cue', got: outline});
     await forced.close();
   }
 

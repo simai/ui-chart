@@ -341,6 +341,35 @@ This changes D4 option C ("no local palette") for named sets.
 - **Status hues are not categories.** The sets are hues for telling
   series apart, not meanings.
 
+## D8. The heatmap's colour scale
+
+> **Кратко.** Тепловая карта красит ячейки ступенчатой шкалой на тонах темы
+> Фреймворка. Новых токенов нет; нейтральную середину расходящейся шкалы мы
+> выбрали сами (`neutral-90` / `neutral-25`), диспетчер может её заменить.
+
+- **Stepped, not continuous.** There are 3 to 9 steps of equal width, 5 by
+  default. A diverging scale is made even around its middle and has an odd
+  number of steps.
+- **The theme's tone ladders.** A sequential step is
+  `light-dark(<family>-<light tone>, <family>-<dark tone>)`:
+  - the light tones run 90 to 25, the dark tones 20 to 85;
+  - the strongest value is the most contrasting tone in either theme
+    (parameters.md §8.4).
+- **Tone 50 is skipped.** No neutral text keeps 4.5:1 on it, and a cell
+  carries its value as text. Every other step has an ink that does.
+- **Diverging scale.**
+  - `better` sets the meaning: error ↔ success for `up` and `down`,
+    tertiary ↔ primary for `none`.
+  - The middle step is `neutral-90` (light) and `neutral-25` (dark).
+  - This settles the open midpoint question of §8.4 locally. If the
+    dispatcher gives a midpoint role, it replaces these two tones.
+  - The dispatcher has since released `--sf-chart-midpoint` in pair
+    `ui-de2b4437234a`. The middle step takes it when the pin moves to that
+    pair.
+- **Colour is never the only cue.** The value is written in the cell, said
+  in the tooltip and the live line, and kept in the table. A gap is an
+  outlined empty cell.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -352,6 +381,7 @@ This changes D4 option C ("no local palette") for named sets.
 | D5 | A: own renderer, SVG, Canvas for the marks layer past 2,000 | 2026-11-02 | `q-3197850dc8`, decided by the recommendation under the owner's delegation |
 | D6 | `colors` on every chart with series, `color` on the sparkline | 2026-11-02 | the owner's «да» in the chat to the proposal of `colors` |
 | D7 | Named palettes made by the package's generator on the Framework's tone ladder, `palette` setting | 2026-11-03 | the owner's «Yes, into the package» in the chat |
+| D8 | Heatmap: stepped scale on the theme's tone ladders, local diverging midpoint | 2026-11-03 | the owner's «Heatmap» as the next chart; the scale decided by the recommendation under the owner's delegation |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

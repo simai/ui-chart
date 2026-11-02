@@ -16,6 +16,7 @@ import {execFileSync} from 'node:child_process';
 import {existsSync} from 'node:fs';
 import {PALETTES} from '../src/smart/chart-core/palettes.js';
 import {colourValue, contrast, coloursKey, readColours} from '../src/smart/chart-core/colors.js';
+import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core/heat.js';
 
 test('records and columns read into the same rows', () => {
   const records = [{m: 'a', v: 1}, {m: 'b', v: 2}];
@@ -256,4 +257,26 @@ test('every named palette colour adapts to the theme', () => {
   assert.deepEqual(Object.keys(PALETTES), ['vivid', 'soft', 'warm', 'cool', 'brand']);
   assert.deepEqual(Object.values(PALETTES).map((set) => set.length), [8, 8, 6, 6, 4]);
   for (const set of Object.values(PALETTES)) for (const colour of set) assert.match(colour, /light-dark\(|var\(--sf-on-primary-container-graphic\)/u);
+});
+
+test('a heatmap scale cuts its range into equal steps on the theme\'s tones', () => {
+  assert.equal(stepCount(4, 'diverging'), 5);
+  assert.equal(stepCount(12, 'sequential'), 9);
+  const steps = heatSteps({min: 0, max: 100, count: 5});
+  assert.deepEqual(steps.map((step) => [step.from, step.to]), [[0, 20], [20, 40], [40, 60], [60, 80], [80, 100]]);
+  assert.equal(stepOf(steps, 0), 0);
+  assert.equal(stepOf(steps, 20), 1);
+  assert.equal(stepOf(steps, 100), 4);
+  assert.equal(stepOf(steps, null), -1);
+  const even = heatSteps({min: -2, max: 6, middle: 0, count: 5, scale: 'diverging'});
+  assert.deepEqual([even[0].from, even[4].to], [-6, 6]);
+  assert.equal(stepOf(even, 0), 2);
+  const sequential = heatColours({scheme: 'warning', steps: 5});
+  assert.equal(sequential.length, 5);
+  assert.equal(sequential[0].fill, 'light-dark(var(--sf-warning-90), var(--sf-warning-20))');
+  assert.equal(sequential[4].fill, 'light-dark(var(--sf-warning-25), var(--sf-warning-85))');
+  assert.ok(sequential.every((step) => !/-50\)/u.test(step.fill)));
+  const diverging = heatColours({scale: 'diverging', better: 'up', steps: 5});
+  assert.deepEqual(diverging.map((step) => (step.middle ? 'middle' : step.fill.match(/--sf-([a-z]+)-/u)[1])), ['error', 'error', 'middle', 'success', 'success']);
+  assert.equal(heatColours({scale: 'diverging', better: 'down', steps: 3})[0].fill.includes('success'), true);
 });

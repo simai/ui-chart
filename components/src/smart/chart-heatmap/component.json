@@ -1,0 +1,417 @@
+{
+  "$comment": "The source of sf-chart-heatmap (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md §8.4 of ui-chart and docs/research/catalogue.md (Heatmap), the scale docs/DECISIONS.md D8 (the owner's choice of 2026-11-03).",
+  "id": "smart.chart-heatmap",
+  "tag": "sf-chart-heatmap",
+  "version": "0.1.0",
+  "kind": "leaf",
+  "family": "chart",
+  "settings": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "summary": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Тепловая карта»."
+    },
+    "items": {
+      "type": "list",
+      "default": [],
+      "of": "object",
+      "summary": "The data: a list of records, one per cell ([{day, hour, load}, …]), or an object of columns. A missing value is a gap, drawn as an empty cell, never a zero. A pair given twice keeps its last value."
+    },
+    "names": {
+      "type": "object",
+      "default": {},
+      "summary": "What a row or a column is called, by its value in the data: {mon: «Понедельник»}. One without a name is called by its value."
+    },
+    "x": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the columns; the first field when unset. Columns come in the order the data first give them."
+    },
+    "y": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the rows; the second field when unset. Rows come in the order the data first give them."
+    },
+    "value": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the values; the first numeric field after x and y when unset."
+    },
+    "scale": {
+      "type": "enum",
+      "values": [
+        "sequential",
+        "diverging"
+      ],
+      "default": "sequential",
+      "summary": "sequential: weak to strong on one colour family, for a count or a load. diverging: two families meeting at a neutral middle, for a change or a deviation from a norm."
+    },
+    "scheme": {
+      "type": "enum",
+      "values": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "neutral",
+        "success",
+        "warning",
+        "error",
+        "info"
+      ],
+      "default": "primary",
+      "summary": "The colour family of a sequential scale. Its tones are the theme's: the strongest value is the darkest tone in the light theme and the lightest in the dark."
+    },
+    "better": {
+      "type": "enum",
+      "values": [
+        "up",
+        "down",
+        "none"
+      ],
+      "default": "up",
+      "summary": "Which way is good on a diverging scale: up colours what is above the middle with success and below with error, down the other way; none uses primary and tertiary, which mean nothing."
+    },
+    "middle": {
+      "type": "number",
+      "default": 0,
+      "summary": "The middle of a diverging scale: the norm, the plan, zero for a change. The scale reaches as far on both sides of it."
+    },
+    "min": {
+      "type": "number",
+      "optional": true,
+      "summary": "The bottom of the scale; the data's own when unset."
+    },
+    "max": {
+      "type": "number",
+      "optional": true,
+      "summary": "The top of the scale; the data's own when unset."
+    },
+    "steps": {
+      "type": "number",
+      "default": 5,
+      "summary": "How many colour steps the scale has, 3 to 9; a diverging scale takes an odd number, so it has a middle step. Steps are read more surely than a continuous ramp."
+    },
+    "value-labels": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto writes the value in each cell where it fits, in the ink that keeps 4.5:1 on that step; none leaves the cells bare (the tooltip and the table still say them)."
+    },
+    "legend": {
+      "type": "enum",
+      "values": [
+        "top",
+        "bottom",
+        "none"
+      ],
+      "default": "bottom",
+      "summary": "The scale's legend: a swatch per step with its range, and the gap when there is one. none only when the page explains the scale itself."
+    },
+    "tooltip": {
+      "type": "enum",
+      "values": [
+        "cell",
+        "none"
+      ],
+      "default": "cell",
+      "summary": "cell: under the pointer or the cursor, the cell's row, column and value."
+    },
+    "x-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the columns, said under them."
+    },
+    "y-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the rows, said beside the label and heading the table's first column (the y field's own name when unset)."
+    },
+    "value-format": {
+      "type": "string",
+      "default": "number",
+      "summary": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "default": "1",
+      "summary": "The rung of the size ladder: a row's height (20, 28 or 36 px), the text and the gaps. 1/2 for a card, 2 for a page of its own."
+    },
+    "table": {
+      "type": "enum",
+      "values": [
+        "toggle",
+        "visible",
+        "hidden"
+      ],
+      "default": "toggle",
+      "summary": "The same data as a table, rows by columns: toggle offers a button that swaps the grid for it, visible shows it under the grid, hidden keeps it for screen readers only. Never none: the table is the chart's text."
+    },
+    "summary": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a sentence of the grid (its size, the range, where the highest and the lowest are, how many cells have no data), kept for screen readers. The description slot adds the host's own words."
+    },
+    "data-state": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ],
+      "default": "auto",
+      "summary": "auto: ready with data, empty without. loading draws a block in the plot's place; error offers «Повторить», which sends refresh."
+    }
+  },
+  "values": {},
+  "events": {
+    "select": {
+      "carries": {
+        "x": "string",
+        "y": "string",
+        "value": "number"
+      },
+      "summary": "The person chose a cell: a click on it, or Enter or Space on the keyboard cursor. x and y are its column and row as the data gave them; value is null for a gap."
+    },
+    "refresh": {
+      "carries": {},
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items."
+    }
+  },
+  "actions": {},
+  "slots": {
+    "description": {
+      "$comment": "The host's own words about the chart: said with the summary (aria-describedby) and shown under the bar."
+    }
+  },
+  "keyboard": {
+    "host": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    }
+  },
+  "relations": [
+    {
+      "name": "cl-empty-state"
+    }
+  ],
+  "templates": {
+    "default": {
+      "file": "js/templates/default.js",
+      "$comment": "The Lit template in JavaScript, the migration form of §5.2 (§16); the grid's inside is SVG markup set as a property."
+    }
+  },
+  "styles": "js/templates/default.css",
+  "examples": "examples.json",
+  "docs": "docs.md",
+  "lang": "lang/",
+  "presentation": {
+    "skeleton": {
+      "$comment": "The items arrive after the first paint when the host loads them: the derived skeleton holds the plot's place until they do (standard 1.3.8 §5.4). With data, the plot's height is its rows', known before its width is measured.",
+      "late": [
+        "items"
+      ]
+    }
+  },
+  "accessibility": {
+    "role": "figure",
+    "name": {
+      "from": [
+        "label",
+        "runtime.untitled"
+      ]
+    },
+    "keys": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    },
+    "x-keys": "The grid is one Tab stop (role group, aria-roledescription «тепловая карта»). Right and Left move the cursor along a row (in the reading direction: Right goes left in a right-to-left page), Down and Up to the next and the previous row in the same column; Home and End to the row's first and last cell, with Ctrl (or Cmd) to the grid's first and last. A gap is walked too and said as having no data. Each move is said in a polite live region with the row, the column and the value. Enter and Space choose the cell (select); Escape takes the cursor away. The table button is a button of its own."
+  },
+  "css-variables": {
+    "--sf-chart-heatmap-label-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-heatmap-empty-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-heatmap-cell-radius": {
+      "type": "length",
+      "state": "default"
+    }
+  },
+  "x-summary": "A heatmap: a measure over two categories as a grid of cells, coloured by the steps of a sequential or a diverging scale on the theme's own tones, with the value written where it fits, a legend of the scale, a tooltip, a keyboard cursor over the grid, a summary in words and the same data as a table.",
+  "x-source": {
+    "package": "chart",
+    "folder": "chart-heatmap",
+    "research": "simai/ui-chart docs/research/parameters.md, docs/research/catalogue.md, docs/research/rendering.md"
+  },
+  "x-words": [
+    "label",
+    "x-label",
+    "y-label"
+  ],
+  "x-decisions": [
+    "name: sf-chart-heatmap, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart (the owner's decision of 2026-11-02, ui-control control/decisions/2026-11-02-smart-component-naming.md; docs/DECISIONS.md D2), family chart; the owner chose the heatmap as the next chart on 2026-11-03.",
+    "data: items with a field mapping x, y and value (D3), one record per cell, the long form; rows and columns in the order the data first give them. Adding up repeated pairs is the host's work.",
+    "scale: stepped, not continuous (D8): 3 to 9 steps of equal width, a diverging scale even around its middle; each step a light-dark pair on one role family's tone ladder (chart-core/heat), never tone 50, so its value can be written on it at 4.5:1. No new token: the tones are the theme's.",
+    "colour is never the only cue (WCAG 1.4.1): the value is written in the cell where it fits, said in the tooltip and the live line, and the table holds all of them; a gap is an outlined empty cell, not the weakest step.",
+    "SVG at any size (D5): a grid's cells are few enough (a year by day is 2,555) that the Canvas layer is not needed; the plot's height is the rows', set before the width is measured, so the first paint holds it."
+  ],
+  "x-registry": {
+    "capabilities": [
+      "interaction",
+      "keyboard",
+      "responsive",
+      "live-announcement"
+    ],
+    "persistence": {
+      "mode": "none",
+      "source_of_truth": "host",
+      "network_owner": "host",
+      "revision_field": null
+    },
+    "readiness": {
+      "level": "runnable",
+      "required_checks": [
+        "manifest",
+        "fixture",
+        "runtime-upgrade",
+        "keyboard",
+        "responsive",
+        "a11y"
+      ]
+    },
+    "tags": [
+      "chart",
+      "heatmap",
+      "matrix",
+      "grid",
+      "density",
+      "data-visualization"
+    ],
+    "state": {
+      "machines": {
+        "data-state": [
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "visual_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "ownership": {
+      "source": "simai/ui-chart",
+      "data": "host",
+      "effects": "host",
+      "forbidden_client_responsibilities": [
+        "fetching data",
+        "aggregating on a server"
+      ]
+    },
+    "security": {
+      "permissions_owner": "host",
+      "untrusted_inputs": [
+        "props"
+      ],
+      "network_policy": "deny"
+    },
+    "presentation": {
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "locales": [
+        "ru",
+        "en"
+      ],
+      "responsive": [
+        "desktop",
+        "mobile",
+        "ltr",
+        "rtl",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "skeleton": {
+        "shape": "block",
+        "while_loading": "template"
+      }
+    },
+    "ai_guidance": {
+      "use_when": "Use sf-chart-heatmap for a measure over two categories: load by weekday and hour, activity by team and week, a change by region and month (diverging).",
+      "do_not": [
+        "Do not draw a chart without a label",
+        "Do not use it to read exact values; it shows a pattern, the table gives the values",
+        "Do not use it for one category; that is sf-chart-bar"
+      ],
+      "required_reads": [
+        "inputs",
+        "events",
+        "accessibility"
+      ],
+      "minimal_example": "<sf-chart-heatmap label=\"Нагрузка по часам\" x=\"hour\" y=\"day\" value=\"load\"></sf-chart-heatmap>",
+      "owner_commands": [
+        "node scripts/test.mjs"
+      ]
+    },
+    "accessibility": {
+      "accessible_name": "required",
+      "keyboard": [
+        "Tab",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Home",
+        "End",
+        "Enter",
+        "Space",
+        "Escape"
+      ],
+      "focus": "One Tab stop on the grid, then the table button. The summary is the grid's description; each cursor move is said politely."
+    }
+  },
+  "x-rule": {
+    "$comment": [
+      "The chart draws its empty and error states as sf-empty-state; a tag it renders is a tag it fetches.",
+      "Its table toggle is a native button, so it fetches no sf-button."
+    ]
+  }
+}

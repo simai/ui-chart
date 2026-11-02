@@ -1,0 +1,428 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-heatmap",
+  "version": "0.1.0",
+  "title": "Heatmap",
+  "summary": "A heatmap: a measure over two categories as a grid of cells, coloured by the steps of a sequential or a diverging scale on the theme's own tones, with the value written where it fits, a legend of the scale, a tooltip, a keyboard cursor over the grid, a summary in words and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "heatmap",
+    "matrix",
+    "grid",
+    "density",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-heatmap",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": ""
+      },
+      "root-style": {
+        "type": "string",
+        "default": ""
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Тепловая карта»."
+      },
+      "x": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the columns; the first field when unset. Columns come in the order the data first give them."
+      },
+      "y": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the rows; the second field when unset. Rows come in the order the data first give them."
+      },
+      "value": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the values; the first numeric field after x and y when unset."
+      },
+      "scale": {
+        "type": "string",
+        "default": "sequential",
+        "description": "sequential: weak to strong on one colour family, for a count or a load. diverging: two families meeting at a neutral middle, for a change or a deviation from a norm.",
+        "enum": [
+          "sequential",
+          "diverging"
+        ]
+      },
+      "scheme": {
+        "type": "string",
+        "default": "primary",
+        "description": "The colour family of a sequential scale. Its tones are the theme's: the strongest value is the darkest tone in the light theme and the lightest in the dark.",
+        "enum": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "neutral",
+          "success",
+          "warning",
+          "error",
+          "info"
+        ]
+      },
+      "better": {
+        "type": "string",
+        "default": "up",
+        "description": "Which way is good on a diverging scale: up colours what is above the middle with success and below with error, down the other way; none uses primary and tertiary, which mean nothing.",
+        "enum": [
+          "up",
+          "down",
+          "none"
+        ]
+      },
+      "middle": {
+        "type": "number",
+        "default": 0,
+        "description": "The middle of a diverging scale: the norm, the plan, zero for a change. The scale reaches as far on both sides of it."
+      },
+      "min": {
+        "type": "number",
+        "description": "The bottom of the scale; the data's own when unset."
+      },
+      "max": {
+        "type": "number",
+        "description": "The top of the scale; the data's own when unset."
+      },
+      "steps": {
+        "type": "number",
+        "default": 5,
+        "description": "How many colour steps the scale has, 3 to 9; a diverging scale takes an odd number, so it has a middle step. Steps are read more surely than a continuous ramp."
+      },
+      "value-labels": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto writes the value in each cell where it fits, in the ink that keeps 4.5:1 on that step; none leaves the cells bare (the tooltip and the table still say them).",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "legend": {
+        "type": "string",
+        "default": "bottom",
+        "description": "The scale's legend: a swatch per step with its range, and the gap when there is one. none only when the page explains the scale itself.",
+        "enum": [
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "cell",
+        "description": "cell: under the pointer or the cursor, the cell's row, column and value.",
+        "enum": [
+          "cell",
+          "none"
+        ]
+      },
+      "x-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the columns, said under them."
+      },
+      "y-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the rows, said beside the label and heading the table's first column (the y field's own name when unset)."
+      },
+      "value-format": {
+        "type": "string",
+        "default": "number",
+        "description": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: a row's height (20, 28 or 36 px), the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table, rows by columns: toggle offers a button that swaps the grid for it, visible shows it under the grid, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of the grid (its size, the range, where the highest and the lowest are, how many cells have no data), kept for screen readers. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with data, empty without. loading draws a block in the plot's place; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records, one per cell ([{day, hour, load}, …]), or an object of columns. A missing value is a gap, drawn as an empty cell, never a zero. A pair given twice keeps its last value."
+      },
+      "names": {
+        "type": "object",
+        "default": {},
+        "description": "What a row or a column is called, by its value in the data: {mon: «Понедельник»}. One without a name is called by its value."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {},
+  "events": {
+    "sf-chart-heatmap-select": {
+      "summary": "The person chose a cell: a click on it, or Enter or Space on the keyboard cursor. x and y are its column and row as the data gave them; value is null for a gap.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "x",
+          "y",
+          "value"
+        ],
+        "properties": {
+          "x": {
+            "type": "string"
+          },
+          "y": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-heatmap-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the grid, then the table button. The summary is the grid's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-heatmap/index.js",
+        "sha256": "f78ec6df72446bf8817950d8d7fdd42d3e9e83b5a86e74bad1b11f0ad5130b3b"
+      },
+      {
+        "path": "src/smart/chart-heatmap/js/templates/default.js",
+        "sha256": "6625ffa36ee2db8fcdc10bad1d257ed48708f6927aaf25c6d1ae348a37ba73ed"
+      },
+      {
+        "path": "src/smart/chart-heatmap/js/templates/default.css",
+        "sha256": "60f0b285e3ab129c6cdf6d1843498b0e2038ff6a8635b6b20ebdd3f82126dcaf"
+      },
+      {
+        "path": "src/smart/chart-heatmap/rule.js",
+        "sha256": "1db34953d06ec3efc9858dfd9cb412ec81e976699b401a7ee4a4000c65a1c236"
+      },
+      {
+        "path": "src/smart/chart-heatmap/docs.md",
+        "sha256": "ec5666e2ea6d3575b0f7f11b189ea4080bdd5b2f213a776c2a8020857284329e"
+      },
+      {
+        "path": "src/smart/chart-heatmap/component.json",
+        "sha256": "139e592bf1c1229031f864829c4dafe3a00ea6fb10d27a42db7da634c3f3fd13"
+      },
+      {
+        "path": "src/smart/chart-heatmap/lang/en.json",
+        "sha256": "5b078bad9803488ed5d96acf1fe3778b682463884d707a2f4161c79f3d793e3c"
+      },
+      {
+        "path": "src/smart/chart-heatmap/lang/ru.json",
+        "sha256": "a30bff4a5f215bb5ac46f4af177893997d2cb37b19818209215a26bab1853c69"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-heatmap for a measure over two categories: load by weekday and hour, activity by team and week, a change by region and month (diverging).",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not use it to read exact values; it shows a pattern, the table gives the values",
+      "Do not use it for one category; that is sf-chart-bar"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-heatmap label=\"Нагрузка по часам\" x=\"hour\" y=\"day\" value=\"load\"></sf-chart-heatmap>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}
