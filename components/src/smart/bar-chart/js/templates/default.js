@@ -10,6 +10,8 @@ import './default.css';
 // by the summary; its axes and bars are aria-hidden, because the summary,
 // the live line and the table say what they show. A colour is a class
 // (--c1..--c4), and in forced colours a dash (--d1..--d7) on an outline.
+// A series named in lines is a line with points over the bars, on the
+// bars' axis or on its own scale with its ticks on the far side.
 
 const colourOf = (place) => `sf-bar-chart-series--c${(place % 4) + 1}${place > 0 ? ` sf-bar-chart-series--d${Math.min(place, 7)}` : ' sf-bar-chart-series--solid'}`;
 const px = (value) => `${Math.round(value * 10) / 10}`;
@@ -40,6 +42,9 @@ function axesMarkup(g) {
     out += horizontal
       ? `<text class="sf-bar-chart-tick" x="${px(inner.left - 6)}" y="${px(tick.at)}" text-anchor="end" dominant-baseline="middle">${esc(tick.text)}</text>`
       : `<text class="sf-bar-chart-tick sf-bar-chart-tick--x" x="${px(tick.at)}" y="${px(inner.bottom + g.font * 1.2)}" text-anchor="${tick.anchor}" dominant-baseline="middle">${esc(tick.text)}</text>`;
+  }
+  for (const tick of g.lineTicks) {
+    out += `<text class="sf-bar-chart-tick sf-bar-chart-tick--line" x="${px(inner.right + 6)}" y="${px(tick.at)}" text-anchor="start" dominant-baseline="middle">${esc(tick.text)}</text>`;
   }
   if (g.valueLabel) {
     out += horizontal
@@ -73,9 +78,18 @@ function barsMarkup(g, cursor) {
   out += g.horizontal
     ? `<line class="sf-bar-chart-baseline" x1="${px(g.zero)}" x2="${px(g.zero)}" y1="${px(g.inner.top)}" y2="${px(g.inner.bottom)}"/>`
     : `<line class="sf-bar-chart-baseline" x1="${px(g.inner.left)}" x2="${px(g.inner.right)}" y1="${px(g.zero)}" y2="${px(g.zero)}"/>`;
+  for (const line of g.lines) {
+    const dim = cursor && cursor.series !== line.key ? ' sf-bar-chart-series--dim' : '';
+    out += `<g class="sf-bar-chart-series sf-bar-chart-series--line ${colourOf(line.place)}${dim}" data-series="${esc(line.key)}">`;
+    out += `<path class="sf-bar-chart-line" d="${line.d}"/>`;
+    if (g.dots) for (const point of line.points) if (point) out += `<circle class="sf-bar-chart-dot" cx="${px(point[0])}" cy="${px(point[1])}" r="3"/>`;
+    out += '</g>';
+  }
   if (cursor) {
     const bar = g.groups.find((group) => group.key === cursor.series)?.bars.find((one) => one.index === cursor.index);
+    const point = g.lines.find((line) => line.key === cursor.series)?.points[cursor.index];
     if (bar) out += `<rect class="sf-bar-chart-focus" x="${px(bar.x - 1)}" y="${px(bar.y - 1)}" width="${px(bar.width + 2)}" height="${px(bar.height + 2)}"/>`;
+    if (point) out += `<circle class="sf-bar-chart-focus" cx="${px(point[0])}" cy="${px(point[1])}" r="6"/>`;
   }
   return `${out}</g>`;
 }
@@ -92,8 +106,8 @@ function renderTooltip(context, g, cursor) {
   return html`
     <div class=${`sf-bar-chart-tooltip${flip ? ' sf-bar-chart-tooltip--flip' : ''}`} aria-hidden="true" style=${at}>
       <div class="sf-bar-chart-tooltip-x">${component.sayX(model, cursor.index)}</div>
-      ${g.groups.map((group) => html`
-        <div class=${['sf-bar-chart-tooltip-row', colourOf(group.place), group.key === cursor.series ? 'sf-bar-chart-tooltip-row--current' : ''].filter(Boolean).join(' ')}>
+      ${[...g.groups, ...g.lines].sort((a, b) => a.place - b.place).map((group) => html`
+        <div class=${['sf-bar-chart-tooltip-row', colourOf(group.place), group.line ? 'sf-bar-chart-series--line' : '', group.key === cursor.series ? 'sf-bar-chart-tooltip-row--current' : ''].filter(Boolean).join(' ')}>
           <span class="sf-bar-chart-swatch"></span>
           <span class="sf-bar-chart-tooltip-name">${group.name}</span>
           <span class="sf-bar-chart-tooltip-value">${component.sayValue(group, cursor.index)}</span>
@@ -110,7 +124,7 @@ function renderLegend(context, place) {
   return html`
     <div class=${`sf-bar-chart-legend sf-bar-chart-legend--${place}`} role="group" aria-label=${component.words('legend')}>
       ${model.series.map((one, index) => html`
-        <button type="button" class=${`sf-bar-chart-legend-item ${colourOf(index)}`} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
+        <button type="button" class=${`sf-bar-chart-legend-item ${colourOf(index)}${context.lineKeys.has(one.key) ? ' sf-bar-chart-series--line' : ''}`} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
                 data-series=${one.key} @click=${() => component.toggleSeries(one.key)}>
           <span class="sf-bar-chart-swatch" aria-hidden="true"></span>
           <span class="sf-bar-chart-legend-name">${one.name}</span>
@@ -146,7 +160,7 @@ function tableMarkup(context, shownTable) {
           ${model.order.map((index) => html`
             <tr>
               <th scope="row">${component.sayX(model, index)}</th>
-              ${model.series.map((one) => html`<td>${component.sayY(one.values[index])}</td>`)}
+              ${model.series.map((one) => html`<td>${component.sayOf(one.key, one.values[index])}</td>`)}
             </tr>
           `)}
         </tbody>

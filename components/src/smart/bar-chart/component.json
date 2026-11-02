@@ -2,7 +2,7 @@
   "$comment": "The source of sf-bar-chart (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart (§7 stacking), the renderer and the keyboard docs/research/rendering.md, the name and the family docs/DECISIONS.md D2.",
   "id": "smart.bar-chart",
   "tag": "sf-bar-chart",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -61,6 +61,25 @@
       ],
       "default": "none",
       "summary": "none: the series' bars stand side by side in each category; stacked: on one another, positive up and negative down from zero; normalized: each stack as shares of its whole, 0–100 %."
+    },
+    "lines": {
+      "type": "string",
+      "default": "",
+      "summary": "A comma list of series drawn as lines with points over the bars, not as bars: a plan over the facts, a margin over the revenue. Only on vertical bars; a horizontal chart draws every series as bars."
+    },
+    "line-axis": {
+      "type": "enum",
+      "values": [
+        "shared",
+        "own"
+      ],
+      "default": "shared",
+      "summary": "shared: the lines on the bars' value axis; own: the lines on a scale of their own, its ticks on the far side, for values of another kind (a share over a sum). A normalized stack always gives the lines their own scale."
+    },
+    "line-format": {
+      "type": "string",
+      "default": "",
+      "summary": "The format of the lines' values on their own scale, in the tooltip, the live line and the table, as y-format; y-format when unset."
     },
     "orientation": {
       "type": "enum",
@@ -338,7 +357,8 @@
     "colour: until the Framework's categorical roles --sf-chart-1..8 arrive (ordered, D4), series take the primary, secondary, tertiary and neutral graphic tones; in forced colours the first series is solid and every other an outline with its own dash.",
     "select: the vocabulary's select is {ids} for a list; a bar is no entry with an id, so it carries {series, index, x, value}, as sf-line-chart (accepted by the dispatcher).",
     "table: never none; the default toggle keeps the page short, hidden keeps it for screen readers.",
-    "hidden-series: not hidden, which is the browser's own member of every element (§3.1)."
+    "hidden-series: not hidden, which is the browser's own member of every element (§3.1).",
+    "lines: a combination of bars and lines is a setting of sf-bar-chart, not a tag (the owner's decision of 2026-11-02): the data, the axes, the cursor and the table are the same; the lines are series named in lines, never stacked, on the shared axis or on one of their own (line-axis)."
   ],
   "x-registry": {
     "capabilities": [

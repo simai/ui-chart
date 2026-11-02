@@ -308,6 +308,12 @@ try {
       return `${style.fill}|${style.strokeDasharray}`;
     }));
     if (new Set(bars).size !== 2) note({case: 'bar: in forced colours the series differ by fill and dash', got: bars});
+    await make(forced, 'sf-bar-chart', {label: 'Продажи', x: 'city', y: 'q1,q2', lines: 'q2'}, {items: cities});
+    const line = await forced.evaluate(() => {
+      const style = getComputedStyle(document.querySelector('.sf-bar-chart-line'));
+      return {stroke: style.stroke, dash: style.strokeDasharray, dots: document.querySelectorAll('.sf-bar-chart-dot').length, bars: document.querySelectorAll('.sf-bar-chart-bar').length};
+    });
+    if (line.stroke === 'none' || line.dash === 'none' || line.dots !== 5 || line.bars !== 6) note({case: 'bar: in forced colours a line keeps its stroke and dash, a point per value, the bars stay bars', got: line});
     await make(forced, 'sf-pie-chart', {label: 'Заказы', category: 'channel', value: 'orders'}, {items: channels});
     const slices = await forced.evaluate(() => ({
       stroke: getComputedStyle(document.querySelector('.sf-pie-chart-slice')).stroke,
@@ -317,7 +323,7 @@ try {
     await make(forced, 'sf-parts-bar', {label: 'Диск', category: 'kind', value: 'size', max: '100'}, {items: disk});
     const boxes = await forced.evaluate(() => [...document.querySelectorAll('.sf-parts-bar-part')].map((node) => getComputedStyle(node).backgroundColor));
     if (new Set(boxes.slice(0, -1)).size !== 1 || boxes.at(-1) === boxes[0]) note({case: 'parts bar: in forced colours the parts are solid and the free remainder is not', got: boxes});
-    evidence.forcedColours = {bars, slices, parts: boxes};
+    evidence.forcedColours = {bars, line, slices, parts: boxes};
     await forced.close();
   }
 

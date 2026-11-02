@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.bar-chart",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "title": "Bar chart",
   "summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -90,6 +90,25 @@
           "stacked",
           "normalized"
         ]
+      },
+      "lines": {
+        "type": "string",
+        "default": "",
+        "description": "A comma list of series drawn as lines with points over the bars, not as bars: a plan over the facts, a margin over the revenue. Only on vertical bars; a horizontal chart draws every series as bars."
+      },
+      "line-axis": {
+        "type": "string",
+        "default": "shared",
+        "description": "shared: the lines on the bars' value axis; own: the lines on a scale of their own, its ticks on the far side, for values of another kind (a share over a sum). A normalized stack always gives the lines their own scale.",
+        "enum": [
+          "shared",
+          "own"
+        ]
+      },
+      "line-format": {
+        "type": "string",
+        "default": "",
+        "description": "The format of the lines' values on their own scale, in the tooltip, the live line and the table, as y-format; y-format when unset."
       },
       "orientation": {
         "type": "string",
@@ -418,15 +437,15 @@
     "source_artifacts": [
       {
         "path": "src/smart/bar-chart/index.js",
-        "sha256": "7ef983788c5904e9da815bcf5e50c76b93398000829a87cdbf3101a4f71988d0"
+        "sha256": "139ac4b8a27800d5d8becf31d3fbf2618e16eb2ad6cf0001b0bbcb734817f7a4"
       },
       {
         "path": "src/smart/bar-chart/js/templates/default.js",
-        "sha256": "7b81cda4eee370be55cd3a6b9f412deea31e90aed5d315bbff17d1d7bc822c0c"
+        "sha256": "ff6b7dbbd3bc750baebf955af69efbe422579501f893e13860f41c193a0c0bb3"
       },
       {
         "path": "src/smart/bar-chart/js/templates/default.css",
-        "sha256": "3f8eb53b855f595fa8bdf37a12865c0d2df7c5115850db0e6e4258df7466c064"
+        "sha256": "6c7dee065bc20ce0653f95edda72b8a42dcb3cbf93cabd489afa4922af6b54cb"
       },
       {
         "path": "src/smart/bar-chart/rule.js",
@@ -434,19 +453,19 @@
       },
       {
         "path": "src/smart/bar-chart/docs.md",
-        "sha256": "c5438d8e11fdf561a7c57bdb81bea2b1e1df0518f7e6f944e6965c1a107ca1ee"
+        "sha256": "8352bf8a23bab31d4a76cfe677a045246e15a7b4735d50e208fb718dac166095"
       },
       {
         "path": "src/smart/bar-chart/component.json",
-        "sha256": "4e0ededf9acbd7fa3de5704413602de697717a6f7f2127b27a669c27deb40827"
+        "sha256": "7074618bc3fb11a61250e076da05adcc9038e961970fb40280aad5c9199a4b03"
       },
       {
         "path": "src/smart/bar-chart/lang/en.json",
-        "sha256": "f2f65ec1bb17336d7043f6727d744dca33af277e719651e5cbfd29713ae3c243"
+        "sha256": "aa516b9ade883802ca2c4f2136181f20a4db3767981a05be4bbf5ae94bb1fc19"
       },
       {
         "path": "src/smart/bar-chart/lang/ru.json",
-        "sha256": "c8eaa33469a8c31e4c864d27dae0b96294e3578af734f088ce18aca6f60ab0d6"
+        "sha256": "fbca2d9a684183bafb4399a46efa4faeb2a0e5a3e44e6cf9474ae783d5e148a1"
       }
     ],
     "generated_runtime": []

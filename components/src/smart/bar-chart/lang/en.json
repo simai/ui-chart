@@ -14,6 +14,7 @@
     "x-column": "Category",
     "summary-count": "Categories: {count}.",
     "summary-series": "{name}: highest {max} ({maxAt}), lowest {min} ({minAt}).",
+    "summary-lines": "As lines: {names}.",
     "share": "{share} ({value})"
   },
   "events": {

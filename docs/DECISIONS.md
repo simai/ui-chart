@@ -92,6 +92,10 @@ Why `line` first:
   capacity is set (disk, quota, a model's context). Its head noun is
   *bar*, as in `sf-progress-bar`.
 
+  Bars with lines (a combination chart) are a setting of `sf-bar-chart`
+  (`lines`), not a tag of their own: the owner's decision of 2026-11-02, as
+  the standard keeps a new tag for a new interface.
+
   Later tiers follow the same pattern: `sf-scatter-chart`, `sf-heatmap`,
   `sf-box-plot`, `sf-funnel-chart`, `sf-gauge`, `sf-radar-chart`,
   `sf-treemap`, `sf-sankey-chart`, `sf-timeline-chart`,

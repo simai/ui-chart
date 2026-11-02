@@ -141,6 +141,35 @@
     opacity: 0.4;
   }
 
+  /* A series in lines: a line with points over the bars. The points carry
+     a ring of the page's colour, so a point over a bar of a near tone still
+     stands out. */
+  .sf-bar-chart-line {
+    fill: none;
+    stroke: var(--sf-bar-chart--series);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .sf-bar-chart-dot {
+    fill: var(--sf-bar-chart--series);
+    stroke: var(--sf-surface-0);
+    stroke-width: 1.5;
+  }
+
+  .sf-bar-chart-tick--line {
+    fill: var(--sf-bar-chart--ink);
+  }
+
+  .sf-bar-chart-series--line .sf-bar-chart-swatch {
+    block-size: var(--sf-a6);
+    border-radius: 0;
+    background:
+      radial-gradient(circle, var(--sf-bar-chart--series) 0 var(--sf-a2), transparent calc(var(--sf-a2) + var(--sf-px))),
+      linear-gradient(var(--sf-bar-chart--series), var(--sf-bar-chart--series)) center / 100% var(--sf-a2) no-repeat;
+  }
+
   .sf-bar-chart-band {
     fill: var(--sf-bar-chart-hover-background-color, var(--sf-surface-transparent-hover));
     pointer-events: none;
@@ -341,6 +370,9 @@
     .sf-bar-chart-legend-item[aria-pressed='false'] { color: GrayText; }
     .sf-bar-chart-legend-item[aria-pressed='false'] .sf-bar-chart-swatch { background: GrayText; }
     .sf-bar-chart-swatch { background: CanvasText; forced-color-adjust: none; }
+    .sf-bar-chart-line { stroke: CanvasText; stroke-dasharray: var(--sf-bar-chart--dash, none); }
+    .sf-bar-chart-dot { fill: CanvasText; stroke: Canvas; }
+    .sf-bar-chart-series--line .sf-bar-chart-swatch { background: CanvasText; block-size: var(--sf-a2); }
   }
 
   @media print {

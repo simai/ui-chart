@@ -232,6 +232,98 @@
       }
     },
     {
+      "name": "lines",
+      "title": "Факт столбцами, план линией",
+      "settings": {
+        "label": "Продажи: факт и план",
+        "x": "month",
+        "y": "fact,plan",
+        "lines": "plan",
+        "y-format": "integer",
+        "names": {
+          "fact": "Факт",
+          "plan": "План"
+        },
+        "items": [
+          {
+            "month": "Янв",
+            "fact": 180,
+            "plan": 175
+          },
+          {
+            "month": "Фев",
+            "fact": 176,
+            "plan": 180
+          },
+          {
+            "month": "Мар",
+            "fact": 190,
+            "plan": 185
+          },
+          {
+            "month": "Апр",
+            "fact": 204,
+            "plan": 195
+          },
+          {
+            "month": "Май",
+            "fact": 198,
+            "plan": 205
+          },
+          {
+            "month": "Июн",
+            "fact": 221,
+            "plan": 215
+          }
+        ]
+      },
+      "expect": {
+        "role": "figure"
+      }
+    },
+    {
+      "name": "own-axis",
+      "title": "Линия на своей шкале: маржа над выручкой",
+      "settings": {
+        "label": "Выручка и маржа",
+        "x": "q",
+        "y": "revenue,margin",
+        "lines": "margin",
+        "line-axis": "own",
+        "line-format": "percent",
+        "y-format": "integer",
+        "names": {
+          "revenue": "Выручка",
+          "margin": "Маржа"
+        },
+        "items": [
+          {
+            "q": "I кв.",
+            "revenue": 1200,
+            "margin": 0.18
+          },
+          {
+            "q": "II кв.",
+            "revenue": 1350,
+            "margin": 0.21
+          },
+          {
+            "q": "III кв.",
+            "revenue": 1280,
+            "margin": 0.17
+          },
+          {
+            "q": "IV кв.",
+            "revenue": 1500,
+            "margin": 0.24
+          }
+        ]
+      },
+      "expect": {
+        "role": "figure"
+      }
+    },
+    {
       "name": "loading",
       "title": "Загрузка",
       "settings": {
@@ -277,6 +369,7 @@
           "  <sf-bar-chart id=\"c\" label=\"Продажи по городам, 2026\" x=\"city\" y=\"q1,q2\" y-format=\"integer\"></sf-bar-chart>",
           "  <sf-bar-chart id=\"s\" label=\"Заказы по каналам\" x=\"month\" y=\"web,shop,partners\" stack=\"normalized\"></sf-bar-chart>",
           "  <sf-bar-chart id=\"h\" label=\"Рейтинг\" x=\"city\" y=\"q1\" orientation=\"horizontal\" sort=\"descending\"></sf-bar-chart>",
+          "  <sf-bar-chart id=\"l\" label=\"Выручка и маржа\" x=\"q\" y=\"revenue,margin\" lines=\"margin\" line-axis=\"own\" line-format=\"percent\" y-format=\"integer\" table=\"hidden\"></sf-bar-chart>",
           "  <sf-bar-chart id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-bar-chart>",
           "</main>"
         ]
@@ -400,6 +493,37 @@
               "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
               "wait": 120,
               "check": "(() => window.__refresh === 1)()"
+            }
+          ]
+        },
+        {
+          "id": "p7-lines-own-axis",
+          "title": "a series named in lines is a line with points over the bars, on its own scale with its own format; the cursor walks onto it and select carries it",
+          "covers": "settings.lines, settings.line-axis, settings.line-format",
+          "steps": [
+            {
+              "script": "(() => { const l = document.querySelector('#l'); l.names = {\"revenue\": \"Выручка\", \"margin\": \"Маржа\"}; l.items = [{\"q\": \"I кв.\", \"revenue\": 1200, \"margin\": 0.18}, {\"q\": \"II кв.\", \"revenue\": 1350, \"margin\": 0.21}, {\"q\": \"III кв.\", \"revenue\": 1280, \"margin\": 0.17}, {\"q\": \"IV кв.\", \"revenue\": 1500, \"margin\": 0.24}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const l = document.querySelector('#l'); const d = document.getElementById(l.querySelector('svg[role=group]').getAttribute('aria-describedby')).textContent.replace(/\\u00a0/gu, ' '); const ticks = [...l.querySelectorAll('.sf-bar-chart-tick--line')].map((one) => one.textContent); return l.querySelectorAll('.sf-bar-chart-line').length === 1 && l.querySelectorAll('.sf-bar-chart-bar').length === 4 && ticks.length > 1 && ticks.every((one) => /%$/u.test(one)) && /Линией: Маржа\\./u.test(d) && /Маржа: наибольшее 24 ?% \\(IV кв\\.\\)/u.test(d) && [...l.querySelectorAll('.sf-bar-chart-sr table td')].some((one) => /^18 ?%$/u.test(one.textContent.trim().replace(/\\u00a0/gu, ' '))); })()"
+            },
+            {
+              "script": "(() => { window.__lineChosen = null; document.querySelector('#l').addEventListener('sf-bar-chart-select', (event) => { window.__lineChosen = event.detail; }); document.querySelector('#l svg[role=group]').focus(); return true; })()",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => /^I кв\\., Выручка: 1 200$/u.test(document.querySelector('#l [aria-live]').textContent.trim().replace(/\\u00a0/gu, ' ')))()"
+            },
+            {
+              "user": "keyboard:ArrowDown",
+              "wait": 80,
+              "check": "(() => /^I кв\\., Маржа: 18 ?%$/u.test(document.querySelector('#l [aria-live]').textContent.trim().replace(/\\u00a0/gu, ' ')) && !!document.querySelector('#l circle.sf-bar-chart-focus'))()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__lineChosen && window.__lineChosen.series === 'margin' && window.__lineChosen.x === 'I кв.' && window.__lineChosen.value === 0.18)()"
             }
           ]
         }

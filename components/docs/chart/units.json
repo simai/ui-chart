@@ -95,6 +95,14 @@
       "recorded_on": "2026-11-02",
       "change": "added",
       "summary": "sf-parts-bar: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (max) named «Свободно»; the smallest folded into «Другое» past max-parts; the whole beside the label, a list of the parts with values and shares (or one inline line for a tile), a tooltip, a keyboard cursor said in a live region, a summary sentence, the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "smart.bar-chart",
+      "version": "0.2.0",
+      "recorded_on": "2026-11-02",
+      "change": "minor",
+      "summary": "lines: series named in lines are drawn as lines with points over the bars (a plan over the facts), never stacked; line-axis own puts them on a scale of their own with its ticks on the far side (a margin over a revenue), always so over a normalized stack; line-format formats their values in the ticks, the tooltip, the live line and the table; the summary says which series are lines; the cursor walks onto a line and select carries it. Vertical bars only.",
+      "consumer": "Nothing to do: lines defaults to empty, so a chart without it draws as before; name series in lines to draw them as lines."
     }
   ]
 }

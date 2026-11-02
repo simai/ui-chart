@@ -1,5 +1,6 @@
 // sf-bar-chart: values by category as bars, grouped or stacked, vertical or
-// horizontal (docs/DECISIONS.md D1).
+// horizontal (docs/DECISIONS.md D1), with some series as lines over the bars
+// when asked (lines), on the bars' axis or a scale of their own.
 //
 // The element reads its data once into series (chart-core/data), stacks it
 // when asked (chart-core/stack), measures its plot, and draws axes and one
@@ -16,6 +17,7 @@ import {readSeries} from '../chart-core/data.js';
 import {bandScale, linearScale, niceTicks, tickCount} from '../chart-core/scale.js';
 import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {stackExtent, stackSeries} from '../chart-core/stack.js';
+import {linePath} from '../chart-core/path.js';
 import {seriesFacts} from '../chart-core/describe.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
@@ -128,6 +130,18 @@ class SfBarChart extends BarChartElement {
     return model.series.some((one) => one.values.some((value) => value !== null)) ? 'ready' : 'empty';
   }
 
+  // The series drawn as lines: those named in lines, on vertical bars only.
+  lineKeys() {
+    if (this.orientation === 'horizontal' || !this.lines) return new Set();
+    return new Set(this.lines.split(',').map((key) => key.trim()).filter(Boolean));
+  }
+
+  // The lines stand on a scale of their own when asked, and always over a
+  // normalized stack, whose axis is shares.
+  ownLineAxis() {
+    return this.lineAxis === 'own' || this.stack === 'normalized';
+  }
+
   shownSeries(model) {
     const hidden = new Set(this.hiddenSeries || []);
     return model.series.map((one, place) => ({...one, place})).filter((one) => !hidden.has(one.key));
@@ -145,10 +159,18 @@ class SfBarChart extends BarChartElement {
     return formatNumber(value, pageLocale(this), this.yFormat, {step, gap: this.words('gap')});
   }
 
+  // A value of a series in its own format: a line on its own scale may be
+  // of another kind than the bars (a share over a sum).
+  sayOf(key, value, step = 0) {
+    if (!this.lineFormat || !this.lineKeys().has(key)) return this.sayY(value, step);
+    return formatNumber(value, pageLocale(this), this.lineFormat, {step, gap: this.words('gap')});
+  }
+
   // A bar's value as the tooltip and the live line say it: in a normalized
   // stack, its share and then the value itself.
   sayValue(group, index) {
     const raw = group.values[index];
+    if (group.line) return this.sayOf(group.key, raw);
     if (this.stack !== 'normalized' || raw === null) return this.sayY(raw);
     const segment = group.segments[index];
     const share = segment ? segment[1] - segment[0] : 0;
@@ -164,8 +186,19 @@ class SfBarChart extends BarChartElement {
     const count = model.xs.length;
     const horizontal = this.orientation === 'horizontal';
     const normalized = this.stack === 'normalized';
-    const segments = stackSeries(shown, this.stack);
-    const [low, high] = normalized ? [0, 1] : stackExtent(segments);
+    const lineKeys = this.lineKeys();
+    const barShown = shown.filter((one) => !lineKeys.has(one.key));
+    const lineShown = shown.filter((one) => lineKeys.has(one.key));
+    const own = lineShown.length > 0 && this.ownLineAxis();
+    const segments = stackSeries(barShown, this.stack);
+    let [low, high] = normalized ? [0, 1] : stackExtent(segments);
+    const lineValues = lineShown.flatMap((one) => one.values.filter((v) => v !== null));
+    // On the shared axis the lines widen it; on their own they have a scale
+    // of their own, which need not start at zero.
+    if (lineValues.length && !own) {
+      low = Math.min(low, ...lineValues);
+      high = Math.max(high, ...lineValues);
+    }
     const yMax = !normalized && this.hasAttribute('y-max') && Number.isFinite(this.yMax) ? this.yMax : null;
     const tickText = (value, step) => (normalized ? formatNumber(value, pageLocale(this), 'percent') : this.sayY(value, step));
     const labelsAt = (ticks) => ticks.ticks.map((value) => tickText(value, ticks.step));
@@ -176,6 +209,7 @@ class SfBarChart extends BarChartElement {
     let valueTicks;
     let bandRange;
     let categoryTicks;
+    let lineAxis = null;
     if (horizontal) {
       // Categories down the left, held to two fifths of the width.
       const longest = Math.max(1, ...model.xs.map((_, index) => this.sayX(model, index).length));
@@ -200,7 +234,13 @@ class SfBarChart extends BarChartElement {
       const ticks = niceTicks(Math.min(low, 0), yMax ?? high, tickCount(height - top - bottom, font * 3.5), {zero: true, nice: yMax === null && !normalized});
       const texts = labelsAt(ticks);
       const left = Math.ceil(Math.max(...texts.map((text) => text.length)) * font * CHAR) + GAP * 1.5;
-      inner = {left, top, right: Math.max(left + 1, width - GAP * 2), bottom: Math.max(top + 1, height - bottom)};
+      if (own) {
+        const lineTicks = niceTicks(Math.min(...lineValues), Math.max(...lineValues), tickCount(height - top - bottom, font * 3.5));
+        const lineTexts = lineTicks.ticks.map((at) => this.sayOf(lineShown[0].key, at, lineTicks.step));
+        const right = Math.ceil(Math.max(...lineTexts.map((text) => text.length)) * font * CHAR) + GAP * 1.5;
+        lineAxis = {ticks: lineTicks, texts: lineTexts, right};
+      }
+      inner = {left, top, right: Math.max(left + 1, width - (lineAxis ? lineAxis.right : GAP * 2)), bottom: Math.max(top + 1, height - bottom)};
       value = linearScale([ticks.min, ticks.max], [inner.bottom, inner.top]);
       valueTicks = texts.map((text, index) => ({at: value(ticks.ticks[index]), text, zero: ticks.ticks[index] === 0}));
       bandRange = [inner.left, inner.right];
@@ -213,10 +253,10 @@ class SfBarChart extends BarChartElement {
     }
 
     const band = bandScale(count, bandRange, {padding: count > 60 ? 0.1 : 0.25});
-    const grouped = this.stack === 'none' && shown.length > 1;
-    const sub = grouped ? band.width / shown.length : band.width;
+    const grouped = this.stack === 'none' && barShown.length > 1;
+    const sub = grouped ? band.width / barShown.length : band.width;
     const zero = value(0);
-    const groups = shown.map((one, place) => {
+    const groups = barShown.map((one, place) => {
       const bars = [];
       segments[place].forEach((segment, index) => {
         if (!segment) return;
@@ -231,6 +271,15 @@ class SfBarChart extends BarChartElement {
       });
       return {...one, segments: segments[place], bars};
     });
+
+    // The lines through the middles of the bands, broken at a gap, with a
+    // point at each value.
+    const lineScale = lineAxis ? linearScale([lineAxis.ticks.min, lineAxis.ticks.max], [inner.bottom, inner.top]) : value;
+    const lines = lineShown.map((one) => {
+      const points = one.values.map((raw, index) => (raw === null ? null : [band.at(index) + band.width / 2, lineScale(raw)]));
+      return {...one, line: true, points, d: linePath(points)};
+    });
+    const lineTicks = lineAxis ? lineAxis.ticks.ticks.map((at, index) => ({at: lineScale(at), text: lineAxis.texts[index]})) : [];
 
     // A value at the end of each bar (or of each stack) where it fits.
     const valueLabels = [];
@@ -258,7 +307,8 @@ class SfBarChart extends BarChartElement {
     }
 
     return {
-      width, height, font, inner, horizontal, zero, groups, valueTicks, categoryTicks, valueLabels,
+      width, height, font, inner, horizontal, zero, groups, lines, lineTicks, valueTicks, categoryTicks, valueLabels,
+      dots: band.step >= font,
       bands: model.xs.map((_, index) => ({from: band.at(index) - (band.step - band.width) / 2, size: band.step})),
       bandStart: bandRange[0],
       step: band.step,
@@ -272,14 +322,17 @@ class SfBarChart extends BarChartElement {
     if (this.summary === 'none') return '';
     if (!model.xs.length) return this.words('summary-empty');
     const parts = [this.words('summary-count', {count: model.xs.length})];
+    const lineKeys = this.lineKeys();
+    const lines = shown.filter((one) => lineKeys.has(one.key)).map((one) => one.name);
+    if (lines.length) parts.push(this.words('summary-lines', {names: lines.join(', ')}));
     for (const one of shown) {
       const facts = seriesFacts(one.values);
       if (!facts) continue;
       parts.push(this.words('summary-series', {
         name: one.name,
-        max: this.sayY(facts.max),
+        max: this.sayOf(one.key, facts.max),
         maxAt: this.sayX(model, facts.maxAt),
-        min: this.sayY(facts.min),
+        min: this.sayOf(one.key, facts.min),
         minAt: this.sayX(model, facts.minAt),
       }));
     }
@@ -287,10 +340,11 @@ class SfBarChart extends BarChartElement {
   }
 
   cursorLine(model, cursor) {
-    const group = this._geometry?.groups.find((one) => one.key === cursor.series);
+    const g = this._geometry;
+    const group = g?.groups.find((one) => one.key === cursor.series) ?? g?.lines.find((one) => one.key === cursor.series);
     const one = group ?? model.series.find((series) => series.key === cursor.series);
     if (!one) return '';
-    const said = group ? this.sayValue(group, cursor.index) : this.sayY(one.values[cursor.index]);
+    const said = group ? this.sayValue(group, cursor.index) : this.sayOf(one.key, one.values[cursor.index]);
     return this.words('cursor', {x: this.sayX(model, cursor.index), name: one.name, value: said});
   }
 
@@ -329,7 +383,7 @@ class SfBarChart extends BarChartElement {
   // nearest series).
   pointAt(event) {
     const g = this._geometry;
-    if (!g || !g.groups.length) return null;
+    if (!g || !(g.groups.length + g.lines.length)) return null;
     const box = event.currentTarget.getBoundingClientRect();
     const along = g.horizontal ? event.clientY - box.top : event.clientX - box.left;
     const across = g.horizontal ? event.clientX - box.left : event.clientY - box.top;
@@ -344,6 +398,13 @@ class SfBarChart extends BarChartElement {
       const inside = along >= from && along <= to;
       const distance = inside && across >= low && across <= high ? 0 : Math.abs(across - (low + high) / 2) + (inside ? 0 : 1e6);
       if (!best || distance < best.distance) best = {series: group.key, distance};
+    }
+    // A line's point near the pointer wins over the bar under it.
+    for (const line of g.lines) {
+      const point = line.points[index];
+      if (!point) continue;
+      const distance = Math.abs(across - point[1]) - g.font;
+      if (!best || distance < best.distance) best = {series: line.key, distance};
     }
     return best ? {index, series: best.series} : null;
   }
@@ -407,7 +468,8 @@ class SfBarChart extends BarChartElement {
       state,
       model,
       tableModel,
-      tableKey: [tableModel, this.label, this.xLabel, this.xFormat, this.yFormat, pageLocale(this), this.table, this.table === 'toggle' ? this._view : 'chart'],
+      tableKey: [tableModel, this.label, this.xLabel, this.xFormat, this.yFormat, this.lines, this.lineFormat, pageLocale(this), this.table, this.table === 'toggle' ? this._view : 'chart'],
+      lineKeys: this.lineKeys(),
       shown,
       geometry,
       cursor,

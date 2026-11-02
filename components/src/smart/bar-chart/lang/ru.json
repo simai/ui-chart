@@ -14,6 +14,7 @@
     "x-column": "Категория",
     "summary-count": "Категорий: {count}.",
     "summary-series": "{name}: наибольшее {max} ({maxAt}), наименьшее {min} ({minAt}).",
+    "summary-lines": "Линией: {names}.",
     "share": "{share} ({value})"
   },
   "events": {
