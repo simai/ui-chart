@@ -23,10 +23,11 @@
     "src/smart/chart-core/palettes.js",
     "src/smart/chart-core/path.js",
     "src/smart/chart-core/scale.js",
+    "src/smart/chart-core/scatter.js",
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "606281258a13d495759cb4b21f025274c56321f6bc81a8df115f8f3a25ce6709",
+  "content_sha256": "a7e10116e17e301c128c7da36854e8b4f9883d735f669bf0d704ef648294359f",
   "dependencies": [
     {
       "id": "tokens.colour",

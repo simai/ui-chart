@@ -2,7 +2,7 @@
 // Usage: node this-file /absolute/path/to/output
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
-// sf-chart-funnel and sf-chart-gauge.
+// sf-chart-funnel, sf-chart-gauge and sf-chart-scatter.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -20,6 +20,9 @@
 //   by stage and hold 3:1, the keyboard and forced colours;
 // - the gauge: the arc's height from its width, the bar's thickness, the value
 //   in its band's colour at 3:1, the meter, and forced colours;
+// - the scatter: its rung's height, marks inside it at 3:1 in a shape per
+//   series, the bubbles' largest radius, the keyboard and the pointer, a
+//   canvas past 2,000 marks within the budget, and forced colours;
 // - many bars: 1,000 categories draw within the budget at a 4x CPU slowdown.
 import {resolve, join} from 'node:path';
 import {existsSync} from 'node:fs';
@@ -27,7 +30,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -61,6 +64,21 @@ const load = [['mon', [32, 44, 60, 74, 80, 74, 60, 44, 32, 25]], ['tue', [34, 46
 const days = {mon: 'Пн', tue: 'Вт', wed: 'Ср'};
 const order = [{step: 'visit', people: 12400}, {step: 'catalog', people: 7800}, {step: 'cart', people: 2900}, {step: 'checkout', people: 1300}, {step: 'paid', people: 860}];
 const steps = {visit: 'Визиты', catalog: 'Каталог', cart: 'Корзина', checkout: 'Оформление', paid: 'Оплата'};
+const goods = [
+  {product: 'Наушники', kind: 'electronics', price: 1200, sold: 340}, {product: 'Колонка', kind: 'electronics', price: 2500, sold: 260},
+  {product: 'Часы', kind: 'electronics', price: 3900, sold: 210}, {product: 'Планшет', kind: 'electronics', price: 5400, sold: 150},
+  {product: 'Телефон', kind: 'electronics', price: 7800, sold: 120}, {product: 'Ноутбук', kind: 'electronics', price: 9900, sold: 80},
+  {product: 'Чехол', kind: 'accessories', price: 300, sold: 520}, {product: 'Кабель', kind: 'accessories', price: 650, sold: 470},
+  {product: 'Зарядка', kind: 'accessories', price: 900, sold: 390}, {product: 'Сумка', kind: 'accessories', price: 1500, sold: 350},
+  {product: 'Подставка', kind: 'accessories', price: 2200, sold: 240}, {product: 'Клавиатура', kind: 'accessories', price: 2900, sold: 230},
+];
+const kinds = {electronics: 'Электроника', accessories: 'Аксессуары'};
+const regions = [
+  {region: 'Север', managers: 4, revenue: 18, clients: 120}, {region: 'Юг', managers: 7, revenue: 31, clients: 260},
+  {region: 'Запад', managers: 5, revenue: 26, clients: 180}, {region: 'Восток', managers: 3, revenue: 12, clients: 90},
+  {region: 'Центр', managers: 9, revenue: 44, clients: 410}, {region: 'Урал', managers: 6, revenue: 24, clients: 150},
+  {region: 'Сибирь', managers: 2, revenue: 9, clients: 60}, {region: 'Волга', managers: 8, revenue: 35, clients: 300},
+];
 const change = [{m: 'jan', r: 'north', v: -6}, {m: 'feb', r: 'north', v: -1}, {m: 'mar', r: 'north', v: 0}, {m: 'apr', r: 'north', v: 2}, {m: 'may', r: 'north', v: 6}];
 
 const browser = await chromium.launch();
@@ -649,6 +667,136 @@ try {
     }));
     evidence.gauge.forced = solid;
     if (solid.track === 'none' || solid.fill === 'none' || solid.zone !== 'Внимание') note({case: 'gauge: in forced colours the track is an outline, the value solid and the zone named', got: solid});
+    await forced.close();
+  }
+
+  // 3f. The scatter: the plot is its rung's height and every mark stays in
+  // it on every rung and width; each series' marks hold 3:1 against the page
+  // in both themes and a series past the first has its own shape; the
+  // largest bubble is its rung's; the points are one Tab stop walked by the
+  // arrows, said with their names and measures, and the pointer shows the
+  // same point in the tooltip; past 2,000 marks they are drawn on a canvas
+  // within the budget at a 4x CPU slowdown, and the keyboard still walks
+  // them; in forced colours the marks are solid and the bubbles' series
+  // differ by their outline's dash.
+  {
+    const BUBBLE = {'1/2': 14, 1: 22, 2: 34};
+    const scatter = {label: 'Цена и продажи', x: 'price', y: 'sold', series: 'kind', point: 'product', 'x-label': 'Цена', 'y-label': 'Продано', 'y-format': 'integer'};
+    const bubbles = {label: 'Регионы', x: 'managers', y: 'revenue', bubble: 'clients', point: 'region', 'x-label': 'Менеджеров', 'y-label': 'Выручка', 'bubble-label': 'Клиентов'};
+    const rgb = (value) => value.match(/\d+/gu).slice(0, 3).map(Number);
+    evidence.scatter = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-scatter', {...scatter, size}, {items: goods, names: kinds});
+          const shape = await shapeOf(page, {frame: '.sf-chart-scatter-plot', marks: '.sf-chart-scatter-series > *', texts: '.sf-chart-scatter-tick'});
+          await make(page, 'sf-chart-scatter', {...bubbles, size}, {items: regions});
+          const round = await shapeOf(page, {frame: '.sf-chart-scatter-plot', marks: '.sf-chart-scatter-series > *', texts: '.sf-chart-scatter-tick'});
+          const largest = await page.evaluate(() => Math.max(...[...document.querySelectorAll('.sf-chart-scatter-series > circle')].map((node) => Number(node.getAttribute('r')))));
+          evidence.scatter.geometry.push({theme, width, size, height: shape.height, marks: shape.marks, largest});
+          if (shape.height !== RUNG[size] || shape.marks !== 12 || shape.outside || shape.pageOverflow > 0) note({case: `scatter ${theme} ${width}px size ${size}: the plot is its rung's height, twelve marks, nothing leaves it`, got: shape, want: RUNG[size]});
+          if (round.height !== RUNG[size] || round.marks !== 8 || round.outside || Math.abs(largest - BUBBLE[size]) > 0.1) note({case: `scatter ${theme} ${width}px size ${size}: eight bubbles inside the plot, the largest its rung's`, got: {round, largest}, want: BUBBLE[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-scatter', scatter, {items: goods, names: kinds});
+          const marks = await page.evaluate(() => ['electronics', 'accessories'].map((key) => {
+            const node = document.querySelector(`.sf-chart-scatter-series[data-series=${key}] > *`);
+            return {tag: node.tagName, fill: getComputedStyle(node).fill};
+          }));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const ratios = marks.map((one) => Math.round(contrast(rgb(one.fill), background) * 100) / 100);
+          evidence.scatter.contrast[theme] = {ratios, marks};
+          if (ratios.some((ratio) => ratio < 3) || marks[0].fill === marks[1].fill || marks[0].tag === marks[1].tag) note({case: `scatter ${theme}: each series' marks hold 3:1 against the page, in a colour and a shape of their own`, got: {marks, ratios}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-scatter', scatter, {items: goods, names: kinds});
+    // Tab reaches the table button and the two legend buttons, then the plot.
+    await page.focus('#before');
+    for (let press = 0; press < 4; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-scatter-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/\u00a0|\u202f/gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const end = await said('End');
+    const up = await said('ArrowUp');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-scatter-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-scatter-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-scatter-svg'));
+    // The pointer on a mark shows that point.
+    const spot = await page.evaluate(() => {
+      const node = document.querySelector('.sf-chart-scatter-series[data-series=electronics] > circle');
+      const box = node.getBoundingClientRect();
+      return {x: box.left + box.width / 2, y: box.top + box.height / 2};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-scatter-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    const keys = {focused, first, second, end, up, chosen, tip, cleared, out, hover};
+    evidence.scatter.keyboard = keys;
+    if (!focused || first !== 'Чехол, Аксессуары: Цена 300, Продано 520' || second !== 'Кабель, Аксессуары: Цена 650, Продано 470'
+      || end !== 'Ноутбук, Электроника: Цена 9 900, Продано 80' || up !== 'Телефон, Электроника: Цена 7 800, Продано 120'
+      || chosen.length !== 1 || chosen[0].point !== 'Телефон' || chosen[0].index !== 4 || !tip.startsWith('Телефон') || cleared || !out
+      || !hover.startsWith('Наушники')) note({case: 'scatter: one Tab stop after the table button; the arrows walk the points and each is said; Enter selects, Escape clears; the pointer shows its point', got: keys});
+    await page.close();
+
+    // Past 2,000 marks: a canvas, within the budget, and the keyboard still walks them.
+    const many = await open({width: 1280});
+    const session = await many.context().newCDPSession(many);
+    await session.send('Emulation.setCPUThrottlingRate', {rate: 4});
+    const drawn = await many.evaluate(async () => {
+      const data = Array.from({length: 5000}, (_, index) => ({x: (index * 7919) % 1000, y: ((index * 104729) % 997) + ((index * 7919) % 1000) / 4, group: index % 2 ? 'b' : 'a'}));
+      const box = document.getElementById('box');
+      box.replaceChildren();
+      const chart = document.createElement('sf-chart-scatter');
+      chart.id = 'chart';
+      chart.setAttribute('label', 'Много точек');
+      chart.setAttribute('series', 'group');
+      box.append(chart);
+      await new Promise((done) => setTimeout(done, 300));
+      const start = performance.now();
+      chart.items = data;
+      await new Promise((done) => {
+        const check = () => (chart.querySelector('.sf-chart-scatter-canvas') ? done() : requestAnimationFrame(check));
+        check();
+      });
+      await new Promise((done) => requestAnimationFrame(() => done()));
+      const first = Math.round(performance.now() - start);
+      const canvas = chart.querySelector('.sf-chart-scatter-canvas');
+      const pixels = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+      let painted = 0;
+      for (let at = 3; at < pixels.length; at += 4) if (pixels[at]) painted += 1;
+      return {first, svgMarks: chart.querySelectorAll('.sf-chart-scatter-series > *').length, painted, width: canvas.width};
+    });
+    await session.send('Emulation.setCPUThrottlingRate', {rate: 1});
+    await many.focus('#chart svg[role=group]');
+    await many.keyboard.press('ArrowRight');
+    await many.keyboard.press('ArrowRight');
+    await many.waitForTimeout(120);
+    const walked = await many.evaluate(() => ({said: document.querySelector('#chart [aria-live]').textContent.trim(), ring: document.querySelectorAll('#chart .sf-chart-scatter-ring').length}));
+    evidence.scatter['5000-points-4x'] = {...drawn, walked};
+    if (drawn.first > 1500 || drawn.svgMarks !== 0 || drawn.painted < 5000 || !/^Точка \d+, a|^Точка \d+, b/u.test(walked.said) || walked.ring !== 1) note({case: 'scatter: 5,000 points draw on a canvas within 1.5 s at 4x CPU, and the keyboard walks them', got: {drawn, walked}});
+    await many.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-scatter', scatter, {items: goods, names: kinds});
+    const solid = await forced.evaluate(() => [...document.querySelectorAll('.sf-chart-scatter-series > *')].map((node) => getComputedStyle(node).fill));
+    await make(forced, 'sf-chart-scatter', {...bubbles, series: 'half'}, {items: regions.map((one, index) => ({...one, half: index % 2 ? 'b' : 'a'}))});
+    const dashes = await forced.evaluate(() => ['a', 'b'].map((key) => getComputedStyle(document.querySelector(`.sf-chart-scatter-series[data-series=${key}] > circle`)).strokeDasharray));
+    evidence.scatter.forced = {fill: solid[0], dashes};
+    if (new Set(solid).size !== 1 || solid[0] === 'none' || dashes[0] !== 'none' || dashes[1] === 'none') note({case: 'scatter: in forced colours the marks are solid in the system colour and the bubbles\' series differ by their outline\'s dash', got: {solid: [...new Set(solid)], dashes}});
     await forced.close();
   }
 

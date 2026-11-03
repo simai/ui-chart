@@ -1,0 +1,49 @@
+{
+  "title": "Scatter chart",
+  "runtime": {
+    "untitled": "Chart",
+    "roledescription": "scatter chart",
+    "summary-range": "Points: {count}. {xName}: from {xMin} to {xMax}; {yName}: from {yMin} to {yMax}.",
+    "summary-bubble": "Size is {name}: from {min} to {max}.",
+    "summary-one": "Relation: {relation}.",
+    "summary-series": "{name}, relation: {relation}.",
+    "summary-top": "{yName}: highest {high} ({highY}), lowest {low} ({lowY}).",
+    "summary-missing": "Rows without coordinates: {count}.",
+    "summary-empty": "No data.",
+    "relation": "{strength}, {direction} (r = {r})",
+    "relation-none": "none (r = {r})",
+    "strength-weak": "weak",
+    "strength-moderate": "moderate",
+    "strength-strong": "strong",
+    "direction-up": "positive",
+    "direction-down": "negative",
+    "cursor": "{name}: {xName} {x}, {yName} {y}{bubble}",
+    "cursor-bubble": ", {name} {value}",
+    "point-n": "Point {n}",
+    "point-in": "{name}, {series}",
+    "point-column": "Point",
+    "series-column": "Series",
+    "gap": "no data",
+    "show-table": "Table",
+    "legend": "Series",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data"
+  },
+  "events": {
+    "toggle": {
+      "label": "Hide or show a series"
+    },
+    "select": {
+      "label": "Choose a point"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Show every series"
+    }
+  }
+}

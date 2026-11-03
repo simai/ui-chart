@@ -17,6 +17,7 @@ built and tested over the free Framework release pinned in
 | `src/smart/chart-parts/` | `sf-chart-parts`, the parts of one whole in one thin bar, with the free remainder of a capacity (a disk, a quota, a model's context) |
 | `src/smart/chart-heatmap/` | `sf-chart-heatmap`, a measure over two categories as a grid of cells on a stepped scale of the theme's tones (load by weekday and hour, a change by region and month) |
 | `src/smart/chart-funnel/` | `sf-chart-funnel`, the stages of a process as bars on a common baseline with the conversion beside each stage (a sales funnel, a sign-up, an order's path) |
+| `src/smart/chart-scatter/` | `sf-chart-scatter`, points at two measures to show how they go together, with a third as bubbles' area, series by colour and mark shape, a trend line and the relation said in words |
 | `src/smart/chart-gauge/` | `sf-chart-gauge`, one measured value on a fixed scale as a half circle or a bar, with bands (normal, warning, critical) and a target (a server's load, a score, a plan's fulfilment) |
 | `src/smart/chart-core/` | the chart core every chart shares: data, scales and bands, stacks, slices, formats, paths, decimation, the words and the keyboard cursor; a helper folder (no rule file), its passport `src/core/passports/module.chart-core.json` |
 | `docs/chart/` | the unit journal (one entry per version of each unit) and the change journal (renames and removals) |

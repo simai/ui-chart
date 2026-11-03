@@ -19,6 +19,7 @@ import {colourValue, contrast, coloursKey, readColours} from '../src/smart/chart
 import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core/heat.js';
 import {funnelStages} from '../src/smart/chart-core/funnel.js';
 import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-core/gauge.js';
+import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
 
 test('records and columns read into the same rows', () => {
   const records = [{m: 'a', v: 1}, {m: 'b', v: 2}];
@@ -328,4 +329,72 @@ test('a gauge puts a value on its scale and in its band', () => {
   assert.equal(bandOf(bands, 201), null);
   assert.equal(bandOf(bands, null), null);
   assert.deepEqual(gaugeBands('nope', scale), []);
+});
+
+test('a scatter reads one point per row and leaves out a row without both measures', () => {
+  const rows = [
+    {name: 'a', kind: 'k1', x: 1, y: 10, n: 5},
+    {name: 'b', kind: 'k2', x: '2', y: 20, n: null},
+    {name: 'c', kind: 'k1', x: null, y: 30, n: 7},
+    {name: 'd', kind: 'k2', x: 4, y: 'x', n: 1},
+    {name: 'e', kind: 'k1', x: 3, y: 5, n: 9},
+  ];
+  const model = scatterPoints(rows, {series: 'kind', point: 'name', bubble: 'n', names: {k1: 'One'}});
+  // Unset, x and y are the first numeric fields that name nothing else.
+  assert.equal(model.xField, 'x');
+  assert.equal(model.yField, 'y');
+  assert.equal(model.missing, 2);
+  assert.deepEqual(model.series, [{key: 'k1', name: 'One'}, {key: 'k2', name: 'k2'}]);
+  assert.deepEqual(model.points.map(({row, series, x, y, size, name}) => [row, series, x, y, size, name]), [[0, 'k1', 1, 10, 5, 'a'], [1, 'k2', 2, 20, null, 'b'], [4, 'k1', 3, 5, 9, 'e']]);
+  assert.deepEqual(measureExtent(model.points, 'size'), [5, 9]);
+  // Without a series field, the points are one series named by y.
+  assert.deepEqual(scatterPoints(rows).series, [{key: 'y', name: 'y'}]);
+  assert.deepEqual(scatterPoints([]).points, []);
+});
+
+test('a scatter fits a line and says the strength of the relation', () => {
+  const points = [[1, 2], [2, 4], [3, 6], [4, 8]].map(([x, y]) => ({x, y}));
+  const fit = linearFit(points);
+  assert.equal(fit.slope, 2);
+  assert.equal(fit.intercept, 0);
+  assert.equal(fit.r, 1);
+  assert.equal(linearFit(points.slice(0, 2)), null);
+  assert.equal(linearFit([{x: 1, y: 1}, {x: 1, y: 2}, {x: 1, y: 3}]), null);
+  assert.equal(strengthOf(-0.05), 'none');
+  assert.equal(strengthOf(0.2), 'weak');
+  assert.equal(strengthOf(-0.5), 'moderate');
+  assert.equal(strengthOf(0.9), 'strong');
+});
+
+test('the area of a bubble is in proportion to its value', () => {
+  assert.equal(bubbleRadius(100, 100, {least: 2, largest: 20}), 20);
+  assert.equal(bubbleRadius(25, 100, {least: 2, largest: 20}), 10);
+  assert.equal(bubbleRadius(0, 100, {least: 2, largest: 20}), 2);
+  assert.equal(bubbleRadius(null, 100, {least: 2, largest: 20}), 2);
+  assert.equal(bubbleRadius(-5, 100, {least: 2, largest: 20}), 2);
+});
+
+test('the scatter cursor walks the reading order and goes up and down to the nearest point', () => {
+  const points = [{x: 3, y: 1}, {x: 1, y: 5}, {x: 2, y: 2}, {x: 1, y: 1}];
+  const order = readingOrder(points);
+  assert.deepEqual(order, [3, 1, 2, 0]);
+  // On the plot, px: x * 10, y down.
+  const at = points.map(({x, y}) => [x * 10, 100 - y * 10]);
+  const move = (cursor, key) => moveScatter(cursor, key, {order, at});
+  assert.equal(move(null, 'ArrowRight'), 0);
+  assert.equal(move(0, 'ArrowRight'), 1);
+  assert.equal(move(3, 'ArrowRight'), 3);
+  assert.equal(move(0, 'ArrowLeft'), 0);
+  assert.equal(move(1, 'End'), 3);
+  assert.equal(move(2, 'Home'), 0);
+  // From (1, 1) up: (1, 5) is right above, (2, 2) nearer but aside.
+  assert.equal(order[move(0, 'ArrowUp')], 2);
+  assert.equal(order[move(0, 'ArrowDown')], 3);
+  assert.equal(move(0, 'Tab'), null);
+  assert.equal(moveScatter(null, 'ArrowRight', {order: [], at: []}), null);
+  // Past 200 points an arrow moves a hundredth.
+  const many = Array.from({length: 1000}, (_, index) => index);
+  assert.equal(moveScatter(0, 'ArrowRight', {order: many, at: many.map((x) => [x, 0])}), 10);
+  assert.equal(nearestPoint(at, 21, 79, 5), 2);
+  assert.equal(nearestPoint(at, 60, 60, 5), -1);
 });

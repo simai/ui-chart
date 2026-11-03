@@ -1,0 +1,500 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-scatter",
+  "version": "0.1.0",
+  "title": "Scatter chart",
+  "summary": "A scatter chart: one point per row at two measures, to show how they go together, with an optional third measure as a bubble's area, series by colour and mark shape, a least-squares trend line on request, a legend that hides series, a tooltip, a keyboard cursor that walks the points, a summary in words with the strength of each relation, and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "scatter",
+    "bubble",
+    "correlation",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-scatter",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+      },
+      "palette": {
+        "type": "string",
+        "default": "theme",
+        "description": "The seriess' colours as a named set, by place, each a light and a dark tone that change with the theme and hold 3:1 against surfaces 0-2: theme (the theme's own tones, as before), vivid (8, the first the brand's), soft (8, muted), warm (6), cool (6), brand (4 steps of the primary family, for ordered data). Past its size a set starts again. colors wins for the seriess it names.",
+        "enum": [
+          "theme",
+          "vivid",
+          "soft",
+          "warm",
+          "cool",
+          "brand"
+        ]
+      },
+      "x": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the horizontal measure; the first numeric field when unset."
+      },
+      "y": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the vertical measure; the next numeric field when unset."
+      },
+      "bubble": {
+        "type": "string",
+        "default": "",
+        "description": "The field of a third measure, drawn as each point's area: the points become bubbles. A value of zero, below zero or missing has no area and is drawn as a small ring."
+      },
+      "series": {
+        "type": "string",
+        "default": "",
+        "description": "One series per distinct value of this field, each its own colour and mark; one series when unset."
+      },
+      "point": {
+        "type": "string",
+        "default": "",
+        "description": "The field that names each point (a country, a product); the tooltip, the live line, the table and the summary say it. A point without one is called by its row."
+      },
+      "x-min": {
+        "type": "number",
+        "description": "The start of the horizontal axis; the data's own when unset."
+      },
+      "x-max": {
+        "type": "number",
+        "description": "The end of the horizontal axis; the data's own when unset."
+      },
+      "y-min": {
+        "type": "number",
+        "description": "The start of the vertical axis; the data's own when unset."
+      },
+      "y-max": {
+        "type": "number",
+        "description": "The end of the vertical axis; the data's own when unset."
+      },
+      "x-zero": {
+        "type": "boolean",
+        "default": false,
+        "description": "The horizontal axis takes zero in."
+      },
+      "y-zero": {
+        "type": "boolean",
+        "default": false,
+        "description": "The vertical axis takes zero in."
+      },
+      "trend": {
+        "type": "string",
+        "default": "none",
+        "description": "linear draws each series' least-squares line across its points, dashed. The summary always says the strength of the relation (Pearson's r), with or without the line.",
+        "enum": [
+          "none",
+          "linear"
+        ]
+      },
+      "legend": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto shows the legend above the plot when there are two series or more. Each entry is a button that hides and shows its series.",
+        "enum": [
+          "auto",
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "point",
+        "description": "point: under the pointer or the cursor, the point's name and its measures.",
+        "enum": [
+          "point",
+          "none"
+        ]
+      },
+      "grid": {
+        "type": "string",
+        "default": "both",
+        "description": "Which guide lines the plot draws across it.",
+        "enum": [
+          "y",
+          "x",
+          "both",
+          "none"
+        ]
+      },
+      "x-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the horizontal measure, said under the axis and in the tooltip, the table and the summary; the x field's name when unset."
+      },
+      "y-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the vertical measure, said above the axis and in the tooltip, the table and the summary; the y field's name when unset."
+      },
+      "bubble-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the bubble's measure, said in the tooltip, the table and the summary; the bubble field's name when unset."
+      },
+      "x-format": {
+        "type": "string",
+        "default": "number",
+        "description": "The horizontal measure's format: number, integer, decimal-<n>, percent (a share 0..1), compact, currency-<CODE> or unit-<unit>, in the page's language."
+      },
+      "y-format": {
+        "type": "string",
+        "default": "number",
+        "description": "The vertical measure's format: number, integer, decimal-<n>, percent (a share 0..1), compact, currency-<CODE> or unit-<unit>, in the page's language."
+      },
+      "bubble-format": {
+        "type": "string",
+        "default": "number",
+        "description": "The bubble measure's format: number, integer, decimal-<n>, percent (a share 0..1), compact, currency-<CODE> or unit-<unit>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the points' count and ranges, the bubbles' range, each series' relation with its strength and direction, the highest and lowest named point), said before the plot. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with points, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records, one point each ([{country, income, life}, …]), or an object of columns. A row without both measures is no point; the summary says how many were left out."
+      },
+      "names": {
+        "type": "object",
+        "default": {},
+        "description": "What each series is called, by its key: {eu: «Европа»}. A series without a name is called by its key."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "What colour each series is, by its key: {fact: 'primary', plan: 'neutral'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A series without one keeps the palette by its place. In forced colours a series is its dash."
+      },
+      "hidden-series": {
+        "type": "array",
+        "default": [],
+        "description": "The keys of the series the person hid with the legend."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Shows every series again and takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-scatter-toggle": {
+      "summary": "The person hid or showed a series with its legend button; applied at once (the vocabulary's local toggle).",
+      "payload": {
+        "type": "object",
+        "required": [
+          "id",
+          "hidden"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-scatter-select": {
+      "summary": "The person chose a point: a click on it, or Enter or Space on the keyboard cursor. index is the point's row in items, point its name ('' without the point field).",
+      "payload": {
+        "type": "object",
+        "required": [
+          "series",
+          "index",
+          "point",
+          "x",
+          "y"
+        ],
+        "properties": {
+          "series": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          },
+          "point": {
+            "type": "string"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-scatter-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the legend buttons and the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-scatter/index.js",
+        "sha256": "d9f4d5e5ef46dd20d8a8c6007280287cca96f6d9d637ebdc30785a9851c6499e"
+      },
+      {
+        "path": "src/smart/chart-scatter/js/templates/default.js",
+        "sha256": "068f05771126d566135fd16ed1ab704966febd616fb0aa4c2a63039895a76c5c"
+      },
+      {
+        "path": "src/smart/chart-scatter/js/templates/default.css",
+        "sha256": "f9a039776d4b143cc3f6c5fe95514e8440d859e7d2fc6dc93db6dd1bb79fd0c5"
+      },
+      {
+        "path": "src/smart/chart-scatter/rule.js",
+        "sha256": "372e10f6215325122de35e603f336c4991c939e08a90291becd781d046366af4"
+      },
+      {
+        "path": "src/smart/chart-scatter/docs.md",
+        "sha256": "b371ffb8fb8c98e459073b03d459e74bd7e549fcd540e5c9db1340496691df88"
+      },
+      {
+        "path": "src/smart/chart-scatter/component.json",
+        "sha256": "035ba8883e306fc29b9950e3f6b910354796044ea9e4d40c58904ae7ac4b0112"
+      },
+      {
+        "path": "src/smart/chart-scatter/lang/en.json",
+        "sha256": "61289e32498b30bc2e47bb73b14dd6caba589e3b6542dd68469895e957257429"
+      },
+      {
+        "path": "src/smart/chart-scatter/lang/ru.json",
+        "sha256": "f975cd0a64df9f1260ff2ad128ad92e6b7728020ec3c08f307cef48817045927"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-scatter to show how two measures of the same things go together (income and life expectancy of countries, price and sales of products), and a third as bubbles.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not use it for a series along time; that is sf-chart-line",
+      "Do not use bubbles where the third measure must be read precisely; give it in the table or a bar chart"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-scatter label=\"Доход и продолжительность жизни\" x=\"income\" y=\"life\" point=\"country\"></sf-chart-scatter>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

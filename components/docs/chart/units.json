@@ -204,6 +204,13 @@
       "recorded_on": "2026-11-03",
       "change": "added",
       "summary": "sf-chart-gauge: one measured value on a fixed scale (value, min, max) as a half circle or a bar, with bands in their Framework roles' colours and names, a target mark with the distance to it, the value written in its middle in its band's colour with the band's name under it, a meter with a value text for screen readers, a summary sentence, the same data as a table (hidden by default), loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-scatter",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-03",
+      "change": "added",
+      "summary": "sf-chart-scatter: one point per row at two measures (x and y fields), with an optional third as a bubble's area (the bubble field), series by colour and mark shape (the series field), a point's name (the point field), a least-squares trend line on request, a legend that hides series, a tooltip, a keyboard cursor that walks the points in reading order and goes up and down to the nearest point, a summary sentence with each series' relation in words and r, the same data as a table, the marks on a canvas past 2,000, loading, empty and error states."
     }
   ]
 }

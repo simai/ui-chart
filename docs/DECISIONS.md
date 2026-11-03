@@ -416,6 +416,23 @@ This changes D4 option C ("no local palette") for named sets.
   - Its table is hidden by default, since the value is written on the
     gauge.
 
+- **The scatter's form** (`sf-chart-scatter`, the third chart).
+  - One point per row, at the `x` and `y` fields; a row without both is
+    left out and counted in the summary.
+  - Bubbles through a field named `bubble`, not `size` as parameters.md
+    first named it: `size` is the size rung on every chart of the package.
+    A bubble's area, not its radius, follows its value.
+  - `series` splits the points by a field, `point` names them. A series
+    past the first has its own mark's shape, so colour is never the only
+    cue; bubbles stay circles and differ by an outline's dash in forced
+    colours.
+  - `trend="linear"` draws each series' least-squares line. The summary
+    always says each relation in words with Pearson's r.
+  - The arrows: Left and Right walk the points by x, then y, so every point
+    is reached; Up and Down go to the nearest point above or below.
+  - Past 2,000 marks the marks are drawn on a canvas under the SVG (D5).
+    The axes, the cursor and every text stay in the SVG.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -429,6 +446,7 @@ This changes D4 option C ("no local palette") for named sets.
 | D7 | Named palettes made by the package's generator on the Framework's tone ladder, `palette` setting | 2026-11-03 | the owner's «Yes, into the package» in the chat |
 | D8 | Heatmap: stepped scale on the theme's tone ladders, local diverging midpoint | 2026-11-03 | the owner's «Heatmap» as the next chart; the scale decided by the recommendation under the owner's delegation |
 | D9 | M2 plan and tag names as proposed; the funnel first, on a common baseline | 2026-11-03 | the owner's «Да, начинай с воронки» in the chat; the funnel's form decided by the recommendation under the owner's delegation |
+| D9 | The scatter: bubbles through the `bubble` field, shapes per series, the relation in words | 2026-11-03 | the owner's «Да, делай точечный» in the chat; the form decided by the recommendation under the owner's delegation |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.
