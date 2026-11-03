@@ -20,6 +20,7 @@ import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core
 import {funnelStages} from '../src/smart/chart-core/funnel.js';
 import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-core/gauge.js';
 import {binEdges, binOf, binSeries, median} from '../src/smart/chart-core/bin.js';
+import {compareRings, labelPlace, radarRuns, spokeAngle, spokePoint} from '../src/smart/chart-core/radar.js';
 import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
 
@@ -471,4 +472,31 @@ test('a box plot groups raw rows by a field and a series, or reads given statist
   const given = boxSeries([{g: 'a', min: 1, q1: 2, median: 3, q3: 4, max: 9}, {g: 'b', min: 1}], {stats: 'given'});
   assert.deepEqual([given.labels, given.missing, given.series[0].key, given.series[0].boxes[0].max], [['a'], 1, 'box', 9]);
   assert.deepEqual(boxSeries([]).series, []);
+});
+
+test('a radar puts the first spoke straight up and goes round clockwise', () => {
+  const round = (point) => point.map((value) => Math.round(value * 1000) / 1000);
+  assert.equal(spokeAngle(0, 4), -Math.PI / 2);
+  assert.deepEqual(round(spokePoint([10, 10], 5, 0, 4)), [10, 5]);
+  assert.deepEqual(round(spokePoint([10, 10], 5, 1, 4)), [15, 10]);
+  assert.deepEqual(round(spokePoint([10, 10], 5, 2, 4)), [10, 15]);
+  assert.deepEqual(labelPlace(0, 4), {anchor: 'middle', baseline: 'auto'});
+  assert.deepEqual(labelPlace(1, 4), {anchor: 'start', baseline: 'middle'});
+  assert.deepEqual(labelPlace(2, 4), {anchor: 'middle', baseline: 'hanging'});
+  assert.deepEqual(labelPlace(3, 4), {anchor: 'end', baseline: 'middle'});
+});
+
+test('a radar ring is closed without gaps and broken into runs round a gap', () => {
+  const whole = radarRuns([1, 2, 3, 4], [0, 0], (value) => value);
+  assert.equal(whole.closed, true);
+  assert.equal(whole.runs.length, 1);
+  assert.equal(whole.runs[0].length, 4);
+  // A gap at the second spoke: one run from the third round to the first.
+  const broken = radarRuns([1, null, 3, 4], [0, 0], (value) => value);
+  assert.equal(broken.closed, false);
+  assert.deepEqual(broken.runs.map((run) => run.length), [3]);
+  const two = radarRuns([1, null, 3, null, 5], [0, 0], (value) => value);
+  assert.deepEqual(two.runs.map((run) => run.length), [1, 2]);
+  assert.deepEqual(radarRuns([], [0, 0], (value) => value).runs, []);
+  assert.deepEqual(compareRings([5, 3, null, 2], [4, 3, 1, 6]), {above: 1, below: 1});
 });

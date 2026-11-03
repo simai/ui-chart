@@ -30,6 +30,7 @@ const PENDING = [
   {component: 'chart-funnel', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-scatter', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-box', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
+  {component: 'chart-radar', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-gauge', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-heatmap', property: 'scheme', reason: 'the role family a sequential scale is drawn in (primary ... info, as the role names of colors), a colour of the data, not a status about the world nor how a control looks'},
 ];

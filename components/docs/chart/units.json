@@ -226,6 +226,13 @@
       "recorded_on": "2026-11-03",
       "change": "added",
       "summary": "sf-chart-box: a box plot of one measure per group (the x and y fields): the median, the quartiles (linear between the two nearest), Tukey's or full-range whiskers (whiskers) and the outliers, worked out from raw rows or given per group (stats), the mean on request (mean), series side by side in a group (series), a legend that hides series, a tooltip, a keyboard cursor over groups and series, a summary sentence with each series' highest and lowest median and widest box, the same statistics as a table, loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-radar",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-03",
+      "change": "added",
+      "summary": "sf-chart-radar: a spoke per measure (the x field, the first straight up, then clockwise), each series a ring through its values (y fields or the series field) on one scale from min to max, the scale's rings as polygons or circles (grid), a light fill (fill), marks of their own shape per series, a gap that breaks the ring, a legend that hides series, a tooltip with every series on a spoke, a keyboard cursor round the spokes and across the series, a summary sentence with each series' strongest and weakest spoke and the first two compared, the same data as a table, loading, empty and error states."
     }
   ]
 }

@@ -2,7 +2,8 @@
 // Usage: node this-file /absolute/path/to/output
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
-// sf-chart-funnel, sf-chart-gauge, sf-chart-scatter and sf-chart-box.
+// sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box and
+// sf-chart-radar.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -31,7 +32,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -908,6 +909,102 @@ try {
     }));
     evidence.box.forced = lines;
     if (lines[0].stroke !== lines[1].stroke || lines[0].dash !== 'none' || lines[1].dash === 'none') note({case: 'box: in forced colours the outlines are the system colour and the second series has its own dash', got: lines});
+    await forced.close();
+  }
+
+  // 3i. The radar: the plot is its rung's height and every ring, mark and
+  // spoke name stays in it on every rung and width; each series' line holds
+  // 3:1 against the page in both themes and the second has marks of its own
+  // shape; the values are one Tab stop walked round the spokes and across
+  // the series, each said, and the pointer shows the same spoke in the
+  // tooltip; in forced colours the lines are the system colour and the
+  // second has its own dash.
+  {
+    const skills = ['Аналитика', 'Код', 'Дизайн', 'Общение', 'Тесты', 'Планирование'];
+    const team = skills.map((skill, index) => ({skill, anna: [8, 9, 4, 6, 7, 5][index], boris: [5, 6, 8, 9, 4, 7][index]}));
+    const radar = {label: 'Навыки', x: 'skill', y: 'anna,boris', max: '10', 'y-format': 'integer'};
+    const people = {anna: 'Анна', boris: 'Борис'};
+    const rgb = (value) => value.match(/\d+/gu).slice(0, 3).map(Number);
+    evidence.radar = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-radar', {...radar, size}, {items: team, names: people});
+          const shape = await shapeOf(page, {frame: '.sf-chart-radar-plot', marks: '.sf-chart-radar-series > *', texts: '.sf-chart-radar-svg text'});
+          const tall = await page.evaluate(() => {
+            const frame = document.querySelector('#chart .sf-chart-radar-plot').getBoundingClientRect();
+            return [...document.querySelectorAll('#chart .sf-chart-radar-svg text')].filter((node) => {
+              const box = node.getBoundingClientRect();
+              return box.top < frame.top - 1 || box.bottom > frame.bottom + 1;
+            }).length;
+          });
+          const spokes = await page.evaluate(() => document.querySelectorAll('#chart .sf-chart-radar-spoke').length);
+          evidence.radar.geometry.push({theme, width, size, height: shape.height, spokes, marks: shape.marks});
+          if (shape.height !== RUNG[size] || spokes !== 6 || shape.outside || tall || shape.pageOverflow > 0) note({case: `radar ${theme} ${width}px size ${size}: the plot is its rung's height, six spokes, nothing leaves it`, got: {shape, spokes, tall}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-radar', radar, {items: team, names: people});
+          const lines = await page.evaluate(() => ['anna', 'boris'].map((key) => ({
+            stroke: getComputedStyle(document.querySelector(`.sf-chart-radar-series[data-series=${key}] .sf-chart-radar-line`)).stroke,
+            mark: document.querySelector(`.sf-chart-radar-series[data-series=${key}] .sf-chart-radar-dot`).tagName,
+          })));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const ratios = lines.map((one) => Math.round(contrast(rgb(one.stroke), background) * 100) / 100);
+          evidence.radar.contrast[theme] = {ratios, lines};
+          if (ratios.some((ratio) => ratio < 3) || lines[0].stroke === lines[1].stroke || lines[0].mark === lines[1].mark) note({case: `radar ${theme}: each series' line holds 3:1 against the page, in a colour and a mark of its own`, got: {lines, ratios}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-radar', radar, {items: team, names: people});
+    // Tab reaches the table button and the two legend buttons, then the plot.
+    await page.focus('#before');
+    for (let press = 0; press < 4; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-radar-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim());
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const down = await said('ArrowDown');
+    const back = await said('ArrowLeft');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-radar-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-radar-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-radar-svg'));
+    // The pointer on a mark shows its spoke.
+    const spot = await page.evaluate(() => {
+      const node = document.querySelectorAll('.sf-chart-radar-series[data-series=boris] .sf-chart-radar-dot')[3];
+      const box = node.getBoundingClientRect();
+      return {x: box.left + box.width / 2, y: box.top + box.height / 2};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-radar-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    const keys = {focused, first, second, down, back, end, chosen, tip, cleared, out, hover};
+    evidence.radar.keyboard = keys;
+    if (!focused || first !== 'Аналитика, Анна: 8' || second !== 'Код, Анна: 9' || down !== 'Код, Борис: 6' || back !== 'Аналитика, Борис: 5'
+      || end !== 'Планирование, Борис: 7' || chosen.length !== 1 || chosen[0].spoke !== 'Планирование' || chosen[0].value !== 7
+      || tip !== 'Планирование Анна 5 Борис 7' || cleared || !out || hover !== 'Общение Анна 6 Борис 9') note({case: 'radar: one Tab stop after the table button and the legend; the arrows go round the spokes and across the series, each said; Enter selects, Escape clears; the pointer shows its spoke', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-radar', radar, {items: team, names: people});
+    const drawn = await forced.evaluate(() => ['anna', 'boris'].map((key) => {
+      const node = getComputedStyle(document.querySelector(`.sf-chart-radar-series[data-series=${key}] .sf-chart-radar-line`));
+      return {stroke: node.stroke, dash: node.strokeDasharray};
+    }));
+    evidence.radar.forced = drawn;
+    if (drawn[0].stroke !== drawn[1].stroke || drawn[0].dash !== 'none' || drawn[1].dash === 'none') note({case: 'radar: in forced colours the lines are the system colour and the second series has its own dash', got: drawn});
     await forced.close();
   }
 

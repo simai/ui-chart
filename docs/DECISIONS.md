@@ -464,6 +464,21 @@ This changes D4 option C ("no local palette") for named sets.
   - SVG only: a box plot draws a few marks per group. A violin is a later
     variant of the same data.
 
+- **The radar's form** (`sf-chart-radar`, the sixth chart).
+  - The data mapping of the line and bar charts: `x` names the spokes, `y`
+    the series' fields or `series` the long form.
+  - One scale for every spoke, from `min` (zero by default) to `max` (the
+    data's, rounded up, or given). Measures on different scales are the
+    misuse the catalogue names; the docs send them to a grouped bar.
+  - The first spoke points straight up and the rest go clockwise.
+  - A gap breaks the ring and its fill, so it never reads as zero.
+  - A series past the first has its own values' mark shape and, in forced
+    colours, its ring's dash. `fill="none"` keeps three overlapping series
+    apart; `grid` is polygon, circle or none.
+  - The keyboard is the bar chart's: Left and Right round the spokes, Up
+    and Down across the series. The summary compares the first two series
+    spoke by spoke.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -480,6 +495,7 @@ This changes D4 option C ("no local palette") for named sets.
 | D9 | The scatter: bubbles through the `bubble` field, shapes per series, the relation in words | 2026-11-03 | the owner's «Да, делай точечный» in the chat; the form decided by the recommendation under the owner's delegation |
 | D9 | The histogram: `bin` on `sf-chart-bar` (auto or a width), touching bars, edges on the axis | 2026-11-03 | the owner's «Да, гистограмму» in the chat; the form decided by the recommendation under the owner's delegation |
 | D9 | The box plot: `sf-chart-box`, raw or given statistics, linear quartiles, Tukey's whiskers by default, series side by side | 2026-11-03 | the owner's «Да, ящик с усами» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `2d3fb38`) |
+| D9 | The radar: `sf-chart-radar`, one scale from the centre, the first spoke up and clockwise, a gap breaks the ring, marks of their own shape per series | 2026-11-03 | the owner's «давай дальше … радар?» in the chat; the form decided by the recommendation under the owner's delegation |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

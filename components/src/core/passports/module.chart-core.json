@@ -24,12 +24,13 @@
     "src/smart/chart-core/heat.js",
     "src/smart/chart-core/palettes.js",
     "src/smart/chart-core/path.js",
+    "src/smart/chart-core/radar.js",
     "src/smart/chart-core/scale.js",
     "src/smart/chart-core/scatter.js",
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "9ba66d73ef65c265aec6f2e69d04c2a20274cae099c03cf690f675731fa84100",
+  "content_sha256": "d6c33665a2c1733db4cb05e44b729cc879e5d36ae352cf93b1b6cf6e661c0a58",
   "dependencies": [
     {
       "id": "tokens.colour",
