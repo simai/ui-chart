@@ -15,7 +15,12 @@
     "summary-count": "Категорий: {count}.",
     "summary-series": "{name}: наибольшее {max} ({maxAt}), наименьшее {min} ({minAt}).",
     "summary-lines": "Линией: {names}.",
-    "share": "{share} ({value})"
+    "share": "{share} ({value})",
+    "count": "Количество",
+    "bin-range": "{from} – {to}",
+    "summary-bins": "Значений: {count}, от {min} до {max}; интервалов: {bins}, шириной {width}.",
+    "summary-bin-series": "{name}: медиана {median}, больше всего — {range} ({max}).",
+    "summary-missing": "Строк без значения: {count}."
   },
   "events": {
     "toggle": {

@@ -11,6 +11,7 @@
   ],
   "files": [
     "src/smart/chart-core/arc.js",
+    "src/smart/chart-core/bin.js",
     "src/smart/chart-core/colors.js",
     "src/smart/chart-core/cursor.js",
     "src/smart/chart-core/data.js",
@@ -27,7 +28,7 @@
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "a7e10116e17e301c128c7da36854e8b4f9883d735f669bf0d704ef648294359f",
+  "content_sha256": "d856a05a45fdd4367068e4c21b1e0d8028a42e4b2d13ce9036bbaac8f3abfa81",
   "dependencies": [
     {
       "id": "tokens.colour",

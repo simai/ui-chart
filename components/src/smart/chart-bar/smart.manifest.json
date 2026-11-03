@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
   "id": "smart.chart-bar",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "title": "Bar chart",
-  "summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
+  "summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table; with bin, a histogram of one measure.",
   "kind": "smart",
   "reuse_mode": "whole",
   "lifecycle": "experimental",
@@ -12,7 +12,9 @@
     "bar",
     "column",
     "stacked",
-    "data-visualization"
+    "data-visualization",
+    "histogram",
+    "distribution"
   ],
   "capabilities": [
     "interaction",
@@ -70,17 +72,22 @@
       "x": {
         "type": "string",
         "default": "",
-        "description": "The field of the categories; the first field when unset."
+        "description": "The field of the categories; the first field when unset. With bin, the measure cut into intervals; the first numeric field when unset."
       },
       "y": {
         "type": "string",
         "default": "",
-        "description": "The field of the values, or a comma list of fields, one series per field (the wide form); every numeric field when unset."
+        "description": "The field of the values, or a comma list of fields, one series per field (the wide form); every numeric field when unset. With bin, a weight summed per interval (an amount), or a count of the rows when unset."
       },
       "series": {
         "type": "string",
         "default": "",
         "description": "The long form: one series per distinct value of this field, the values from the first y field."
+      },
+      "bin": {
+        "type": "string",
+        "default": "none",
+        "description": "A histogram: none draws the rows as given; auto cuts the x measure into intervals of one round width (about Sturges' count for the rows) and draws one bar per interval, the count of its rows; a number is the intervals' width. y, when given, is a weight summed per interval instead of a count. The bars touch and the axis is marked at the intervals' edges; sort does not apply."
       },
       "x-scale": {
         "type": "string",
@@ -195,7 +202,7 @@
       "x-format": {
         "type": "string",
         "default": "auto",
-        "description": "For dates as categories: auto, or an Intl date style (short, medium, long, full)."
+        "description": "For dates as categories: auto, or an Intl date style (short, medium, long, full). With bin, the measure's number format for the intervals' edges (number when auto)."
       },
       "y-format": {
         "type": "string",
@@ -457,7 +464,7 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-bar/index.js",
-        "sha256": "ff133ab60bf516cf35fc3e095f1e541f565b4b1592798bc94c9b31b837510618"
+        "sha256": "32926facc7cba18ccf9bdc59b846cf6f09dc2907d7c0045517499795cbe1e92e"
       },
       {
         "path": "src/smart/chart-bar/js/templates/default.js",
@@ -473,19 +480,19 @@
       },
       {
         "path": "src/smart/chart-bar/docs.md",
-        "sha256": "b233adb4a0e90fdda38001ef2d33fa3dfb7562f4d3169d16cbb8e157235a0c54"
+        "sha256": "4082627199b9a3f559e69339abbe27b43281c0f2b247e49ab2c9a0eb817feadb"
       },
       {
         "path": "src/smart/chart-bar/component.json",
-        "sha256": "a2adf7b6dbef61282bb04247d7f5132f9279e8cec1bdb227bce5f7f5cadc547c"
+        "sha256": "68e5515653aa2f408472094876d3fced50a62e73792aa7e55d770307b2037f7e"
       },
       {
         "path": "src/smart/chart-bar/lang/en.json",
-        "sha256": "aa516b9ade883802ca2c4f2136181f20a4db3767981a05be4bbf5ae94bb1fc19"
+        "sha256": "b47c926af8946d0d5058bc7e85df1b9c52b4a46ecba81bd7edffe69d2ab9e40f"
       },
       {
         "path": "src/smart/chart-bar/lang/ru.json",
-        "sha256": "fbca2d9a684183bafb4399a46efa4faeb2a0e5a3e44e6cf9474ae783d5e148a1"
+        "sha256": "8ccbd0d3d357538686ff161bef4af83be3b0ba6c1cf28fa5f0a6dc89c89472c6"
       }
     ],
     "generated_runtime": []

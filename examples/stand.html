@@ -117,7 +117,8 @@
   let element = null;
   let timer = 0;
 
-  const fetchJson = async (path) => (await fetch(path)).json();
+  // A rebuilt package is read afresh, not from the browser's cache.
+  const fetchJson = async (path) => (await fetch(path, {cache: 'no-cache'})).json();
   async function load(chart) {
     if (!cache[chart]) {
       const [manifest, examples] = await Promise.all([

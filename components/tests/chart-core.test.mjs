@@ -19,6 +19,7 @@ import {colourValue, contrast, coloursKey, readColours} from '../src/smart/chart
 import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core/heat.js';
 import {funnelStages} from '../src/smart/chart-core/funnel.js';
 import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-core/gauge.js';
+import {binEdges, binOf, binSeries, median} from '../src/smart/chart-core/bin.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
 
 test('records and columns read into the same rows', () => {
@@ -397,4 +398,40 @@ test('the scatter cursor walks the reading order and goes up and down to the nea
   assert.equal(moveScatter(0, 'ArrowRight', {order: many, at: many.map((x) => [x, 0])}), 10);
   assert.equal(nearestPoint(at, 21, 79, 5), 2);
   assert.equal(nearestPoint(at, 60, 60, 5), -1);
+});
+
+test('a histogram cuts a measure into intervals of one round width', () => {
+  // Sturges for 20 values: about 6 bins; 0..97 on a width of 20.
+  assert.deepEqual(binEdges(0, 97, 20), {start: 0, width: 20, count: 5});
+  // A given width; the edges on its multiples; the largest value on an edge
+  // belongs to the last interval.
+  const edges = binEdges(3, 30, 10, 10);
+  assert.deepEqual(edges, {start: 0, width: 10, count: 3});
+  assert.equal(binOf(0, edges), 0);
+  assert.equal(binOf(10, edges), 1);
+  assert.equal(binOf(30, edges), 2);
+  assert.equal(binOf(31, edges), -1);
+  assert.equal(binOf(-1, edges), -1);
+  // One value, or all the same: one interval of width 1.
+  assert.deepEqual(binEdges(5, 5, 3), {start: 5, width: 1, count: 1});
+  assert.equal(median([3, 1, 2]), 2);
+  assert.equal(median([4, 1, 3, 2]), 2.5);
+  assert.equal(median([]), null);
+});
+
+test('a histogram counts rows per interval and series, or sums a weight', () => {
+  const rows = [{h: 1, w: 'a', kg: 2}, {h: 4, w: 'b', kg: 1}, {h: 6, w: 'a', kg: 5}, {h: 'x', w: 'a', kg: 1}, {h: 10, w: 'a', kg: 3}];
+  const counted = binSeries(rows, {x: 'h', bin: 5, countName: 'Count'});
+  assert.equal(counted.kind, 'bin');
+  assert.equal(counted.missing, 1);
+  assert.deepEqual(counted.bins, [{from: 0, to: 5}, {from: 5, to: 10}]);
+  assert.deepEqual(counted.series.map(({key, name, values}) => [key, name, values]), [['Count', 'Count', [2, 2]]]);
+  const split = binSeries(rows, {x: 'h', series: 'w', bin: 5, names: {a: 'A'}});
+  assert.deepEqual(split.series.map(({key, name, values, raw}) => [key, name, values, raw]), [['a', 'A', [1, 2], [1, 6, 10]], ['b', 'b', [1, 0], [4]]]);
+  const weighed = binSeries(rows, {x: 'h', y: 'kg', bin: 5});
+  assert.deepEqual(weighed.series[0].values, [3, 8]);
+  assert.equal(weighed.series[0].key, 'kg');
+  // The measure is the first numeric field when unset; no rows, no bins.
+  assert.equal(binSeries(rows).xField, 'h');
+  assert.deepEqual(binSeries([]).bins, []);
 });

@@ -433,6 +433,19 @@ This changes D4 option C ("no local palette") for named sets.
   - Past 2,000 marks the marks are drawn on a canvas under the SVG (D5).
     The axes, the cursor and every text stay in the SVG.
 
+- **The histogram's form** (`bin` on `sf-chart-bar`, the fourth chart).
+  - A setting, not a tag: the axes, the cursor, the legend and the table
+    are the bar chart's.
+  - `bin="auto"` takes about Sturges' count of intervals on a round width
+    (1, 2, 2.5 or 5 times a power of ten), so the edges read at a glance; a
+    number is the width. The edges fall on multiples of the width.
+  - An interval holds its start and not its end; the last holds both.
+  - `y` is a weight summed per interval, or a count when unset; `series`
+    splits the rows and `stack` stacks them.
+  - The bars touch and the axis is marked at the edges, since x is a
+    measure. The summary says the median of each series and its fullest
+    interval.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -447,6 +460,7 @@ This changes D4 option C ("no local palette") for named sets.
 | D8 | Heatmap: stepped scale on the theme's tone ladders, local diverging midpoint | 2026-11-03 | the owner's «Heatmap» as the next chart; the scale decided by the recommendation under the owner's delegation |
 | D9 | M2 plan and tag names as proposed; the funnel first, on a common baseline | 2026-11-03 | the owner's «Да, начинай с воронки» in the chat; the funnel's form decided by the recommendation under the owner's delegation |
 | D9 | The scatter: bubbles through the `bubble` field, shapes per series, the relation in words | 2026-11-03 | the owner's «Да, делай точечный» in the chat; the form decided by the recommendation under the owner's delegation |
+| D9 | The histogram: `bin` on `sf-chart-bar` (auto or a width), touching bars, edges on the axis | 2026-11-03 | the owner's «Да, гистограмму» in the chat; the form decided by the recommendation under the owner's delegation |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

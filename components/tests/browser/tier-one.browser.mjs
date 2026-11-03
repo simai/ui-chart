@@ -23,6 +23,7 @@
 // - the scatter: its rung's height, marks inside it at 3:1 in a shape per
 //   series, the bubbles' largest radius, the keyboard and the pointer, a
 //   canvas past 2,000 marks within the budget, and forced colours;
+// - the histogram: its rung's height, touching bars, edge labels inside;
 // - many bars: 1,000 categories draw within the budget at a 4x CPU slowdown.
 import {resolve, join} from 'node:path';
 import {existsSync} from 'node:fs';
@@ -798,6 +799,30 @@ try {
     evidence.scatter.forced = {fill: solid[0], dashes};
     if (new Set(solid).size !== 1 || solid[0] === 'none' || dashes[0] !== 'none' || dashes[1] === 'none') note({case: 'scatter: in forced colours the marks are solid in the system colour and the bubbles\' series differ by their outline\'s dash', got: {solid: [...new Set(solid)], dashes}});
     await forced.close();
+  }
+
+  // 3g. The histogram (bin on sf-chart-bar): the plot is its rung's height,
+  // one bar per interval, the bars touch, and the edge labels stay inside
+  // the plot, in both themes and at both widths.
+  {
+    const hours = [5, 8, 9, 11, 12, 12, 14, 15, 16, 17, 18, 18, 19, 20, 21, 22, 23, 24, 26, 27, 29, 31, 33, 36, 38, 41, 44, 47, 52, 61].map((h) => ({hours: h}));
+    evidence.histogram = [];
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-bar', {label: 'Время доставки', x: 'hours', bin: 'auto', size}, {items: hours});
+          const shape = await shapeOf(page, {frame: '.sf-chart-bar-plot', marks: '.sf-chart-bar-bar', texts: '.sf-chart-bar-tick'});
+          const seams = await page.evaluate(() => {
+            const bars = [...document.querySelectorAll('.sf-chart-bar-bar')].map((node) => node.getBoundingClientRect());
+            return Math.max(0, ...bars.slice(1).map((box, index) => Math.abs(box.left - bars[index].right)));
+          });
+          evidence.histogram.push({theme, width, size, height: shape.height, bars: shape.marks, seams});
+          if (shape.height !== RUNG[size] || shape.marks !== 7 || shape.outside || shape.pageOverflow > 0 || seams > 0.5) note({case: `histogram ${theme} ${width}px size ${size}: its rung's height, seven touching bars, nothing leaves it`, got: {shape, seams}, want: RUNG[size]});
+        }
+        await page.close();
+      }
+    }
   }
 
   // 4. Many bars at a 4x CPU slowdown (standard gate 17).

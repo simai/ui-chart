@@ -211,6 +211,14 @@
       "recorded_on": "2026-11-03",
       "change": "added",
       "summary": "sf-chart-scatter: one point per row at two measures (x and y fields), with an optional third as a bubble's area (the bubble field), series by colour and mark shape (the series field), a point's name (the point field), a least-squares trend line on request, a legend that hides series, a tooltip, a keyboard cursor that walks the points in reading order and goes up and down to the nearest point, a summary sentence with each series' relation in words and r, the same data as a table, the marks on a canvas past 2,000, loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-bar",
+      "version": "0.5.0",
+      "recorded_on": "2026-11-03",
+      "change": "minor",
+      "summary": "bin: a histogram of one measure (auto, about Sturges' count on a round width, or a given width): one touching bar per interval, the count of its rows or the sum of a weight (y), by series and stacked, the axis marked at the intervals' edges, the summary with each series' median and fullest interval.",
+      "consumer": "Nothing to do: bin defaults to none, so a chart draws as before; set bin to draw a histogram."
     }
   ]
 }

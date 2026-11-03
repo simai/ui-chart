@@ -8,12 +8,16 @@
 // with one Tab stop and walks it with the arrows (chart-core/cursor); every
 // move is said in a polite live region, the chart as a whole in a summary
 // sentence (chart-core/describe), and the same data is a table on request.
+// With bin, the rows are observations of one measure and the bars a
+// histogram (chart-core/bin): one bar per interval, the bars touching, the
+// axis marked at the intervals' edges.
 //
 // It renders into its own light DOM, like every Smart component.
 import SfBaseElement from '../../core/js/smart-base';
 import {elementFromManifest} from '../../core/js/element-manifest';
 import {pageLocale} from '../../core/js/page-language';
 import {readSeries} from '../chart-core/data.js';
+import {binSeries, median} from '../chart-core/bin.js';
 import {bandScale, linearScale, niceTicks, tickCount} from '../chart-core/scale.js';
 import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {stackExtent, stackSeries} from '../chart-core/stack.js';
@@ -134,9 +138,14 @@ class SfBarChart extends ChartBarElement {
   // data, its mapping or the sort changes. A sorted chart is a reordered
   // model, so an index is a bar's place everywhere.
   model() {
-    const key = [this.items, this.names, this.x, this.y, this.series, this.xScale, this.sort];
+    const key = [this.items, this.names, this.x, this.y, this.series, this.xScale, this.sort, this.bin, pageLocale(this)];
     if (this._modelKey && key.every((part, index) => part === this._modelKey[index])) return this._model;
     this._modelKey = key;
+    if (this.binned()) {
+      const bins = binSeries(this.items, {x: this.x, y: this.y, series: this.series, bin: this.bin, names: this.names || {}, countName: this.words('count')});
+      this._model = {...bins, order: bins.xs.map((_, index) => index), unit: 'day'};
+      return this._model;
+    }
     const read = readSeries(this.items, {x: this.x, y: this.y, series: this.series, xScale: this.xScale, names: this.names || {}});
     let order = read.xs.map((_, index) => index);
     if (this.sort !== 'none' && read.series.length) {
@@ -162,6 +171,11 @@ class SfBarChart extends ChartBarElement {
     return model.series.some((one) => one.values.some((value) => value !== null)) ? 'ready' : 'empty';
   }
 
+  // A histogram: bin is auto or a width, not none.
+  binned() {
+    return Boolean(this.bin) && this.bin !== 'none';
+  }
+
   // The series drawn as lines: those named in lines, on vertical bars only.
   lineKeys() {
     if (this.orientation === 'horizontal' || !this.lines) return new Set();
@@ -182,9 +196,19 @@ class SfBarChart extends ChartBarElement {
   // A category as the axis, the tooltip and the table say it.
   sayX(model, index, form = 'full') {
     const locale = pageLocale(this);
+    if (model.kind === 'bin') {
+      const bin = model.bins[index];
+      return bin ? this.words('bin-range', {from: this.sayEdge(bin.from, model.width), to: this.sayEdge(bin.to, model.width)}) : '';
+    }
     if (model.kind === 'time') return formatTime(model.xs[index], locale, model.unit, {form, format: this.xFormat});
     if (model.kind === 'number') return formatNumber(model.xs[index], locale, 'number');
     return String(model.labels[index] ?? '');
+  }
+
+  // An edge of a histogram's interval, in the measure's format (x-format,
+  // number when auto).
+  sayEdge(value, step = 0) {
+    return formatNumber(value, pageLocale(this), this.xFormat === 'auto' ? 'number' : this.xFormat, {step});
   }
 
   sayY(value, step = 0) {
@@ -217,6 +241,8 @@ class SfBarChart extends ChartBarElement {
     const font = FONT[this.size] ?? 12;
     const count = model.xs.length;
     const horizontal = this.orientation === 'horizontal';
+    // A histogram's bars touch, since its axis is a measure, not categories.
+    const binned = model.kind === 'bin';
     const normalized = this.stack === 'normalized';
     const lineKeys = this.lineKeys();
     const barShown = shown.filter((one) => !lineKeys.has(one.key));
@@ -235,6 +261,20 @@ class SfBarChart extends ChartBarElement {
     const tickText = (value, step) => (normalized ? formatNumber(value, pageLocale(this), 'percent') : this.sayY(value, step));
     const labelsAt = (ticks) => ticks.ticks.map((value) => tickText(value, ticks.step));
     const room = font * 1.5 + GAP;
+    // A histogram's counts are whole: its axis never steps by a fraction
+    // (2.5 would read 3, 5, 8). The nearest count of ticks, more or fewer,
+    // whose step is whole.
+    const whole = binned && !this.y;
+    const ticksOf = (count) => {
+      const at = (wanted) => niceTicks(Math.min(low, 0), yMax ?? high, wanted, {zero: true, nice: yMax === null && !normalized});
+      const first = at(count);
+      if (!whole || Number.isInteger(first.step)) return first;
+      for (const near of [1, -1, 2, -2, 3, -3]) {
+        const ticks = count + near >= 1 ? at(count + near) : null;
+        if (ticks && Number.isInteger(ticks.step)) return ticks;
+      }
+      return first;
+    };
 
     let inner;
     let value;
@@ -249,21 +289,22 @@ class SfBarChart extends ChartBarElement {
       const top = GAP;
       const bottom = room + (this.yLabel ? font * 1.5 : 0);
       inner = {left, top, right: Math.max(left + 1, width - GAP * 2), bottom: Math.max(top + 1, height - bottom)};
-      const ticks = niceTicks(Math.min(low, 0), yMax ?? high, tickCount(inner.right - inner.left, font * CHAR * 9), {zero: true, nice: yMax === null && !normalized});
+      const ticks = ticksOf(tickCount(inner.right - inner.left, font * CHAR * 9));
       value = linearScale([ticks.min, ticks.max], [inner.left, inner.right]);
       valueTicks = labelsAt(ticks).map((text, index) => anchored({at: value(ticks.ticks[index]), text, zero: ticks.ticks[index] === 0}, width, font));
       bandRange = [inner.top, inner.bottom];
       const most = Math.max(1, Math.floor((left - GAP * 1.5) / (font * CHAR)));
-      const band = bandScale(count, bandRange);
+      const band = bandScale(count, bandRange, {padding: binned ? 0 : 0.2});
       const every = Math.max(1, Math.ceil((font * 1.25) / Math.max(1, band.step)));
-      categoryTicks = model.xs.map((_, index) => {
-        const text = this.sayX(model, index);
-        return {at: band.at(index) + band.width / 2, text: text.length > most ? `${text.slice(0, most - 1)}…` : text, index};
-      }).filter(({index}) => index % every === 0);
+      categoryTicks = binned ? this.edgeTicks(model, band, font * 1.25)
+        : model.xs.map((_, index) => {
+          const text = this.sayX(model, index);
+          return {at: band.at(index) + band.width / 2, text: text.length > most ? `${text.slice(0, most - 1)}…` : text, index};
+        }).filter(({index}) => index % every === 0);
     } else {
       const top = GAP + (this.yLabel ? font * 1.5 : 0);
       const bottom = room + (this.xLabel ? font * 1.5 : 0);
-      const ticks = niceTicks(Math.min(low, 0), yMax ?? high, tickCount(height - top - bottom, font * 3.5), {zero: true, nice: yMax === null && !normalized});
+      const ticks = ticksOf(tickCount(height - top - bottom, font * 3.5));
       const texts = labelsAt(ticks);
       const left = Math.ceil(Math.max(...texts.map((text) => text.length)) * font * CHAR) + GAP * 1.5;
       if (own) {
@@ -276,15 +317,17 @@ class SfBarChart extends ChartBarElement {
       value = linearScale([ticks.min, ticks.max], [inner.bottom, inner.top]);
       valueTicks = texts.map((text, index) => ({at: value(ticks.ticks[index]), text, zero: ticks.ticks[index] === 0}));
       bandRange = [inner.left, inner.right];
-      const band = bandScale(count, bandRange);
+      const band = bandScale(count, bandRange, {padding: binned ? 0 : 0.2});
       const longest = Math.max(1, ...model.xs.map((_, index) => this.sayX(model, index, 'tick').length));
       const every = Math.max(1, Math.ceil((longest * font * CHAR + GAP) / Math.max(1, band.step)));
-      categoryTicks = model.xs.map((_, index) => ({at: band.at(index) + band.width / 2, text: this.sayX(model, index, 'tick'), index}))
-        .filter(({index}) => index % every === 0)
+      categoryTicks = (binned
+        ? this.edgeTicks(model, band, (text) => text.length * font * CHAR + GAP)
+        : model.xs.map((_, index) => ({at: band.at(index) + band.width / 2, text: this.sayX(model, index, 'tick'), index}))
+          .filter(({index}) => index % every === 0))
         .map((tick) => anchored(tick, width, font));
     }
 
-    const band = bandScale(count, bandRange, {padding: count > 60 ? 0.1 : 0.25});
+    const band = bandScale(count, bandRange, {padding: binned ? 0 : count > 60 ? 0.1 : 0.25});
     const grouped = this.stack === 'none' && barShown.length > 1;
     const sub = grouped ? band.width / barShown.length : band.width;
     const zero = value(0);
@@ -350,9 +393,42 @@ class SfBarChart extends ChartBarElement {
     };
   }
 
+  // A histogram's axis marks: the intervals' edges, every so many, so their
+  // texts do not meet. `room` is the room one text needs: a number of px,
+  // or a function of the text.
+  edgeTicks(model, band, room) {
+    const edges = [...model.bins.map((one) => one.from), model.bins.at(-1).to];
+    const texts = edges.map((value) => this.sayEdge(value, model.width));
+    const need = Math.max(...texts.map((text) => (typeof room === 'function' ? room(text) : room)));
+    const every = Math.max(1, Math.ceil(need / Math.max(1, band.step)));
+    const start = band.at(0) - (band.step - band.width) / 2;
+    return texts.map((text, index) => ({at: start + index * band.step, text, index})).filter(({index}) => index % every === 0);
+  }
+
+  // A histogram in words: how many values over which range and intervals,
+  // then each series' median and its fullest interval.
+  summarizeBins(model, shown) {
+    const values = model.series.flatMap((one) => one.raw);
+    const parts = [this.words('summary-bins', {
+      count: formatNumber(values.length, pageLocale(this), 'integer'),
+      min: this.sayEdge(Math.min(...values)),
+      max: this.sayEdge(Math.max(...values)),
+      bins: model.bins.length,
+      width: this.sayEdge(model.width),
+    })];
+    for (const one of shown) {
+      const facts = seriesFacts(one.values);
+      if (!facts || !one.raw.length) continue;
+      parts.push(this.words('summary-bin-series', {name: one.name, median: this.sayEdge(median(one.raw)), range: this.sayX(model, facts.maxAt), max: this.sayY(facts.max)}));
+    }
+    if (model.missing) parts.push(this.words('summary-missing', {count: formatNumber(model.missing, pageLocale(this), 'integer')}));
+    return parts.join(' ');
+  }
+
   summarize(model, shown) {
     if (this.summary === 'none') return '';
     if (!model.xs.length) return this.words('summary-empty');
+    if (model.kind === 'bin') return this.summarizeBins(model, shown);
     const parts = [this.words('summary-count', {count: model.xs.length})];
     const lineKeys = this.lineKeys();
     const lines = shown.filter((one) => lineKeys.has(one.key)).map((one) => one.name);

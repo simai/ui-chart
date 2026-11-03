@@ -15,7 +15,12 @@
     "summary-count": "Categories: {count}.",
     "summary-series": "{name}: highest {max} ({maxAt}), lowest {min} ({minAt}).",
     "summary-lines": "As lines: {names}.",
-    "share": "{share} ({value})"
+    "share": "{share} ({value})",
+    "count": "Count",
+    "bin-range": "{from} – {to}",
+    "summary-bins": "Values: {count}, from {min} to {max}; intervals: {bins}, {width} wide.",
+    "summary-bin-series": "{name}: median {median}, most in {range} ({max}).",
+    "summary-missing": "Rows without a value: {count}."
   },
   "events": {
     "toggle": {

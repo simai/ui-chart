@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-bar (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart (§7 stacking), the renderer and the keyboard docs/research/rendering.md, the name and the family docs/DECISIONS.md D2.",
   "id": "smart.chart-bar",
   "tag": "sf-chart-bar",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -43,17 +43,22 @@
     "x": {
       "type": "string",
       "default": "",
-      "summary": "The field of the categories; the first field when unset."
+      "summary": "The field of the categories; the first field when unset. With bin, the measure cut into intervals; the first numeric field when unset."
     },
     "y": {
       "type": "string",
       "default": "",
-      "summary": "The field of the values, or a comma list of fields, one series per field (the wide form); every numeric field when unset."
+      "summary": "The field of the values, or a comma list of fields, one series per field (the wide form); every numeric field when unset. With bin, a weight summed per interval (an amount), or a count of the rows when unset."
     },
     "series": {
       "type": "string",
       "default": "",
       "summary": "The long form: one series per distinct value of this field, the values from the first y field."
+    },
+    "bin": {
+      "type": "string",
+      "default": "none",
+      "summary": "A histogram: none draws the rows as given; auto cuts the x measure into intervals of one round width (about Sturges' count for the rows) and draws one bar per interval, the count of its rows; a number is the intervals' width. y, when given, is a weight summed per interval instead of a count. The bars touch and the axis is marked at the intervals' edges; sort does not apply."
     },
     "x-scale": {
       "type": "enum",
@@ -169,7 +174,7 @@
     "x-format": {
       "type": "string",
       "default": "auto",
-      "summary": "For dates as categories: auto, or an Intl date style (short, medium, long, full)."
+      "summary": "For dates as categories: auto, or an Intl date style (short, medium, long, full). With bin, the measure's number format for the intervals' edges (number when auto)."
     },
     "y-format": {
       "type": "string",
@@ -355,7 +360,7 @@
       "state": "default"
     }
   },
-  "x-summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
+  "x-summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table; with bin, a histogram of one measure.",
   "x-source": {
     "package": "chart",
     "folder": "chart-bar",
@@ -378,7 +383,8 @@
     "hidden-series: not hidden, which is the browser's own member of every element (§3.1).",
     "lines: a combination of bars and lines is a setting of sf-chart-bar, not a tag (the owner's decision of 2026-11-02): the data, the axes, the cursor and the table are the same; the lines are series named in lines, never stacked, on the shared axis or on one of their own (line-axis).",
     "colors: a page's own colour per series or part, by key (the owner's decision of 2026-11-02, docs/DECISIONS.md D6): a Framework role or a CSS colour, checked to be a colour and for 3:1; the palette stays the default and becomes --sf-chart-1..8 when the Framework gives it (D4).",
-    "palette: named colour sets made by the package's own generator (scripts/chart-palettes.mjs) on the Framework's tone ladder (the owner's decision of 2026-11-03, docs/DECISIONS.md D7); vivid falls back to --sf-chart-1..8 when the Framework gives them."
+    "palette: named colour sets made by the package's own generator (scripts/chart-palettes.mjs) on the Framework's tone ladder (the owner's decision of 2026-11-03, docs/DECISIONS.md D7); vivid falls back to --sf-chart-1..8 when the Framework gives them.",
+    "bin: a histogram is a setting of sf-chart-bar, not a tag (catalogue.md, Histogram; the owner's M2 plan of 2026-11-03, docs/DECISIONS.md D9): the axes, the cursor, the legend and the table are the bar chart's. An interval holds its start, not its end, and the last holds both; auto takes about Sturges' count on a round width, so the edges read at a glance; the bars touch and the axis marks the edges, since x is a measure."
   ],
   "x-registry": {
     "capabilities": [
@@ -409,7 +415,9 @@
       "bar",
       "column",
       "stacked",
-      "data-visualization"
+      "data-visualization",
+      "histogram",
+      "distribution"
     ],
     "state": {
       "machines": {
