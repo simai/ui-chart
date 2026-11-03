@@ -120,3 +120,8 @@ The package receipt names framework `ui-de2b4437234a`. The archive sha256 is
 
 The name `sf-chart-gauge` was sent to the dispatcher on 2026-11-03 (bus
 `msg-1b83ce17cc024755aa24`). The next chart of M2 is `sf-chart-scatter`.
+
+The dispatcher reserved the name in ui-control
+`control/decisions/2026-11-02-ui-chart-package.md` (`45f8f54`), checked
+free in ui-source and ui-pro (bus `msg-3ca34ec23e364eec9fa2`). It enters the registry with
+the package's first release.

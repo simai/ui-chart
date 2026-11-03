@@ -114,3 +114,8 @@ charts are unchanged.
 The name `sf-chart-funnel` was sent to the dispatcher on 2026-11-03 (bus
 `msg-4cfcede95306440599ec`) to add to the reserved names. The next chart of
 M2 is `sf-chart-gauge`.
+
+The dispatcher reserved the name in ui-control
+`control/decisions/2026-11-02-ui-chart-package.md` (`45f8f54`), checked
+free in ui-source and ui-pro (bus `msg-318d347af7844dac9310`). It enters the registry with
+the package's first release.
