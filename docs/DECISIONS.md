@@ -479,6 +479,34 @@ This changes D4 option C ("no local palette") for named sets.
     and Down across the series. The summary compares the first two series
     spoke by spoke.
 
+## D10. The candlestick chart
+
+After M2 the owner chose «Candlesticks» (2026-11-03) as the next chart. Its
+form was decided by the recommendation under the owner's delegation.
+
+- **Own tag.** `sf-chart-candlestick`: four prices per period (`open`,
+  `high`, `low`, `close`) do not fit the box plot's quartiles or the bar
+  chart's single value, so the chart is a component of its own. Its core is
+  `chart-core/ohlc.js`.
+- **Time without holes.** The candles stand in order, one beside the next,
+  so weekends leave no gap, as on trading charts. Dates are labelled at the
+  first candle of a month, a week or a day, whichever fits. A row whose `x`
+  is not a time keeps the data's order as categories.
+- **Direction without colour.** A rising body is hollow and a falling one is
+  filled, so the direction reads in print and in forced colours. The tones
+  are those of the `success` and `error` roles. `colors {up, down}` swaps
+  them for markets where rising is red.
+- **The scale fits the data.** It does not start at zero, because a
+  candle's length is a change and not a total. `y-zero`, `y-min` and
+  `y-max` are kept for the cases that need them.
+- **Merging.** Below 3 px per candle, neighbours merge as a longer period.
+  The tooltip, the cursor and the event name the merged span. The table
+  always lists every row.
+- **`shape="bar"`** draws OHLC bars instead of candles. The prop is not
+  named `style`, which would clash with the element's own.
+- **Out of 0.1.0.** Volume (a bar chart under the candles serves) and
+  moving averages.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -496,6 +524,7 @@ This changes D4 option C ("no local palette") for named sets.
 | D9 | The histogram: `bin` on `sf-chart-bar` (auto or a width), touching bars, edges on the axis | 2026-11-03 | the owner's «Да, гистограмму» in the chat; the form decided by the recommendation under the owner's delegation |
 | D9 | The box plot: `sf-chart-box`, raw or given statistics, linear quartiles, Tukey's whiskers by default, series side by side | 2026-11-03 | the owner's «Да, ящик с усами» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `2d3fb38`) |
 | D9 | The radar: `sf-chart-radar`, one scale from the centre, the first spoke up and clockwise, a gap breaks the ring, marks of their own shape per series | 2026-11-03 | the owner's «давай дальше … радар?» in the chat; the form decided by the recommendation under the owner's delegation |
+| D10 | The candlestick: `sf-chart-candlestick`, candles in order without holes, hollow rise and filled fall, a scale fitting the data, merging below 3 px, `shape="bar"` | 2026-11-03 | the owner's «Candlesticks» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `402a5ac`, bus `msg-b88db530428847a0bdcb`) |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

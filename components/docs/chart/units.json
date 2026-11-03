@@ -233,6 +233,13 @@
       "recorded_on": "2026-11-03",
       "change": "added",
       "summary": "sf-chart-radar: a spoke per measure (the x field, the first straight up, then clockwise), each series a ring through its values (y fields or the series field) on one scale from min to max, the scale's rings as polygons or circles (grid), a light fill (fill), marks of their own shape per series, a gap that breaks the ring, a legend that hides series, a tooltip with every series on a spoke, a keyboard cursor round the spokes and across the series, a summary sentence with each series' strongest and weakest spoke and the first two compared, the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-candlestick",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-03",
+      "change": "added",
+      "summary": "sf-chart-candlestick: the open, high, low and close of each period (x, open, high, low and close fields) on a price axis, the periods side by side in time order with the axis marked at calendar periods, a rising body hollow and a falling one filled in the success and error tones (colors {up, down}), candles or bars (shape), neighbours merged as a longer period past one per 3 px, a key of rise and fall, a tooltip, a keyboard cursor over the candles, a summary sentence with the change, the extremes and the count of rises and falls, the same data as a table, loading, empty and error states."
     }
   ]
 }

@@ -20,6 +20,7 @@ import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core
 import {funnelStages} from '../src/smart/chart-core/funnel.js';
 import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-core/gauge.js';
 import {binEdges, binOf, binSeries, median} from '../src/smart/chart-core/bin.js';
+import {mergeCandles, ohlcExtent, ohlcRows, tickPlaces} from '../src/smart/chart-core/ohlc.js';
 import {compareRings, labelPlace, radarRuns, spokeAngle, spokePoint} from '../src/smart/chart-core/radar.js';
 import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
@@ -499,4 +500,36 @@ test('a radar ring is closed without gaps and broken into runs round a gap', () 
   assert.deepEqual(two.runs.map((run) => run.length), [1, 2]);
   assert.deepEqual(radarRuns([], [0, 0], (value) => value).runs, []);
   assert.deepEqual(compareRings([5, 3, null, 2], [4, 3, 1, 6]), {above: 1, below: 1});
+});
+
+test('candles read in time order, hold their high and low round the body, and leave out a row without a price', () => {
+  const rows = [
+    {day: '2026-10-02', open: 12, high: 15, low: 11, close: 14},
+    {day: '2026-10-01', open: 10, high: 13, low: 9, close: 12},
+    {day: '2026-10-03', open: 14, high: 13, low: 10, close: 11},
+    {day: '2026-10-04', open: 11, high: 12, low: 10},
+  ];
+  const model = ohlcRows(rows, {x: 'day'});
+  assert.equal(model.kind, 'time');
+  assert.equal(model.missing, 1);
+  assert.deepEqual(model.candles.map((one) => [one.label, one.up]), [['2026-10-01', true], ['2026-10-02', true], ['2026-10-03', false]]);
+  // A high under the open is held up to it.
+  assert.equal(model.candles[2].high, 14);
+  assert.deepEqual(ohlcExtent(model.candles), [9, 15]);
+  assert.equal(ohlcExtent([]), null);
+  // The x is the first other field when unset; words are categories in their order.
+  const named = ohlcRows([{q: 'I', open: 1, high: 2, low: 0, close: 2}, {q: 'II', open: 2, high: 3, low: 1, close: 1}]);
+  assert.deepEqual([named.xField, named.kind, named.candles.map((one) => one.x)], ['q', 'category', [0, 1]]);
+});
+
+test('neighbouring candles merge as a longer period, and ticks fall on the first candle of their period', () => {
+  const candles = [
+    {x: 1, open: 10, high: 12, low: 9, close: 11},
+    {x: 2, open: 11, high: 15, low: 10, close: 14},
+    {x: 3, open: 14, high: 14, low: 7, close: 8},
+  ];
+  const merged = mergeCandles(candles, 2);
+  assert.deepEqual(merged.map(({open, high, low, close, up, from, count}) => [open, high, low, close, up, from, count]), [[10, 15, 9, 14, true, 0, 2], [14, 14, 7, 8, false, 2, 1]]);
+  assert.deepEqual(mergeCandles(candles, 1).map((one) => one.from), [0, 1, 2]);
+  assert.deepEqual(tickPlaces([1, 2, 5, 6, 9], [0, 4, 5, 8, 20]), [0, 2, 4]);
 });

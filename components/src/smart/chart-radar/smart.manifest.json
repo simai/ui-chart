@@ -394,7 +394,7 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-radar/index.js",
-        "sha256": "3d4e195ebe275e3d9d8ca3efb78def1b167c5838454a7003c43110daecc674f6"
+        "sha256": "550e39e1903df431354807b0e7fb1242c69953309508d7288c7c1f5a5a8348fc"
       },
       {
         "path": "src/smart/chart-radar/js/templates/default.js",

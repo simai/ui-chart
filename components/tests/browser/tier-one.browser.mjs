@@ -2,8 +2,8 @@
 // Usage: node this-file /absolute/path/to/output
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
-// sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box and
-// sf-chart-radar.
+// sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box,
+// sf-chart-radar and sf-chart-candlestick.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -32,7 +32,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -1005,6 +1005,96 @@ try {
     }));
     evidence.radar.forced = drawn;
     if (drawn[0].stroke !== drawn[1].stroke || drawn[0].dash !== 'none' || drawn[1].dash === 'none') note({case: 'radar: in forced colours the lines are the system colour and the second series has its own dash', got: drawn});
+    await forced.close();
+  }
+
+  // 3j. The candlestick: the plot is its rung's height and every candle and
+  // tick stays in it on every rung and width; the up and down tones hold 3:1
+  // against the page in both themes, a rising body hollow and a falling one
+  // filled; the candles are one Tab stop walked one by one, each said, and
+  // the pointer shows the same period in the tooltip; in forced colours both
+  // are the system colour and still hollow and filled.
+  {
+    const days = [['01', 101.0, 103.6, 100.1, 102.4], ['02', 102.4, 105.6, 101.8, 104.1], ['05', 104.1, 104.9, 101.6, 103.2], ['06', 103.2, 107.7, 102.5, 105.8],
+      ['07', 105.8, 108.4, 105.0, 107.3], ['08', 107.3, 107.9, 104.4, 106.1], ['09', 106.1, 107.0, 103.5, 104.9], ['12', 104.9, 108.3, 104.4, 106.6],
+      ['13', 106.6, 110.2, 105.7, 108.9], ['14', 108.9, 111.8, 107.8, 110.2], ['15', 110.2, 110.9, 107.9, 109.4], ['16', 109.4, 113.6, 108.8, 111.8],
+      ['19', 111.8, 114.7, 110.9, 113.5], ['20', 113.5, 114.0, 110.3, 112.1], ['21', 112.1, 112.9, 109.2, 110.6], ['22', 110.6, 114.5, 109.9, 112.9],
+      ['23', 112.9, 116.7, 111.9, 115.3], ['26', 115.3, 116.2, 112.5, 114.2], ['27', 114.2, 118.3, 113.4, 116.8], ['28', 116.8, 119.4, 115.7, 118.1]];
+    const share = days.map(([day, open, high, low, close]) => ({day: `2026-10-${day}`, open, high, low, close}));
+    const candle = {label: 'Акция', x: 'day', 'y-format': 'decimal-1'};
+    const rgb = (value) => value.match(/\d+/gu).slice(0, 3).map(Number);
+    const bodies = '#chart svg[role=group] .sf-chart-candlestick-body';
+    evidence.candlestick = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-candlestick', {...candle, size}, {items: share});
+          const shape = await shapeOf(page, {frame: '.sf-chart-candlestick-plot', marks: '.sf-chart-candlestick-marks *', texts: '.sf-chart-candlestick-tick'});
+          const drawn = await page.evaluate((selector) => document.querySelectorAll(selector).length, bodies);
+          evidence.candlestick.geometry.push({theme, width, size, height: shape.height, bodies: drawn, marks: shape.marks});
+          if (shape.height !== RUNG[size] || drawn < 1 || drawn > 20 || shape.outside || shape.pageOverflow > 0) note({case: `candlestick ${theme} ${width}px size ${size}: the plot is its rung's height and nothing leaves it`, got: {shape, drawn}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-candlestick', candle, {items: share});
+          const tones = await page.evaluate(() => ['up', 'down'].map((key) => {
+            const node = getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-candlestick-${key} .sf-chart-candlestick-body`));
+            return {stroke: node.stroke, fill: node.fill};
+          }));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const ratios = tones.map((one) => Math.round(contrast(rgb(one.stroke), background) * 100) / 100);
+          evidence.candlestick.contrast[theme] = {ratios, tones};
+          if (ratios.some((ratio) => ratio < 3) || tones[0].stroke === tones[1].stroke || tones[0].fill === tones[0].stroke || tones[1].fill !== tones[1].stroke) note({case: `candlestick ${theme}: up and down hold 3:1 against the page in tones of their own, a rising body hollow and a falling one filled`, got: {tones, ratios}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-candlestick', candle, {items: share});
+    // Tab reaches the table button, then the plot; the legend is not a stop.
+    await page.focus('#before');
+    for (let press = 0; press < 2; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-candlestick-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/ | /gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const still = await said('ArrowDown');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-candlestick-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-candlestick-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-candlestick-svg'));
+    // The pointer on the fifth rising candle shows its day.
+    const spot = await page.evaluate((selector) => {
+      const box = document.querySelectorAll(selector)[4].getBoundingClientRect();
+      return {x: box.left + box.width / 2, y: box.top + box.height / 2};
+    }, '#chart svg[role=group] .sf-chart-candlestick-up .sf-chart-candlestick-body');
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-candlestick-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    const keys = {focused, first, second, still, end, chosen, tip, cleared, out, hover};
+    evidence.candlestick.keyboard = keys;
+    if (!focused || !first.startsWith('1 октября 2026 г.: открытие 101,0') || !second.startsWith('2 октября 2026 г.:') || still !== second
+      || !end.startsWith('28 октября 2026 г.:') || chosen.length !== 1 || chosen[0].index !== 19 || chosen[0].close !== 118.1
+      || !tip.startsWith('28 октября 2026 г.') || !tip.includes('118,1') || cleared || !out || !hover.startsWith('12 октября 2026 г.')) note({case: 'candlestick: one Tab stop after the table button; the arrows go candle by candle, Up and Down stay, each said; Enter selects, Escape clears; the pointer shows its day', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-candlestick', candle, {items: share});
+    const plain = await forced.evaluate(() => ['up', 'down'].map((key) => {
+      const node = getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-candlestick-${key} .sf-chart-candlestick-body`));
+      return {stroke: node.stroke, fill: node.fill};
+    }));
+    evidence.candlestick.forced = plain;
+    if (plain[0].stroke !== plain[1].stroke || plain[0].fill === plain[0].stroke || plain[1].fill !== plain[1].stroke) note({case: 'candlestick: in forced colours both are the system colour, a rising body hollow and a falling one filled', got: plain});
     await forced.close();
   }
 

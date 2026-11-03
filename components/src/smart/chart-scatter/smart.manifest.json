@@ -447,7 +447,7 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-scatter/index.js",
-        "sha256": "d9f4d5e5ef46dd20d8a8c6007280287cca96f6d9d637ebdc30785a9851c6499e"
+        "sha256": "0f5a28e179cb7015c2bbda1d02aebad25ad07991b425da745fdba562276252ec"
       },
       {
         "path": "src/smart/chart-scatter/js/templates/default.js",

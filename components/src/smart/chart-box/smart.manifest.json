@@ -417,7 +417,7 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-box/index.js",
-        "sha256": "4c8e815a7aa57ad874619e5af9f0713ab7fc24a1e93becf3e64ce806d2df7b42"
+        "sha256": "424974d82e5edcd5eabadeac04a3ae33cba5e3490ebede96cc4d4ee841205c1a"
       },
       {
         "path": "src/smart/chart-box/js/templates/default.js",

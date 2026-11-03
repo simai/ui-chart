@@ -464,7 +464,7 @@
     "source_artifacts": [
       {
         "path": "src/smart/chart-line/index.js",
-        "sha256": "1fc803a7834d85a816065a091430b34c1563a03bae993dbcb2d93f9d2afa5229"
+        "sha256": "7391c8014735480db91912295c4ddfb12b7cccf4da13f24c1f36e460adbfd4c6"
       },
       {
         "path": "src/smart/chart-line/js/templates/default.js",

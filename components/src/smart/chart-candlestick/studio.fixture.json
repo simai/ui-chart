@@ -1,0 +1,16 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-candlestick",
+  "title": "candlestick reference",
+  "summary": "Deterministic reference fixture for sf-chart-candlestick.",
+  "locale": "ru",
+  "props": {
+    "label": "Акция SIMA, октябрь 2026",
+    "x": "day",
+    "y-format": "decimal-1",
+    "y-label": "Цена, ₽"
+  },
+  "children": [],
+  "state": "default"
+}

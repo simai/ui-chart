@@ -70,6 +70,7 @@ class SfScatter extends ChartScatterElement {
     this._theme?.disconnect();
     this._theme = null;
     clearTimeout(this._table?.timer);
+    this._observed = null;
     super.onDisconnected();
   }
 

@@ -68,6 +68,7 @@ class SfRadar extends ChartRadarElement {
     this._observer?.disconnect();
     this._observer = null;
     clearTimeout(this._table?.timer);
+    this._observed = null;
     super.onDisconnected();
   }
 

@@ -1,0 +1,43 @@
+{
+  "title": "Свечной график",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "свечной график",
+    "summary-range": "С {from} по {to} — свечей: {count}.",
+    "summary-change": "Открытие {open}, закрытие {close}: {change}.",
+    "summary-extremes": "Максимум {high} ({highAt}), минимум {low} ({lowAt}).",
+    "summary-days": "Рост: {up}, падение: {down}.",
+    "summary-missing": "Строк без цены: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{period}: открытие {open}, максимум {high}, минимум {low}, закрытие {close}, {change}",
+    "period": "{from} – {to}",
+    "candle-n": "Период {n}",
+    "period-column": "Период",
+    "open": "Открытие",
+    "high": "Максимум",
+    "low": "Минимум",
+    "close": "Закрытие",
+    "change": "Изменение",
+    "up": "Рост",
+    "down": "Падение",
+    "legend": "Обозначения",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать свечу"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Убрать курсор"
+    }
+  }
+}
