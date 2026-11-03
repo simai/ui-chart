@@ -35,7 +35,7 @@ export function packageNameOf(ruleFile) {
   return found ? found[1] : PACKAGE_NAME;
 }
 export const OVERLAY_DIRECTORIES = ['src', 'tests', 'docs'];
-export const PACKAGE_COMPONENTS = ['chart-line', 'chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick'];
+export const PACKAGE_COMPONENTS = ['chart-line', 'chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall'];
 
 export function readLock(root = PACKAGE_ROOT) {
   const lock = JSON.parse(readFileSync(join(root, 'framework.lock.json'), 'utf8'));

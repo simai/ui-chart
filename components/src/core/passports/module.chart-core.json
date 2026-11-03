@@ -29,9 +29,10 @@
     "src/smart/chart-core/scale.js",
     "src/smart/chart-core/scatter.js",
     "src/smart/chart-core/settle.js",
-    "src/smart/chart-core/stack.js"
+    "src/smart/chart-core/stack.js",
+    "src/smart/chart-core/waterfall.js"
   ],
-  "content_sha256": "a446b4789bcbbba56c8cad3743b3167e3966acf8f7d18d1b51b2a48b1ca563ca",
+  "content_sha256": "ce6ae5ed29e15dd11ed4c0187bc53af5d19fa0be5ec16991b9c1b6c5c2d2c29b",
   "dependencies": [
     {
       "id": "tokens.colour",

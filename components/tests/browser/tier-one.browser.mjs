@@ -3,7 +3,7 @@
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
 // sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box,
-// sf-chart-radar and sf-chart-candlestick.
+// sf-chart-radar, sf-chart-candlestick and sf-chart-waterfall.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -32,7 +32,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -1095,6 +1095,97 @@ try {
     }));
     evidence.candlestick.forced = plain;
     if (plain[0].stroke !== plain[1].stroke || plain[0].fill === plain[0].stroke || plain[1].fill !== plain[1].stroke) note({case: 'candlestick: in forced colours both are the system colour, a rising body hollow and a falling one filled', got: plain});
+    await forced.close();
+  }
+
+  // 3k. The waterfall: the plot is its rung's height and every bar, value
+  // and label stays in it on every rung and width; rise, fall and total
+  // hold 3:1 against the page in both themes, each in a tone of its own;
+  // the steps are one Tab stop walked one by one, each said, and the
+  // pointer shows the same step in the tooltip; in forced colours all are
+  // the system colour, a rise hollow, a fall filled and a total dashed.
+  {
+    const bridge = [['Выручка 2025', 820, true], ['Новые клиенты', 240], ['Повышение цен', 95], ['Отток', -130], ['Скидки', -60], ['Курс валют', 35]]
+      .map(([step, value, total]) => (total ? {step, value, total} : {step, value}));
+    const fall = {label: 'Выручка', x: 'step', y: 'value', 'y-format': 'integer'};
+    const rgb = (value) => value.match(/\d+/gu).slice(0, 3).map(Number);
+    const kinds = ['up', 'down', 'total'];
+    evidence.waterfall = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-waterfall', {...fall, size}, {items: bridge});
+          const shape = await shapeOf(page, {frame: '.sf-chart-waterfall-plot', marks: '.sf-chart-waterfall-marks rect', texts: '.sf-chart-waterfall-svg text'});
+          const tall = await page.evaluate(() => {
+            const frame = document.querySelector('#chart .sf-chart-waterfall-plot').getBoundingClientRect();
+            return [...document.querySelectorAll('#chart .sf-chart-waterfall-svg text')].filter((node) => {
+              const box = node.getBoundingClientRect();
+              return box.top < frame.top - 1 || box.bottom > frame.bottom + 1;
+            }).length;
+          });
+          const values = await page.evaluate(() => document.querySelectorAll('#chart .sf-chart-waterfall-value').length);
+          evidence.waterfall.geometry.push({theme, width, size, height: shape.height, bars: shape.marks, values});
+          if (shape.height !== RUNG[size] || shape.marks !== 7 || shape.outside || tall || shape.pageOverflow > 0) note({case: `waterfall ${theme} ${width}px size ${size}: the plot is its rung's height, seven bars, nothing leaves it`, got: {shape, tall, values}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-waterfall', fall, {items: bridge});
+          const fills = await page.evaluate((keys) => keys.map((key) => getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-waterfall-${key} .sf-chart-waterfall-bar`)).fill), kinds);
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const ratios = fills.map((fill) => Math.round(contrast(rgb(fill), background) * 100) / 100);
+          evidence.waterfall.contrast[theme] = {ratios, fills};
+          if (ratios.some((ratio) => ratio < 3) || new Set(fills).size !== 3) note({case: `waterfall ${theme}: rise, fall and total hold 3:1 against the page in tones of their own`, got: {fills, ratios}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-waterfall', fall, {items: bridge});
+    // Tab reaches the table button, then the plot; the legend is not a stop.
+    await page.focus('#before');
+    for (let press = 0; press < 2; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-waterfall-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/ | /gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const still = await said('ArrowDown');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-waterfall-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-waterfall-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-waterfall-svg'));
+    // The pointer on the first fall shows its step.
+    const spot = await page.evaluate(() => {
+      const box = document.querySelector('#chart svg[role=group] .sf-chart-waterfall-down .sf-chart-waterfall-bar').getBoundingClientRect();
+      return {x: box.left + box.width / 2, y: box.top + box.height / 2};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-waterfall-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    const keys = {focused, first, second, still, end, chosen, tip, cleared, out, hover};
+    evidence.waterfall.keyboard = keys;
+    if (!focused || first !== 'Выручка 2025: 820' || second !== 'Новые клиенты: +240, итог 1 060' || still !== second || end !== 'Итого: 1 000'
+      || chosen.length !== 1 || chosen[0].index !== 6 || chosen[0].kind !== 'total' || chosen[0].total !== 1000
+      || !tip.startsWith('Итого') || cleared || !out || !hover.startsWith('Отток')) note({case: 'waterfall: one Tab stop after the table button; the arrows go step by step, Up and Down stay, each said; Enter selects, Escape clears; the pointer shows its step', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-waterfall', fall, {items: bridge});
+    const plain = await forced.evaluate((keys) => keys.map((key) => {
+      const node = getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-waterfall-${key} .sf-chart-waterfall-bar`));
+      return {stroke: node.stroke, fill: node.fill, dash: node.strokeDasharray};
+    }), kinds);
+    evidence.waterfall.forced = plain;
+    const [up, down, total] = plain;
+    if (new Set(plain.map((one) => one.stroke)).size !== 1 || up.fill === up.stroke || down.fill !== down.stroke || total.fill === total.stroke || total.dash === 'none' || up.dash !== 'none') note({case: 'waterfall: in forced colours all are the system colour, a rise hollow, a fall filled and a total dashed', got: plain});
     await forced.close();
   }
 

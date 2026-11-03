@@ -21,6 +21,7 @@ import {funnelStages} from '../src/smart/chart-core/funnel.js';
 import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-core/gauge.js';
 import {binEdges, binOf, binSeries, median} from '../src/smart/chart-core/bin.js';
 import {mergeCandles, ohlcExtent, ohlcRows, tickPlaces} from '../src/smart/chart-core/ohlc.js';
+import {isTotal, waterfallExtent, waterfallSteps} from '../src/smart/chart-core/waterfall.js';
 import {compareRings, labelPlace, radarRuns, spokeAngle, spokePoint} from '../src/smart/chart-core/radar.js';
 import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
@@ -532,4 +533,27 @@ test('neighbouring candles merge as a longer period, and ticks fall on the first
   assert.deepEqual(merged.map(({open, high, low, close, up, from, count}) => [open, high, low, close, up, from, count]), [[10, 15, 9, 14, true, 0, 2], [14, 14, 7, 8, false, 2, 1]]);
   assert.deepEqual(mergeCandles(candles, 1).map((one) => one.from), [0, 1, 2]);
   assert.deepEqual(tickPlaces([1, 2, 5, 6, 9], [0, 4, 5, 8, 20]), [0, 2, 4]);
+});
+
+test('waterfall steps run from total to total, change by change, and close with a total', () => {
+  const rows = [
+    {step: 'Начало', value: 100, total: true},
+    {step: 'Продажи', value: 40},
+    {step: 'Затраты', value: -70},
+    {step: 'Пусто', value: ''},
+    {step: 'Курс', value: '5'},
+  ];
+  const model = waterfallSteps(rows, {endLabel: 'Итого'});
+  assert.deepEqual([model.xField, model.yField, model.missing, model.start, model.finish], ['step', 'value', 1, 100, 75]);
+  assert.deepEqual(model.steps.map(({label, kind, from, to}) => [label, kind, from, to]), [
+    ['Начало', 'total', 0, 100], ['Продажи', 'up', 100, 140], ['Затраты', 'down', 140, 70], ['Курс', 'up', 70, 75], ['Итого', 'total', 0, 75],
+  ]);
+  assert.equal(model.steps[4].row, -1);
+  assert.deepEqual(waterfallExtent(model.steps), [0, 140]);
+  // A total without a value takes the running total; with one, the total starts again.
+  const middle = waterfallSteps([{s: 'a', v: 10}, {s: 'Итог', v: null, t: 'да'}, {s: 'b', v: -30}, {s: 'Конец', v: 50, t: 1}], {y: 'v', total: 't'});
+  assert.deepEqual(middle.steps.map(({kind, from, to}) => [kind, from, to]), [['up', 0, 10], ['total', 0, 10], ['down', 10, -20], ['total', 0, 50]]);
+  assert.deepEqual(waterfallExtent(middle.steps), [-20, 50]);
+  assert.equal(waterfallSteps([{s: 'a', v: 1}], {end: false}).steps.length, 1);
+  assert.deepEqual([true, 'yes', 'Да', 1, 0, 'no', '', null].map(isTotal), [true, true, true, true, false, false, false, false]);
 });

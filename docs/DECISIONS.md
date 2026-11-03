@@ -507,6 +507,34 @@ form was decided by the recommendation under the owner's delegation.
 - **Out of 0.1.0.** Volume (a bar chart under the candles serves) and
   moving averages.
 
+## D11. The waterfall chart
+
+After the candlestick the owner chose «Каскадный график» (2026-11-04) as
+the next chart. Its form was decided by the recommendation under the
+owner's delegation.
+
+- **Own tag, not a bar setting.** The catalogue proposed `accumulate` on
+  `sf-chart-bar`. The chart is `sf-chart-waterfall` instead, with its core
+  in `chart-core/waterfall.js`:
+  - its colours go by direction (rise, fall, total), not by series;
+  - it has total rows, lines joining the bars and a closing total;
+  - the bar's series, `stack`, `bin`, `sort` and `lines` have no meaning
+    on it, and would each need a rule for what they do there.
+- **Data.** `x` and `y` as on the bar chart, and a `total` field marking
+  the rows that stand on zero. A total row without a value shows the
+  running total. With a value, the running total starts again from it, as
+  an opening balance does.
+- **A closing total**, «Итого», is added unless the last row is a total.
+  `end="none"` draws the rows only.
+- **Zero is always on the axis.** A total is an amount, drawn from zero,
+  as a bar is.
+- **Direction without colour.** Each bar's value is written with its sign
+  when every value fits its band. In forced colours a rise is hollow, a
+  fall filled and a total dashed. The tones are those of the `success`,
+  `error` and `neutral` roles; `colors {up, down, total}` sets a page's
+  own.
+- **Out of 0.1.0.** Horizontal bars and steps of several parts.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -525,6 +553,7 @@ form was decided by the recommendation under the owner's delegation.
 | D9 | The box plot: `sf-chart-box`, raw or given statistics, linear quartiles, Tukey's whiskers by default, series side by side | 2026-11-03 | the owner's «Да, ящик с усами» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `2d3fb38`) |
 | D9 | The radar: `sf-chart-radar`, one scale from the centre, the first spoke up and clockwise, a gap breaks the ring, marks of their own shape per series | 2026-11-03 | the owner's «давай дальше … радар?» in the chat; the form decided by the recommendation under the owner's delegation |
 | D10 | The candlestick: `sf-chart-candlestick`, candles in order without holes, hollow rise and filled fall, a scale fitting the data, merging below 3 px, `shape="bar"` | 2026-11-03 | the owner's «Candlesticks» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `402a5ac`, bus `msg-b88db530428847a0bdcb`) |
+| D11 | The waterfall: `sf-chart-waterfall` (not `accumulate` on bar), total rows on zero, a closing total, joining lines, signed values, the success, error and neutral tones | 2026-11-04 | the owner's «Каскадный график» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `c8a67cb`, bus `msg-7a432f38a14e4db9ad8d`) |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

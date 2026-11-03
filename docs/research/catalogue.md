@@ -88,7 +88,7 @@ does not draw its own grid (handoff rule, `docs/START.md`).
 | 3 | Sankey | 6 | **component** `sankey` |
 | 3 | Gantt / timeline | 6 | **component** `timeline` |
 | 3 | Candlestick | 6 | **component** `candlestick` |
-| 3 | Waterfall | 4 | variant of `bar`: `accumulate` setting |
+| 3 | Waterfall | 4 | **component** `waterfall` (D11; proposed as `accumulate` on `bar`) |
 | 3 | Choropleth map | 10 | **component** `map` |
 
 Tier 1 is **5 components** with 2 variant settings (`area`, `stack`). All
@@ -155,8 +155,10 @@ of Tier 1 except `kpi` draws on one shared cartesian or polar core (see
     toward the start side
     ([Datawrapper RTL](https://www.datawrapper.de/blog/right-to-left-visualizations));
   - `stack`;
-  - `bin` (histogram);
-  - `accumulate` (waterfall).
+  - `bin` (histogram).
+
+  The `accumulate` setting proposed here for the waterfall became a
+  component of its own (`docs/DECISIONS.md` D11).
 - **Baseline:** zero, always
   ([Carbon](https://carbondesignsystem.com/data-visualization/axes-and-labels/),
   [SLDS](https://spring-20.lightningdesignsystem.com/guidelines/data-visualization/charts/),
@@ -436,9 +438,11 @@ of Tier 1 except `kpi` draws on one shared cartesian or polar core (see
 - **Not for:** independent values (use a bar).
 - **Evidence:** 4 (X S D P).
 - **Relation:** deviation, part-to-whole, flow.
-- **Variant of `bar`.** The `accumulate` setting draws running totals with
-  floating bars. Increase and decrease use the status roles, plus a sign
-  and a label, not colour alone.
+- **Component** (`docs/DECISIONS.md` D11). It was first proposed as an
+  `accumulate` setting on `bar`. It became `sf-chart-waterfall`, because its
+  colours go by direction and not by series, and it adds total rows. It
+  draws running totals with floating bars. Increase and decrease use the
+  status roles, plus a sign and a label, not colour alone.
 
 ### Choropleth map
 

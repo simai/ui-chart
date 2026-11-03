@@ -240,6 +240,13 @@
       "recorded_on": "2026-11-03",
       "change": "added",
       "summary": "sf-chart-candlestick: the open, high, low and close of each period (x, open, high, low and close fields) on a price axis, the periods side by side in time order with the axis marked at calendar periods, a rising body hollow and a falling one filled in the success and error tones (colors {up, down}), candles or bars (shape), neighbours merged as a longer period past one per 3 px, a key of rise and fall, a tooltip, a keyboard cursor over the candles, a summary sentence with the change, the extremes and the count of rises and falls, the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-waterfall",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-04",
+      "change": "added",
+      "summary": "sf-chart-waterfall: how a start value becomes an end value through steps (x and y fields), a change floating from the running total to the new one and a total row (the total field) standing on zero, a closing total added (end), thin lines joining the bars, each bar's value written with its sign (value-labels), the success, error and neutral tones (colors {up, down, total}), a key, a tooltip with the change and the total, a keyboard cursor over the steps, a summary sentence with the start, the end, the steps that added and took away most, the same data as a table, loading, empty and error states."
     }
   ]
 }
