@@ -14,7 +14,8 @@
 | Page colours | done (2026-11-02), to hand to the dispatcher: `colors` (key → Framework role or CSS colour) on line 0.3.0, bar 0.3.0, pie 0.2.0 and parts 0.2.0, `color` on sparkline 0.2.0; the shared `chart-core/colors.js` (the owner's decision D6) | `components/src/smart/chart-core/colors.js`, `docs/evidence/page-colours.md` |
 | Palettes | done (2026-11-03), to hand to the dispatcher: `palette` (`vivid`, `soft`, `warm`, `cool`, `brand`) on line 0.4.0, bar 0.4.0, pie 0.3.0 and parts 0.3.0, made by `scripts/chart-palettes.mjs` on the Framework's tone ladder (the owner's decision D7); `examples/palettes.html` | `components/src/smart/chart-core/palettes.js`, `docs/evidence/palettes.md` |
 | Heatmap 0.1.0 | done (2026-11-03), to hand to the dispatcher: `sf-chart-heatmap`, one value over two categories as a grid of cells on a stepped scale (sequential or diverging, the theme's tone ladders; the decision D8), with the value written in a cell where it fits, the scale's legend, the keyboard cursor, the summary and the table | `components/src/smart/chart-heatmap/`, `docs/evidence/chart-heatmap-0.1.0.md` |
-| M2+. The catalogue by tiers | — | — |
+| M2. Tier 2 | planned (2026-11-03, the owner's decision D9): funnel, gauge, scatter, histogram (`bin` on bar), box, radar, one at a time | `docs/DECISIONS.md` D9 |
+| Funnel 0.1.0 | done (2026-11-03), to hand to the dispatcher: `sf-chart-funnel`, the stages of a process as bars on a common baseline (or centred) with the value and the conversion beside each stage, the keyboard cursor, the summary (the overall conversion, the largest loss) and the table | `components/src/smart/chart-funnel/`, `docs/evidence/chart-funnel-0.1.0.md` |
 | Release | waits for the Framework pair with parts 1–10 of the M0 and M1 evidence (the dispatcher's order) | — |
 
 Pinned SIMAI Framework release: `ui-de2b4437234a` (ui-source `5776ff08`, npm

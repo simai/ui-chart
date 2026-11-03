@@ -1,0 +1,367 @@
+{
+  "$comment": "The source of sf-chart-funnel (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Funnel), the name the owner's M2 plan of 2026-11-03.",
+  "id": "smart.chart-funnel",
+  "tag": "sf-chart-funnel",
+  "version": "0.1.0",
+  "kind": "leaf",
+  "family": "chart",
+  "settings": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "summary": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Воронка»."
+    },
+    "items": {
+      "type": "list",
+      "default": [],
+      "of": "object",
+      "summary": "The data: a list of records ([{stage, count}, …]) or an object of columns, one record per stage in the order of the process. A stage with no value is a gap: it is said and kept in the table, with no bar and no conversion."
+    },
+    "names": {
+      "type": "object",
+      "default": {},
+      "summary": "What each stage is called, by its key: {cart: «Корзина»}. A stage without a name is called by its key."
+    },
+    "stage": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the stages' keys; the first field when unset."
+    },
+    "value": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the stages' values; the first numeric field but stage when unset."
+    },
+    "conversion": {
+      "type": "enum",
+      "values": [
+        "previous",
+        "first",
+        "none"
+      ],
+      "default": "previous",
+      "summary": "The share written beside each stage after the first: previous, of the stage before (how many went on); first, of the first stage (how many are left of the start); none, the values alone. The tooltip, the summary and the table say both all the same."
+    },
+    "align": {
+      "type": "enum",
+      "values": [
+        "start",
+        "center"
+      ],
+      "default": "start",
+      "summary": "start: every bar starts at the same edge, so the lengths compare on a common baseline (the stronger reading); center: the bars are centred, the familiar funnel shape, for a picture more than a comparison."
+    },
+    "color": {
+      "type": "string",
+      "default": "",
+      "summary": "The colour of the bars: a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable. It wins over --sf-chart-funnel-color; a value that is not a colour is dropped with a console report, as is one under 3:1 against the background (drawn all the same). One measure, one colour: the stages are told apart by their names and order."
+    },
+    "tooltip": {
+      "type": "enum",
+      "values": [
+        "stage",
+        "none"
+      ],
+      "default": "stage",
+      "summary": "stage: under the pointer or the cursor, the stage's name, value, its share of the stage before and of the first."
+    },
+    "stage-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the stages: the table's first column (the stage field's own name when unset)."
+    },
+    "value-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the values: the table's second column (the value field's own name when unset)."
+    },
+    "value-format": {
+      "type": "string",
+      "default": "number",
+      "summary": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "default": "1",
+      "summary": "The rung of the size ladder: the bars' thickness, the text and the gaps. 1/2 for a tile, 2 for a page of its own."
+    },
+    "table": {
+      "type": "enum",
+      "values": [
+        "toggle",
+        "visible",
+        "hidden"
+      ],
+      "default": "toggle",
+      "summary": "The same data as a table: toggle offers a button that swaps the funnel for it, visible shows it under the funnel, hidden keeps it for screen readers only. Never none: the table is the chart's text."
+    },
+    "summary": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a sentence of the whole (how many stages, from what to what, the overall conversion, where the most is lost, the gaps), kept for screen readers. The description slot adds the host's own words."
+    },
+    "data-state": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ],
+      "default": "auto",
+      "summary": "auto: ready with data, empty without. loading draws the stages' place without bars; error offers «Повторить», which sends refresh."
+    }
+  },
+  "events": {
+    "select": {
+      "carries": {
+        "series": "string",
+        "index": "number",
+        "x": "string",
+        "value": "number"
+      },
+      "summary": "The person chose a stage: a click on it, or Enter or Space on the keyboard cursor. x is its key as the data gave it, index its place, value its value (null for a gap)."
+    },
+    "refresh": {
+      "carries": {},
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items."
+    }
+  },
+  "slots": {
+    "description": {
+      "$comment": "The host's own words about the chart: said with the summary (aria-describedby) and shown under the funnel."
+    }
+  },
+  "keyboard": {
+    "host": {
+      "Tab": "reach",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    }
+  },
+  "relations": [
+    {
+      "name": "cl-empty-state"
+    }
+  ],
+  "templates": {
+    "default": {
+      "file": "js/templates/default.js",
+      "$comment": "The Lit template in JavaScript, the migration form of §5.2 (§16); the stages are HTML, a bar's length a share of the row."
+    }
+  },
+  "styles": "js/templates/default.css",
+  "examples": "examples.json",
+  "docs": "docs.md",
+  "lang": "lang/",
+  "presentation": {
+    "skeleton": {
+      "$comment": "The items arrive after the first paint when the host loads them: the derived skeleton holds the stages' place until they do (standard 1.3.8 §5.4). A stage is a row of the size rung's height, and a bar's length a share, so nothing is measured.",
+      "late": [
+        "items"
+      ]
+    }
+  },
+  "accessibility": {
+    "role": "figure",
+    "name": {
+      "from": [
+        "label",
+        "runtime.untitled"
+      ]
+    },
+    "keys": {
+      "Tab": "reach",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    },
+    "x-keys": "The stages are one Tab stop (role group, aria-roledescription «воронка»). Down and Right move the cursor to the next stage, Up and Left back, Home and End to the first stage and the last; each move is said in a polite live region with the stage's value and its share of the stage before and of the first. Enter and Space choose the stage (select); Escape takes the cursor away. The table button is a button of its own."
+  },
+  "css-variables": {
+    "--sf-chart-funnel-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-funnel-label-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-funnel-bar-radius": {
+      "type": "length",
+      "state": "default"
+    }
+  },
+  "x-summary": "A funnel: the stages of a process, each a subset of the last (visits, cart, payment), as bars on a common baseline with the value and the conversion beside each stage, a tooltip, a keyboard cursor, a summary in words (the overall conversion, where the most is lost) and the same data as a table.",
+  "x-source": {
+    "package": "chart",
+    "folder": "chart-funnel",
+    "research": "simai/ui-chart docs/research/catalogue.md (Funnel), docs/research/parameters.md"
+  },
+  "x-words": [
+    "label",
+    "stage-label",
+    "value-label"
+  ],
+  "x-decisions": [
+    "name: sf-chart-funnel, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart (the owner's M2 plan of 2026-11-03; docs/DECISIONS.md D2), family chart.",
+    "data: items with a field mapping stage and value (D3), one series, the stages in the data's order: the order is the process, never sorted.",
+    "form: stepped bars, one row per stage, on a common baseline by default (align start), centred on request; not a trapezoid, whose slanted sides carry no data (docs/research/catalogue.md).",
+    "the bars are HTML, not SVG: a bar's length is a share of the widest stage in a style, so the funnel needs no measured width and its first paint is the drawn funnel.",
+    "conversion: the share of the stage before by default, of the first on request, written beside the value; both are said in the tooltip, the cursor line, the summary and the table.",
+    "a stage wider than the one before is drawn as given, its share over 100 %; the summary says the stages are not nested. A gap has no bar and breaks the conversion across it.",
+    "colour: one colour for every stage, since a funnel is one measure (the color setting or --sf-chart-funnel-color); the cursor stage is outlined, the others dimmed. In forced colours the bars are solid.",
+    "select: {series, index, x, value} as the other charts.",
+    "table: never none; stage, value, of the previous, of the first."
+  ],
+  "x-registry": {
+    "capabilities": [
+      "interaction",
+      "keyboard",
+      "responsive",
+      "live-announcement"
+    ],
+    "persistence": {
+      "mode": "none",
+      "source_of_truth": "host",
+      "network_owner": "host",
+      "revision_field": null
+    },
+    "readiness": {
+      "level": "runnable",
+      "required_checks": [
+        "manifest",
+        "fixture",
+        "runtime-upgrade",
+        "keyboard",
+        "responsive",
+        "a11y"
+      ]
+    },
+    "tags": [
+      "chart",
+      "funnel",
+      "conversion",
+      "stages",
+      "flow",
+      "data-visualization"
+    ],
+    "state": {
+      "machines": {
+        "data-state": [
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "visual_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "ownership": {
+      "source": "simai/ui-chart",
+      "data": "host",
+      "effects": "host",
+      "forbidden_client_responsibilities": [
+        "fetching data",
+        "aggregating on a server"
+      ]
+    },
+    "security": {
+      "permissions_owner": "host",
+      "untrusted_inputs": [
+        "props"
+      ],
+      "network_policy": "deny"
+    },
+    "presentation": {
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "locales": [
+        "ru",
+        "en"
+      ],
+      "responsive": [
+        "desktop",
+        "mobile",
+        "ltr",
+        "rtl",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "skeleton": {
+        "shape": "block",
+        "while_loading": "template"
+      }
+    },
+    "ai_guidance": {
+      "use_when": "Use sf-chart-funnel for the stages of a process where each stage is a subset of the last: a sales funnel, a sign-up, an order's path, with the conversion between the stages.",
+      "do_not": [
+        "Do not draw a chart without a label",
+        "Do not use it for categories that are not nested; that is sf-chart-bar",
+        "Do not use it for flows that branch; that is a sankey",
+        "Do not sort the stages: their order is the process"
+      ],
+      "required_reads": [
+        "inputs",
+        "events",
+        "accessibility"
+      ],
+      "minimal_example": "<sf-chart-funnel label=\"Воронка заказа\" stage=\"step\" value=\"people\" value-format=\"integer\"></sf-chart-funnel>",
+      "owner_commands": [
+        "node scripts/test.mjs"
+      ]
+    },
+    "accessibility": {
+      "accessible_name": "required",
+      "keyboard": [
+        "Tab",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Home",
+        "End",
+        "Enter",
+        "Space",
+        "Escape"
+      ],
+      "focus": "One Tab stop on the stages, then the table button. The summary is the stages' description; each cursor move is said politely."
+    }
+  },
+  "x-rule": {
+    "$comment": [
+      "The chart draws its empty and error states as sf-empty-state; a tag it renders is a tag it fetches.",
+      "Its table toggle is a native button, so it fetches no sf-button."
+    ]
+  }
+}

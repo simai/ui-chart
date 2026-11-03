@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Usage: node this-file /absolute/path/to/output
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
-// sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts and sf-chart-heatmap.
+// sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap
+// and sf-chart-funnel.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -15,6 +16,8 @@
 // - reduced motion and forced colours;
 // - the heatmap: its rows' height, its values' contrast on their steps, the
 //   diverging middle, the keyboard and forced colours;
+// - the funnel: its stages' height wide and narrow, bars that shorten stage
+//   by stage and hold 3:1, the keyboard and forced colours;
 // - many bars: 1,000 categories draw within the budget at a 4x CPU slowdown.
 import {resolve, join} from 'node:path';
 import {existsSync} from 'node:fs';
@@ -22,7 +25,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -54,6 +57,8 @@ const hours = ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16
 const load = [['mon', [32, 44, 60, 74, 80, 74, 60, 44, 32, 25]], ['tue', [34, 46, 62, 76, 82, 76, 62, 46, 34, 27]], ['wed', [30, 41, 58, 70, 78, 71, 57, 40, 31, 24]]]
   .flatMap(([day, values]) => values.map((value, index) => ({hour: hours[index], day, load: value})));
 const days = {mon: 'Пн', tue: 'Вт', wed: 'Ср'};
+const order = [{step: 'visit', people: 12400}, {step: 'catalog', people: 7800}, {step: 'cart', people: 2900}, {step: 'checkout', people: 1300}, {step: 'paid', people: 860}];
+const steps = {visit: 'Визиты', catalog: 'Каталог', cart: 'Корзина', checkout: 'Оформление', paid: 'Оплата'};
 const change = [{m: 'jan', r: 'north', v: -6}, {m: 'feb', r: 'north', v: -1}, {m: 'mar', r: 'north', v: 0}, {m: 'apr', r: 'north', v: 2}, {m: 'may', r: 'north', v: 6}];
 
 const browser = await chromium.launch();
@@ -495,6 +500,80 @@ try {
     });
     evidence.heatmap.forced = outline;
     if (outline.fills !== 1 || outline.stroke === 'none' || outline.values !== 30) note({case: 'heatmap: in forced colours a cell is an outline and its value is the cue', got: outline});
+    await forced.close();
+  }
+
+  // 3d. The funnel: a stage is a row of its rung's height (wide) or a name
+  // line over the row (narrow), so the funnel's height is its stages'; the
+  // bars shorten stage by stage and hold 3:1 against the page in both
+  // themes; the stages are one Tab stop walked by the arrows; in forced
+  // colours the bars are solid.
+  {
+    const ROW = {'1/2': 20, 1: 28, 2: 36};
+    const GAP = {'1/2': 2, 1: 4, 2: 6};
+    const funnel = {label: 'Воронка заказа', stage: 'step', value: 'people', 'value-format': 'integer'};
+    const rgb = (value) => value.match(/\d+/gu).slice(0, 3).map(Number);
+    evidence.funnel = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-funnel', {...funnel, size}, {items: order, names: steps});
+          const shape = await shapeOf(page, {frame: '.sf-chart-funnel-plot', marks: '.sf-chart-funnel-bar', texts: '.sf-chart-funnel-value'});
+          const line = await page.evaluate(() => parseFloat(getComputedStyle(document.querySelector('.sf-chart-funnel-name')).lineHeight));
+          const bars = await page.evaluate(() => [...document.querySelectorAll('.sf-chart-funnel-bar')].map((node) => node.getBoundingClientRect().width));
+          const narrow = width < 600;
+          const want = narrow ? 5 * (line + ROW[size] + GAP[size]) + 4 * GAP[size] : 5 * ROW[size] + 4 * GAP[size];
+          evidence.funnel.geometry.push({theme, width, size, height: shape.height, want, bars: bars.map(Math.round)});
+          if (Math.abs(shape.height - want) > 1 || shape.marks !== 5 || shape.outside || shape.pageOverflow > 0 || !bars.every((one, index) => index === 0 || one < bars[index - 1])) note({case: `funnel ${theme} ${width}px size ${size}: its stages' height, five bars shortening stage by stage, nothing leaves it`, got: {shape, bars}, want});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-funnel', funnel, {items: order, names: steps});
+          const fill = rgb(await page.evaluate(() => getComputedStyle(document.querySelector('.sf-chart-funnel-bar')).backgroundColor));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const ratio = Math.round(contrast(fill, background) * 100) / 100;
+          evidence.funnel.contrast[theme] = ratio;
+          if (ratio < 3) note({case: `funnel ${theme}: the bars hold 3:1 against the page`, got: ratio});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-funnel', funnel, {items: order, names: steps});
+    // Tab reaches the table button, then the stages.
+    await page.focus('#before');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-funnel-stages'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/ | /gu, ' '));
+    };
+    const first = await said('ArrowDown');
+    const second = await said('ArrowRight');
+    const back = await said('ArrowUp');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-funnel-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-funnel-stage--current').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-funnel-stages'));
+    const keys = {focused, first, second, back, end, chosen, tip, cleared, out};
+    evidence.funnel.keyboard = keys;
+    if (!focused || first !== 'Визиты: 12 400' || !/^Каталог: 7 800, 62,9 ?% от предыдущего, 62,9 ?% от первого$/u.test(second) || back !== 'Визиты: 12 400'
+      || !/^Оплата: 860, 66,2 ?% от предыдущего, 6,9 ?% от первого$/u.test(end) || chosen.length !== 1 || chosen[0].x !== 'paid' || chosen[0].value !== 860
+      || !tip.startsWith('Оплата') || cleared || !out) note({case: 'funnel: one Tab stop after the table button; the arrows and End walk the stages and each is said with both conversions; Enter selects, Escape clears', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-funnel', funnel, {items: order, names: steps});
+    const solid = await forced.evaluate(() => [...document.querySelectorAll('.sf-chart-funnel-bar')].map((node) => getComputedStyle(node).backgroundColor));
+    evidence.funnel.forced = solid[0];
+    if (new Set(solid).size !== 1 || solid[0] === 'rgba(0, 0, 0, 0)') note({case: 'funnel: in forced colours the bars are solid in the system colour', got: solid});
     await forced.close();
   }
 

@@ -17,6 +17,7 @@
     "src/smart/chart-core/decimate.js",
     "src/smart/chart-core/describe.js",
     "src/smart/chart-core/format.js",
+    "src/smart/chart-core/funnel.js",
     "src/smart/chart-core/heat.js",
     "src/smart/chart-core/palettes.js",
     "src/smart/chart-core/path.js",
@@ -24,7 +25,7 @@
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js"
   ],
-  "content_sha256": "1080050c72db1365fcee8f6758d15e4a9e8b20b171bd0d694986b2909a113bd1",
+  "content_sha256": "d4c3d90db58323dbdf3f33b0f53a4f0e7f78ff3641b34257b4548c3c6f7480e9",
   "dependencies": [
     {
       "id": "tokens.colour",

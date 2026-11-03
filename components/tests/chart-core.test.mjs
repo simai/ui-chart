@@ -17,6 +17,7 @@ import {existsSync} from 'node:fs';
 import {PALETTES} from '../src/smart/chart-core/palettes.js';
 import {colourValue, contrast, coloursKey, readColours} from '../src/smart/chart-core/colors.js';
 import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core/heat.js';
+import {funnelStages} from '../src/smart/chart-core/funnel.js';
 
 test('records and columns read into the same rows', () => {
   const records = [{m: 'a', v: 1}, {m: 'b', v: 2}];
@@ -279,4 +280,29 @@ test('a heatmap scale cuts its range into equal steps on the theme\'s tones', ()
   const diverging = heatColours({scale: 'diverging', better: 'up', steps: 5});
   assert.deepEqual(diverging.map((step) => (step.middle ? 'middle' : step.fill.match(/--sf-([a-z]+)-/u)[1])), ['error', 'error', 'middle', 'success', 'success']);
   assert.equal(heatColours({scale: 'diverging', better: 'down', steps: 3})[0].fill.includes('success'), true);
+});
+
+test('a funnel says each stage\'s share of the widest and its conversions, and where the most is lost', () => {
+  const rows = (values) => values.map((value, index) => ({key: `s${index}`, name: `S${index}`, value, index}));
+  const funnel = funnelStages(rows([1000, 600, 150, 120]));
+  assert.deepEqual(funnel.stages.map((stage) => stage.share), [1, 0.6, 0.15, 0.12]);
+  assert.deepEqual(funnel.stages.map((stage) => stage.fromPrevious), [null, 0.6, 0.25, 0.8]);
+  assert.deepEqual(funnel.stages.map((stage) => stage.fromFirst), [null, 0.6, 0.15, 0.12]);
+  assert.equal(funnel.overall, 0.12);
+  assert.equal(funnel.worst.index, 2);
+  assert.equal(funnel.grows, false);
+  // A gap has no conversion and breaks the one across it; the first stays the base.
+  const gap = funnelStages(rows([500, null, 200]));
+  assert.deepEqual(gap.stages.map((stage) => stage.fromPrevious), [null, null, null]);
+  assert.equal(gap.stages[2].fromFirst, 0.4);
+  assert.equal(gap.gaps, 1);
+  assert.equal(gap.worst, null);
+  // A stage wider than the one before: not nested, drawn as given.
+  const grows = funnelStages(rows([100, 150, 50]));
+  assert.equal(grows.grows, true);
+  assert.equal(grows.stages[1].share, 1);
+  assert.equal(grows.stages[1].fromPrevious, 1.5);
+  // One stage has no overall conversion.
+  assert.equal(funnelStages(rows([10])).overall, null);
+  assert.equal(funnelStages([]).first, null);
 });

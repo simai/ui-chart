@@ -370,6 +370,35 @@ This changes D4 option C ("no local palette") for named sets.
   in the tooltip and the live line, and kept in the table. A gap is an
   outlined empty cell.
 
+## D9. The M2 plan and the funnel's form
+
+> **Кратко.** M2 — шесть графиков второго уровня по одному: воронка, шкала с
+> зонами, точечный, гистограмма, «ящик с усами», радар. Воронка — полосы от
+> одного края с долей перехода рядом с каждым этапом.
+
+- **The order** is by use on working dashboards first, then analytics:
+  1. `sf-chart-funnel`;
+  2. `sf-chart-gauge`;
+  3. `sf-chart-scatter`, with bubbles through a `size` field;
+  4. the histogram as a `bin` setting of `sf-chart-bar`;
+  5. `sf-chart-box`;
+  6. `sf-chart-radar`.
+
+  Heatmap and combo, the rest of Tier 2, are already done.
+- **The names** follow the owner's rule `sf-chart-<block>`. Each name is
+  sent to the dispatcher as its work starts.
+- **The funnel's form.**
+  - Stepped bars on a common baseline (`align="start"`), centred on request.
+    No trapezoid: its slanted sides carry no data (catalogue.md, Funnel).
+  - The stages keep the data's order, since that order is the process.
+  - One colour, since a funnel is one measure.
+  - The conversion written beside a stage is of the previous stage by
+    default (`conversion="previous"`), or of the first. The tooltip, the
+    live line, the summary and the table say both.
+  - A gap has no bar and no conversion across it. A stage wider than the
+    one before is drawn as given, and the summary says the stages are not
+    nested.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -382,6 +411,7 @@ This changes D4 option C ("no local palette") for named sets.
 | D6 | `colors` on every chart with series, `color` on the sparkline | 2026-11-02 | the owner's «да» in the chat to the proposal of `colors` |
 | D7 | Named palettes made by the package's generator on the Framework's tone ladder, `palette` setting | 2026-11-03 | the owner's «Yes, into the package» in the chat |
 | D8 | Heatmap: stepped scale on the theme's tone ladders, local diverging midpoint | 2026-11-03 | the owner's «Heatmap» as the next chart; the scale decided by the recommendation under the owner's delegation |
+| D9 | M2 plan and tag names as proposed; the funnel first, on a common baseline | 2026-11-03 | the owner's «Да, начинай с воронки» in the chat; the funnel's form decided by the recommendation under the owner's delegation |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.
