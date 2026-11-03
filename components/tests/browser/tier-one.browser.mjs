@@ -2,7 +2,7 @@
 // Usage: node this-file /absolute/path/to/output
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
-// sf-chart-funnel, sf-chart-gauge and sf-chart-scatter.
+// sf-chart-funnel, sf-chart-gauge, sf-chart-scatter and sf-chart-box.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -31,7 +31,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -823,6 +823,92 @@ try {
         await page.close();
       }
     }
+  }
+
+  // 3h. The box plot: the plot is its rung's height and every box, whisker
+  // and outlier stays in it on every rung and width; each series' outline
+  // holds 3:1 against the page in both themes; the boxes are one Tab stop
+  // walked by the arrows, group by group and across the series, each said
+  // with its statistics, and the pointer shows the same box in the tooltip;
+  // in forced colours the outlines are the system colour and a series past
+  // the first has its own dash.
+  {
+    const spread = {north: [12, 14, 15, 16, 18, 19, 21, 24, 48], south: [20, 22, 25, 27, 28, 30, 33, 35, 38], east: [4, 9, 11, 12, 13, 14, 15, 16, 18]};
+    const rows = Object.entries(spread).flatMap(([warehouse, values]) => values.flatMap((hours, index) => [{warehouse, kind: 'standard', hours}, {warehouse, kind: 'express', hours: Math.round(hours / 2) + (index % 3)}]));
+    const box = {label: 'Время доставки', x: 'warehouse', y: 'hours', series: 'kind', 'y-label': 'Часов', 'y-format': 'integer'};
+    const names = {standard: 'Обычная', express: 'Срочная'};
+    const rgb = (value) => value.match(/\d+/gu).slice(0, 3).map(Number);
+    evidence.box = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-box', {...box, size}, {items: rows, names});
+          const shape = await shapeOf(page, {frame: '.sf-chart-box-plot', marks: '.sf-chart-box-series > *', texts: '.sf-chart-box-tick'});
+          const boxes = await page.evaluate(() => document.querySelectorAll('#chart .sf-chart-box-box').length);
+          evidence.box.geometry.push({theme, width, size, height: shape.height, boxes, marks: shape.marks});
+          if (shape.height !== RUNG[size] || boxes !== 6 || shape.outside || shape.pageOverflow > 0) note({case: `box ${theme} ${width}px size ${size}: the plot is its rung's height, six boxes, nothing leaves it`, got: {shape, boxes}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-box', box, {items: rows, names});
+          const strokes = await page.evaluate(() => ['standard', 'express'].map((key) => getComputedStyle(document.querySelector(`.sf-chart-box-series[data-series=${key}] .sf-chart-box-box`)).stroke));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const ratios = strokes.map((one) => Math.round(contrast(rgb(one), background) * 100) / 100);
+          evidence.box.contrast[theme] = {ratios, strokes};
+          if (ratios.some((ratio) => ratio < 3) || strokes[0] === strokes[1]) note({case: `box ${theme}: each series' outline holds 3:1 against the page, in a colour of its own`, got: {strokes, ratios}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-box', box, {items: rows, names});
+    // Tab reaches the table button and the two legend buttons, then the plot.
+    await page.focus('#before');
+    for (let press = 0; press < 4; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-box-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/\u00a0|\u202f/gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const down = await said('ArrowDown');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-box-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-box-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-box-svg'));
+    // The pointer on a box shows that box.
+    const spot = await page.evaluate(() => {
+      const node = document.querySelector('.sf-chart-box-series[data-series=express] .sf-chart-box-box');
+      const area = node.getBoundingClientRect();
+      return {x: area.left + area.width / 2, y: area.top + area.height / 2};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-box-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    const keys = {focused, first, second, down, end, chosen, tip, cleared, out, hover};
+    evidence.box.keyboard = keys;
+    if (!focused || first !== 'north, Обычная: медиана 18, квартили 15 – 21, усы 12 – 24, выбросов 1' || !second.startsWith('south, Обычная: медиана 28')
+      || !down.startsWith('south, Срочная: медиана') || !end.startsWith('east, Срочная: медиана')
+      || chosen.length !== 1 || chosen[0].group !== 'east' || chosen[0].series !== 'express' || chosen[0].index !== 2 || !tip.startsWith('east, Срочная Максимум') || cleared || !out
+      || !hover.startsWith('north, Срочная')) note({case: 'box: one Tab stop after the table button and the legend; the arrows walk the boxes and each is said; Enter selects, Escape clears; the pointer shows its box', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-box', box, {items: rows, names});
+    const lines = await forced.evaluate(() => ['standard', 'express'].map((key) => {
+      const node = getComputedStyle(document.querySelector(`.sf-chart-box-series[data-series=${key}] .sf-chart-box-box`));
+      return {stroke: node.stroke, dash: node.strokeDasharray};
+    }));
+    evidence.box.forced = lines;
+    if (lines[0].stroke !== lines[1].stroke || lines[0].dash !== 'none' || lines[1].dash === 'none') note({case: 'box: in forced colours the outlines are the system colour and the second series has its own dash', got: lines});
+    await forced.close();
   }
 
   // 4. Many bars at a 4x CPU slowdown (standard gate 17).

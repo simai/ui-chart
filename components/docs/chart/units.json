@@ -219,6 +219,13 @@
       "change": "minor",
       "summary": "bin: a histogram of one measure (auto, about Sturges' count on a round width, or a given width): one touching bar per interval, the count of its rows or the sum of a weight (y), by series and stacked, the axis marked at the intervals' edges, the summary with each series' median and fullest interval.",
       "consumer": "Nothing to do: bin defaults to none, so a chart draws as before; set bin to draw a histogram."
+    },
+    {
+      "unit": "smart.chart-box",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-03",
+      "change": "added",
+      "summary": "sf-chart-box: a box plot of one measure per group (the x and y fields): the median, the quartiles (linear between the two nearest), Tukey's or full-range whiskers (whiskers) and the outliers, worked out from raw rows or given per group (stats), the mean on request (mean), series side by side in a group (series), a legend that hides series, a tooltip, a keyboard cursor over groups and series, a summary sentence with each series' highest and lowest median and widest box, the same statistics as a table, loading, empty and error states."
     }
   ]
 }

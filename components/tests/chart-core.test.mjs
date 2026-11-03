@@ -20,6 +20,7 @@ import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core
 import {funnelStages} from '../src/smart/chart-core/funnel.js';
 import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-core/gauge.js';
 import {binEdges, binOf, binSeries, median} from '../src/smart/chart-core/bin.js';
+import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
 
 test('records and columns read into the same rows', () => {
@@ -434,4 +435,40 @@ test('a histogram counts rows per interval and series, or sums a weight', () => 
   // The measure is the first numeric field when unset; no rows, no bins.
   assert.equal(binSeries(rows).xField, 'h');
   assert.deepEqual(binSeries([]).bins, []);
+});
+
+test('a box holds the quartiles, the whiskers within 1.5 boxes and the outliers past them', () => {
+  assert.equal(quantile([1, 2, 3, 4], 0.25), 1.75);
+  assert.equal(quantile([5], 0.75), 5);
+  assert.equal(quantile([], 0.5), null);
+  const box = boxStats([7, 1, 2, 3, 4, 5, 6, 30]);
+  assert.deepEqual([box.n, box.min, box.q1, box.median, box.q3, box.max], [8, 1, 2.75, 4.5, 6.25, 30]);
+  // 1.5 × 3.5 past the box: from −2.5 to 11.5, so 30 is an outlier.
+  assert.deepEqual([box.low, box.high, box.outliers], [1, 7, [30]]);
+  assert.equal(box.mean, 7.25);
+  const range = boxStats([7, 1, 2, 3, 4, 5, 6, 30], 'range');
+  assert.deepEqual([range.low, range.high, range.outliers], [1, 30, []]);
+  assert.equal(boxStats([]), null);
+  assert.deepEqual(givenStats({min: 1, q1: 2, median: 3, q3: 4, max: 5}).outliers, []);
+  assert.equal(givenStats({min: 1, q1: 3, median: 2, q3: 4, max: 5}), null);
+  assert.equal(givenStats({min: 1, q1: 2, median: 3, q3: 4}), null);
+});
+
+test('a box plot groups raw rows by a field and a series, or reads given statistics', () => {
+  const rows = [
+    {shop: 'A', kind: 'x', min: 1}, {shop: 'A', kind: 'y', min: 3}, {shop: 'B', kind: 'x', min: 5},
+    {shop: 'A', kind: 'x', min: 2}, {shop: 'B', kind: 'x', min: 'n/a'},
+  ];
+  const model = boxSeries(rows, {x: 'shop', y: 'min', series: 'kind', names: {x: 'X'}});
+  assert.deepEqual(model.labels, ['A', 'B']);
+  assert.equal(model.missing, 1);
+  assert.deepEqual(model.series.map(({key, name}) => [key, name]), [['x', 'X'], ['y', 'y']]);
+  assert.deepEqual(model.series[0].boxes.map((box) => box.median), [1.5, 5]);
+  assert.equal(model.series[1].boxes[1], null);
+  // The measure is the first numeric field other than the group's.
+  const own = boxSeries([{g: 'a', v: 1}, {g: 'a', v: 3}]);
+  assert.deepEqual([own.xField, own.yField, own.series[0].key, own.series[0].boxes[0].median], ['g', 'v', 'v', 2]);
+  const given = boxSeries([{g: 'a', min: 1, q1: 2, median: 3, q3: 4, max: 9}, {g: 'b', min: 1}], {stats: 'given'});
+  assert.deepEqual([given.labels, given.missing, given.series[0].key, given.series[0].boxes[0].max], [['a'], 1, 'box', 9]);
+  assert.deepEqual(boxSeries([]).series, []);
 });

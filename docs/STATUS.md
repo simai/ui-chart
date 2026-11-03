@@ -19,6 +19,7 @@
 | Gauge 0.1.0 | done (2026-11-03), to hand to the dispatcher: `sf-chart-gauge`, one measured value on a fixed scale as a half circle or a bar, with bands in their roles' colours and names, a target mark, a meter and the summary | `components/src/smart/chart-gauge/`, `docs/evidence/chart-gauge-0.1.0.md` |
 | Scatter 0.1.0 | done (2026-11-03), to hand to the dispatcher: `sf-chart-scatter`, points at two measures with a third as bubbles' area, series by colour and mark shape, a trend line, the keyboard cursor over the points, the relation said in words, a canvas past 2,000 marks | `components/src/smart/chart-scatter/`, `docs/evidence/chart-scatter-0.1.0.md` |
 | Histogram (bar 0.5.0) | done (2026-11-03), to hand to the dispatcher: `bin` on `sf-chart-bar`, the distribution of one measure as touching bars per interval (auto or a width), counted or weighed, by series and stacked, the median in the summary | `components/src/smart/chart-bar/`, `docs/evidence/chart-bar-0.5.0.md` |
+| Box plot 0.1.0 | done (2026-11-03), to hand to the dispatcher: `sf-chart-box`, the median, quartiles, whiskers and outliers of one measure per group, from raw rows or given statistics, the mean on request, series side by side, the keyboard cursor over the boxes, the spread said in words | `components/src/smart/chart-box/`, `docs/evidence/chart-box-0.1.0.md` |
 | Release | waits for the Framework pair with parts 1–10 of the M0 and M1 evidence (the dispatcher's order) | — |
 
 Pinned SIMAI Framework release: `ui-de2b4437234a` (ui-source `5776ff08`, npm

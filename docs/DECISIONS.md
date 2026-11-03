@@ -446,6 +446,24 @@ This changes D4 option C ("no local palette") for named sets.
     measure. The summary says the median of each series and its fullest
     interval.
 
+- **The box plot's form** (`sf-chart-box`, the fifth chart).
+  - `x` names the groups and `y` the measure. `stats="raw"` (the default)
+    works the statistics out of the rows; `stats="given"` takes `min`,
+    `q1`, `median`, `q3`, `max` and `mean` from one row per group, for data
+    worked out on a server.
+  - The quartiles are linear between the two nearest values, as R's type
+    7, NumPy's and a spreadsheet's, so a page's people can check them.
+  - The whiskers are Tukey's 1.5 interquartile ranges by default, with the
+    values past them drawn as outliers; `whiskers="range"` takes them to
+    the extremes.
+  - `series` puts a box per series side by side in a group, in the
+    legend's order; in forced colours a series past the first has its own
+    outline's dash.
+  - `mean` adds a diamond at the mean. The keyboard is the bar chart's:
+    Left and Right over the groups, Up and Down across the series.
+  - SVG only: a box plot draws a few marks per group. A violin is a later
+    variant of the same data.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -461,6 +479,7 @@ This changes D4 option C ("no local palette") for named sets.
 | D9 | M2 plan and tag names as proposed; the funnel first, on a common baseline | 2026-11-03 | the owner's «Да, начинай с воронки» in the chat; the funnel's form decided by the recommendation under the owner's delegation |
 | D9 | The scatter: bubbles through the `bubble` field, shapes per series, the relation in words | 2026-11-03 | the owner's «Да, делай точечный» in the chat; the form decided by the recommendation under the owner's delegation |
 | D9 | The histogram: `bin` on `sf-chart-bar` (auto or a width), touching bars, edges on the axis | 2026-11-03 | the owner's «Да, гистограмму» in the chat; the form decided by the recommendation under the owner's delegation |
+| D9 | The box plot: `sf-chart-box`, raw or given statistics, linear quartiles, Tukey's whiskers by default, series side by side | 2026-11-03 | the owner's «Да, ящик с усами» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `2d3fb38`) |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

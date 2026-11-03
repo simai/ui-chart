@@ -1,0 +1,52 @@
+{
+  "title": "Box plot",
+  "runtime": {
+    "untitled": "Chart",
+    "roledescription": "box plot",
+    "summary-groups": "Groups: {groups}.",
+    "summary-groups-values": "Groups: {groups}, values: {values}.",
+    "summary-series": "{name}: highest median {high} ({highMedian}), lowest {low} ({lowMedian}); widest spread {wide} (the middle half within {spread}).",
+    "summary-one": "{name}: median {median}, the middle half from {from} to {to}.",
+    "summary-outliers": "Outliers: {count}.",
+    "summary-missing": "Rows without a value: {count}.",
+    "summary-empty": "No data.",
+    "cursor": "{name}: median {median}, quartiles {q1} – {q3}, whiskers {low} – {high}{outliers}",
+    "cursor-outliers": ", {count} outliers",
+    "cursor-none": "{name}: no data",
+    "group-n": "Group {n}",
+    "box-in": "{group}, {series}",
+    "group-column": "Group",
+    "series-column": "Series",
+    "value": "Value",
+    "min": "Minimum",
+    "q1": "Lower quartile",
+    "median": "Median",
+    "q3": "Upper quartile",
+    "max": "Maximum",
+    "mean": "Mean",
+    "count": "Values",
+    "outliers": "Outliers",
+    "gap": "no data",
+    "show-table": "Table",
+    "legend": "Series",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data"
+  },
+  "events": {
+    "toggle": {
+      "label": "Hide or show a series"
+    },
+    "select": {
+      "label": "Choose a box"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Show every series"
+    }
+  }
+}
