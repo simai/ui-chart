@@ -18,6 +18,7 @@ import {PALETTES} from '../src/smart/chart-core/palettes.js';
 import {colourValue, contrast, coloursKey, readColours} from '../src/smart/chart-core/colors.js';
 import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core/heat.js';
 import {funnelStages} from '../src/smart/chart-core/funnel.js';
+import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-core/gauge.js';
 
 test('records and columns read into the same rows', () => {
   const records = [{m: 'a', v: 1}, {m: 'b', v: 2}];
@@ -305,4 +306,26 @@ test('a funnel says each stage\'s share of the widest and its conversions, and w
   // One stage has no overall conversion.
   assert.equal(funnelStages(rows([10])).overall, null);
   assert.equal(funnelStages([]).first, null);
+});
+
+test('a gauge puts a value on its scale and in its band', () => {
+  const scale = {min: 0, max: 200};
+  assert.equal(gaugeShare(50, scale), 0.25);
+  assert.equal(gaugeShare(-10, scale), 0);
+  assert.equal(gaugeShare(250, scale), 1);
+  assert.equal(gaugeShare(null, scale), 0);
+  assert.equal(gaugeShare(5, {min: 10, max: 10}), 0);
+  assert.equal(gaugeAngle(0), -Math.PI / 2);
+  assert.equal(gaugeAngle(1), Math.PI / 2);
+  // A band starts where the one before ends; it is cut to the scale; a role
+  // that is not one is neutral; a band with nothing inside the scale is dropped.
+  const bands = gaugeBands([{to: 120, role: 'success', label: 'Ок'}, {to: 180, role: 'nope'}, {to: 300, role: 'error'}, {from: 400, to: 500, role: 'warning'}, {role: 'info'}], scale);
+  assert.deepEqual(bands.map(({from, to, role}) => [from, to, role]), [[0, 120, 'success'], [120, 180, 'neutral'], [180, 200, 'error']]);
+  assert.equal(bands[0].label, 'Ок');
+  assert.equal(bandOf(bands, 120).role, 'neutral');
+  assert.equal(bandOf(bands, 200).role, 'error');
+  assert.equal(bandOf(bands, 0).role, 'success');
+  assert.equal(bandOf(bands, 201), null);
+  assert.equal(bandOf(bands, null), null);
+  assert.deepEqual(gaugeBands('nope', scale), []);
 });

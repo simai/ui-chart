@@ -1,0 +1,302 @@
+{
+  "$comment": "The source of sf-chart-gauge (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Gauge) and docs/research/parameters.md §6 (target and bands are annotations), the name the owner's M2 plan of 2026-11-03 (docs/DECISIONS.md D9).",
+  "id": "smart.chart-gauge",
+  "tag": "sf-chart-gauge",
+  "version": "0.1.0",
+  "kind": "leaf",
+  "family": "chart",
+  "settings": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "summary": "What the value is, in a few words: the meter's accessible name and the table's caption. Required in practice: without it the gauge is named «Шкала»."
+    },
+    "value": {
+      "type": "number",
+      "optional": true,
+      "summary": "The measured value. Unset, the gauge is empty (data-state auto). A value past the scale is drawn at its end, said as past it, and is in the band at that end (past a critical band's end is critical)."
+    },
+    "min": {
+      "type": "number",
+      "default": 0,
+      "summary": "The start of the scale."
+    },
+    "max": {
+      "type": "number",
+      "default": 100,
+      "summary": "The end of the scale; it must be above min, or the gauge draws an empty scale and says so in the console."
+    },
+    "bands": {
+      "type": "list",
+      "default": [],
+      "of": "object",
+      "summary": "The zones of the scale, in order: [{to: 70, role: 'success', label: 'Норма'}, {to: 90, role: 'warning'}, {to: 100, role: 'error'}]. A band starts where the one before ends (min for the first) unless it gives from. role is a Framework role (success, warning, error, neutral …): the band's colour and, when it has no label, its name («Норма», «Внимание», «Критично»). The value is drawn in its band's colour and the band's name is written under it, so colour is never the only cue."
+    },
+    "target": {
+      "type": "number",
+      "optional": true,
+      "summary": "The reference value (a plan, a limit, an average): a mark across the scale, written under it with how far the value is from it."
+    },
+    "target-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the target: «Цель» when unset."
+    },
+    "shape": {
+      "type": "enum",
+      "values": [
+        "arc",
+        "linear"
+      ],
+      "default": "arc",
+      "summary": "arc: a half circle with the value in its middle, for a tile of its own; linear: a bar with the value over it (a bullet chart in effect), for a row or a tight place."
+    },
+    "color": {
+      "type": "string",
+      "default": "",
+      "summary": "The value's colour when it is in no band: a Framework role or any CSS colour or variable (primary when unset). It wins over --sf-chart-gauge-color; a value that is not a colour is dropped with a console report, as is one under 3:1 against the background (drawn all the same)."
+    },
+    "value-format": {
+      "type": "string",
+      "default": "number",
+      "summary": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "default": "1",
+      "summary": "The rung of the size ladder: the arc's width (at most 160, 256 or 448 px) or the bar's thickness, and the value's text. 1/2 for a tile in a row, 2 for a page of its own."
+    },
+    "table": {
+      "type": "enum",
+      "values": [
+        "toggle",
+        "visible",
+        "hidden"
+      ],
+      "default": "hidden",
+      "summary": "The same data as a table (the value, the target, every band with its range): hidden keeps it for screen readers only, the default, since the value is written on the gauge; toggle offers a button that swaps the gauge for it; visible shows it under the gauge."
+    },
+    "summary": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a sentence of the whole (the value on its scale and its share, the band it is in, how far it is from the target), kept for screen readers. The description slot adds the host's own words."
+    },
+    "data-state": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ],
+      "default": "auto",
+      "summary": "auto: ready with a value, empty without. loading draws the empty scale; error offers «Повторить», which sends refresh."
+    }
+  },
+  "events": {
+    "refresh": {
+      "carries": {},
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items."
+    }
+  },
+  "slots": {
+    "description": {
+      "$comment": "The host's own words about the gauge: said with the summary (aria-describedby) and shown under it."
+    }
+  },
+  "keyboard": null,
+  "relations": [
+    {
+      "name": "cl-empty-state"
+    }
+  ],
+  "templates": {
+    "default": {
+      "file": "js/templates/default.js",
+      "$comment": "The Lit template in JavaScript, the migration form of §5.2 (§16); the arc is SVG in a fixed view box scaled by its width, the linear form HTML with its positions as shares."
+    }
+  },
+  "styles": "js/templates/default.css",
+  "examples": "examples.json",
+  "docs": "docs.md",
+  "lang": "lang/",
+  "presentation": {
+    "skeleton": {
+      "$comment": "The value arrives after the first paint when the host loads it: the derived skeleton holds the gauge's box until it does (standard 1.3.8 §5.4). The arc's height follows its width by its view box's ratio, the bar's is the size rung's, so nothing is measured.",
+      "late": [
+        "value"
+      ]
+    }
+  },
+  "accessibility": {
+    "role": "figure",
+    "name": {
+      "from": [
+        "label",
+        "runtime.untitled"
+      ]
+    },
+    "keys": {
+      "Tab": "reach"
+    },
+    "x-keys": "The gauge takes no focus: it is a meter (role meter, aria-valuemin, aria-valuemax, aria-valuenow and a value text with the band's name), named by the label and described by the summary. Only the table button, when shown, is a Tab stop."
+  },
+  "css-variables": {
+    "--sf-chart-gauge-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-gauge-track-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-gauge-label-color": {
+      "type": "color",
+      "state": "default"
+    }
+  },
+  "x-summary": "A gauge: one measured value on a fixed scale (a server's load, a score, a temperature) as a half circle or a bar, with bands (normal, warning, critical) each in its role's colour and name, a target mark with the distance to it, the value written in its middle with its band's name, a meter for screen readers, a summary in words and the same data as a table.",
+  "x-source": {
+    "package": "chart",
+    "folder": "chart-gauge",
+    "research": "simai/ui-chart docs/research/catalogue.md (Gauge), docs/research/parameters.md §6"
+  },
+  "x-words": [
+    "label",
+    "target-label"
+  ],
+  "x-decisions": [
+    "name: sf-chart-gauge, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart (the owner's M2 plan of 2026-11-03; docs/DECISIONS.md D9), family chart.",
+    "scope: one measured value on a scale with bands or a target; task progress stays sf-progress-bar, sf-progress-ring and sf-progress-scale, and a value against a limit in a tile stays sf-chart-metric with max.",
+    "data: value, min and max as numbers, as sf-chart-metric's value: a gauge has no rows, so no items or field mapping (parameters.md: value is the measure where there is no x).",
+    "bands and target are the annotations of parameters.md §6 under the gauge's own names; a band's role is a Framework role, so its colour follows the theme and its name comes from the role when the page gives none.",
+    "form: arc, a half circle (not three quarters: a half circle reads as a scale from left to right and needs the least height), or linear, a bar with a band strip and the target mark; the arc is SVG in a fixed view box scaled by its width, the bar HTML with positions as unitless shares, so nothing is measured and the first paint is the drawn gauge.",
+    "the value fills the track from min in its band's colour, and the band's name is written under the value: colour is never the only cue. A value past the scale fills the track, is said as past it and is in the band at that end.",
+    "semantics: role meter with aria-valuemin, aria-valuemax, aria-valuenow and a value text; it takes no focus. No select event: there is one value, nothing to choose.",
+    "table: hidden by default, kept for screen readers, since the value is written on the gauge; toggle and visible on request; never none."
+  ],
+  "x-registry": {
+    "capabilities": [
+      "responsive"
+    ],
+    "persistence": {
+      "mode": "none",
+      "source_of_truth": "host",
+      "network_owner": "host",
+      "revision_field": null
+    },
+    "readiness": {
+      "level": "runnable",
+      "required_checks": [
+        "manifest",
+        "fixture",
+        "runtime-upgrade",
+        "keyboard",
+        "responsive",
+        "a11y"
+      ]
+    },
+    "tags": [
+      "chart",
+      "gauge",
+      "meter",
+      "threshold",
+      "target",
+      "data-visualization"
+    ],
+    "state": {
+      "machines": {
+        "data-state": [
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "visual_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "ownership": {
+      "source": "simai/ui-chart",
+      "data": "host",
+      "effects": "host",
+      "forbidden_client_responsibilities": [
+        "fetching data",
+        "aggregating on a server"
+      ]
+    },
+    "security": {
+      "permissions_owner": "host",
+      "untrusted_inputs": [
+        "props"
+      ],
+      "network_policy": "deny"
+    },
+    "presentation": {
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "locales": [
+        "ru",
+        "en"
+      ],
+      "responsive": [
+        "desktop",
+        "mobile",
+        "ltr",
+        "rtl",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "skeleton": {
+        "shape": "block",
+        "while_loading": "template"
+      }
+    },
+    "ai_guidance": {
+      "use_when": "Use sf-chart-gauge for one measured value on a fixed scale with zones or a target: a server's load, a score, a temperature, a plan's fulfilment.",
+      "do_not": [
+        "Do not draw a gauge without a label",
+        "Do not use it for task progress; that is sf-progress-bar, sf-progress-ring or sf-progress-scale",
+        "Do not use it for more than one value; that is sf-chart-bar",
+        "Do not use it for a value with no meaningful scale; that is sf-chart-metric"
+      ],
+      "required_reads": [
+        "inputs",
+        "accessibility"
+      ],
+      "minimal_example": "<sf-chart-gauge label=\"Загрузка процессора\" value=\"72\" target=\"80\" value-format=\"unit-percent\"></sf-chart-gauge>",
+      "owner_commands": [
+        "node scripts/test.mjs"
+      ]
+    },
+    "accessibility": {
+      "accessible_name": "required",
+      "keyboard": [
+        "Tab"
+      ],
+      "focus": "No Tab stop of its own: a meter with its value text, described by the summary. The table button, when shown, is a button of its own."
+    }
+  },
+  "x-rule": {
+    "$comment": [
+      "The chart draws its empty and error states as sf-empty-state; a tag it renders is a tag it fetches.",
+      "Its table toggle is a native button, so it fetches no sf-button."
+    ]
+  }
+}

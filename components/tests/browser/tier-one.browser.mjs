@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Usage: node this-file /absolute/path/to/output
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
-// sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap
-// and sf-chart-funnel.
+// sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
+// sf-chart-funnel and sf-chart-gauge.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -18,6 +18,8 @@
 //   diverging middle, the keyboard and forced colours;
 // - the funnel: its stages' height wide and narrow, bars that shorten stage
 //   by stage and hold 3:1, the keyboard and forced colours;
+// - the gauge: the arc's height from its width, the bar's thickness, the value
+//   in its band's colour at 3:1, the meter, and forced colours;
 // - many bars: 1,000 categories draw within the budget at a 4x CPU slowdown.
 import {resolve, join} from 'node:path';
 import {existsSync} from 'node:fs';
@@ -25,7 +27,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -574,6 +576,79 @@ try {
     const solid = await forced.evaluate(() => [...document.querySelectorAll('.sf-chart-funnel-bar')].map((node) => getComputedStyle(node).backgroundColor));
     evidence.funnel.forced = solid[0];
     if (new Set(solid).size !== 1 || solid[0] === 'rgba(0, 0, 0, 0)') note({case: 'funnel: in forced colours the bars are solid in the system colour', got: solid});
+    await forced.close();
+  }
+
+  // 3e. The gauge: the arc's height follows its width by the view box's
+  // ratio and the arc is at most its rung's width; the bar is its rung's
+  // thickness; the value is drawn in its band's colour, which holds 3:1
+  // against the page in both themes; it is a meter that takes no focus; in
+  // forced colours the track is an outline and the value solid.
+  {
+    const WIDE = {'1/2': 160, 1: 256, 2: 448};
+    const BAR = {'1/2': 6, 1: 12, 2: 20};
+    const zones = [{to: 70, role: 'success'}, {to: 90, role: 'warning'}, {to: 100, role: 'error'}];
+    const gauge = {label: 'Загрузка', value: '72', target: '80', 'value-format': 'unit-percent'};
+    const rgb = (value) => value.match(/\d+/gu).slice(0, 3).map(Number);
+    evidence.gauge = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-gauge', {...gauge, size}, {bands: zones});
+          const arc = await page.evaluate(() => {
+            const art = document.querySelector('.sf-chart-gauge-art').getBoundingClientRect();
+            const plot = document.querySelector('.sf-chart-gauge-plot').getBoundingClientRect();
+            const value = document.querySelector('.sf-chart-gauge-value').getBoundingClientRect();
+            return {width: art.width, height: art.height, plot: plot.width, inside: value.left >= art.left && value.right <= art.right && value.bottom <= art.bottom + 1, pageOverflow: document.documentElement.scrollWidth - innerWidth};
+          });
+          const wide = Math.min(arc.plot, WIDE[size]);
+          await make(page, 'sf-chart-gauge', {...gauge, size, shape: 'linear'}, {bands: zones});
+          const bar = await page.evaluate(() => {
+            const rail = document.querySelector('.sf-chart-gauge-rail').getBoundingClientRect();
+            const level = document.querySelector('.sf-chart-gauge-level').getBoundingClientRect();
+            return {height: rail.height, share: Math.round((level.width / rail.width) * 1000) / 1000};
+          });
+          evidence.gauge.geometry.push({theme, width, size, arc: {width: Math.round(arc.width), height: Math.round(arc.height * 10) / 10}, bar});
+          if (Math.abs(arc.width - wide) > 1 || Math.abs(arc.height - (arc.width * 101) / 200) > 1 || !arc.inside || arc.pageOverflow > 0) note({case: `gauge ${theme} ${width}px size ${size}: the arc is its rung's width at most, its height its view box's, the value inside it`, got: arc, want: wide});
+          if (Math.abs(bar.height - BAR[size]) > 0.5 || Math.abs(bar.share - 0.72) > 0.01) note({case: `gauge ${theme} ${width}px size ${size}: the bar is its rung's thickness, filled to the value's share`, got: bar});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-gauge', gauge, {bands: zones});
+          const colours = await page.evaluate(() => ({
+            fill: getComputedStyle(document.querySelector('.sf-chart-gauge-fill')).fill,
+            band: getComputedStyle(document.querySelector('path.sf-chart-gauge-band--warning')).fill,
+            body: getComputedStyle(document.body).backgroundColor,
+          }));
+          const ratio = Math.round(contrast(rgb(colours.fill), rgb(colours.body)) * 100) / 100;
+          evidence.gauge.contrast[theme] = {ratio, fill: colours.fill};
+          if (ratio < 3 || colours.fill !== colours.band) note({case: `gauge ${theme}: the value is its band's colour and holds 3:1 against the page`, got: colours, ratio});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-gauge', gauge, {bands: zones});
+    await page.focus('#before');
+    await page.keyboard.press('Tab');
+    const meter = await page.evaluate(() => {
+      const node = document.querySelector('[role=meter]');
+      return {focus: !document.activeElement.closest('sf-chart-gauge'), now: node.getAttribute('aria-valuenow'), text: node.getAttribute('aria-valuetext').replace(/ | /gu, ' '), name: node.getAttribute('aria-label'), target: document.querySelector('.sf-chart-gauge-target').textContent.replace(/\s+/gu, ' ').trim()};
+    });
+    evidence.gauge.meter = meter;
+    if (!meter.focus || meter.now !== '72' || !/^72 ?%, Внимание$/u.test(meter.text) || meter.name !== 'Загрузка') note({case: 'gauge: a meter named by the label, with its value text, that takes no focus', got: meter});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-gauge', gauge, {bands: zones});
+    const solid = await forced.evaluate(() => ({
+      track: getComputedStyle(document.querySelector('.sf-chart-gauge-track')).stroke,
+      fill: getComputedStyle(document.querySelector('.sf-chart-gauge-fill')).fill,
+      zone: document.querySelector('.sf-chart-gauge-zone').textContent.trim(),
+    }));
+    evidence.gauge.forced = solid;
+    if (solid.track === 'none' || solid.fill === 'none' || solid.zone !== 'Внимание') note({case: 'gauge: in forced colours the track is an outline, the value solid and the zone named', got: solid});
     await forced.close();
   }
 

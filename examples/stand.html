@@ -101,10 +101,10 @@
 <script src="/framework/core/js/core.js"></script>
 <script type="module">
   const CHARTS = [
-    ['chart-line', 'Линии'], ['chart-bar', 'Столбцы'], ['chart-pie', 'Круг'], ['chart-sparkline', 'Мини-график'], ['chart-metric', 'Показатель'], ['chart-parts', 'Полоса частей'], ['chart-heatmap', 'Тепловая карта'], ['chart-funnel', 'Воронка'],
+    ['chart-line', 'Линии'], ['chart-bar', 'Столбцы'], ['chart-pie', 'Круг'], ['chart-sparkline', 'Мини-график'], ['chart-metric', 'Показатель'], ['chart-parts', 'Полоса частей'], ['chart-heatmap', 'Тепловая карта'], ['chart-funnel', 'Воронка'], ['chart-gauge', 'Шкала'],
   ];
   // Settings the stand draws as JSON, and those it never offers as a field.
-  const DATA = new Set(['items', 'names']);
+  const DATA = new Set(['items', 'names', 'bands']);
   const NOTES = {
     property: 'Страница присваивает chart.items = […] и chart.names = {…} после того, как элемент в документе.',
     island: 'Списки и объекты лежат внутри тега: <script type="application/json" data-sf-settings>. Скрипт страницы не нужен; сервер печатает так первую отрисовку (стандарт §5.4).',

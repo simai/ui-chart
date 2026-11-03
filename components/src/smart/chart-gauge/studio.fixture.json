@@ -1,0 +1,16 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-gauge",
+  "title": "gauge reference",
+  "summary": "Deterministic reference fixture for sf-chart-gauge.",
+  "locale": "ru",
+  "props": {
+    "label": "Загрузка процессора",
+    "value": 72,
+    "target": 80,
+    "value-format": "unit-percent"
+  },
+  "children": [],
+  "state": "default"
+}

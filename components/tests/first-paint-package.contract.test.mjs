@@ -13,9 +13,9 @@ import {describe, exampleFiles, givesLateData, sizeProblem} from '../scripts/fir
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const smart = join(root, 'src', 'smart');
-const PACKAGE = ['chart-line', 'chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel'];
+const PACKAGE = ['chart-line', 'chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge'];
 // The element that holds each chart's box from the first paint.
-const BOX = {'chart-line': 'sf-chart-line-plot', 'chart-sparkline': 'sf-chart-sparkline', 'chart-bar': 'sf-chart-bar-plot', 'chart-pie': 'sf-chart-pie-plot', 'chart-metric': 'sf-chart-metric', 'chart-parts': 'sf-chart-parts-plot', 'chart-heatmap': 'sf-chart-heatmap-plot', 'chart-funnel': 'sf-chart-funnel-plot'};
+const BOX = {'chart-line': 'sf-chart-line-plot', 'chart-sparkline': 'sf-chart-sparkline', 'chart-bar': 'sf-chart-bar-plot', 'chart-pie': 'sf-chart-pie-plot', 'chart-metric': 'sf-chart-metric', 'chart-parts': 'sf-chart-parts-plot', 'chart-heatmap': 'sf-chart-heatmap-plot', 'chart-funnel': 'sf-chart-funnel-plot', 'chart-gauge': 'sf-chart-gauge-plot'};
 
 test('every example of every package component has its static markup and sheets', () => {
   for (const folder of PACKAGE) {

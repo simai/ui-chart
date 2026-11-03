@@ -399,6 +399,23 @@ This changes D4 option C ("no local palette") for named sets.
     one before is drawn as given, and the summary says the stages are not
     nested.
 
+- **The gauge's form** (`sf-chart-gauge`, the second chart).
+  - One value with `min` and `max` as numbers, like `sf-chart-metric`'s
+    value, since a gauge has no rows.
+  - `bands` and `target` are the annotations of parameters.md §6 under the
+    gauge's own names.
+  - A band's role is a Framework role. Its colour follows the theme, and
+    its name comes from the role («Норма», «Внимание», «Критично») when the
+    page gives none.
+  - The shape is a half circle (`arc`) or a bar (`linear`). A half circle
+    reads left to right and needs the least height.
+  - The value fills the track in its band's colour, and the band's name is
+    written under the value. A value past the scale is in the band at that
+    end.
+  - It is a `meter`, takes no focus and has no `select`.
+  - Its table is hidden by default, since the value is written on the
+    gauge.
+
 ## Answers
 
 | # | Answer | Date | Record |

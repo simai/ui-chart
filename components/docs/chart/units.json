@@ -197,6 +197,13 @@
       "recorded_on": "2026-11-03",
       "change": "added",
       "summary": "sf-chart-funnel: the stages of a process, each a subset of the last (stage and value fields, in the data's order), as bars on a common baseline or centred, the value and the conversion (of the previous stage or of the first) beside each stage, one colour for the measure, gaps as outlined empty tracks, a tooltip, a keyboard cursor over the stages said in a live region, a summary sentence (the overall conversion, the largest loss), the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-gauge",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-03",
+      "change": "added",
+      "summary": "sf-chart-gauge: one measured value on a fixed scale (value, min, max) as a half circle or a bar, with bands in their Framework roles' colours and names, a target mark with the distance to it, the value written in its middle in its band's colour with the band's name under it, a meter with a value text for screen readers, a summary sentence, the same data as a table (hidden by default), loading, empty and error states."
     }
   ]
 }

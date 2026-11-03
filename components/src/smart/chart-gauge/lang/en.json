@@ -1,0 +1,35 @@
+{
+  "title": "Gauge",
+  "runtime": {
+    "untitled": "Gauge",
+    "gap": "no data",
+    "show-table": "Table",
+    "loading": "Loading the chart data",
+    "empty-title": "No data for the chart",
+    "error-title": "The data could not be loaded",
+    "target": "Target",
+    "target-line": "{name}: {target}",
+    "target-where": ", {where}",
+    "above": "above by {by}",
+    "below": "below by {by}",
+    "at": "exactly",
+    "value-text": "{value}, {band}",
+    "zone-success": "Normal",
+    "zone-warning": "Warning",
+    "zone-error": "Critical",
+    "zone-other": "Zone {number}",
+    "range": "{from} – {to}",
+    "summary-value": "{value} on a scale from {min} to {max} ({share}).",
+    "summary-over": "{value}: above the scale, which ends at {max}.",
+    "summary-under": "{value}: below the scale, which starts at {min}.",
+    "summary-band": "Zone «{band}»: {range}.",
+    "summary-target": "{name} {target}: {where}.",
+    "value-column": "Value",
+    "what-column": "What"
+  },
+  "events": {
+    "refresh": {
+      "label": "Load the data again"
+    }
+  }
+}
