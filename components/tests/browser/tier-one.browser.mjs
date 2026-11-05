@@ -4,7 +4,7 @@
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
 // sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box,
 // sf-chart-radar, sf-chart-candlestick, sf-chart-waterfall, sf-chart-treemap,
-// sf-chart-timeline, sf-chart-sankey and sf-chart-sunburst.
+// sf-chart-timeline, sf-chart-sankey, sf-chart-sunburst and sf-chart-map.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -28,12 +28,12 @@
 // - the histogram: its rung's height, touching bars, edge labels inside;
 // - many bars: 1,000 categories draw within the budget at a 4x CPU slowdown.
 import {resolve, join} from 'node:path';
-import {existsSync} from 'node:fs';
+import {existsSync, readFileSync} from 'node:fs';
 import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap', 'chart-timeline', 'chart-sankey', 'chart-sunburst'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap', 'chart-timeline', 'chart-sankey', 'chart-sunburst', 'chart-map'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -1569,6 +1569,97 @@ try {
     const plain = await forced.evaluate(() => [...document.querySelectorAll('#chart .sf-chart-sunburst-arc')].slice(0, 4).map((one) => ({fill: getComputedStyle(one).fill, stroke: getComputedStyle(one).stroke})));
     evidence.sunburst.forced = plain;
     if (new Set(plain.map((one) => `${one.fill} ${one.stroke}`)).size !== 1 || plain[0].fill === plain[0].stroke) note({case: 'sunburst: in forced colours every arc is the canvas with a line of the text colour', got: plain});
+    await forced.close();
+  }
+
+  // 3p. The map: the plot is its rung's height and every region and name
+  // stays in it on every rung and width, the map whole; a name holds 4.5:1
+  // on its region's fill and the legend on the page in both themes, the
+  // steps differ, a region without data keeps a 3:1 outline; the regions
+  // are one Tab stop walked in reading order and to the nearest below,
+  // each said with its value and place; the pointer on a region shows it;
+  // in forced colours every region is the canvas with a line of the text
+  // colour. The regions are the package's invented example map: the
+  // package holds no real one.
+  {
+    const example = JSON.parse(readFileSync(resolve(import.meta.dirname, '../../src/smart/chart-map/examples.json'), 'utf8')).examples.find((one) => one.name === 'reference').settings;
+    const {shapes, items} = example;
+    const rates = {label: 'Безработица', region: 'district', value: 'rate', 'value-format': 'decimal-1'};
+    const rgb = (value) => value.match(/[\d.]+/gu).slice(0, 3).map(Number);
+    evidence.map = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-map', {...rates, size}, {shapes, items});
+          const shape = await shapeOf(page, {frame: '.sf-chart-map-plot', marks: '.sf-chart-map-marks .sf-chart-map-area', texts: '.sf-chart-map-svg text'});
+          const names = await page.evaluate(() => document.querySelectorAll('#chart .sf-chart-map-name').length);
+          evidence.map.geometry.push({theme, width, size, height: shape.height, regions: shape.marks, names});
+          if (shape.height !== RUNG[size] || shape.marks !== 9 || shape.outside || shape.pageOverflow > 0) note({case: `map ${theme} ${width}px size ${size}: the plot is its rung's height, nine regions, every region and name inside`, got: {shape, names}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-map', {...rates, size: '2'}, {shapes, items});
+          const paint = await page.evaluate(() => ({
+            pairs: [...document.querySelectorAll('#chart .sf-chart-map-region:not(.sf-chart-map-region--gap)')].filter((one) => one.querySelector('text')).map((one) => [getComputedStyle(one.querySelector('text')).fill, getComputedStyle(one.querySelector('path')).fill]),
+            fills: [...new Set([...document.querySelectorAll('#chart .sf-chart-map-region[data-step] path')].map((one) => `${one.closest('[data-step]').dataset.step}:${getComputedStyle(one).fill}`))],
+            gap: getComputedStyle(document.querySelector('#chart .sf-chart-map-region--gap path')).stroke,
+            legend: getComputedStyle(document.querySelector('#chart .sf-chart-map-legend')).color,
+          }));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const names = paint.pairs.map(([ink, fill]) => Math.round(contrast(rgb(ink), rgb(fill)) * 100) / 100);
+          const legend = Math.round(contrast(rgb(paint.legend), background) * 100) / 100;
+          const gap = Math.round(contrast(rgb(paint.gap), background) * 100) / 100;
+          const steps = new Set(paint.fills.map((one) => one.split(':').slice(1).join(':'))).size;
+          evidence.map.contrast[theme] = {names, legend, gap, steps};
+          if (!names.length || names.some((ratio) => ratio < 4.5) || legend < 4.5 || gap < 3 || steps !== 5) note({case: `map ${theme}: every name 4.5:1 on its region, the legend 4.5:1 and the gap's outline 3:1 on the page, five steps of their own`, got: {paint, names, legend, gap, steps}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-map', rates, {shapes, items});
+    await page.focus('#before');
+    for (let press = 0; press < 2; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-map-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/\u00a0|\u202f/gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const down = await said('ArrowDown');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-map-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-map-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-map-svg'));
+    // The pointer in the middle of «Речной».
+    const spot = await page.evaluate(() => {
+      const chart = document.querySelector('#chart');
+      const region = chart._geometry.regions.find((one) => one.key === 'Речной');
+      const box = chart.querySelector('svg[role=group]').getBoundingClientRect();
+      return {x: box.left + region.x, y: box.top + region.y};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-map-tooltip')?.textContent.replace(/\s+/gu, ' ').trim().replace(/\u00a0|\u202f/gu, ' ') ?? '');
+    const keys = {focused, first, second, down, end, chosen, tip, cleared, out, hover};
+    evidence.map.keyboard = keys;
+    if (!focused || first !== 'Лесной: 4,1, место 4 из 8' || second !== 'Северный: 3,2, место 6 из 8' || down !== 'Центральный: 1,9, место 8 из 8' || end !== 'Степной: нет данных'
+      || chosen.length !== 1 || chosen[0].region !== 'Степной' || chosen[0].value !== null
+      || !tip.startsWith('Степной') || cleared || !out || hover !== 'Речной Значение 6,4 Место 1 из 8') note({case: 'map: one Tab stop after the table button; the arrows walk the regions in reading order and to the nearest below, each said with its value and place; Enter selects, Escape clears; the pointer on a region shows it', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-map', rates, {shapes, items});
+    const plain = await forced.evaluate(() => [...document.querySelectorAll('#chart .sf-chart-map-region:not(.sf-chart-map-region--gap) path')].slice(0, 3).map((one) => ({fill: getComputedStyle(one).fill, stroke: getComputedStyle(one).stroke})));
+    evidence.map.forced = plain;
+    if (new Set(plain.map((one) => `${one.fill} ${one.stroke}`)).size !== 1 || plain[0].fill === plain[0].stroke) note({case: 'map: in forced colours every region is the canvas with a line of the text colour', got: plain});
     await forced.close();
   }
 

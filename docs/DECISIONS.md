@@ -65,7 +65,8 @@ Why `line` first:
 - **Progress.** The Framework already has `sf-progress-bar`,
   `sf-progress-ring` and `sf-progress-scale`.
 - **The map.** Map borders and map-data licences need a separate owner
-  decision before any work.
+  decision before any work. (Decided on 2026-11-05: the page gives the
+  boundaries, D16.)
 
 ## D2. Tag names
 
@@ -694,6 +695,55 @@ owner's delegation.
 - **Out of 0.1.0.** Drill-down into a branch, a legend, and arcs placed by
   hand.
 
+## D16. The map
+
+After the sunburst the owner chose the map (2026-11-05) and decided where
+its boundaries come from (owner question `q-f136944dd5`): **the page gives
+them**. The rest of its form was decided by the recommendation under the
+owner's delegation.
+
+- **Tag.** `sf-chart-map`, with its core in `chart-core/geo.js` (own
+  implementation).
+- **Boundaries.** The page sets them as GeoJSON in the `shapes` property:
+  a FeatureCollection or a list of Features with Polygon or MultiPolygon
+  geometry. Islands and holes, such as lakes, are kept.
+  - The package holds no map. No third-party geometry or licence enters
+    it, and the borders, disputed ones included, are the host's.
+  - The examples and tests draw an invented map of nine districts and a
+    warehouse scheme, not a real boundary.
+  - A feature's key is its id (or `shape-key`), its name `name` (or
+    `shape-name`).
+- **Data.** The rows give a region's key and value (`region`, `value`).
+  - A row naming no region on the map is counted in the summary.
+  - A region without a value is drawn as the empty surface with a dashed
+    line, and the legend names it.
+- **Projection.** It is set by `projection`:
+  - `mercator`, the default, keeps angles (a city, a small country);
+  - `albers` keeps areas through two parallels of the map (a wide country
+    such as Russia);
+  - `equirectangular` takes the degrees as they are;
+  - `plane` takes the coordinates as they are (a floor plan, a scheme).
+  - The map is fitted into the plot with its proportions, and a map across
+    the 180th meridian is kept whole.
+- **Colour.** The heatmap's stepped scale on the theme's tone ladders
+  (D8), sequential or diverging, with the same settings and a legend of
+  the steps. A choropleth shows a rate or a ratio; the docs say to divide
+  counts.
+- **Words.** A region's name stands in its middle, cut to its width, when
+  the region is tall enough.
+- **Keyboard.**
+  - The cursor walks the regions in reading order, top to bottom and left
+    to right.
+  - Up and Down go to the nearest region above or below.
+  - Each region is said with its value and its place among the regions.
+  - The table has a row per region, largest first, with its place.
+- **Out of 0.1.0.**
+  - Maps in the package.
+  - Zoom and pan.
+  - Points or proportional symbols on the map, which the catalogue names
+    for counts.
+  - A continuous colour ramp.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -717,6 +767,7 @@ owner's delegation.
 | D13 | The timeline: `sf-chart-timeline`, row, start, end and status fields, a row holding one range or many, milestones as diamonds, a status in a chart colour, the rows, layout and time scale in the core for reuse | 2026-11-05 | the owner's «Гант / таймлайн» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `3bb85b5`, bus `msg-6a10fbed66144c44b6ba`) |
 | D14 | The Sankey diagram: `sf-chart-sankey`, source, target and value fields, a pair summed, loops left out and counted, columns by the longest path with the ends last, a node in a chart colour and its bands in its light fill, the keyboard along the largest flows | 2026-11-05 | the owner's «Sankey» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `4a70440`, bus `msg-d8408d476f8b4d55b157`) |
 | D15 | The sunburst: `sf-chart-sunburst`, an id and a parent per row (`node`, `parent`) or a path of names, a parent's value its own with its children's, rings round a hole with the total, a branch in its top node's chart colour, names along the arcs, the keyboard round the rings and in and out | 2026-11-05 | the owner's «Солнечные круги» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `868426b`, bus `msg-285614a61887494785a1`) |
+| D16 | The map: `sf-chart-map`, the boundaries given by the page as GeoJSON with no map in the package, values joined by key, mercator, albers, equirectangular or plane projection, the heatmap's stepped scale with a legend, the keyboard in reading order | 2026-11-05 | the owner's «Да, карта» and «Границы даёт сайт» in the chat (owner question `q-f136944dd5`); the rest decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `906d127`, bus `msg-02933d743db64e92b1e1`) |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

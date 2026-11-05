@@ -459,10 +459,9 @@ of Tier 1 except `kpi` draws on one shared cartesian or polar core (see
   for counts (FT Visual Vocabulary, spatial).
 - **Evidence:** 10 (E H A Cb S N D P G Gr).
 - **Relation:** spatial.
-- **Component.** It needs geometry data (regions) and a decision on where
-  the map files come from and under which licence. Map borders are
-  politically sensitive. This is a separate owner decision before any work
-  on it.
+- **Component.** `sf-chart-map` 0.1.0 (`docs/DECISIONS.md` D16). The
+  owner decided that the page gives the regions as GeoJSON: the package
+  holds no map, so the boundaries and their licence are the host's.
 
 ## Left out, and why
 

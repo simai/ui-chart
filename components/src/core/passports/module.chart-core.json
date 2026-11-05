@@ -21,6 +21,7 @@
     "src/smart/chart-core/format.js",
     "src/smart/chart-core/funnel.js",
     "src/smart/chart-core/gauge.js",
+    "src/smart/chart-core/geo.js",
     "src/smart/chart-core/heat.js",
     "src/smart/chart-core/ohlc.js",
     "src/smart/chart-core/palettes.js",
@@ -36,7 +37,7 @@
     "src/smart/chart-core/treemap.js",
     "src/smart/chart-core/waterfall.js"
   ],
-  "content_sha256": "c31e11c9e1027e0285fb724d40166d9765c73344c7d132a37b8984b6ca5b2283",
+  "content_sha256": "5ff1f59a93ee60f0670b7d23be72f2613f3fadb784299918732dcb7b1ab1b262",
   "dependencies": [
     {
       "id": "core.runtime",

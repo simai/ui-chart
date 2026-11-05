@@ -291,6 +291,13 @@
       "recorded_on": "2026-11-05",
       "change": "added",
       "summary": "sf-chart-sunburst: a hierarchy as rings round a centre, read from an id and a parent per row (node, parent) or from a path of names (path), a parent's value its own with its children's, the top nodes sharing the turn largest first and a child its parent's angle by its share, a ring per level outside a hole with the total, a branch in its top node's chart colour (--sf-chart-N, colors by top node name) as a light fill with a line round each arc, lighter past the first ring, names along the arcs where they fit (labels), a tooltip with the shares of the parent and the whole, a keyboard cursor round the rings and in and out of them, a summary sentence with the levels, the total, the largest branch and the largest end part, every node as a row of the table, loops of parents left out and counted, loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-map",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-05",
+      "change": "added",
+      "summary": "sf-chart-map: a choropleth map, a rate or a ratio by region; the regions given by the page as GeoJSON Polygon or MultiPolygon features (shapes, shape-key, shape-name), the package holding no map; the values joined by key (region, value); mercator, albers, equirectangular or plane projection, fitted into the plot, a map across the 180th meridian kept whole; the heatmap's stepped scale on the theme's tone ladders (scale, scheme, better, steps, middle, min, max) with a legend, a region without data as a dashed outline; names in the regions where they fit (labels), a tooltip with the value and the place, a keyboard cursor over the regions in reading order and to the nearest above or below, a summary sentence with the range, the most and the least, every region as a row of the table, rows without a region counted, loading, empty and error states."
     }
   ]
 }

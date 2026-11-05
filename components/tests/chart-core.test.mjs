@@ -26,6 +26,7 @@ import {squarify, treemapLayout, treemapRows} from '../src/smart/chart-core/tree
 import {cutText, durationOf, nearestRange, statusTimes, timelineLayout, timelineRows} from '../src/smart/chart-core/timeline.js';
 import {bandPathOf, onBand, sankeyLayout, sankeyRows} from '../src/smart/chart-core/sankey.js';
 import {arcAt, sunburstLayout, sunburstRows} from '../src/smart/chart-core/sunburst.js';
+import {geoLayout, geoRegions, geoValues, nearestRegion, projectionOf, regionOrder} from '../src/smart/chart-core/geo.js';
 import {compareRings, labelPlace, radarRuns, spokeAngle, spokePoint} from '../src/smart/chart-core/radar.js';
 import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
@@ -700,4 +701,42 @@ test('sunburst layout gives a child its parent\'s angle by its share, a ring per
   assert.equal(arcAt(layout, 100, 10).node.name, 'x');
   assert.equal(arcAt(layout, 100, 100), null);
   assert.equal(arcAt(layout, 40, 100).node.name, 'B');
+});
+
+test('map regions read GeoJSON polygons and multipolygons, and values join them by key', () => {
+  const square = (x, y, size = 1) => [[[x, y], [x + size, y], [x + size, y + size], [x, y + size], [x, y]]];
+  const shapes = {type: 'FeatureCollection', features: [
+    {type: 'Feature', id: 'a', properties: {name: 'Альфа'}, geometry: {type: 'Polygon', coordinates: square(0, 0)}},
+    {type: 'Feature', properties: {id: 'b'}, geometry: {type: 'MultiPolygon', coordinates: [square(1, 0), square(3, 0, 0.5)]}},
+    {type: 'Feature', properties: {name: 'Без ключа'}, geometry: {type: 'Polygon', coordinates: square(0, 1)}},
+    {type: 'Feature', id: 'a', geometry: {type: 'Polygon', coordinates: square(2, 2)}},
+    {type: 'Feature', id: 'c', geometry: {type: 'Point', coordinates: [0, 0]}},
+  ]};
+  const {regions, dropped} = geoRegions(shapes);
+  assert.deepEqual([regions.map((one) => `${one.key}:${one.name}:${one.polygons.length}`), dropped], [['a:Альфа:1', 'b:b:2'], 3]);
+  assert.deepEqual(geoRegions(shapes.features, {keyField: 'name'}).regions.map((one) => one.key), ['Альфа', 'Без ключа']);
+  const joined = geoValues([{zone: 'a', rate: 2}, {zone: 'b', rate: 'x'}, {zone: 'z', rate: 4}, {zone: 'a', rate: 3}], regions);
+  assert.deepEqual([joined.regionField, joined.valueField, [...joined.values], joined.unmatched, joined.missing], ['zone', 'rate', [['a', 3]], 1, 1]);
+});
+
+test('map layout projects, fits the shape into the box with its proportions, keeps a map across the 180th meridian whole, and orders the regions', () => {
+  const box = (x0, y0, x1, y1) => ({type: 'Feature', id: `${x0},${y0}`, geometry: {type: 'Polygon', coordinates: [[[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]]]}});
+  const plane = geoRegions([box(0, 0, 10, 10), box(10, 0, 20, 10), box(0, 10, 10, 20)]).regions;
+  const places = geoLayout(plane, {width: 200, height: 100}, {projection: 'plane', pad: 0});
+  assert.deepEqual(places.map((one) => [one.box.x, one.box.y, one.box.w, one.box.h]), [[50, 0, 50, 50], [100, 0, 50, 50], [50, 50, 50, 50]]);
+  assert.deepEqual(places.map((one) => [one.x, one.y]), [[75, 25], [125, 25], [75, 75]]);
+  assert.match(places[0].path, /^M50 0L100 0L100 50L50 50L50 0Z$/u);
+  assert.deepEqual(regionOrder(places, 20), [0, 1, 2]);
+  assert.deepEqual([nearestRegion(places, 0, false), nearestRegion(places, 2, true), nearestRegion(places, 1, true)], [2, 0, null]);
+  // North is up: the northern of two regions stands higher.
+  const geo = geoRegions([box(30, 50, 40, 55), box(30, 55, 40, 60)]).regions;
+  for (const projection of ['mercator', 'albers', 'equirectangular']) {
+    const [south, north] = geoLayout(geo, {width: 300, height: 300}, {projection});
+    assert.ok(north.y < south.y, projection);
+  }
+  const albers = projectionOf('albers', {left: 20, right: 180, bottom: 40, top: 80});
+  assert.ok(Math.abs(albers([100, 60])[0]) < 1e-9);
+  const across = geoRegions([box(170, 60, 179.9, 65), box(-179.9, 60, -170, 65)]).regions;
+  const [west, east] = geoLayout(across, {width: 400, height: 100}, {projection: 'mercator', pad: 0});
+  assert.ok(east.box.x >= west.box.x + west.box.w - 1 && east.box.x - (west.box.x + west.box.w) < 5);
 });

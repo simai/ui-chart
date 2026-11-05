@@ -1,0 +1,16 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-map",
+  "title": "map reference",
+  "summary": "Deterministic reference fixture for sf-chart-map.",
+  "locale": "ru",
+  "props": {
+    "label": "Безработица по районам, %",
+    "region": "district",
+    "value": "rate",
+    "value-format": "decimal-1"
+  },
+  "children": [],
+  "state": "default"
+}

@@ -37,7 +37,9 @@ const PENDING = [
   {component: 'chart-timeline', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-sankey', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-sunburst', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
+  {component: 'chart-map', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-gauge', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
+  {component: 'chart-map', property: 'scheme', reason: 'the colour family of the map\'s sequential steps, as chart-heatmap scheme, which ui-source exempts: success and warning there name a colour family, not a status'},
 ];
 
 // The free rule's words, as ui-source writes them at the pin.
