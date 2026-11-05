@@ -744,6 +744,30 @@ owner's delegation.
     for counts.
   - A continuous colour ramp.
 
+## D17. The set and its site
+
+The owner asked (2026-11-05) to lay the repository out by the standard of
+component sets, as ui-view was, and to build its site on the local host
+ui-chart.test: «сделай все по стандарту, а потом мы с тобой, может,
+модернизируем стандарт».
+
+- **The set.** `chart` is a component set (standard `simai.component-set`
+  1.0.0, ui-control `decisions/2026-11-03-component-sets.md`). The package
+  folder is `package/` (was `components/`), with the passport `set.json`
+  (licence simai-pro, `core.runtime` >=1.25.0 over the pinned ui-source,
+  family `chart`, the 19 components as `preview`), the npm name
+  `@simai-studio/chart`, the passport test, the registry check and the
+  gates script of the reference set ui-view.
+- **Registry.** The registry at ui-source main lists 11 of the 19 names.
+  The other 8, reserved by the dispatcher in ui-control, are pending in
+  `tests/set-registry.mjs` and ordered into the registry from the
+  dispatcher.
+- **The site.** `site/`, built with Docara as ui-view's, on the set site
+  scheme the owner agreed on 2026-11-05: a home page (hero, the charts in
+  tabs, the connection line, advantages, footer), the Guide and the
+  Components reference, Russian under `/ru/`. Local only: nothing is
+  published, and chart.simai.io is not set up.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -768,6 +792,7 @@ owner's delegation.
 | D14 | The Sankey diagram: `sf-chart-sankey`, source, target and value fields, a pair summed, loops left out and counted, columns by the longest path with the ends last, a node in a chart colour and its bands in its light fill, the keyboard along the largest flows | 2026-11-05 | the owner's «Sankey» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `4a70440`, bus `msg-d8408d476f8b4d55b157`) |
 | D15 | The sunburst: `sf-chart-sunburst`, an id and a parent per row (`node`, `parent`) or a path of names, a parent's value its own with its children's, rings round a hole with the total, a branch in its top node's chart colour, names along the arcs, the keyboard round the rings and in and out | 2026-11-05 | the owner's «Солнечные круги» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `868426b`, bus `msg-285614a61887494785a1`) |
 | D16 | The map: `sf-chart-map`, the boundaries given by the page as GeoJSON with no map in the package, values joined by key, mercator, albers, equirectangular or plane projection, the heatmap's stepped scale with a legend, the keyboard in reading order | 2026-11-05 | the owner's «Да, карта» and «Границы даёт сайт» in the chat (owner question `q-f136944dd5`); the rest decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `906d127`, bus `msg-02933d743db64e92b1e1`) |
+| D17 | The set `chart` laid out by `simai.component-set` 1.0.0 and its site on the agreed scheme, local | 2026-11-05 | the owner in the chat: «подготовить сайт на локалке ui-chart.test … сделай все по стандарту» |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

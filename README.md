@@ -6,10 +6,13 @@ other Smart component and loaded by the same Loader.
 
 - Tags: `sf-chart-*` (one prefix `sf-`, one registry of names with the
   Framework and SIMAI Pro).
-- Delivery: the component package `chart` (`SF_BOOT_CONFIG.packages.chart`),
-  built over one pinned SIMAI Framework release, standard
-  `simai.component-package` 1.1.1.
-- Source: [`components/`](components/README.md).
+- Delivery: the component set `chart` (standard `simai.component-set`
+  1.0.0; passport [`package/set.json`](package/set.json)), built over one
+  pinned SIMAI Framework release. A page connects it in one line,
+  `data-sf-sets="chart"` on the SIMAI Framework script.
+- Source: [`package/`](package/README.md), the set.
+- Site: [`site/`](site/README.md), the documentation and demonstration
+  site (Docara), local only.
 
 The repository is at its start: the first stage is research, see
 [docs/START.md](docs/START.md) and [docs/STATUS.md](docs/STATUS.md).

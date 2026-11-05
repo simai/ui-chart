@@ -1,11 +1,19 @@
-# The chart component package
+# The chart set
 
-The Smart chart components of SIMAI Chart, the component package `chart`:
-Tier 1 of docs/DECISIONS.md D1
-(standard `simai.component-package` 1.1.1). Laid out as
-`simai/ui-pro/components/`: one folder per component in `src/smart/<name>/`,
-built and tested over the free Framework release pinned in
-`framework.lock.json`.
+The Smart chart components of SIMAI Chart, the component set `chart`
+(standard `simai.component-set` 1.0.0, and `simai.component-package` 1.1.1
+for the package folder). `set.json` is the set's passport: its licence, the
+SIMAI Framework it is built over and every component it holds. One folder per
+component in `src/smart/<name>/`, built and tested over the free Framework
+release pinned in `framework.lock.json` (the same revision as
+`set.json` `framework.source_revision`).
+
+- `sh scripts/gates.sh <new workspace>`: every gate of the set over the
+  commit at HEAD (two builds, the receipt, the unit suite, the registry,
+  the manifest and browser probes, the first paint).
+- `node scripts/check-registry.mjs`: the passport against the shared name
+  registry at ui-source main; names the dispatcher reserved and the registry
+  does not list yet are reported as pending (`tests/set-registry.mjs`).
 
 | Folder | What it is |
 |---|---|

@@ -1,0 +1,196 @@
+{
+  "schema": "simai.framework.component-set",
+  "schema_version": 1,
+  "standard": {
+    "id": "simai.component-set",
+    "version": "1.0.0"
+  },
+  "id": "chart",
+  "title": "SIMAI Chart",
+  "summary": "Charts for SIMAI Framework pages: lines, bars, pies, parts, metrics, heatmaps, funnels, gauges, scatter, box plots, radars, candles, waterfalls, treemaps, timelines, Sankey diagrams, sunbursts and choropleth maps, each with a tooltip, a keyboard cursor, a summary in words and the data as a table.",
+  "repository": "simai/ui-chart",
+  "licence": {
+    "class": "simai-pro",
+    "spdx": "PolyForm-Small-Business-1.0.0 OR PolyForm-Noncommercial-1.0.0 OR LicenseRef-SIMAI-Commercial"
+  },
+  "framework": {
+    "core_runtime": ">=1.25.0",
+    "source_revision": "ec2f29dfa5df657a027887ec413150118740d28d"
+  },
+  "requires_sets": [],
+  "families": [
+    "chart"
+  ],
+  "docs": "https://chart.simai.io/",
+  "components": [
+    {
+      "element": "sf-chart-bar",
+      "rule": "cl-chart-bar",
+      "folder": "chart-bar",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-box",
+      "rule": "cl-chart-box",
+      "folder": "chart-box",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-candlestick",
+      "rule": "cl-chart-candlestick",
+      "folder": "chart-candlestick",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-funnel",
+      "rule": "cl-chart-funnel",
+      "folder": "chart-funnel",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-gauge",
+      "rule": "cl-chart-gauge",
+      "folder": "chart-gauge",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-heatmap",
+      "rule": "cl-chart-heatmap",
+      "folder": "chart-heatmap",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-line",
+      "rule": "cl-chart-line",
+      "folder": "chart-line",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-map",
+      "rule": "cl-chart-map",
+      "folder": "chart-map",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-metric",
+      "rule": "cl-chart-metric",
+      "folder": "chart-metric",
+      "status": "preview",
+      "requires": [
+        "cl-progress-bar"
+      ]
+    },
+    {
+      "element": "sf-chart-parts",
+      "rule": "cl-chart-parts",
+      "folder": "chart-parts",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-pie",
+      "rule": "cl-chart-pie",
+      "folder": "chart-pie",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-radar",
+      "rule": "cl-chart-radar",
+      "folder": "chart-radar",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-sankey",
+      "rule": "cl-chart-sankey",
+      "folder": "chart-sankey",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-scatter",
+      "rule": "cl-chart-scatter",
+      "folder": "chart-scatter",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-sparkline",
+      "rule": "cl-chart-sparkline",
+      "folder": "chart-sparkline",
+      "status": "preview",
+      "requires": []
+    },
+    {
+      "element": "sf-chart-sunburst",
+      "rule": "cl-chart-sunburst",
+      "folder": "chart-sunburst",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-timeline",
+      "rule": "cl-chart-timeline",
+      "folder": "chart-timeline",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-treemap",
+      "rule": "cl-chart-treemap",
+      "folder": "chart-treemap",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    },
+    {
+      "element": "sf-chart-waterfall",
+      "rule": "cl-chart-waterfall",
+      "folder": "chart-waterfall",
+      "status": "preview",
+      "requires": [
+        "cl-empty-state"
+      ]
+    }
+  ]
+}

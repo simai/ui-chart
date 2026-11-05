@@ -1,7 +1,7 @@
 {
-  "name": "@simai/ui-chart-components",
+  "name": "@simai-studio/chart",
   "version": "0.1.0",
-  "description": "The SIMAI Chart Smart components, the component package chart: sf-chart-line first, then sf-chart-bar, sf-chart-pie, sf-chart-sparkline and sf-chart-metric (docs/DECISIONS.md D1, D2)",
+  "description": "SIMAI Chart, the component set chart (standard simai.component-set 1.0.0): the chart Smart components of SIMAI Framework pages, listed in set.json",
   "private": true,
   "license": "PolyForm-Small-Business-1.0.0 OR PolyForm-Noncommercial-1.0.0 OR LicenseRef-SIMAI-Commercial",
   "author": "Rim Zabarov",

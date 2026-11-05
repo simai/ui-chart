@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Usage: node scripts/test.mjs [--ui-source <checkout>] [--committed] [--overlay <directory>]
 //
-// The package's unit and contract suite. Lays the overlay (scripts/overlay.mjs:
+// The set's unit and contract suite. Lays the overlay (scripts/overlay.mjs:
 // ui-source at the pinned revision with this repository over it) and runs, in
 // it, every tests/*.test.mjs of this repository plus the free suite's
 // cross-cutting checks listed below: those walk every src/smart folder, so in
@@ -77,7 +77,8 @@ process.stdout.write(`overlay ${overlay}: ui-source ${laid.sourceRevision.slice(
 
 const own = readdirSync(join(PACKAGE_ROOT, 'tests')).filter((name) => name.endsWith('.test.mjs')).sort();
 const files = [...own, ...CROSS_CUTTING].map((name) => join('tests', name));
-const result = spawnSync(process.execPath, ['--test', ...files], {cwd: overlay, stdio: 'inherit'});
+// SET_ROOT: the passport, the lock and package.json, which the overlay does not hold.
+const result = spawnSync(process.execPath, ['--test', ...files], {cwd: overlay, stdio: 'inherit', env: {...process.env, SET_ROOT: PACKAGE_ROOT}});
 // The free axes rule, all but the test the package half stands in for.
 const axes = spawnSync(process.execPath, ['--test', '--test-skip-pattern=without being recorded', join('tests', 'public-api-axes.contract.test.mjs')], {cwd: overlay, stdio: 'inherit'});
 process.exitCode = (result.status ?? 1) || (axes.status ?? 1);
