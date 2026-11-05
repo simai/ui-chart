@@ -3,7 +3,9 @@ description: Солнечные круги sf-chart-sunburst — иерархи�
 profile: reference
 ---
 
-# Солнечные круги sf-chart-sunburst
+# Солнечные круги
+
+:badge[sf-chart-sunburst]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-sunburst>` — солнечные круги: иерархия кольцами вокруг центра.
 Внутреннее кольцо — верхний уровень, каждое следующее — уровень глубже,

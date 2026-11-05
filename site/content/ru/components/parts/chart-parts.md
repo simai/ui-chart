@@ -3,7 +3,9 @@ description: Полоса частей sf-chart-parts — части одног�
 profile: reference
 ---
 
-# Полоса частей sf-chart-parts
+# Полоса частей
+
+:badge[sf-chart-parts]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-parts>` — полоса частей: части одного целого одной тонкой полосой. Если
 задана ёмкость, в конце полосы — свободный остаток. Подходит для диска, квоты,

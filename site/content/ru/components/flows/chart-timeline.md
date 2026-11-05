@@ -3,7 +3,9 @@ description: Диаграмма Ганта sf-chart-timeline — задачи и
 profile: reference
 ---
 
-# Диаграмма Ганта sf-chart-timeline
+# Диаграмма Ганта
+
+:badge[sf-chart-timeline]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-timeline>` — диаграмма Ганта: задачи или состояния как отрезки
 времени по рядам. Ряд — задача плана или сервис; в ряду один отрезок

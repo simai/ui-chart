@@ -3,7 +3,9 @@ description: Плиточная диаграмма sf-chart-treemap — из к�
 profile: reference
 ---
 
-# Плиточная диаграмма sf-chart-treemap
+# Плиточная диаграмма
+
+:badge[sf-chart-treemap]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-treemap>` — плиточная диаграмма: из каких частей состоит целое.
 Каждая часть — прямоугольник, его площадь — доля части. Части можно

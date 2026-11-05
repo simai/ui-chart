@@ -2,8 +2,8 @@
 // Usage: node scripts/evidence.mjs <site URL> <out directory>
 //
 // Screenshots of the built site for review, at 1280 and 390 px, light (and
-// dark for the home page): the home page once per example tab (the eight
-// kinds of chart), the quick start, the components overview and three
+// dark for the home page): the home page once per example tab (a tab per
+// group of charts), the quick start, the components overview and three
 // component pages. Every shown set element must be defined (one on a hidden
 // tab may not be yet: the Loader defines a component when it is first
 // shown), every chart on a tab must draw its plot, and console and page
@@ -11,7 +11,7 @@
 // page is loaded three times more to catch errors that only show on some
 // loads. Needs Playwright (PLAYWRIGHT_MODULE for its path,
 // PLAYWRIGHT_BROWSERS_PATH for the browser).
-import {mkdirSync, writeFileSync} from 'node:fs';
+import {mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import {join, resolve} from 'node:path';
 
@@ -21,7 +21,7 @@ const [base, outArgument] = process.argv.slice(2);
 if (!base || !outArgument) throw new Error('usage: evidence.mjs <site URL> <out directory>');
 const out = resolve(outArgument);
 mkdirSync(out, {recursive: true});
-const TABS = ['Динамика', 'Факт и план', 'Структура', 'Потоки', 'Сроки', 'Нагрузка', 'Карта', 'Показатели'];
+const TABS = JSON.parse(readFileSync(new URL('../config/components.json', import.meta.url), 'utf8')).groups.map((group) => group.tab);
 const PAGES = [
   ['quick-start', 'ru/guide/quick-start/'],
   ['components', 'ru/components/'],
@@ -31,6 +31,9 @@ const PAGES = [
 ];
 const SET_TAGS = ['line', 'bar', 'pie', 'sparkline', 'metric', 'parts', 'heatmap', 'funnel', 'gauge', 'scatter', 'box', 'radar',
   'candlestick', 'waterfall', 'treemap', 'timeline', 'sankey', 'sunburst', 'map'].map((name) => `sf-chart-${name}`).join(', ');
+// What a drawn chart holds: an SVG or canvas plot, a meter, or the HTML bars
+// of the funnel and the parts bar.
+const PLOT = 'svg, canvas, [role="meter"], .sf-chart-funnel-bar, .sf-chart-parts-part';
 const report = [];
 
 const watch = (page) => {
@@ -49,13 +52,13 @@ const wake = async (page) => {
 const inventory = async (page) => {
   const elements = [];
   for (const frame of page.frames()) {
-    elements.push(...await frame.evaluate((tags) => [...document.querySelectorAll(tags)].map((element) => ({
+    elements.push(...await frame.evaluate(([tags, plot]) => [...document.querySelectorAll(tags)].map((element) => ({
       tag: element.localName,
       defined: Boolean(customElements.get(element.localName)),
       visible: element.getClientRects().length > 0,
       // A metric tile is a number, not a plot: it is drawn when it shows text.
-      drawn: element.localName === 'sf-chart-metric' ? element.textContent.trim().length > 0 : element.querySelectorAll('svg, canvas, [role="meter"]').length > 0,
-    })), SET_TAGS).catch(() => []));
+      drawn: element.localName === 'sf-chart-metric' ? element.textContent.trim().length > 0 : element.querySelectorAll(plot).length > 0,
+    })), [SET_TAGS, PLOT]).catch(() => []));
   }
   return elements;
 };
@@ -86,19 +89,21 @@ for (const scheme of ['light', 'dark']) {
         await frame.getByRole('tab', {name: label, exact: true}).click();
         await page.waitForTimeout(1500);
       }
-      const panel = await frame.evaluate((position) => {
+      // A tab holds up to five charts, each drawn when first shown: the shot
+      // gives them time, and the panel is read after it.
+      const file = `home-${index + 1}-${width}-${scheme}.png`;
+      await shoot(page, width, file);
+      const panel = await frame.evaluate(([position, plot]) => {
         const section = document.querySelector(`[slot="panel-${position}"]`);
         // Every chart on the panel must draw its plot.
         const charts = [...(section?.querySelectorAll('[id^="home-"]') ?? [])].filter((element) => element.localName.startsWith('sf-chart-'));
         return {
           visible: Boolean(section && section.getClientRects().length),
           charts: charts.length,
-          drawn: charts.filter((chart) => (chart.localName === 'sf-chart-metric' ? chart.textContent.trim() : chart.querySelector('svg, canvas, [role="meter"]'))).length,
+          drawn: charts.filter((chart) => (chart.localName === 'sf-chart-metric' ? chart.textContent.trim() : chart.querySelector(plot))).length,
           text: (section?.innerText ?? '').replace(/\s+/gu, ' ').slice(0, 160),
         };
-      }, index);
-      const file = `home-${index + 1}-${width}-${scheme}.png`;
-      await shoot(page, width, file);
+      }, [index, PLOT]);
       report.push({page: 'ru/', tab: label, width, scheme, file, panel, elements: await inventory(page), errors: [...errors]});
     }
     await page.close();

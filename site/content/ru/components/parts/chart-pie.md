@@ -3,7 +3,9 @@ description: Круговая диаграмма sf-chart-pie — части о�
 profile: reference
 ---
 
-# Круговая диаграмма sf-chart-pie
+# Круговая диаграмма
+
+:badge[sf-chart-pie]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-pie>` — круговая диаграмма: части одного целого секторами круга или
 кольца с суммой в середине. Доли внутри секторов, легенда с долями, которая

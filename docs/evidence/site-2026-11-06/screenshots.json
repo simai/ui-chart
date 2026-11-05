@@ -1,0 +1,3452 @@
+{
+ "base": "https://ui-chart.test/",
+ "shots": [
+  {
+   "page": "ru/",
+   "tab": "Динамика",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-1-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 5,
+    "drawn": 5,
+    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад. Линейный график Продажи и план, 2026 Таблица Прода"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Доли",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-2-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 4,
+    "drawn": 4,
+    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма Заказы по каналам Таблица 54 % 31 % 12 "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Связи",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-3-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 3,
+    "drawn": 3,
+    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма Регионы: менеджеры, выручка и клиенты "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Потоки",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-4-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 3,
+    "drawn": 3,
+    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Воронка Воронка заказа Таблица Визиты 12 400 Каталог 7 800 62,9 % Корзина 2 900 3"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Сетки и карты",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-5-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 2,
+    "drawn": 2,
+    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Показатели",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-6-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 2,
+    "drawn": 2,
+    "text": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке. Плитка показателя Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к пр"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/guide/quick-start/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "quick-start-1280-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "components-1280-light.png",
+   "elements": [],
+   "errors": []
+  },
+  {
+   "page": "ru/components/trends/chart-bar/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "reference-chart-bar-1280-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/flows/chart-sankey/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "reference-chart-sankey-1280-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/grids/chart-map/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "reference-chart-map-1280-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Динамика",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-1-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 5,
+    "drawn": 5,
+    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад. Линейный график Продажи и план, 2026 Таблица Прода"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Доли",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-2-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 4,
+    "drawn": 4,
+    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма Заказы по каналам Таблица 54 % 31 % 12 "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Связи",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-3-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 3,
+    "drawn": 3,
+    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма Регионы: менеджеры, выручка и клиенты "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Потоки",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-4-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 3,
+    "drawn": 3,
+    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Воронка Воронка заказа Таблица Визиты 12 400 Каталог 7 800 62,9 % Корзина 2 900 3"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Сетки и карты",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-5-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 2,
+    "drawn": 2,
+    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Показатели",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-6-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 2,
+    "drawn": 2,
+    "text": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке. Плитка показателя Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к пр"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/guide/quick-start/",
+   "width": 390,
+   "scheme": "light",
+   "file": "quick-start-390-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/",
+   "width": 390,
+   "scheme": "light",
+   "file": "components-390-light.png",
+   "elements": [],
+   "errors": []
+  },
+  {
+   "page": "ru/components/trends/chart-bar/",
+   "width": 390,
+   "scheme": "light",
+   "file": "reference-chart-bar-390-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/flows/chart-sankey/",
+   "width": 390,
+   "scheme": "light",
+   "file": "reference-chart-sankey-390-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/grids/chart-map/",
+   "width": 390,
+   "scheme": "light",
+   "file": "reference-chart-map-390-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Динамика",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-1-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 5,
+    "drawn": 5,
+    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад. Линейный график Продажи и план, 2026 Таблица Прода"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Доли",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-2-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 4,
+    "drawn": 4,
+    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма Заказы по каналам Таблица 54 % 31 % 12 "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Связи",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-3-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 3,
+    "drawn": 3,
+    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма Регионы: менеджеры, выручка и клиенты "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Потоки",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-4-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 3,
+    "drawn": 3,
+    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Воронка Воронка заказа Таблица Визиты 12 400 Каталог 7 800 62,9 % Корзина 2 900 3"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Сетки и карты",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-5-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 2,
+    "drawn": 2,
+    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Показатели",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-6-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 2,
+    "drawn": 2,
+    "text": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке. Плитка показателя Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к пр"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Динамика",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-1-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 5,
+    "drawn": 5,
+    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад. Линейный график Продажи и план, 2026 Таблица Прода"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Доли",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-2-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 4,
+    "drawn": 4,
+    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма Заказы по каналам Таблица 54 % 31 % 12 "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Связи",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-3-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 3,
+    "drawn": 3,
+    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма Регионы: менеджеры, выручка и клиенты "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Потоки",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-4-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 3,
+    "drawn": 3,
+    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Воронка Воронка заказа Таблица Визиты 12 400 Каталог 7 800 62,9 % Корзина 2 900 3"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Сетки и карты",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-5-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 2,
+    "drawn": 2,
+    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Показатели",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-6-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 2,
+    "drawn": 2,
+    "text": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке. Плитка показателя Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к пр"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-candlestick",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-waterfall",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-pie",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-parts",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-treemap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-scatter",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-box",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-radar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  }
+ ],
+ "reloads": [
+  {
+   "round": 1,
+   "url": "https://ui-chart.test/ru/",
+   "elements": 19,
+   "undefined": 0,
+   "errors": []
+  },
+  {
+   "round": 2,
+   "url": "https://ui-chart.test/ru/",
+   "elements": 19,
+   "undefined": 0,
+   "errors": []
+  },
+  {
+   "round": 3,
+   "url": "https://ui-chart.test/ru/",
+   "elements": 19,
+   "undefined": 0,
+   "errors": []
+  }
+ ]
+}

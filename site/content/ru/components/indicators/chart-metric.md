@@ -3,7 +3,9 @@ description: Плитка показателя sf-chart-metric — одно ва
 profile: reference
 ---
 
-# Плитка показателя sf-chart-metric
+# Плитка показателя
+
+:badge[sf-chart-metric]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-metric>` — плитка показателя: одно важное число с подписью, изменение к
 прошлому периоду, предел со шкалой, статус с подсказкой и мини-график. Это KPI

@@ -1,15 +1,17 @@
 {
   "schema": "ui-chart.site-components",
   "schema_version": 1,
-  "$comment": "The Components section of the site: a group per purpose, a page per component in the group's order, with its Russian title and one-sentence description. scripts/build-pages.mjs writes the pages and the live examples from it and from each component's docs.md and examples.json; scripts/build-reference.mjs writes the reference part of each page.",
+  "$comment": "The Components section of the site: a group per purpose, a page per component in the group's order, with its Russian title and one-sentence description. scripts/build-pages.mjs writes the pages and the live examples from it and from each component's docs.md and examples.json; scripts/build-reference.mjs writes the reference part of each page. Each group's tab and lead sentence and each component's home example (and wide, for a chart that needs the whole row) make the home page's showcase, which the same script writes.",
   "groups": [
     {
       "id": "trends",
       "title": "Динамика и сравнение",
+      "tab": "Динамика",
+      "lead": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад.",
       "components": [
-        {"folder": "chart-line", "title": "Линейный график", "description": "Линейный график sf-chart-line — ряды по времени, числу или категориям линиями или стопкой площадей."},
-        {"folder": "chart-bar", "title": "Столбчатая диаграмма", "description": "Столбчатая диаграмма sf-chart-bar — значения по категориям рядом, стопкой или долями, гистограмма и столбцы с линиями."},
-        {"folder": "chart-sparkline", "title": "Мини-график", "description": "Мини-график sf-chart-sparkline — один ряд размером со слово для таблиц и плиток."},
+        {"folder": "chart-line", "title": "Линейный график", "description": "Линейный график sf-chart-line — ряды по времени, числу или категориям линиями или стопкой площадей.", "wide": true},
+        {"folder": "chart-bar", "title": "Столбчатая диаграмма", "description": "Столбчатая диаграмма sf-chart-bar — значения по категориям рядом, стопкой или долями, гистограмма и столбцы с линиями.", "home": "lines"},
+        {"folder": "chart-sparkline", "title": "Мини-график", "description": "Мини-график sf-chart-sparkline — один ряд размером со слово для таблиц и плиток.", "home": "tile"},
         {"folder": "chart-candlestick", "title": "Свечной график", "description": "Свечной график sf-chart-candlestick — открытие, максимум, минимум и закрытие за каждый период."},
         {"folder": "chart-waterfall", "title": "Каскадный график", "description": "Каскадный график sf-chart-waterfall — как начальное значение становится конечным через рост и падение."}
       ]
@@ -17,8 +19,10 @@
     {
       "id": "parts",
       "title": "Доли и состав",
+      "tab": "Доли",
+      "lead": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии.",
       "components": [
-        {"folder": "chart-pie", "title": "Круговая диаграмма", "description": "Круговая диаграмма sf-chart-pie — части одного целого секторами круга или кольца."},
+        {"folder": "chart-pie", "title": "Круговая диаграмма", "description": "Круговая диаграмма sf-chart-pie — части одного целого секторами круга или кольца.", "home": "ring"},
         {"folder": "chart-parts", "title": "Полоса частей", "description": "Полоса частей sf-chart-parts — части одного целого тонкой полосой, со свободным остатком ёмкости."},
         {"folder": "chart-treemap", "title": "Плиточная диаграмма", "description": "Плиточная диаграмма sf-chart-treemap — из каких частей состоит целое, площадями прямоугольников."},
         {"folder": "chart-sunburst", "title": "Солнечные круги", "description": "Солнечные круги sf-chart-sunburst — иерархия кольцами вокруг центра."}
@@ -27,8 +31,10 @@
     {
       "id": "relations",
       "title": "Распределение и связь",
+      "tab": "Связи",
+      "lead": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма.",
       "components": [
-        {"folder": "chart-scatter", "title": "Точечная диаграмма", "description": "Точечная диаграмма sf-chart-scatter — как связаны две меры, третья площадью пузырьков."},
+        {"folder": "chart-scatter", "title": "Точечная диаграмма", "description": "Точечная диаграмма sf-chart-scatter — как связаны две меры, третья площадью пузырьков.", "home": "bubble"},
         {"folder": "chart-box", "title": "Ящик с усами", "description": "Ящик с усами sf-chart-box — медиана, квартили, усы и выбросы одной меры по группам."},
         {"folder": "chart-radar", "title": "Лепестковая диаграмма", "description": "Лепестковая диаграмма sf-chart-radar — несколько мер на лучах из центра, ряд кольцом."}
       ]
@@ -36,23 +42,29 @@
     {
       "id": "flows",
       "title": "Процессы и потоки",
+      "tab": "Потоки",
+      "lead": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта.",
       "components": [
         {"folder": "chart-funnel", "title": "Воронка", "description": "Воронка sf-chart-funnel — этапы процесса и конверсия между ними."},
-        {"folder": "chart-sankey", "title": "Диаграмма Санки", "description": "Диаграмма Санки sf-chart-sankey — как величина перетекает между этапами и категориями."},
-        {"folder": "chart-timeline", "title": "Диаграмма Ганта", "description": "Диаграмма Ганта sf-chart-timeline — задачи и состояния отрезками времени по строкам."}
+        {"folder": "chart-sankey", "title": "Диаграмма Санки", "description": "Диаграмма Санки sf-chart-sankey — как величина перетекает между этапами и категориями.", "wide": true},
+        {"folder": "chart-timeline", "title": "Диаграмма Ганта", "description": "Диаграмма Ганта sf-chart-timeline — задачи и состояния отрезками времени по строкам.", "wide": true}
       ]
     },
     {
       "id": "grids",
       "title": "Сетки и карты",
+      "tab": "Сетки и карты",
+      "lead": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт.",
       "components": [
-        {"folder": "chart-heatmap", "title": "Тепловая карта", "description": "Тепловая карта sf-chart-heatmap — одна величина по двум категориям сеткой ячеек на ступенчатой шкале."},
-        {"folder": "chart-map", "title": "Карта по областям", "description": "Карта sf-chart-map — доля или показатель по областям, границы которых даёт страница."}
+        {"folder": "chart-heatmap", "title": "Тепловая карта", "description": "Тепловая карта sf-chart-heatmap — одна величина по двум категориям сеткой ячеек на ступенчатой шкале.", "wide": true},
+        {"folder": "chart-map", "title": "Карта по областям", "description": "Карта sf-chart-map — доля или показатель по областям, границы которых даёт страница.", "wide": true}
       ]
     },
     {
       "id": "indicators",
       "title": "Показатели",
+      "tab": "Показатели",
+      "lead": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке.",
       "components": [
         {"folder": "chart-metric", "title": "Плитка показателя", "description": "Плитка показателя sf-chart-metric — одно важное число с изменением, пределом и статусом."},
         {"folder": "chart-gauge", "title": "Шкала", "description": "Шкала sf-chart-gauge — одно значение на шкале с зонами нормы и цели."}

@@ -3,7 +3,9 @@ description: Карта sf-chart-map — доля или показатель п
 profile: reference
 ---
 
-# Карта по областям sf-chart-map
+# Карта по областям
+
+:badge[sf-chart-map]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-map>` — карта с заливкой по областям (хороплет): доля или
 показатель на душу по регионам, районам, зонам. Каждая область окрашена

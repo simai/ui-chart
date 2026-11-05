@@ -3,7 +3,9 @@ description: Шкала sf-chart-gauge — одно значение на шка
 profile: reference
 ---
 
-# Шкала sf-chart-gauge
+# Шкала
+
+:badge[sf-chart-gauge]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-gauge>` — шкала: одно измеренное значение на шкале от `min` до
 `max`, с зонами (норма, внимание, критично) и отметкой цели. Подходит для

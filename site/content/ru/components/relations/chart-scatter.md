@@ -3,7 +3,9 @@ description: Точечная диаграмма sf-chart-scatter — как с�
 profile: reference
 ---
 
-# Точечная диаграмма sf-chart-scatter
+# Точечная диаграмма
+
+:badge[sf-chart-scatter]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-scatter>` — точечная диаграмма: каждая строка данных — точка на
 двух мерах, чтобы было видно, как они связаны: цена и продажи товаров,

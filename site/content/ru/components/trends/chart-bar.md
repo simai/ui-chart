@@ -3,7 +3,9 @@ description: Столбчатая диаграмма sf-chart-bar — значе
 profile: reference
 ---
 
-# Столбчатая диаграмма sf-chart-bar
+# Столбчатая диаграмма
+
+:badge[sf-chart-bar]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-bar>` — столбчатая диаграмма: значения по категориям столбцами или
 горизонтальными полосами, рядом или стопкой (в том числе долями). Ось значений

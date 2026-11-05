@@ -3,7 +3,9 @@ description: Воронка sf-chart-funnel — этапы процесса и �
 profile: reference
 ---
 
-# Воронка sf-chart-funnel
+# Воронка
+
+:badge[sf-chart-funnel]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-funnel>` — воронка: этапы процесса, где каждый следующий — часть
 предыдущего. Подходит для воронки продаж, регистрации, пути заказа. Каждый

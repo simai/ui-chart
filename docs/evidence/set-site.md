@@ -49,11 +49,11 @@ The standard and the reference followed:
 `site/` is a Docara 3.11.1 site laid out as ui-view's, on the set site scheme
 the owner agreed on 2026-11-05:
 
-- **Home** (`/ru/`): hero with «Начать» and «Компоненты»; eight live charts
-  in Framework pill tabs, one frame (dynamics, fact and plan, structure,
-  flows, schedule, load, map, indicators); the connection line as its own
-  block after the examples; six advantages; a footer with version,
-  compatibility, licence and links.
+- **Home** (`/ru/`): hero with «Начать» and «Компоненты»; all 19 live
+  charts in Framework pill tabs, a tab per group of the reference, one frame;
+  the connection line as its own block after the examples; six advantages;
+  a footer with version, compatibility, licence and links. (The first pass
+  showed eight charts, one a tab; see «The owner's review».)
 - **Руководство** (`/ru/guide/`): introduction, quick start, connection,
   concepts, recipes (among them «Как выбрать график»), server side,
   appearance, keyboard and accessibility, large data, upgrading, change
@@ -80,6 +80,34 @@ What differs from ui-view, and why:
 The site is local only: nothing is published, chart.simai.io is not set
 up, and the connection line works from the set's first release, as the
 site says.
+
+## The owner's review
+
+The owner looked at ui-chart.test on 2026-11-06 and asked for:
+
+- **Words, not tags.** Pages, the sidebar and headings say what a chart is
+  («Столбчатая диаграмма»); the tag `sf-chart-bar` is a badge under the
+  title, beside a «Предварительная версия» badge while the passport says
+  `preview`. The overview table gives the tag its own column.
+- **Every chart on the home page.** Eight tabs already wrapped to two lines,
+  so a tab per chart would not do. The home page has a tab per group of the
+  reference (six), each with every chart of its group, titled and linked to
+  its page. `build-pages.mjs` writes it from `config/components.json` and
+  each chart's own example, so it cannot drift from the set.
+- **A taller hero** (`padding=2xl`), ready for a background effect of its
+  own, which the owner will make on effects.simai.io.
+- **A calmer bottom.** No more than three blocks a row: the advantages are
+  two rows of three columns without frames, and the footer has three
+  columns, with the links as one line under them.
+
+After the review the site was built again over the same set build
+(verify-static: 47 pages, 5219 local references, none broken) and checked by
+`evidence.mjs` into `docs/evidence/site-2026-11-06/`, which replaces the
+first pass's screenshots.
+It took 34 shots (six tabs instead of eight) with no problem: every tab
+draws all its charts, no page or console error, and three cold reloads end
+on `/ru/` clean. The check learned that the funnel and the parts bar draw
+their plot in HTML, not SVG: it now looks for their bars too.
 
 ## Checks
 
@@ -117,9 +145,10 @@ The site was built over that build (`site/scripts/build.sh`):
 - **Generators.** `build-pages.mjs --check` is clean. `build-reference.mjs`
   wrote 19 pages with every manifest string translated.
 
-The site was published to the local host ui-chart.test
+On the first pass, the site was published to the local host ui-chart.test
 (`site/scripts/publish-local.sh`), and `site/scripts/evidence.mjs` took 42
-screenshots into `docs/evidence/site-2026-11-05/`:
+screenshots into `docs/evidence/site-2026-11-05/` (kept in history at
+`f6f0546`; the review's run replaced them):
 
 - every home tab at 1280 and 390 px, light and dark;
 - the quick start, the components overview, and the bar, Sankey and map
@@ -167,4 +196,12 @@ while following it:
 5. **Playwright.** `gates.sh` takes the browsers path from a sibling folder
    that may hold another Playwright version. This set adds
    `PLAYWRIGHT_MODULES`; one documented way for every set would help.
-
+6. **Titles in words.** A component page, its sidebar entry and its
+   heading carry the chart's name; the tag and the state are badges under
+   the title. ui-view titles its pages by tag.
+7. **The home page of a large set.** A tab per group of the reference, each
+   with all its components, scales where a tab per component does not; the
+   showcase is generated from the reference's groups.
+8. **The home page's bottom.** No more than three blocks a row: advantages
+   as columns without frames, the footer in three columns with the links
+   as a line.

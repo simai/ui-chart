@@ -3,7 +3,9 @@ description: Каскадный график sf-chart-waterfall — как на�
 profile: reference
 ---
 
-# Каскадный график sf-chart-waterfall
+# Каскадный график
+
+:badge[sf-chart-waterfall]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-waterfall>` — каскадный график: как начальное значение
 превращается в конечное через шаги роста и снижения. Например, мост

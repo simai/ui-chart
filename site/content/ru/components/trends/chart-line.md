@@ -3,7 +3,9 @@ description: Линейный график sf-chart-line — ряды по вр�
 profile: reference
 ---
 
-# Линейный график sf-chart-line
+# Линейный график
+
+:badge[sf-chart-line]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-line>` — линейный график: один или несколько рядов по времени, по
 числу или по категориям. Оси, сетка, легенда, которая скрывает ряды, подсказка

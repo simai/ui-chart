@@ -3,7 +3,9 @@ description: Мини-график sf-chart-sparkline — один ряд раз
 profile: reference
 ---
 
-# Мини-график sf-chart-sparkline
+# Мини-график
+
+:badge[sf-chart-sparkline]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-sparkline>` — мини-график: один ряд линией, площадью или столбиками, без
 осей. Ставится в ячейку таблицы, в строку текста или в слот `chart` плитки

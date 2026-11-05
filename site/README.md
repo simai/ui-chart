@@ -7,16 +7,17 @@ scheme the owner agreed on 2026-11-05 (ui-control
 `control/decisions/2026-11-03-component-sets.md`, «The set site») and the
 reference set site of simai/ui-view (`docs/SET-TEMPLATE.md` there):
 
-- **Home** (`/ru/`): hero (name, sentence, two buttons), the charts of the
-  set in Framework pill tabs (dynamics, fact and plan, structure, flows,
-  schedule, load, map, indicators — one frame, `examples/home/showcase/`),
-  the one-line connection, advantages and a footer with version,
-  compatibility, licence and links.
+- **Home** (`/ru/`): hero (name, sentence, two buttons), every chart of the
+  set in Framework pill tabs, a tab per group of the reference (one frame,
+  `examples/home/showcase/`, written by `scripts/build-pages.mjs` from
+  `config/components.json`), the one-line connection, advantages in three
+  columns and a footer with version, compatibility and licence.
 - **Руководство** (`/ru/guide/`): introduction, quick start, connection, core
   concepts, recipes, server side (REST, Laravel/Larena, Bitrix), appearance,
   keyboard and accessibility, large data, upgrading, change history, FAQ.
 - **Компоненты** (`/ru/components/`): the reference, by purpose
-  (`config/components.json`). Each page is written from the set itself: the
+  (`config/components.json`). A page is titled in words, with the tag and
+  the state as badges. Each page is written from the set itself: the
   top from the component's `docs.md` with its live examples from
   `examples.json` (`scripts/build-pages.mjs`), the reference part between
   `## Параметры` and `## См. также` from its manifest

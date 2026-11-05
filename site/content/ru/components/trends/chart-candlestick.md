@@ -3,7 +3,9 @@ description: Свечной график sf-chart-candlestick — открыти
 profile: reference
 ---
 
-# Свечной график sf-chart-candlestick
+# Свечной график
+
+:badge[sf-chart-candlestick]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-candlestick>` — свечной график (японские свечи): цена открытия,
 максимум, минимум и закрытие за каждый период. Подсказка, курсор с

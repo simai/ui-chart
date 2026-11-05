@@ -12,6 +12,11 @@
 //     config/components.json), the examples after the introduction, and the
 //     headings «Параметры» and «См. также» that scripts/build-reference.mjs
 //     fills and keeps; the section.json of each group and the overview.
+//     A page is titled in words; the element's tag and the set's state are
+//     badges under the title;
+//   - examples/home/showcase/index.html and index.js: the home page's
+//     examples, a tab per group with every chart of the group, each from the
+//     example config/components.json names for it (its first by default).
 //
 // docs.md's own list of public CSS variables is left out: the reference part
 // lists them with what each sets. Run build-reference.mjs after this.
@@ -43,7 +48,7 @@ const literal = (value, indent = '  ') => {
 };
 const attribute = (value) => String(value).replace(/&/gu, '&amp;').replace(/"/gu, '&quot;');
 
-const example = (tag, folder, entry) => {
+const example = (tag, folder, entry, id = 'chart') => {
   const attributes = [];
   const properties = [];
   for (const [name, value] of Object.entries(entry.settings ?? {})) {
@@ -51,18 +56,21 @@ const example = (tag, folder, entry) => {
     else if (value === true) attributes.push(` ${name}`);
     else if (value !== false && value !== null && value !== undefined) attributes.push(` ${name}="${attribute(value)}"`);
   }
-  const id = 'chart';
   const html = `<${tag} id="${id}"${attributes.join('')}></${tag}>`;
   const lines = [
     `// ${entry.title}: the example «${entry.name}» of package/src/smart/${folder}/examples.json.`,
     `// Lists and objects are properties; the page sets them once the element is defined.`,
-    `customElements.whenDefined('${tag}').then(() => {`,
-    `  const chart = document.getElementById('${id}');`,
-    ...properties.map(([name, value]) => `  chart${/^[a-z][a-zA-Z0-9]*$/u.test(name) ? `.${name}` : `[${JSON.stringify(name)}]`} = ${literal(value)};`),
-    '});',
+    ...setter(tag, id, properties),
   ];
-  return {html, js: properties.length ? lines.join('\n') : null};
+  return {html, js: properties.length ? lines.join('\n') : null, properties};
 };
+
+const setter = (tag, id, properties) => [
+  `customElements.whenDefined('${tag}').then(() => {`,
+  `  const chart = document.getElementById('${id}');`,
+  ...properties.map(([name, value]) => `  chart${/^[a-z][a-zA-Z0-9]*$/u.test(name) ? `.${name}` : `[${JSON.stringify(name)}]`} = ${literal(value, '  ')};`),
+  '});',
+];
 
 // docs.md without its title and without its own list of CSS variables.
 const body = (folder) => {
@@ -87,9 +95,19 @@ const body = (folder) => {
 const examplesDirectory = join(site, 'examples/components');
 const contentDirectory = join(site, 'content/ru/components');
 const overview = [];
+const home = {panels: [], scripts: []};
+// Under a page's title: the element's tag, and the component's state in the
+// set's passport while it is a preview.
+const passport = JSON.parse(readFileSync(resolve(site, '../package/set.json'), 'utf8'));
+const BADGES = (tag) => {
+  const status = passport.components.find((entry) => entry.element === tag)?.status;
+  if (!status) throw new Error(`${tag}: not in package/set.json`);
+  return [`:badge[${tag}]{variant=main scheme=on-surface size=1}`, ...(status === 'preview' ? [':badge[Предварительная версия]{variant=tonal scheme=warning size=1}'] : [])].join(' ');
+};
 config.groups.forEach((group, groupIndex) => {
   put(`content/ru/components/${group.id}/section.json`, json({schema: 'docara.section.v1', title: group.title, navigation: {order: (groupIndex + 1) * 10}}));
-  overview.push(`## ${group.title}`, '', '| Компонент | Что показывает |', '|:---|:---|');
+  overview.push(`## ${group.title}`, '', '| График | Элемент | Что показывает |', '|:---|:---|:---|');
+  const cells = [];
   group.components.forEach((component, index) => {
     const {folder} = component;
     const manifest = JSON.parse(readFileSync(join(smart, folder, 'component.json'), 'utf8'));
@@ -104,6 +122,18 @@ config.groups.forEach((group, groupIndex) => {
       if (js) put(`examples/components/${id}/index.js`, js);
       blocks.push(`### ${entry.title}`, '', `:::example {id="components/${id}" label="${attribute(entry.title)}"}`, ':::', '');
     }
+    // The home page shows the example the config names, or the first one.
+    const chosen = shown.find((entry) => entry.name === (component.home ?? shown[0].name));
+    if (!chosen) throw new Error(`${folder}: no example «${component.home}» for the home page`);
+    const homeId = `home-${folder.replace(/^chart-/u, '')}`;
+    const homeExample = example(tag, folder, chosen, homeId);
+    cells.push([
+      `      <figure class="showcase-cell${component.wide ? ' showcase-wide' : ''} flex flex-col gap-1 m-0">`,
+      `        <figcaption><a href="/ru/components/${group.id}/${folder}/" target="_top">${component.title}</a></figcaption>`,
+      `        ${homeExample.html}`,
+      '      </figure>',
+    ].join('\n'));
+    if (homeExample.properties.length) home.scripts.push(`// ${component.title}: «${chosen.name}» of package/src/smart/${folder}/examples.json.`, ...setter(tag, homeId, homeExample.properties), '');
     const {intro, rest} = body(folder);
     const others = group.components.filter((other) => other.folder !== folder);
     const page = [
@@ -112,7 +142,9 @@ config.groups.forEach((group, groupIndex) => {
       'profile: reference',
       '---',
       '',
-      `# ${component.title} ${tag}`,
+      `# ${component.title}`,
+      '',
+      BADGES(tag),
       '',
       intro,
       '',
@@ -130,11 +162,36 @@ config.groups.forEach((group, groupIndex) => {
       '',
     ].join('\n');
     put(`content/ru/components/${group.id}/${folder}.md`, page);
-    put(`content/ru/components/${group.id}/${folder}.page.json`, pageJson(tag, (index + 1) * 10));
-    overview.push(`| [${component.title}](${group.id}/${folder}/) \`${tag}\` | ${component.description.replace(/^[^—]*— /u, '').replace(/\.$/u, '')} |`);
+    put(`content/ru/components/${group.id}/${folder}.page.json`, pageJson(component.title, (index + 1) * 10));
+    overview.push(`| [${component.title}](${group.id}/${folder}/) | \`${tag}\` | ${component.description.replace(/^[^—]*— /u, '').replace(/\.$/u, '')} |`);
   });
   overview.push('');
+  const position = home.panels.length;
+  home.panels.push([
+    `    <section slot="panel-${position}" class="flex flex-col gap-3 p-top-2" aria-label="${group.tab}">`,
+    `      <p class="m-0 color-on-surface-variant">${group.lead}</p>`,
+    '      <div class="showcase-grid">',
+    ...cells,
+    '      </div>',
+    '    </section>',
+  ].join('\n'));
 });
+
+put('examples/home/showcase/index.html', [
+  '<div class="flex flex-col gap-3" data-showcase>',
+  `  <sf-tabs type="pills" scheme="link" overflow="wrap" aria-label="Графики набора" items="${config.groups.map((group) => group.tab).join('|')}">`,
+  home.panels.join('\n\n'),
+  '  </sf-tabs>',
+  '</div>',
+].join('\n'));
+put('examples/home/showcase/index.js', [
+  '// The home page: every chart of the set, a tab per group of',
+  '// config/components.json, each with the data of one of its own examples',
+  '// (written by scripts/build-pages.mjs). Lists and objects are properties,',
+  '// set once the element is defined.',
+  '',
+  ...home.scripts,
+].join('\n'));
 
 // The overview's table of components, between its markers.
 const OPEN = '<!-- components:generated -->';

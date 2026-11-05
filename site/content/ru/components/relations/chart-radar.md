@@ -3,7 +3,9 @@ description: Лепестковая диаграмма sf-chart-radar — нес
 profile: reference
 ---
 
-# Лепестковая диаграмма sf-chart-radar
+# Лепестковая диаграмма
+
+:badge[sf-chart-radar]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-radar>` — лепестковая диаграмма (радар): из центра расходятся
 оси, по одной на меру, и каждый ряд — кольцо через свои значения. Легенда,

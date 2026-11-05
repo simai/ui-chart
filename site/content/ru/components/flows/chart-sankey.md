@@ -3,7 +3,9 @@ description: Диаграмма Санки sf-chart-sankey — как велич
 profile: reference
 ---
 
-# Диаграмма Санки sf-chart-sankey
+# Диаграмма Санки
+
+:badge[sf-chart-sankey]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-sankey>` — диаграмма Санки: как величина перетекает между
 этапами или категориями. Узлы стоят столбцами, от узла к узлу идёт лента,

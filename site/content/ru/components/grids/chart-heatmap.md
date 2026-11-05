@@ -3,7 +3,9 @@ description: Тепловая карта sf-chart-heatmap — одна вели�
 profile: reference
 ---
 
-# Тепловая карта sf-chart-heatmap
+# Тепловая карта
+
+:badge[sf-chart-heatmap]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-heatmap>` — тепловая карта: одна величина по двум категориям,
 сеткой ячеек. Цвет ячейки — ступень шкалы: чем сильнее значение, тем

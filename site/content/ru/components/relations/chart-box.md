@@ -3,7 +3,9 @@ description: Ящик с усами sf-chart-box — медиана, кварт�
 profile: reference
 ---
 
-# Ящик с усами sf-chart-box
+# Ящик с усами
+
+:badge[sf-chart-box]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
 
 `<sf-chart-box>` — ящик с усами: как разбросана одна мера по группам. Для
 каждой группы — медиана, середина значений (от нижнего до верхнего

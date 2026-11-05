@@ -1,47 +1,114 @@
 <div class="flex flex-col gap-3" data-showcase>
-  <sf-tabs type="pills" scheme="link" overflow="wrap" aria-label="Графики набора" items="Динамика|Факт и план|Структура|Потоки|Сроки|Нагрузка|Карта|Показатели">
-    <section slot="panel-0" class="flex flex-col gap-2 p-top-2" aria-label="Динамика">
-      <p class="m-0 color-on-surface-variant">Продажи и план по месяцам: две линии на общей оси. Наведите на график или нажмите Tab и стрелки — подсказка скажет значения месяца.</p>
-      <sf-chart-line id="home-dynamics" label="Продажи и план, 2026" x="month" y="sales,plan" y-format="integer" size="2"></sf-chart-line>
+  <sf-tabs type="pills" scheme="link" overflow="wrap" aria-label="Графики набора" items="Динамика|Доли|Связи|Потоки|Сетки и карты|Показатели">
+    <section slot="panel-0" class="flex flex-col gap-3 p-top-2" aria-label="Динамика">
+      <p class="m-0 color-on-surface-variant">Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад.</p>
+      <div class="showcase-grid">
+      <figure class="showcase-cell showcase-wide flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/trends/chart-line/" target="_top">Линейный график</a></figcaption>
+        <sf-chart-line id="home-line" label="Продажи и план, 2026" x="month" y="sales,plan" y-format="integer"></sf-chart-line>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/trends/chart-bar/" target="_top">Столбчатая диаграмма</a></figcaption>
+        <sf-chart-bar id="home-bar" label="Продажи: факт и план" x="month" y="fact,plan" lines="plan" y-format="integer"></sf-chart-bar>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/trends/chart-sparkline/" target="_top">Мини-график</a></figcaption>
+        <sf-chart-sparkline id="home-sparkline" label="Очередь заданий" size="2" shape="area" curve="smooth" y-format="integer"></sf-chart-sparkline>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/trends/chart-candlestick/" target="_top">Свечной график</a></figcaption>
+        <sf-chart-candlestick id="home-candlestick" label="Акция SIMA, октябрь 2026" x="day" y-format="decimal-1" y-label="Цена, ₽"></sf-chart-candlestick>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/trends/chart-waterfall/" target="_top">Каскадный график</a></figcaption>
+        <sf-chart-waterfall id="home-waterfall" label="Выручка: 2025 → 2026" x="step" y="value" y-format="integer" y-label="млн ₽"></sf-chart-waterfall>
+      </figure>
+      </div>
     </section>
 
-    <section slot="panel-1" class="flex flex-col gap-2 p-top-2" aria-label="Факт и план">
-      <p class="m-0 color-on-surface-variant">Факт столбцами, план линией поверх — сравнение по месяцам в одном графике.</p>
-      <sf-chart-bar id="home-plan" label="Продажи: факт и план" x="month" y="fact,plan" lines="plan" y-format="integer" size="2"></sf-chart-bar>
+    <section slot="panel-1" class="flex flex-col gap-3 p-top-2" aria-label="Доли">
+      <p class="m-0 color-on-surface-variant">Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии.</p>
+      <div class="showcase-grid">
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/parts/chart-pie/" target="_top">Круговая диаграмма</a></figcaption>
+        <sf-chart-pie id="home-pie" label="Заказы по каналам" hole="ring" category="channel" value="orders" value-format="integer"></sf-chart-pie>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/parts/chart-parts/" target="_top">Полоса частей</a></figcaption>
+        <sf-chart-parts id="home-parts" label="Диск" category="kind" value="size" max="100" value-format="integer"></sf-chart-parts>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/parts/chart-treemap/" target="_top">Плиточная диаграмма</a></figcaption>
+        <sf-chart-treemap id="home-treemap" label="Выручка по направлениям, млн ₽" x="name" y="value" group="area" y-format="integer"></sf-chart-treemap>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/parts/chart-sunburst/" target="_top">Солнечные круги</a></figcaption>
+        <sf-chart-sunburst id="home-sunburst" label="Выручка по направлениям, млн ₽" y-format="integer"></sf-chart-sunburst>
+      </figure>
+      </div>
     </section>
 
-    <section slot="panel-2" class="flex flex-col gap-2 p-top-2" aria-label="Структура">
-      <p class="m-0 color-on-surface-variant">Выручка по направлениям и товарам кольцами вокруг центра: каждая дуга — доля своего родителя. Стрелки ходят по кольцу и между кольцами.</p>
-      <sf-chart-sunburst id="home-structure" label="Выручка по направлениям, млн ₽" y-format="integer" size="2"></sf-chart-sunburst>
+    <section slot="panel-2" class="flex flex-col gap-3 p-top-2" aria-label="Связи">
+      <p class="m-0 color-on-surface-variant">Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма.</p>
+      <div class="showcase-grid">
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/relations/chart-scatter/" target="_top">Точечная диаграмма</a></figcaption>
+        <sf-chart-scatter id="home-scatter" label="Регионы: менеджеры, выручка и клиенты" x="managers" y="revenue" bubble="clients" point="region" x-label="Менеджеров" y-label="Выручка, млн ₽" bubble-label="Клиентов" x-format="integer" y-format="integer" bubble-format="integer"></sf-chart-scatter>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/relations/chart-box/" target="_top">Ящик с усами</a></figcaption>
+        <sf-chart-box id="home-box" label="Время доставки по складам" x="warehouse" y="hours" x-label="Склад" y-label="Часов в пути" y-format="integer"></sf-chart-box>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/relations/chart-radar/" target="_top">Лепестковая диаграмма</a></figcaption>
+        <sf-chart-radar id="home-radar" label="Навыки: Анна и Борис" x="skill" y="anna,boris" max="10" x-label="Навык" y-format="integer"></sf-chart-radar>
+      </figure>
+      </div>
     </section>
 
-    <section slot="panel-3" class="flex flex-col gap-2 p-top-2" aria-label="Потоки">
-      <p class="m-0 color-on-surface-variant">Бюджет компании: откуда приходят деньги и куда уходят. Ширина ленты — величина потока.</p>
-      <sf-chart-sankey id="home-flows" label="Бюджет компании, млн ₽" source="from" target="to" value="amount" y-format="integer" size="2"></sf-chart-sankey>
+    <section slot="panel-3" class="flex flex-col gap-3 p-top-2" aria-label="Потоки">
+      <p class="m-0 color-on-surface-variant">Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта.</p>
+      <div class="showcase-grid">
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/flows/chart-funnel/" target="_top">Воронка</a></figcaption>
+        <sf-chart-funnel id="home-funnel" label="Воронка заказа" stage="step" value="people" value-format="integer"></sf-chart-funnel>
+      </figure>
+      <figure class="showcase-cell showcase-wide flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/flows/chart-sankey/" target="_top">Диаграмма Санки</a></figcaption>
+        <sf-chart-sankey id="home-sankey" label="Бюджет компании, млн ₽" source="from" target="to" value="amount" y-format="integer"></sf-chart-sankey>
+      </figure>
+      <figure class="showcase-cell showcase-wide flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/flows/chart-timeline/" target="_top">Диаграмма Ганта</a></figcaption>
+        <sf-chart-timeline id="home-timeline" label="План проекта" row="task" start="start" end="end" status="status"></sf-chart-timeline>
+      </figure>
+      </div>
     </section>
 
-    <section slot="panel-4" class="flex flex-col gap-2 p-top-2" aria-label="Сроки">
-      <p class="m-0 color-on-surface-variant">План проекта диаграммой Ганта: задачи отрезками времени, вехи ромбами, состояние — цветом с подписью.</p>
-      <sf-chart-timeline id="home-schedule" label="План проекта" row="task" start="start" end="end" status="status"></sf-chart-timeline>
+    <section slot="panel-4" class="flex flex-col gap-3 p-top-2" aria-label="Сетки и карты">
+      <p class="m-0 color-on-surface-variant">Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт.</p>
+      <div class="showcase-grid">
+      <figure class="showcase-cell showcase-wide flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/grids/chart-heatmap/" target="_top">Тепловая карта</a></figcaption>
+        <sf-chart-heatmap id="home-heatmap" label="Нагрузка по часам" x="hour" y="day" value="load" value-format="integer"></sf-chart-heatmap>
+      </figure>
+      <figure class="showcase-cell showcase-wide flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/grids/chart-map/" target="_top">Карта по областям</a></figcaption>
+        <sf-chart-map id="home-map" label="Безработица по районам, %" region="district" value="rate" value-format="decimal-1"></sf-chart-map>
+      </figure>
+      </div>
     </section>
 
-    <section slot="panel-5" class="flex flex-col gap-2 p-top-2" aria-label="Нагрузка">
-      <p class="m-0 color-on-surface-variant">Нагрузка по дням недели и часам на ступенчатой шкале темы: чем темнее, тем больше.</p>
-      <sf-chart-heatmap id="home-load" label="Нагрузка по часам" x="hour" y="day" value="load" value-format="integer"></sf-chart-heatmap>
-    </section>
-
-    <section slot="panel-6" class="flex flex-col gap-2 p-top-2" aria-label="Карта">
-      <p class="m-0 color-on-surface-variant">Безработица по районам выдуманного города. Границы областей даёт сайт в формате GeoJSON; район без данных — пунктиром.</p>
-      <sf-chart-map id="home-map" label="Безработица по районам, %" region="district" value="rate" value-format="decimal-1" size="2"></sf-chart-map>
-    </section>
-
-    <section slot="panel-7" class="flex flex-col gap-2 p-top-2" aria-label="Показатели">
-      <p class="m-0 color-on-surface-variant">Плитки показателей для панели: число с изменением, загрузка со шкалой и мини-график очереди.</p>
-      <div class="grid gap-2 showcase-tiles">
-        <sf-chart-metric id="home-revenue" label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе"></sf-chart-metric>
-        <sf-chart-metric id="home-cpu" label="Нагрузка CPU" value="0.82" previous="0.64" format="percent" better="down" status="warning" hint="Выше 80 % пятнадцать минут" period-text="за час"></sf-chart-metric>
+    <section slot="panel-5" class="flex flex-col gap-3 p-top-2" aria-label="Показатели">
+      <p class="m-0 color-on-surface-variant">Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке.</p>
+      <div class="showcase-grid">
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/indicators/chart-metric/" target="_top">Плитка показателя</a></figcaption>
+        <sf-chart-metric id="home-metric" label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе"></sf-chart-metric>
+      </figure>
+      <figure class="showcase-cell flex flex-col gap-1 m-0">
+        <figcaption><a href="/ru/components/indicators/chart-gauge/" target="_top">Шкала</a></figcaption>
         <sf-chart-gauge id="home-gauge" label="Загрузка процессора" value="72" target="80" value-format="unit-percent"></sf-chart-gauge>
-        <div class="flex flex-col gap-1 p-2 radius-2 border border-outline-variant"><span class="color-on-surface-variant">Очередь заданий</span><sf-chart-sparkline id="home-queue" label="Очередь заданий" size="2" shape="area" curve="smooth" y-format="integer"></sf-chart-sparkline></div>
+      </figure>
       </div>
     </section>
   </sf-tabs>
