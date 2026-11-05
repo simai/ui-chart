@@ -421,8 +421,10 @@ of Tier 1 except `kpi` draws on one shared cartesian or polar core (see
 - **Not for:** a measure over time (use a line).
 - **Evidence:** 6 (H A F P G Gr).
 - **Relation:** change over time.
-- **Component** (`timeline`), with a range data contract (row, start, end,
-  status). Dependencies and editing are out of scope for the first version.
+- **Component.** `sf-chart-timeline` 0.1.0 (`docs/DECISIONS.md` D13) reads
+  the range data contract (row, start, end, status). A row holds one range
+  or many; one moment is a milestone. Dependencies and editing are out of
+  scope; an editable Gantt chart of the view set composes this one.
 
 ### Candlestick
 

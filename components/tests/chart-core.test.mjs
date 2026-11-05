@@ -23,6 +23,7 @@ import {binEdges, binOf, binSeries, median} from '../src/smart/chart-core/bin.js
 import {mergeCandles, ohlcExtent, ohlcRows, tickPlaces} from '../src/smart/chart-core/ohlc.js';
 import {isTotal, waterfallExtent, waterfallSteps} from '../src/smart/chart-core/waterfall.js';
 import {squarify, treemapLayout, treemapRows} from '../src/smart/chart-core/treemap.js';
+import {cutText, durationOf, nearestRange, statusTimes, timelineLayout, timelineRows} from '../src/smart/chart-core/timeline.js';
 import {compareRings, labelPlace, radarRuns, spokeAngle, spokePoint} from '../src/smart/chart-core/radar.js';
 import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
@@ -588,4 +589,54 @@ test('squarified rectangles tile the box in proportion, near square', () => {
   assert.deepEqual(groups.map((one) => [one.key, Boolean(one.header)]), [['x', true], ['y', true]]);
   assert.deepEqual(leaves.map((leaf) => leaf.label), ['a', 'b', 'c']);
   assert.ok(leaves.every((leaf) => leaf.y >= groups[leaf.place].y + 20));
+});
+
+test('timeline ranges go row after row by start, count what they leave out, and name statuses in order', () => {
+  const rows = [
+    {task: 'b', start: '2026-03-10', end: '2026-03-20', st: 'done'},
+    {task: 'a', start: '2026-03-01', end: '2026-03-05', st: 'plan'},
+    {task: 'b', start: '2026-03-02', end: '2026-03-04', st: 'plan'},
+    {task: 'c', start: '2026-03-08', end: '2026-03-08', st: 'done'},
+    {task: 'd', start: '2026-03-08', end: null},
+    {task: 'e', start: '2026-03-09', end: '2026-03-01'},
+  ];
+  const model = timelineRows(rows, {status: 'st'});
+  assert.deepEqual([model.rowField, model.startField, model.endField, model.missing, model.dropped], ['task', 'start', 'end', 1, 1]);
+  assert.deepEqual(model.lanes.map((one) => one.key), ['b', 'a', 'c']);
+  assert.deepEqual(model.statuses, ['done', 'plan']);
+  assert.deepEqual(model.ranges.map((one) => [one.index, one.lane, one.row, one.tone]), [[0, 'b', 2, 1], [1, 'b', 0, 0], [2, 'a', 1, 1], [3, 'c', 3, 0]]);
+  assert.equal(model.from, new Date(2026, 2, 1).getTime());
+  assert.equal(model.to, new Date(2026, 2, 20).getTime());
+  assert.deepEqual(timelineRows(rows).ranges.map((one) => one.tone), [0, 0, 0, 0]);
+  assert.deepEqual(statusTimes(model.ranges).map((one) => one.status), ['done', 'plan']);
+  assert.equal(nearestRange(model.lanes[0], new Date(2026, 2, 7).getTime()).row, 2);
+  assert.equal(nearestRange(model.lanes[0], new Date(2026, 2, 15).getTime()).row, 0);
+  assert.deepEqual([durationOf(10 * 86400000), durationOf(4.5 * 3600000), durationOf(45 * 60000), durationOf(36 * 3600000)],
+    [{amount: 10, unit: 'day'}, {amount: 4.5, unit: 'hour'}, {amount: 45, unit: 'minute'}, {amount: 36, unit: 'hour'}]);
+});
+
+test('timeline layout keeps bars in their rows, milestones whole and names cut to their room', () => {
+  const model = timelineRows([
+    {task: 'Анализ требований заказчика', start: '2026-03-01', end: '2026-03-10'},
+    {task: 'Сборка', start: '2026-03-10', end: '2026-03-31'},
+    {task: 'Запуск', start: '2026-03-31', end: '2026-03-31'},
+  ]);
+  const g = timelineLayout(model, {width: 400, height: 200}, {font: 12, thickest: 20, names: model.lanes.map((one) => one.key), tickText: (time) => String(new Date(time).getDate())});
+  assert.ok(g.lanes[0].text.endsWith('…') && g.lanes[0].text.length < 'Анализ требований заказчика'.length);
+  assert.equal(g.lanes[1].text, 'Сборка');
+  for (const one of g.ranges) {
+    const lane = g.lanes[one.place];
+    assert.ok(one.y >= lane.y && one.y + one.h <= lane.y + lane.h + 1e-9);
+    assert.ok(one.x >= 0 && one.x + one.w <= 400);
+  }
+  const [first, second, milestone] = g.ranges;
+  assert.ok(first.x + first.w < second.x, 'touching neighbours keep a pixel apart');
+  assert.ok(milestone.milestone && milestone.w === milestone.h && milestone.x + milestone.w <= g.width);
+  assert.ok(g.xTicks.length >= 1 && g.xTicks.every((tick, index) => !index || tick.at > g.xTicks[index - 1].at));
+  assert.equal(cutText('Тестирование', 6), 'Тест…');
+  assert.equal(cutText('Тестирование', 4), '');
+  // Too many rows for a line each: no names, the plot starts near the edge.
+  const many = timelineRows(Array.from({length: 40}, (_, index) => ({task: `t${index}`, start: '2026-01-01', end: '2026-01-02'})));
+  const thin = timelineLayout(many, {width: 400, height: 200}, {names: many.lanes.map((one) => one.key)});
+  assert.ok(thin.lanes.every((one) => one.text === '') && thin.inner.left < 20);
 });

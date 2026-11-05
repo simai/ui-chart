@@ -570,6 +570,47 @@ recommendation under the owner's delegation.
 - **Out of 0.1.0.** More than two levels, zoom into a group, and the
   sunburst.
 
+## D13. The timeline
+
+After the treemap the owner chose «Гант / таймлайн» (2026-11-05) as the
+next chart. Its form was decided by the recommendation under the owner's
+delegation.
+
+- **Tag.** `sf-chart-timeline`, the catalogue's name, with its core in
+  `chart-core/timeline.js`. One tag serves a plan's Gantt chart and a
+  service's state history: both are ranges of time on rows.
+- **Data.** The ranges shape of `parameters.md` §2.1: `row`, `start` and
+  `end` fields, and an optional `status`.
+  - A row is a lane across the plot. It holds one range (a task) or many
+    (the states of a service through a day).
+  - A range whose start and end are one moment is a milestone, drawn as a
+    diamond.
+  - A row without a start or an end, or ending before it starts, is left
+    out and counted.
+- **Time.** One calendar axis from the first start to the last end, ticks
+  on calendar units. Dates are said in the unit the data is given in; a
+  range within one day says its end by the time only.
+- **Rows.** They share the plot's height, which is the size rung's, as on
+  every chart. A row's name stands at its start when the row is tall
+  enough for a line, cut to three tenths of the width at most. With many
+  rows the names go to the tooltip and the table, and a page sets
+  `--sf-chart-timeline-height`.
+- **Colour.** A status takes the chart colour of its place
+  (`--sf-chart-N`) as a solid bar; `colors` by status key sets a page's
+  own (`success`, `warning`, `error` for states). In forced colours each
+  status keeps a line of its own: whole, dashed, dotted.
+- **Keyboard.** Left and Right walk the ranges row after row, by start in
+  each. Up and Down go to the range of the row above or below nearest in
+  time.
+- **Reuse.** The dispatcher reserved the name (ui-control `3bb85b5`) with a
+  boundary: the view set (`simai/ui-view`) plans an editable Gantt chart
+  that draws its rows with this timeline and adds editing and dependencies
+  on top. So the rows (`timelineRows`), the layout and the time scale
+  (`timelineLayout`) are in the chart core, and the marks' markup
+  (`timelineMarks`) is exported by the template.
+- **Out of 0.1.0.** Dependencies between tasks, editing by drag, a today
+  line, zoom, and rows grouped under headings.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -590,6 +631,7 @@ recommendation under the owner's delegation.
 | D10 | The candlestick: `sf-chart-candlestick`, candles in order without holes, hollow rise and filled fall, a scale fitting the data, merging below 3 px, `shape="bar"` | 2026-11-03 | the owner's «Candlesticks» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `402a5ac`, bus `msg-b88db530428847a0bdcb`) |
 | D11 | The waterfall: `sf-chart-waterfall` (not `accumulate` on bar), total rows on zero, a closing total, joining lines, signed values, the success, error and neutral tones | 2026-11-04 | the owner's «Каскадный график» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `c8a67cb`, bus `msg-7a432f38a14e4db9ad8d`) |
 | D12 | The treemap: `sf-chart-treemap`, two levels through a `group` field (not id and parent), squarified, groups in the chart colours with light fills, names and values inside where they fit | 2026-11-05 | the owner's «Следующий график» in the chat; the chart and its form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `e79bd7f`, bus `msg-f886b54bb51d4e05a312`) |
+| D13 | The timeline: `sf-chart-timeline`, row, start, end and status fields, a row holding one range or many, milestones as diamonds, a status in a chart colour, the rows, layout and time scale in the core for reuse | 2026-11-05 | the owner's «Гант / таймлайн» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `3bb85b5`, bus `msg-6a10fbed66144c44b6ba`) |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

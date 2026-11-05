@@ -1,0 +1,17 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-timeline",
+  "title": "timeline reference",
+  "summary": "Deterministic reference fixture for sf-chart-timeline.",
+  "locale": "ru",
+  "props": {
+    "label": "План проекта",
+    "row": "task",
+    "start": "start",
+    "end": "end",
+    "status": "status"
+  },
+  "children": [],
+  "state": "default"
+}

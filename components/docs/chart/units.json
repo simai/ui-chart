@@ -262,6 +262,13 @@
       "recorded_on": "2026-11-05",
       "change": "added",
       "summary": "sf-chart-treemap: how a whole is made of parts (x and y fields), values as the areas of rectangles laid out squarified, largest first, one level or two (the group field) with a band naming each group, a group in a chart colour (--sf-chart-N fill and line, colors by group key), the part's name and value written inside where they fit (labels), a key of the groups, a tooltip with the share, a keyboard cursor over the parts and across the groups, a summary sentence with the total, the largest part and the largest group, the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-timeline",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-05",
+      "change": "added",
+      "summary": "sf-chart-timeline: tasks or states as ranges of time on rows (row, start and end fields), a row a lane with its name at the start holding one range or many, a bar from each range's start to its end on a calendar time axis, a diamond for a milestone, a status in a chart colour (the status field, --sf-chart-N, colors by status key) with its key, a tooltip with the start, the end and the length, a keyboard cursor along the rows and across them, a summary sentence with the span, the longest range and the status that takes the most time, the same data as a table, loading, empty and error states."
     }
   ]
 }

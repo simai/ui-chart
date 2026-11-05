@@ -3,7 +3,8 @@
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
 // sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box,
-// sf-chart-radar, sf-chart-candlestick, sf-chart-waterfall and sf-chart-treemap.
+// sf-chart-radar, sf-chart-candlestick, sf-chart-waterfall, sf-chart-treemap and
+// sf-chart-timeline.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -32,7 +33,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap', 'chart-timeline'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -1284,6 +1285,101 @@ try {
     }), areas);
     evidence.treemap.forced = plain;
     if (new Set(plain.map((one) => one.stroke)).size !== 1 || new Set(plain.map((one) => one.fill)).size !== 1 || plain[0].fill === plain[0].stroke) note({case: 'treemap: in forced colours every part is the canvas with a line of the system colour', got: plain});
+    await forced.close();
+  }
+
+  // 3m. The timeline: the plot is its rung's height and every bar, diamond
+  // and name stays in it on every rung and width, a name inside the start
+  // of its row; each status's bar holds 3:1 against the page in both themes,
+  // in a colour of its own, and the names 4.5:1; the ranges are one Tab stop
+  // walked row after row, Up and Down to the nearest range of the next row,
+  // each said, and the pointer shows the same range in the tooltip; in
+  // forced colours each status keeps a line of its own.
+  {
+    const plan = [['Анализ требований', '2026-03-02', '2026-03-13', 'готово'], ['Дизайн', '2026-03-09', '2026-03-27', 'готово'], ['Разработка', '2026-03-23', '2026-04-24', 'в работе'], ['Тестирование', '2026-04-13', '2026-05-08', 'план'], ['Обучение', '2026-04-27', '2026-05-15', 'план'], ['Запуск', '2026-05-15', '2026-05-15', 'план']]
+      .map(([task, start, end, status]) => ({task, start, end, status}));
+    const gantt = {label: 'План', row: 'task', status: 'status'};
+    const rgb = (value) => value.match(/[\d.]+/gu).slice(0, 3).map(Number);
+    const statuses = ['готово', 'в работе', 'план'];
+    evidence.timeline = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-timeline', {...gantt, size}, {items: plan});
+          const shape = await shapeOf(page, {frame: '.sf-chart-timeline-plot', marks: '.sf-chart-timeline-marks rect, .sf-chart-timeline-marks path', texts: '.sf-chart-timeline-svg text'});
+          // A row's name ends before the plot's first bar can start.
+          const spill = await page.evaluate(() => {
+            const first = Math.min(...[...document.querySelectorAll('#chart .sf-chart-timeline-marks rect, #chart .sf-chart-timeline-marks path')].map((node) => node.getBoundingClientRect().left));
+            const axis = document.querySelector('#chart .sf-chart-timeline-axis').getBoundingClientRect().left;
+            return [...document.querySelectorAll('#chart .sf-chart-timeline-name')].filter((node) => node.getBoundingClientRect().right > Math.min(first, axis) + 1).map((node) => node.textContent);
+          });
+          const names = await page.evaluate(() => document.querySelectorAll('#chart .sf-chart-timeline-name').length);
+          evidence.timeline.geometry.push({theme, width, size, height: shape.height, marks: shape.marks, names});
+          if (shape.height !== RUNG[size] || shape.marks !== 6 || shape.outside || spill.length || shape.pageOverflow > 0) note({case: `timeline ${theme} ${width}px size ${size}: the plot is its rung's height, six marks, every name before the bars`, got: {shape, spill, names}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-timeline', gantt, {items: plan});
+          const paint = await page.evaluate((keys) => ({
+            bars: keys.map((key) => getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-timeline-status[data-status="${key}"] :is(.sf-chart-timeline-range, .sf-chart-timeline-milestone)`)).fill),
+            ink: getComputedStyle(document.querySelector('#chart .sf-chart-timeline-name')).fill,
+            ticks: getComputedStyle(document.querySelector('#chart .sf-chart-timeline-tick')).fill,
+          }), statuses);
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const bars = paint.bars.map((one) => Math.round(contrast(rgb(one), background) * 100) / 100);
+          const inks = [paint.ink, paint.ticks].map((one) => Math.round(contrast(rgb(one), background) * 100) / 100);
+          evidence.timeline.contrast[theme] = {bars, inks};
+          if (bars.some((ratio) => ratio < 3) || inks.some((ratio) => ratio < 4.5) || new Set(paint.bars).size !== 3) note({case: `timeline ${theme}: each status's bar holds 3:1 against the page in a colour of its own, the names and ticks 4.5:1`, got: {paint, bars, inks}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-timeline', gantt, {items: plan});
+    await page.focus('#before');
+    for (let press = 0; press < 2; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-timeline-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/ | /gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const down = await said('ArrowDown');
+    const up = await said('ArrowUp');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-timeline-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-timeline-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-timeline-svg'));
+    // The pointer on the middle of «Разработка» shows it.
+    const spot = await page.evaluate(() => {
+      const box = document.querySelector('#chart svg[role=group] .sf-chart-timeline-status[data-status="в работе"] .sf-chart-timeline-range').getBoundingClientRect();
+      return {x: box.left + box.width / 2, y: box.top + box.height / 2};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-timeline-tooltip')?.textContent.replace(/\s+/gu, ' ').trim().replace(/ | /gu, ' ') ?? '');
+    const keys = {focused, first, second, down, up, end, chosen, tip, cleared, out, hover};
+    evidence.timeline.keyboard = keys;
+    if (!focused || first !== 'Анализ требований, готово: 2 марта 2026 г. – 13 марта 2026 г., 11 дн.' || second !== 'Дизайн, готово: 9 марта 2026 г. – 27 марта 2026 г., 18 дн.' || down !== 'Разработка, в работе: 23 марта 2026 г. – 24 апреля 2026 г., 32 дн.' || up !== second || end !== 'Запуск, план: 15 мая 2026 г., веха'
+      || chosen.length !== 1 || chosen[0].index !== 5 || chosen[0].lane !== 'Запуск' || chosen[0].start !== chosen[0].end
+      || !tip.startsWith('Запуск') || cleared || !out || hover !== 'Разработка Статус в работе Начало 23 марта 2026 г. Конец 24 апреля 2026 г. Длительность 32 дн.') note({case: 'timeline: one Tab stop after the table button; the arrows go range by range, Up and Down to the nearest range of the next row, each said; Enter selects, Escape clears; the pointer shows its range', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-timeline', gantt, {items: plan});
+    const plain = await forced.evaluate((keys) => keys.map((key) => {
+      const node = getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-timeline-status[data-status="${key}"] :is(.sf-chart-timeline-range, .sf-chart-timeline-milestone)`));
+      return {stroke: node.stroke, fill: node.fill, dash: node.strokeDasharray};
+    }), statuses);
+    evidence.timeline.forced = plain;
+    if (new Set(plain.map((one) => `${one.fill} ${one.dash}`)).size !== 3 || plain.some((one) => one.stroke === 'none')) note({case: 'timeline: in forced colours each status keeps a line of its own in the system colours', got: plain});
     await forced.close();
   }
 
