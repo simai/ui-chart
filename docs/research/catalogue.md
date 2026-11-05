@@ -389,8 +389,10 @@ of Tier 1 except `kpi` draws on one shared cartesian or polar core (see
   without drill-down.
 - **Evidence:** 11 (E H A X Cb S R N P G Su).
 - **Relation:** part-to-whole.
-- **Component.** It shares the hierarchy data contract (id, parent, value,
-  or a path) with `sunburst`.
+- **Component.** `sf-chart-treemap` 0.1.0 (`docs/DECISIONS.md` D12) reads
+  two levels through a `group` field. The hierarchy data contract (id,
+  parent, value, or a path), shared with `sunburst`, stays the plan for
+  deeper trees.
 
 ### Sunburst
 

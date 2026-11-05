@@ -1,0 +1,40 @@
+{
+  "title": "Treemap",
+  "runtime": {
+    "untitled": "Chart",
+    "roledescription": "treemap",
+    "summary-total": "Total {total}, parts: {count}.",
+    "summary-largest": "The largest is «{name}»: {value} ({share}).",
+    "summary-groups": "Groups: {count}, the largest is «{name}»: {value} ({share}).",
+    "summary-top": "The three largest parts are {share} of the total.",
+    "summary-left": "Rows without a positive value: {count}.",
+    "summary-empty": "No data.",
+    "cursor": "{name}: {value} ({share})",
+    "cursor-group": "{group} — {name}: {value} ({share})",
+    "part-n": "Part {n}",
+    "part-column": "Part",
+    "group": "Group",
+    "no-group": "No group",
+    "value": "Value",
+    "share": "Share",
+    "legend": "Groups",
+    "gap": "no data",
+    "show-table": "Table",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data"
+  },
+  "events": {
+    "select": {
+      "label": "Choose a part"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Take the cursor away"
+    }
+  }
+}

@@ -255,6 +255,13 @@
       "change": "minor",
       "consumer": "Nothing to do: a page's format words read as before; a page may now write decimal-<n> with two digits.",
       "summary": "chart-core/format.js formats numbers and dates through the core's SF.format (core.runtime 1.20.0, pair ui-c3015f76bcc2), which took its number words from this file; the chart keeps only its axis-tick and full-date forms and its argument order. decimal-<n> now reads up to 20 digits, as the core does; nothing else a chart says changes."
+    },
+    {
+      "unit": "smart.chart-treemap",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-05",
+      "change": "added",
+      "summary": "sf-chart-treemap: how a whole is made of parts (x and y fields), values as the areas of rectangles laid out squarified, largest first, one level or two (the group field) with a band naming each group, a group in a chart colour (--sf-chart-N fill and line, colors by group key), the part's name and value written inside where they fit (labels), a key of the groups, a tooltip with the share, a keyboard cursor over the parts and across the groups, a summary sentence with the total, the largest part and the largest group, the same data as a table, loading, empty and error states."
     }
   ]
 }

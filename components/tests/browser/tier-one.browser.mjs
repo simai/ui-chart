@@ -3,7 +3,7 @@
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
 // sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box,
-// sf-chart-radar, sf-chart-candlestick and sf-chart-waterfall.
+// sf-chart-radar, sf-chart-candlestick, sf-chart-waterfall and sf-chart-treemap.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -32,7 +32,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -1186,6 +1186,104 @@ try {
     evidence.waterfall.forced = plain;
     const [up, down, total] = plain;
     if (new Set(plain.map((one) => one.stroke)).size !== 1 || up.fill === up.stroke || down.fill !== down.stroke || total.fill === total.stroke || total.dash === 'none' || up.dash !== 'none') note({case: 'waterfall: in forced colours all are the system colour, a rise hollow, a fall filled and a total dashed', got: plain});
+    await forced.close();
+  }
+
+  // 3l. The treemap: the plot is its rung's height and every part and name
+  // stays in it on every rung and width; each group's line holds 3:1
+  // against the page in both themes, in a colour of its own, and the names
+  // keep 4.5:1 on their fills; the parts are one Tab stop walked largest
+  // first, Up and Down across the groups, each said, and the pointer shows
+  // the same part in the tooltip; in forced colours every part is the
+  // canvas with a line of the system colour.
+  {
+    const sales = [['Смартфоны', 420, 'Электроника'], ['Ноутбуки', 310, 'Электроника'], ['Наушники', 120, 'Электроника'], ['Планшеты', 90, 'Электроника'], ['Мебель', 260, 'Дом'], ['Посуда', 110, 'Дом'], ['Текстиль', 70, 'Дом'], ['Обувь', 180, 'Одежда'], ['Верхняя одежда', 150, 'Одежда'], ['Аксессуары', 60, 'Одежда']]
+      .map(([name, value, area]) => ({name, value, area}));
+    const tree = {label: 'Выручка', x: 'name', y: 'value', group: 'area', 'y-format': 'integer'};
+    const rgb = (value) => value.match(/[\d.]+/gu).slice(0, 4).map(Number);
+    // A tint over the page: its colour as the eye sees it.
+    const over = ([r, g, b, a = 1], [pr, pg, pb]) => [r * a + pr * (1 - a), g * a + pg * (1 - a), b * a + pb * (1 - a)];
+    const areas = ['Электроника', 'Дом', 'Одежда'];
+    evidence.treemap = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-treemap', {...tree, size}, {items: sales});
+          const shape = await shapeOf(page, {frame: '.sf-chart-treemap-plot', marks: '.sf-chart-treemap-marks rect', texts: '.sf-chart-treemap-svg text'});
+          const spill = await page.evaluate(() => [...document.querySelectorAll('#chart .sf-chart-treemap-name, #chart .sf-chart-treemap-value')].filter((node) => {
+            const text = node.getBoundingClientRect();
+            const part = node.previousElementSibling?.classList.contains('sf-chart-treemap-part') ? node.previousElementSibling : node.previousElementSibling?.previousElementSibling;
+            const box = part.getBoundingClientRect();
+            return text.left < box.left - 1 || text.right > box.right + 1 || text.top < box.top - 1 || text.bottom > box.bottom + 1;
+          }).map((node) => node.textContent));
+          const names = await page.evaluate(() => document.querySelectorAll('#chart .sf-chart-treemap-name').length);
+          evidence.treemap.geometry.push({theme, width, size, height: shape.height, parts: shape.marks, names});
+          if (shape.height !== RUNG[size] || shape.marks !== 10 || shape.outside || spill.length || shape.pageOverflow > 0) note({case: `treemap ${theme} ${width}px size ${size}: the plot is its rung's height, ten parts, every name inside its part`, got: {shape, spill, names}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-treemap', tree, {items: sales});
+          const paint = await page.evaluate((keys) => keys.map((key) => {
+            const group = document.querySelector(`#chart svg[role=group] .sf-chart-treemap-group[data-group="${key}"]`);
+            const part = getComputedStyle(group.querySelector('.sf-chart-treemap-part'));
+            return {stroke: part.stroke, fill: part.fill, ink: getComputedStyle(group.querySelector('.sf-chart-treemap-name')).fill};
+          }), areas);
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const lines = paint.map((one) => Math.round(contrast(rgb(one.stroke), background) * 100) / 100);
+          const inks = paint.map((one) => Math.round(contrast(rgb(one.ink), over(rgb(one.fill), background)) * 100) / 100);
+          evidence.treemap.contrast[theme] = {lines, inks};
+          if (lines.some((ratio) => ratio < 3) || inks.some((ratio) => ratio < 4.5) || new Set(paint.map((one) => one.stroke)).size !== 3) note({case: `treemap ${theme}: each group's line holds 3:1 against the page in a colour of its own, the names 4.5:1 on their fills`, got: {paint, lines, inks}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-treemap', tree, {items: sales});
+    // Tab reaches the table button, then the plot; the legend is not a stop.
+    await page.focus('#before');
+    for (let press = 0; press < 2; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-treemap-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/ | /gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const down = await said('ArrowDown');
+    const up = await said('ArrowUp');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-treemap-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-treemap-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-treemap-svg'));
+    // The pointer on the largest part of «Дом» shows it.
+    const spot = await page.evaluate(() => {
+      const box = document.querySelector('#chart svg[role=group] .sf-chart-treemap-group[data-group="Дом"] .sf-chart-treemap-part').getBoundingClientRect();
+      return {x: box.left + box.width / 2, y: box.top + box.height / 2};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-treemap-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    const keys = {focused, first, second, down, up, end, chosen, tip, cleared, out, hover};
+    evidence.treemap.keyboard = keys;
+    if (!focused || first !== 'Электроника — Смартфоны: 420 (23,7 %)' || second !== 'Электроника — Ноутбуки: 310 (17,5 %)' || down !== 'Дом — Мебель: 260 (14,7 %)' || up !== first || end !== 'Одежда — Аксессуары: 60 (3,4 %)'
+      || chosen.length !== 1 || chosen[0].index !== 9 || chosen[0].group !== 'Одежда' || chosen[0].value !== 60
+      || !tip.startsWith('Аксессуары') || cleared || !out || !hover.startsWith('Мебель')) note({case: 'treemap: one Tab stop after the table button; the arrows go part by part, Up and Down across the groups, each said; Enter selects, Escape clears; the pointer shows its part', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-treemap', tree, {items: sales});
+    const plain = await forced.evaluate((keys) => keys.map((key) => {
+      const node = getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-treemap-group[data-group="${key}"] .sf-chart-treemap-part`));
+      return {stroke: node.stroke, fill: node.fill};
+    }), areas);
+    evidence.treemap.forced = plain;
+    if (new Set(plain.map((one) => one.stroke)).size !== 1 || new Set(plain.map((one) => one.fill)).size !== 1 || plain[0].fill === plain[0].stroke) note({case: 'treemap: in forced colours every part is the canvas with a line of the system colour', got: plain});
     await forced.close();
   }
 

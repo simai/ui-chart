@@ -22,6 +22,7 @@ import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-cor
 import {binEdges, binOf, binSeries, median} from '../src/smart/chart-core/bin.js';
 import {mergeCandles, ohlcExtent, ohlcRows, tickPlaces} from '../src/smart/chart-core/ohlc.js';
 import {isTotal, waterfallExtent, waterfallSteps} from '../src/smart/chart-core/waterfall.js';
+import {squarify, treemapLayout, treemapRows} from '../src/smart/chart-core/treemap.js';
 import {compareRings, labelPlace, radarRuns, spokeAngle, spokePoint} from '../src/smart/chart-core/radar.js';
 import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
@@ -556,4 +557,35 @@ test('waterfall steps run from total to total, change by change, and close with 
   assert.deepEqual(waterfallExtent(middle.steps), [-20, 50]);
   assert.equal(waterfallSteps([{s: 'a', v: 1}], {end: false}).steps.length, 1);
   assert.deepEqual([true, 'yes', 'Да', 1, 0, 'no', '', null].map(isTotal), [true, true, true, true, false, false, false, false]);
+});
+
+test('treemap parts go largest first, by group, and leave out what an area cannot show', () => {
+  const rows = [
+    {name: 'a', value: 2, kind: 'x'}, {name: 'b', value: 7, kind: 'y'}, {name: 'c', value: 4, kind: 'x'},
+    {name: 'd', value: null, kind: 'y'}, {name: 'e', value: -1, kind: 'y'}, {name: 'f', value: 0, kind: 'x'},
+  ];
+  const model = treemapRows(rows, {group: 'kind'});
+  assert.deepEqual([model.xField, model.yField, model.missing, model.dropped, model.total], ['name', 'value', 1, 2, 13]);
+  assert.deepEqual(model.groups.map((one) => [one.key, one.value, one.leaves.map((leaf) => leaf.label)]), [['y', 7, ['b']], ['x', 6, ['c', 'a']]]);
+  assert.deepEqual(treemapRows([{n: 'p', v: 3}, {n: 'q', v: 5}]).groups.map((one) => [one.key, one.leaves.map((leaf) => leaf.label)]), [['', ['q', 'p']]]);
+});
+
+test('squarified rectangles tile the box in proportion, near square', () => {
+  const box = {x: 0, y: 0, w: 600, h: 400};
+  const values = [6, 6, 4, 3, 2, 2, 1];
+  const rects = squarify(values, box);
+  const total = values.reduce((sum, value) => sum + value, 0);
+  rects.forEach((rect, index) => {
+    assert.ok(Math.abs(rect.w * rect.h - (values[index] / total) * 240000) < 1e-6);
+    assert.ok(rect.x >= -1e-9 && rect.y >= -1e-9 && rect.x + rect.w <= 600 + 1e-6 && rect.y + rect.h <= 400 + 1e-6);
+  });
+  // The first two halve the left of the box: two near-square rectangles.
+  assert.deepEqual(rects.slice(0, 2).map(({x, y, w, h}) => [x, y, w, h].map(Math.round)), [[0, 0, 300, 200], [0, 200, 300, 200]]);
+  assert.ok(Math.max(...rects.map((rect) => Math.max(rect.w / rect.h, rect.h / rect.w))) < 3);
+  assert.deepEqual(squarify([0, 0], box).map((rect) => rect.w), [0, 0]);
+  // Two groups: a named band on top of each tall enough, leaves gap apart inside.
+  const {groups, leaves} = treemapLayout(treemapRows([{n: 'a', v: 3, g: 'x'}, {n: 'b', v: 1, g: 'x'}, {n: 'c', v: 4, g: 'y'}], {group: 'g'}).groups, box, {gap: 2, header: 20});
+  assert.deepEqual(groups.map((one) => [one.key, Boolean(one.header)]), [['x', true], ['y', true]]);
+  assert.deepEqual(leaves.map((leaf) => leaf.label), ['a', 'b', 'c']);
+  assert.ok(leaves.every((leaf) => leaf.y >= groups[leaf.place].y + 20));
 });

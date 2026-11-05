@@ -1,0 +1,395 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-treemap",
+  "version": "0.1.0",
+  "title": "Treemap",
+  "summary": "A treemap: values as the areas of rectangles that tile the plot, laid out squarified, largest first, one level or two (parts in groups under the group's name), a group in a chart colour with a light fill and a line round each part, the part's name and value written inside where they fit, a key of the groups, a tooltip with the share, a keyboard cursor over the parts and across the groups, a summary in words, and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "treemap",
+    "part-to-whole",
+    "hierarchy",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-treemap",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+      },
+      "x": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the parts' names; the first field other than the value and the group when unset."
+      },
+      "y": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the values, positive amounts; the first numeric field other than x and the group when unset."
+      },
+      "group": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the groups, for two levels: the parts of a group lie together in its rectangle, under its name, in its colour. Unset: one level, every part in one colour."
+      },
+      "labels": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto writes a part's name inside it, cut with an ellipsis, and its value under the name when there is room; a part too small for three letters stays blank. none leaves them to the tooltip and the table.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "legend": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto shows the key of the groups above the plot when there are groups, none without.",
+        "enum": [
+          "auto",
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "part",
+        "description": "part: under the pointer or the cursor, the part's name, its group, its value and its share of the whole.",
+        "enum": [
+          "part",
+          "none"
+        ]
+      },
+      "x-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the parts, the table's part column; the x field's name when unset."
+      },
+      "y-format": {
+        "type": "string",
+        "default": "number",
+        "description": "The values' format: number, integer, decimal-<n>, compact, currency-<CODE> or unit-<unit>, in the page's language. Shares are always percent."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the total and the count of parts, the largest part with its share, and the count of groups with the largest, or the three largest parts' share without groups), said before the plot. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with parts, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records, one per part ([{name, value, group}, …]), or an object of columns. A part's area is its share of the whole. A row without a value, or with zero or less, is left out; the summary says how many."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "The colours of the groups by key ({Электроника: 'primary'}): a Framework role, which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A group without one takes the chart colour of its place, largest first."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-treemap-select": {
+      "summary": "The person chose a part: a click on it, or Enter or Space on the keyboard cursor. index is its place in the keyboard's order (groups largest first, then parts largest first), row its row in items, x its name, group its group's key ('' without groups), value its value, share its part of the whole, 0 to 1.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "index",
+          "row",
+          "x",
+          "group",
+          "value",
+          "share"
+        ],
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "row": {
+            "type": "number"
+          },
+          "x": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "share": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-treemap-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-treemap/index.js",
+        "sha256": "42b6ded3791484c8f7427fbc49457adb35b28927e4f7e8b1b2dd6200c75fb330"
+      },
+      {
+        "path": "src/smart/chart-treemap/js/templates/default.js",
+        "sha256": "e5be0c2ec7d555320a01724052cd15a8e7abb6445d3aa3ef23c29eb6fcb9f13a"
+      },
+      {
+        "path": "src/smart/chart-treemap/js/templates/default.css",
+        "sha256": "d48494ccd582b43e9961b0e8ef1e8ca06c9edb717cacd3ff329bc2ce6ffd9131"
+      },
+      {
+        "path": "src/smart/chart-treemap/rule.js",
+        "sha256": "a4dd10f3d9c3009ee303db58a254ce182a7c04836d2454a96f86ec4765b05da3"
+      },
+      {
+        "path": "src/smart/chart-treemap/docs.md",
+        "sha256": "40922d06f13292d87e052c5a66baf21a0ccf0e850089b3ed6badbab03923c9ad"
+      },
+      {
+        "path": "src/smart/chart-treemap/component.json",
+        "sha256": "3f609b98781d98bb8554922e152ec37391c1b4ec98238272f376b823f021b454"
+      },
+      {
+        "path": "src/smart/chart-treemap/lang/en.json",
+        "sha256": "8eb1ac1c226d0e3868274e42c96a83f99e638147bb1ac7701dfc7928c9b46d9b"
+      },
+      {
+        "path": "src/smart/chart-treemap/lang/ru.json",
+        "sha256": "3984fa99af8dc3b86e230a136d33449d00d9ef5b00b5d6c43f39e615323321ac"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-treemap to show how a whole is made of many parts, in one level or grouped in two: revenue by category and product, a budget by item, disk space by folder.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not use it for a few parts whose sizes must be compared exactly; a sf-chart-bar reads them",
+      "Do not use it for values that can be negative; a sf-chart-waterfall or sf-chart-bar shows them"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-treemap label=\"Выручка по направлениям\" x=\"name\" y=\"value\" group=\"area\" y-format=\"integer\"></sf-chart-treemap>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

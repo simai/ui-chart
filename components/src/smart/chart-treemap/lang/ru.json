@@ -1,0 +1,40 @@
+{
+  "title": "Плиточная диаграмма",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "плиточная диаграмма",
+    "summary-total": "Всего {total}, частей: {count}.",
+    "summary-largest": "Больше всего — «{name}»: {value} ({share}).",
+    "summary-groups": "Групп: {count}, крупнейшая — «{name}»: {value} ({share}).",
+    "summary-top": "Три крупнейшие части — {share} всего.",
+    "summary-left": "Строк без положительного значения: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{name}: {value} ({share})",
+    "cursor-group": "{group} — {name}: {value} ({share})",
+    "part-n": "Часть {n}",
+    "part-column": "Часть",
+    "group": "Группа",
+    "no-group": "Без группы",
+    "value": "Значение",
+    "share": "Доля",
+    "legend": "Группы",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать часть"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Убрать курсор"
+    }
+  }
+}

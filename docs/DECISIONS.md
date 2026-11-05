@@ -535,6 +535,41 @@ owner's delegation.
   own.
 - **Out of 0.1.0.** Horizontal bars and steps of several parts.
 
+## D12. The treemap
+
+After the waterfall the owner asked for «Следующий график» (2026-11-05)
+without naming one. The treemap was chosen as the most cited chart not yet
+built (11 of 18 libraries, catalogue Tier 3). Its form was decided by the
+recommendation under the owner's delegation.
+
+- **Tag.** `sf-chart-treemap`, with its core in `chart-core/treemap.js`.
+- **Two levels through a group field, not id and parent.** The catalogue
+  proposed the hierarchy contract (id, parent, value, or a path) shared
+  with a sunburst. 0.1.0 takes `x` and `y` as on the bar chart and an
+  optional `group` field:
+  - two levels cover the uses the catalogue names (budget by department,
+    revenue by category and product), and the rows are the same rows the
+    other charts read;
+  - deeper trees need drill-down to stay readable, which 0.1.0 does not
+    have. The id-and-parent contract stays the plan for the sunburst and a
+    deeper treemap.
+- **Layout.** Squarified (Bruls, Huizing and van Wijk, 2000), own
+  implementation: groups and parts largest first, 2 px between
+  neighbours, a band naming a group when it is tall enough.
+- **Values.** A row without a value, or with zero or less, is left out
+  and counted: an area cannot show it.
+- **Colour.** A group takes the chart colour of its place
+  (`--sf-chart-N`): its light fill inside each part and its line round it.
+  The text is the page's ink, which reads on every fill. `colors` by group
+  key sets a page's own.
+- **Words.** A part's name, cut with an ellipsis, and its value under it
+  where there is room. The tooltip, the live line and the table give the
+  share.
+- **Keyboard.** Left and Right walk the parts in their order, Up and Down
+  go to the first part of the group before or after.
+- **Out of 0.1.0.** More than two levels, zoom into a group, and the
+  sunburst.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -554,6 +589,7 @@ owner's delegation.
 | D9 | The radar: `sf-chart-radar`, one scale from the centre, the first spoke up and clockwise, a gap breaks the ring, marks of their own shape per series | 2026-11-03 | the owner's «давай дальше … радар?» in the chat; the form decided by the recommendation under the owner's delegation |
 | D10 | The candlestick: `sf-chart-candlestick`, candles in order without holes, hollow rise and filled fall, a scale fitting the data, merging below 3 px, `shape="bar"` | 2026-11-03 | the owner's «Candlesticks» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `402a5ac`, bus `msg-b88db530428847a0bdcb`) |
 | D11 | The waterfall: `sf-chart-waterfall` (not `accumulate` on bar), total rows on zero, a closing total, joining lines, signed values, the success, error and neutral tones | 2026-11-04 | the owner's «Каскадный график» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `c8a67cb`, bus `msg-7a432f38a14e4db9ad8d`) |
+| D12 | The treemap: `sf-chart-treemap`, two levels through a `group` field (not id and parent), squarified, groups in the chart colours with light fills, names and values inside where they fit | 2026-11-05 | the owner's «Следующий график» in the chat; the chart and its form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `e79bd7f`, bus `msg-f886b54bb51d4e05a312`) |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

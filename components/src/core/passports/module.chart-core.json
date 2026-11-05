@@ -30,9 +30,10 @@
     "src/smart/chart-core/scatter.js",
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js",
+    "src/smart/chart-core/treemap.js",
     "src/smart/chart-core/waterfall.js"
   ],
-  "content_sha256": "57e80182545ab0e5bd51e1fb05a3ec7be33cbf883394a366dab72479e4ad5a10",
+  "content_sha256": "c171def72b519944a864ab2b789e68c5374ce0d2e498c2d87653c07ff2011f3a",
   "dependencies": [
     {
       "id": "core.runtime",
