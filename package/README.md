@@ -43,8 +43,8 @@ release pinned in `framework.lock.json` (the same revision as
 
 ## The pin
 
-`framework.lock.json` pins ui-source `ec2f29df`, the free release
-`ui-62b1d9b6dc8d` (npm `@simai-studio/ui@5.20261105.1447`). A package is
+`framework.lock.json` pins ui-source `5443d10d`, the free release
+`ui-e7b79c3a9e05` (npm `@simai-studio/ui@5.20261105.2041`). A package is
 built and tested against exactly one Framework revision; moving to a newer one
 is a change of the lock, a run of the suite and the probes, and a build.
 

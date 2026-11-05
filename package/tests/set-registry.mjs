@@ -25,13 +25,4 @@ export function registryProblems(registry, passport) {
 // the pinned revision does not list yet (ordered from the SIMAI Framework
 // dispatcher with the set's passport). The list only shrinks: a name the
 // registry lists is removed from it in the commit that moves the pin.
-export const PENDING_NAMES = [
-  {element: 'sf-chart-radar', reserved: 'ui-control, 2026-11-03'},
-  {element: 'sf-chart-candlestick', reserved: 'ui-control, 2026-11-04 (D10)'},
-  {element: 'sf-chart-waterfall', reserved: 'ui-control, 2026-11-04 (D11)'},
-  {element: 'sf-chart-treemap', reserved: 'ui-control, 2026-11-05 (D12)'},
-  {element: 'sf-chart-timeline', reserved: 'ui-control, 2026-11-05 (D13)'},
-  {element: 'sf-chart-sankey', reserved: 'ui-control, 2026-11-05 (D14)'},
-  {element: 'sf-chart-sunburst', reserved: 'ui-control 868426b (D15)'},
-  {element: 'sf-chart-map', reserved: 'ui-control 906d127 (D16)'},
-];
+export const PENDING_NAMES = [];

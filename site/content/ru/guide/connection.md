@@ -12,7 +12,7 @@ Loader — загрузчик SIMAI Framework — сам находит набо
 ## Одна строка
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261105.1447/distr/core/js/core.min.js" data-sf-sets="chart"></script>
+<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261105.2041/distr/core/js/core.min.js" data-sf-sets="chart"></script>
 ```
 
 Атрибут `data-sf-sets` перечисляет наборы через пробел. Без версии Loader
@@ -71,7 +71,7 @@ Loader — загрузчик SIMAI Framework — сам находит набо
 
 | Набор | Состояние | Собран над SIMAI Framework | Нужен Core |
 |:---|:---|:---|:---|
-| ещё не выпущен | графики 0.x, предварительные | `ui-62b1d9b6dc8d` (npm `@simai-studio/ui@5.20261105.1447`) | `core.runtime` 1.25.0 или новее |
+| ещё не выпущен | графики 0.x, предварительные | `ui-e7b79c3a9e05` (npm `@simai-studio/ui@5.20261105.2041`) | `core.runtime` 1.25.0 или новее |
 
 Версии каждого графика — в [истории изменений](../changes/). После выпуска
 закрепите версию набора в рабочем сайте: обновление станет вашим решением,

@@ -33,5 +33,5 @@
 | Set and site | done (2026-11-05), local: `chart` laid out as a component set (`simai.component-set` 1.0.0, the decision D17): `package/` with the passport `set.json`, the passport test, the registry check and the gates; the Docara site in `site/` on the agreed set site scheme (home, Guide, Components from the set itself), published to the local host ui-chart.test only; 8 names wait for the registry (bus `msg-d5774938bd5645768fd5`) | `package/set.json`, `site/`, `docs/evidence/set-site.md` |
 | Release | waits for the Framework pair with parts 1–10 of the M0 and M1 evidence (the dispatcher's order) | — |
 
-Pinned SIMAI Framework release: `ui-62b1d9b6dc8d` (ui-source `ec2f29df`, npm
-`@simai-studio/ui@5.20261105.1447`), in `package/framework.lock.json`.
+Pinned SIMAI Framework release: `ui-e7b79c3a9e05` (ui-source `5443d10d`, npm
+`@simai-studio/ui@5.20261105.2041`), in `package/framework.lock.json`.

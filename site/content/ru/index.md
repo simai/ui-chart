@@ -28,7 +28,7 @@ profile: landing
 загрузит только те графики, что есть на странице:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261105.1447/distr/core/js/core.min.js" data-sf-sets="chart"></script>
+<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261105.2041/distr/core/js/core.min.js" data-sf-sets="chart"></script>
 ```
 
 Набор ещё не выпущен: строка заработает с первым выпуском. Версии, другие
@@ -53,7 +53,7 @@ profile: landing
 :::
 :::card {variant=plain}
 ### Совместимость
-Собран и проверен над выпуском SIMAI Framework `ui-62b1d9b6dc8d`; нужен Core `core.runtime` 1.25.0 или новее. [Подключение](/ru/guide/connection/)
+Собран и проверен над выпуском SIMAI Framework `ui-e7b79c3a9e05`; нужен Core `core.runtime` 1.25.0 или новее. [Подключение](/ru/guide/connection/)
 :::
 :::card {variant=plain}
 ### Лицензия

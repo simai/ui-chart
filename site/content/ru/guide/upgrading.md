@@ -46,7 +46,7 @@ profile: how_to
    новая версия придёт только тогда, когда вы её выберете:
 
    ```html
-   <script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261105.1447/distr/core/js/core.min.js" data-sf-sets="chart@<версия>"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261105.2041/distr/core/js/core.min.js" data-sf-sets="chart@<версия>"></script>
    ```
 
 5. Пройдите свои экраны: данные, легенду, подсказку, клавиатуру, таблицу и
