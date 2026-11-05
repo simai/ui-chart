@@ -89,7 +89,7 @@ for (const scheme of ['light', 'dark']) {
       const panel = await frame.evaluate((position) => {
         const section = document.querySelector(`[slot="panel-${position}"]`);
         // Every chart on the panel must draw its plot.
-        const charts = [...(section?.querySelectorAll('[id^="home-"]') ?? [])];
+        const charts = [...(section?.querySelectorAll('[id^="home-"]') ?? [])].filter((element) => element.localName.startsWith('sf-chart-'));
         return {
           visible: Boolean(section && section.getClientRects().length),
           charts: charts.length,
@@ -106,7 +106,9 @@ for (const scheme of ['light', 'dark']) {
       for (const [name, path] of PAGES) {
         const one = await context.newPage();
         const pageErrors = watch(one);
-        await one.goto(new URL(path, base).href, {waitUntil: 'networkidle'});
+        // A component page holds up to ten example frames: wait for the load, not
+        // for the network to fall silent; wake() then starts every frame.
+        await one.goto(new URL(path, base).href, {waitUntil: 'load', timeout: 90000});
         await wake(one);
         const file = `${name}-${width}-${scheme}.png`;
         await shoot(one, width, file);
@@ -137,7 +139,9 @@ const broken = report.filter((shot) => shot.errors.length
   || (shot.elements ?? []).some((one) => !one.defined && one.visible)
   || (shot.elements ?? []).some((one) => one.visible && one.defined && !one.drawn)
   || (shot.panel && (!shot.panel.visible || !shot.panel.charts || shot.panel.drawn !== shot.panel.charts))
-  || (shot.page !== 'ru/' && !(shot.elements ?? []).length));
+  // Every page but the home page and the components overview (a table of
+  // links) shows at least one live chart.
+  || (!['ru/', 'ru/components/'].includes(shot.page) && !(shot.elements ?? []).length));
 const brokenReloads = reloads.filter((one) => one.errors.length || one.undefined || !one.url.endsWith('/ru/'));
 console.log(JSON.stringify({shots: report.length, broken: broken.map(({file, panel, errors}) => ({file, panel, errors})), reloads: brokenReloads}, null, 1));
 process.exit(broken.length || brokenReloads.length ? 1 : 0);

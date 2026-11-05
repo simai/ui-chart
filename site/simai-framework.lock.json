@@ -2848,15 +2848,15 @@
             "schema_version": 2,
             "package": "chart",
             "requires": "ui-62b1d9b6dc8d",
-            "mount": "_docara/framework-packages/chart/35a92dd04007a28f5f3e6d6e3fb6fc5757a02c42",
+            "mount": "_docara/framework-packages/chart/166cbbc09735facf33b01f9b2613639cba8ed598",
             "receipt": {
                 "schema": "simai.framework.product-package-receipt",
                 "schema_version": 1,
                 "package_source": {
                     "repository": "simai/ui-chart",
-                    "revision": "35a92dd04007a28f5f3e6d6e3fb6fc5757a02c42",
+                    "revision": "166cbbc09735facf33b01f9b2613639cba8ed598",
                     "path": "package",
-                    "tree": "604bc8d1f4204e5b8f81d4e202403b2f57d1c301"
+                    "tree": "b25921eafc106a19f08a5f20e3a744b2b9de09a6"
                 },
                 "framework_source": {
                     "repository": "simai/ui-source",

@@ -1,0 +1,8 @@
+<section class="guide-tiles" aria-label="Показатели">
+  <sf-chart-metric label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе">
+    <sf-chart-sparkline id="guide-dashboard-revenue" slot="chart" label="Выручка за 12 недель" shape="area" summary="none"></sf-chart-sparkline>
+  </sf-chart-metric>
+  <sf-chart-metric label="Нагрузка CPU" value="0.82" previous="0.64" format="percent" better="down" status="warning" hint="Выше 80 % пятнадцать минут" period-text="за час"></sf-chart-metric>
+  <sf-chart-metric label="Хранилище" value="45.25" max="100" format="unit-gigabyte" status="success" hint="Свободно 55 %"></sf-chart-metric>
+  <sf-chart-gauge id="guide-dashboard-cpu" label="Загрузка процессора" value="72" target="80" value-format="unit-percent" size="1/2"></sf-chart-gauge>
+</section>

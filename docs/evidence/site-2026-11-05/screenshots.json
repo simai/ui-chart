@@ -1,0 +1,2956 @@
+{
+ "base": "https://ui-chart.test/",
+ "shots": [
+  {
+   "page": "ru/",
+   "tab": "Динамика",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-1-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Продажи и план по месяцам: две линии на общей оси. Наведите на график или нажмите Tab и стрелки — подсказка скажет значения месяца. Продажи и план, 2026 Таблица"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Факт и план",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-2-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Факт столбцами, план линией поверх — сравнение по месяцам в одном графике. Продажи: факт и план Таблица Факт План 0 50 100 150 200 250 Янв Фев Мар Апр Май Июн К"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Структура",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-3-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Выручка по направлениям и товарам кольцами вокруг центра: каждая дуга — доля своего родителя. Стрелки ходят по кольцу и между кольцами. Выручка по направлениям,"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Потоки",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-4-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Бюджет компании: откуда приходят деньги и куда уходят. Ширина ленты — величина потока. Бюджет компании, млн ₽ Таблица Продукты 520 Выручка 800 Услуги 280 Зарпла"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Сроки",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-5-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "План проекта диаграммой Ганта: задачи отрезками времени, вехи ромбами, состояние — цветом с подписью. План проекта Таблица готово в работе план Анализ Дизайн Ра"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Нагрузка",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-6-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Нагрузка по дням недели и часам на ступенчатой шкале темы: чем темнее, тем больше. Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб Вс 9:00 10:00 11:00 12:00 13:00 1"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Карта",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-7-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Безработица по районам выдуманного города. Границы областей даёт сайт в формате GeoJSON; район без данных — пунктиром. Безработица по районам, % Таблица Лесной "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Показатели",
+   "width": 1280,
+   "scheme": "light",
+   "file": "home-8-1280-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 4,
+    "drawn": 4,
+    "text": "Плитки показателей для панели: число с изменением, загрузка со шкалой и мини-график очереди. Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к прошлой неделе На"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/guide/quick-start/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "quick-start-1280-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "components-1280-light.png",
+   "elements": [],
+   "errors": []
+  },
+  {
+   "page": "ru/components/trends/chart-bar/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "reference-chart-bar-1280-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/flows/chart-sankey/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "reference-chart-sankey-1280-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/grids/chart-map/",
+   "width": 1280,
+   "scheme": "light",
+   "file": "reference-chart-map-1280-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Динамика",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-1-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Продажи и план по месяцам: две линии на общей оси. Наведите на график или нажмите Tab и стрелки — подсказка скажет значения месяца. Продажи и план, 2026 Таблица"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Факт и план",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-2-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Факт столбцами, план линией поверх — сравнение по месяцам в одном графике. Продажи: факт и план Таблица Факт План 0 50 100 150 200 250 Янв Фев Мар Апр Май Июн К"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Структура",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-3-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Выручка по направлениям и товарам кольцами вокруг центра: каждая дуга — доля своего родителя. Стрелки ходят по кольцу и между кольцами. Выручка по направлениям,"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Потоки",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-4-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Бюджет компании: откуда приходят деньги и куда уходят. Ширина ленты — величина потока. Бюджет компании, млн ₽ Таблица Узлов: 9, потоков: 8, этапов: 4; всего 800"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Сроки",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-5-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "План проекта диаграммой Ганта: задачи отрезками времени, вехи ромбами, состояние — цветом с подписью. План проекта Таблица готово в работе план Анализ Дизайн Ра"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Нагрузка",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-6-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Нагрузка по дням недели и часам на ступенчатой шкале темы: чем темнее, тем больше. Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб Вс 9:00 11:00 13:00 15:00 17:00 3"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Карта",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-7-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Безработица по районам выдуманного города. Границы областей даёт сайт в формате GeoJSON; район без данных — пунктиром. Безработица по районам, % Таблица Лесной "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Показатели",
+   "width": 390,
+   "scheme": "light",
+   "file": "home-8-390-light.png",
+   "panel": {
+    "visible": true,
+    "charts": 4,
+    "drawn": 4,
+    "text": "Плитки показателей для панели: число с изменением, загрузка со шкалой и мини-график очереди. Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к прошлой неделе На"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/guide/quick-start/",
+   "width": 390,
+   "scheme": "light",
+   "file": "quick-start-390-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/",
+   "width": 390,
+   "scheme": "light",
+   "file": "components-390-light.png",
+   "elements": [],
+   "errors": []
+  },
+  {
+   "page": "ru/components/trends/chart-bar/",
+   "width": 390,
+   "scheme": "light",
+   "file": "reference-chart-bar-390-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/flows/chart-sankey/",
+   "width": 390,
+   "scheme": "light",
+   "file": "reference-chart-sankey-390-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/components/grids/chart-map/",
+   "width": 390,
+   "scheme": "light",
+   "file": "reference-chart-map-390-light.png",
+   "elements": [
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Динамика",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-1-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Продажи и план по месяцам: две линии на общей оси. Наведите на график или нажмите Tab и стрелки — подсказка скажет значения месяца. Продажи и план, 2026 Таблица"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Факт и план",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-2-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Факт столбцами, план линией поверх — сравнение по месяцам в одном графике. Продажи: факт и план Таблица Факт План 0 50 100 150 200 250 Янв Фев Мар Апр Май Июн К"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Структура",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-3-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Выручка по направлениям и товарам кольцами вокруг центра: каждая дуга — доля своего родителя. Стрелки ходят по кольцу и между кольцами. Выручка по направлениям,"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Потоки",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-4-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Бюджет компании: откуда приходят деньги и куда уходят. Ширина ленты — величина потока. Бюджет компании, млн ₽ Таблица Продукты 520 Выручка 800 Услуги 280 Зарпла"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Сроки",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-5-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "План проекта диаграммой Ганта: задачи отрезками времени, вехи ромбами, состояние — цветом с подписью. План проекта Таблица готово в работе план Анализ Дизайн Ра"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Нагрузка",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-6-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Нагрузка по дням недели и часам на ступенчатой шкале темы: чем темнее, тем больше. Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб Вс 9:00 10:00 11:00 12:00 13:00 1"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Карта",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-7-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Безработица по районам выдуманного города. Границы областей даёт сайт в формате GeoJSON; район без данных — пунктиром. Безработица по районам, % Таблица Лесной "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Показатели",
+   "width": 1280,
+   "scheme": "dark",
+   "file": "home-8-1280-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 4,
+    "drawn": 4,
+    "text": "Плитки показателей для панели: число с изменением, загрузка со шкалой и мини-график очереди. Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к прошлой неделе На"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Динамика",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-1-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Продажи и план по месяцам: две линии на общей оси. Наведите на график или нажмите Tab и стрелки — подсказка скажет значения месяца. Продажи и план, 2026 Таблица"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Факт и план",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-2-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Факт столбцами, план линией поверх — сравнение по месяцам в одном графике. Продажи: факт и план Таблица Факт План 0 50 100 150 200 250 Янв Фев Мар Апр Май Июн К"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Структура",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-3-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Выручка по направлениям и товарам кольцами вокруг центра: каждая дуга — доля своего родителя. Стрелки ходят по кольцу и между кольцами. Выручка по направлениям,"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Потоки",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-4-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Бюджет компании: откуда приходят деньги и куда уходят. Ширина ленты — величина потока. Бюджет компании, млн ₽ Таблица Узлов: 9, потоков: 8, этапов: 4; всего 800"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Сроки",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-5-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "План проекта диаграммой Ганта: задачи отрезками времени, вехи ромбами, состояние — цветом с подписью. План проекта Таблица готово в работе план Анализ Дизайн Ра"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Нагрузка",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-6-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Нагрузка по дням недели и часам на ступенчатой шкале темы: чем темнее, тем больше. Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб Вс 9:00 11:00 13:00 15:00 17:00 3"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Карта",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-7-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 1,
+    "drawn": 1,
+    "text": "Безработица по районам выдуманного города. Границы областей даёт сайт в формате GeoJSON; район без данных — пунктиром. Безработица по районам, % Таблица Лесной "
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    }
+   ],
+   "errors": []
+  },
+  {
+   "page": "ru/",
+   "tab": "Показатели",
+   "width": 390,
+   "scheme": "dark",
+   "file": "home-8-390-dark.png",
+   "panel": {
+    "visible": true,
+    "charts": 4,
+    "drawn": 4,
+    "text": "Плитки показателей для панели: число с изменением, загрузка со шкалой и мини-график очереди. Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к прошлой неделе На"
+   },
+   "elements": [
+    {
+     "tag": "sf-chart-line",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-bar",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sunburst",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sankey",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-timeline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-heatmap",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-map",
+     "defined": true,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-metric",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    }
+   ],
+   "errors": []
+  }
+ ],
+ "reloads": [
+  {
+   "round": 1,
+   "url": "https://ui-chart.test/ru/",
+   "elements": 11,
+   "undefined": 0,
+   "errors": []
+  },
+  {
+   "round": 2,
+   "url": "https://ui-chart.test/ru/",
+   "elements": 11,
+   "undefined": 0,
+   "errors": []
+  },
+  {
+   "round": 3,
+   "url": "https://ui-chart.test/ru/",
+   "elements": 11,
+   "undefined": 0,
+   "errors": []
+  }
+ ]
+}

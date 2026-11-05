@@ -1,0 +1,10 @@
+<div class="flex flex-col gap-2" data-guide-states>
+  <div class="flex flex-wrap gap-1" role="group" aria-label="Состояние данных" data-states>
+    <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1/2 active" data-state-choice="auto" aria-pressed="true"><span class="sf-button-text-container">Данные</span></button>
+    <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1/2" data-state-choice="loading" aria-pressed="false"><span class="sf-button-text-container">Загрузка</span></button>
+    <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1/2" data-state-choice="empty" aria-pressed="false"><span class="sf-button-text-container">Пусто</span></button>
+    <button type="button" class="sf-button sf-button--outline sf-button--on-surface sf-button--size-1/2" data-state-choice="error" aria-pressed="false"><span class="sf-button-text-container">Ошибка</span></button>
+  </div>
+  <sf-chart-bar id="guide-states-chart" label="Продажи по городам, 2026" x="city" y="q1,q2" y-format="integer"></sf-chart-bar>
+  <p class="m-0 color-on-surface-variant" role="status" data-log></p>
+</div>

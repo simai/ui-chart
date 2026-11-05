@@ -14,8 +14,9 @@ other Smart component and loaded by the same Loader.
 - Site: [`site/`](site/README.md), the documentation and demonstration
   site (Docara), local only.
 
-The repository is at its start: the first stage is research, see
-[docs/START.md](docs/START.md) and [docs/STATUS.md](docs/STATUS.md).
+Nineteen charts are built as 0.x previews; the set is not released yet. See
+[docs/STATUS.md](docs/STATUS.md) for the state and
+[docs/START.md](docs/START.md) for how the work began.
 
 ## Licence
 

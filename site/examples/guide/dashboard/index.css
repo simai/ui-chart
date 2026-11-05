@@ -1,0 +1,7 @@
+/* The page lays the tiles out itself: each tile stretches to its column. */
+.guide-tiles {
+  display: grid;
+  gap: var(--sf-space-1);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  align-items: start;
+}
