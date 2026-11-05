@@ -269,6 +269,14 @@
       "recorded_on": "2026-11-05",
       "change": "added",
       "summary": "sf-chart-timeline: tasks or states as ranges of time on rows (row, start and end fields), a row a lane with its name at the start holding one range or many, a bar from each range's start to its end on a calendar time axis, a diamond for a milestone, a status in a chart colour (the status field, --sf-chart-N, colors by status key) with its key, a tooltip with the start, the end and the length, a keyboard cursor along the rows and across them, a summary sentence with the span, the longest range and the status that takes the most time, the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "module.chart-core",
+      "version": "0.3.1",
+      "recorded_on": "2026-11-05",
+      "change": "patch",
+      "consumer": "Nothing to do: every chart says its numbers and dates as before.",
+      "summary": "chart-core/format.js imports the core's number and date formatting from its modules without side effects (core/js/format-number.js and format-date.js, core.runtime 1.28.0, pair ui-62b1d9b6dc8d) instead of the whole format module, so a chart's bundle no longer carries the relative-date and file-size formats; the core.runtime range is now ^1.28.0."
     }
   ]
 }

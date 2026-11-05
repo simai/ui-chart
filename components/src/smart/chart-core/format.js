@@ -1,8 +1,10 @@
 // Numbers and dates in the page's language (docs/research/parameters.md §8).
 // The words and the Intl formatters are the core's (SF.format, core.runtime
-// 1.20.0, which took them from this file): a chart keeps only its own forms,
-// the axis tick and the full date of a tooltip, and the order of its
-// arguments. A format is a word, so a page writes it as an attribute:
+// 1.20.0, which took them from this file), imported from its modules without
+// side effects (core.runtime 1.28.0: format-number.js and format-date.js), so
+// a chart's bundle carries those two and not the whole format module: a
+// chart keeps only its own forms, the axis tick and the full date of a
+// tooltip, and the order of its arguments. A format is a word, so a page writes it as an attribute:
 //
 //   number (default)  1 234,5
 //   integer           1 235
@@ -11,7 +13,8 @@
 //   compact           1,2 тыс.
 //   currency-<CODE>   1 234,50 ₽ (an ISO 4217 code)
 //   unit-<unit>       45,3 ГБ (an Intl unit: gigabyte, megabit-per-second)
-import {formatDate, formatNumber as coreNumber, numberOptions} from '../../core/js/format.js';
+import {formatNumber as coreNumber, numberOptions} from '../../core/js/format-number.js';
+import {formatDate} from '../../core/js/format-date.js';
 
 export {numberOptions};
 

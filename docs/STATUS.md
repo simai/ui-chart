@@ -28,5 +28,5 @@
 | Pin ui-c3015f76bcc2 | done (2026-11-05): the pin moved past core.runtime 1.20.0; chart-core 0.3.0 formats through the core's SF.format; chart-heatmap.scheme recorded by ui-source; each chart bundle +1.3 KB gzip until the Framework order for a side-effect-free format import (bus `msg-e286033548774367a6f4`) | `docs/evidence/pin-ui-c3015f76bcc2.md` |
 | Release | waits for the Framework pair with parts 1–10 of the M0 and M1 evidence (the dispatcher's order) | — |
 
-Pinned SIMAI Framework release: `ui-c3015f76bcc2` (ui-source `4863a40e`, npm
-`@simai-studio/ui@5.20261104.451`), in `components/framework.lock.json`.
+Pinned SIMAI Framework release: `ui-62b1d9b6dc8d` (ui-source `ec2f29df`, npm
+`@simai-studio/ui@5.20261105.1447`), in `components/framework.lock.json`.
