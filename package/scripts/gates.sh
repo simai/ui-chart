@@ -86,7 +86,9 @@ const [workspace, revision, lock] = process.argv.slice(2);
 const {readFileSync, writeFileSync} = require('node:fs');
 const read = (name) => readFileSync(`${workspace}/logs/${name}`, 'utf8');
 const lastJson = (text) => JSON.parse(text.slice(text.lastIndexOf('\n{') + 1));
-const unit = Object.fromEntries([...read('unit.log').matchAll(/^ℹ (tests|pass|fail|skipped) (\d+)/gmu)].map(([, key, value]) => [key, Number(value)]));
+// scripts/test.mjs runs node --test twice (the suite, then the free axes rule): the counts add.
+const unit = {tests: 0, pass: 0, fail: 0, skipped: 0};
+for (const [, key, value] of read('unit.log').matchAll(/^ℹ (tests|pass|fail|skipped) (\d+)/gmu)) unit[key] += Number(value);
 const build = JSON.parse(read('build.json'));
 const browser = JSON.parse(read('browser.json'));
 const manifest = lastJson(read('manifest.log'));

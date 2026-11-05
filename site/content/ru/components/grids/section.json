@@ -1,0 +1,7 @@
+{
+  "schema": "docara.section.v1",
+  "title": "Сетки и карты",
+  "navigation": {
+    "order": 50
+  }
+}

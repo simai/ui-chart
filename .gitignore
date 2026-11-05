@@ -10,3 +10,10 @@ dist/
 work/
 .overlay/
 .overlay.package/
+# The Docara site: installed Docara, its build and its working files
+site/vendor/
+site/build_*/
+site/.docara/
+site/source/
+site/.framework/
+site/stage/

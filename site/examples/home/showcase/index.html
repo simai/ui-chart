@@ -1,0 +1,48 @@
+<div class="flex flex-col gap-3" data-showcase>
+  <sf-tabs type="pills" scheme="link" overflow="wrap" aria-label="Графики набора" items="Динамика|Факт и план|Структура|Потоки|Сроки|Нагрузка|Карта|Показатели">
+    <section slot="panel-0" class="flex flex-col gap-2 p-top-2" aria-label="Динамика">
+      <p class="m-0 color-on-surface-variant">Продажи и план по месяцам: две линии на общей оси. Наведите на график или нажмите Tab и стрелки — подсказка скажет значения месяца.</p>
+      <sf-chart-line id="home-dynamics" label="Продажи и план, 2026" x="month" y="sales,plan" y-format="integer" size="2"></sf-chart-line>
+    </section>
+
+    <section slot="panel-1" class="flex flex-col gap-2 p-top-2" aria-label="Факт и план">
+      <p class="m-0 color-on-surface-variant">Факт столбцами, план линией поверх — сравнение по месяцам в одном графике.</p>
+      <sf-chart-bar id="home-plan" label="Продажи: факт и план" x="month" y="fact,plan" lines="plan" y-format="integer" size="2"></sf-chart-bar>
+    </section>
+
+    <section slot="panel-2" class="flex flex-col gap-2 p-top-2" aria-label="Структура">
+      <p class="m-0 color-on-surface-variant">Выручка по направлениям и товарам кольцами вокруг центра: каждая дуга — доля своего родителя. Стрелки ходят по кольцу и между кольцами.</p>
+      <sf-chart-sunburst id="home-structure" label="Выручка по направлениям, млн ₽" y-format="integer" size="2"></sf-chart-sunburst>
+    </section>
+
+    <section slot="panel-3" class="flex flex-col gap-2 p-top-2" aria-label="Потоки">
+      <p class="m-0 color-on-surface-variant">Бюджет компании: откуда приходят деньги и куда уходят. Ширина ленты — величина потока.</p>
+      <sf-chart-sankey id="home-flows" label="Бюджет компании, млн ₽" source="from" target="to" value="amount" y-format="integer" size="2"></sf-chart-sankey>
+    </section>
+
+    <section slot="panel-4" class="flex flex-col gap-2 p-top-2" aria-label="Сроки">
+      <p class="m-0 color-on-surface-variant">План проекта диаграммой Ганта: задачи отрезками времени, вехи ромбами, состояние — цветом с подписью.</p>
+      <sf-chart-timeline id="home-schedule" label="План проекта" row="task" start="start" end="end" status="status"></sf-chart-timeline>
+    </section>
+
+    <section slot="panel-5" class="flex flex-col gap-2 p-top-2" aria-label="Нагрузка">
+      <p class="m-0 color-on-surface-variant">Нагрузка по дням недели и часам на ступенчатой шкале темы: чем темнее, тем больше.</p>
+      <sf-chart-heatmap id="home-load" label="Нагрузка по часам" x="hour" y="day" value="load" value-format="integer"></sf-chart-heatmap>
+    </section>
+
+    <section slot="panel-6" class="flex flex-col gap-2 p-top-2" aria-label="Карта">
+      <p class="m-0 color-on-surface-variant">Безработица по районам выдуманного города. Границы областей даёт сайт в формате GeoJSON; район без данных — пунктиром.</p>
+      <sf-chart-map id="home-map" label="Безработица по районам, %" region="district" value="rate" value-format="decimal-1" size="2"></sf-chart-map>
+    </section>
+
+    <section slot="panel-7" class="flex flex-col gap-2 p-top-2" aria-label="Показатели">
+      <p class="m-0 color-on-surface-variant">Плитки показателей для панели: число с изменением, загрузка со шкалой и мини-график очереди.</p>
+      <div class="grid gap-2 showcase-tiles">
+        <sf-chart-metric id="home-revenue" label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе"></sf-chart-metric>
+        <sf-chart-metric id="home-cpu" label="Нагрузка CPU" value="0.82" previous="0.64" format="percent" better="down" status="warning" hint="Выше 80 % пятнадцать минут" period-text="за час"></sf-chart-metric>
+        <sf-chart-gauge id="home-gauge" label="Загрузка процессора" value="72" target="80" value-format="unit-percent"></sf-chart-gauge>
+        <div class="flex flex-col gap-1 p-2 radius-2 border border-outline-variant"><span class="color-on-surface-variant">Очередь заданий</span><sf-chart-sparkline id="home-queue" label="Очередь заданий" size="2" shape="area" curve="smooth" y-format="integer"></sf-chart-sparkline></div>
+      </div>
+    </section>
+  </sf-tabs>
+</div>

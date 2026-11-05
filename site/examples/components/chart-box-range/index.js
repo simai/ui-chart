@@ -1,0 +1,43 @@
+// Усы до крайних значений: the example «range» of package/src/smart/chart-box/examples.json.
+// Lists and objects are properties; the page sets them once the element is defined.
+customElements.whenDefined('sf-chart-box').then(() => {
+  const chart = document.getElementById('chart');
+  chart.items = [
+    {"warehouse":"Москва","hours":12},
+    {"warehouse":"Казань","hours":20},
+    {"warehouse":"Самара","hours":4},
+    {"warehouse":"Пермь","hours":26},
+    {"warehouse":"Москва","hours":14},
+    {"warehouse":"Казань","hours":22},
+    {"warehouse":"Самара","hours":9},
+    {"warehouse":"Пермь","hours":30},
+    {"warehouse":"Москва","hours":15},
+    {"warehouse":"Казань","hours":25},
+    {"warehouse":"Самара","hours":11},
+    {"warehouse":"Пермь","hours":31},
+    {"warehouse":"Москва","hours":16},
+    {"warehouse":"Казань","hours":27},
+    {"warehouse":"Самара","hours":12},
+    {"warehouse":"Пермь","hours":33},
+    {"warehouse":"Москва","hours":18},
+    {"warehouse":"Казань","hours":28},
+    {"warehouse":"Самара","hours":13},
+    {"warehouse":"Пермь","hours":36},
+    {"warehouse":"Москва","hours":19},
+    {"warehouse":"Казань","hours":30},
+    {"warehouse":"Самара","hours":14},
+    {"warehouse":"Пермь","hours":38},
+    {"warehouse":"Москва","hours":21},
+    {"warehouse":"Казань","hours":33},
+    {"warehouse":"Самара","hours":15},
+    {"warehouse":"Пермь","hours":40},
+    {"warehouse":"Москва","hours":24},
+    {"warehouse":"Казань","hours":35},
+    {"warehouse":"Самара","hours":16},
+    {"warehouse":"Пермь","hours":44},
+    {"warehouse":"Москва","hours":48},
+    {"warehouse":"Казань","hours":38},
+    {"warehouse":"Самара","hours":18},
+    {"warehouse":"Пермь","hours":52},
+  ];
+});
