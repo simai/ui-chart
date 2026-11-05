@@ -284,6 +284,13 @@
       "recorded_on": "2026-11-05",
       "change": "added",
       "summary": "sf-chart-sankey: quantities flowing between stages or categories (source, target and value fields, the same pair summed), nodes in columns by their longest path from where the flows start and the ends in the last column, a band from node to node as wide as its flow, the order in a column chosen so the bands cross less, a node in a chart colour (--sf-chart-N, colors by node name) and its bands in the colour's light fill, names and values beside the nodes where they fit (labels), a tooltip for a node or a band, a keyboard cursor over the nodes along the largest flows, a summary sentence with the total, the largest flow and the node where the most arrives, every flow as a row of the table, loops left out and counted, loading, empty and error states."
+    },
+    {
+      "unit": "smart.chart-sunburst",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-05",
+      "change": "added",
+      "summary": "sf-chart-sunburst: a hierarchy as rings round a centre, read from an id and a parent per row (node, parent) or from a path of names (path), a parent's value its own with its children's, the top nodes sharing the turn largest first and a child its parent's angle by its share, a ring per level outside a hole with the total, a branch in its top node's chart colour (--sf-chart-N, colors by top node name) as a light fill with a line round each arc, lighter past the first ring, names along the arcs where they fit (labels), a tooltip with the shares of the parent and the whole, a keyboard cursor round the rings and in and out of them, a summary sentence with the levels, the total, the largest branch and the largest end part, every node as a row of the table, loops of parents left out and counted, loading, empty and error states."
     }
   ]
 }

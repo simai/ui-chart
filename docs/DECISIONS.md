@@ -646,6 +646,54 @@ delegation.
   has a row per flow.
 - **Out of 0.1.0.** Loops, nodes placed by hand, and drill-down.
 
+## D15. The sunburst
+
+After the Sankey diagram the owner chose «Солнечные круги» (2026-11-05)
+as the next chart. Its form was decided by the recommendation under the
+owner's delegation.
+
+- **Tag.** `sf-chart-sunburst`, the catalogue's name, with its core in
+  `chart-core/sunburst.js` (own implementation).
+- **Data.** The hierarchy shape of `parameters.md` §2.1, the contract the
+  catalogue shares with the treemap. It comes in two forms:
+  - an id and a parent per row. The id field is named by `node`, because
+    `id` is the element's own attribute. A parent not among the ids makes
+    a top node, and `name` can give a name apart from the id;
+  - a path per row, a field holding the list of names from the top down.
+    The nodes on the way are made as they come, and the same path twice
+    sums.
+- **Values.** A parent's value is its own with its children's. Its own
+  part stays as room after its children on the next ring. What cannot be
+  drawn is left out and counted:
+  - a row without an id or a path;
+  - a node with no positive value and no children;
+  - an id named twice;
+  - a chain of parents that comes back to itself.
+- **Layout.**
+  - The top nodes share the turn clockwise from twelve o'clock, largest
+    first. A child takes its parent's angle by its share.
+  - The rings share the radius outside a hole of three tenths, which
+    holds the total.
+  - The plot is the size rung's height, as the pie's.
+- **Colour.** A top node takes the chart colour of its place
+  (`--sf-chart-N`) and its branch keeps it:
+  - each arc has the colour's light fill with its line round it, lighter
+    past the first ring;
+  - the names are in the page's ink, as on the treemap;
+  - `colors` by the top node's name sets a page's own.
+- **Words.** A name stands along the middle of its arc. It is a straight
+  line, or a curve along the arc when the arc holds more that way. Below
+  the middle it is turned round so it never reads upside down. It is cut
+  with an ellipsis to the room.
+- **Keyboard.**
+  - Left and Right go round a ring, going round at the ends.
+  - Down goes out to the largest child, and Up back to the parent.
+  - Each arc is said with its path, its value and its shares of the
+    parent and the whole.
+  - The table has a row per node, each branch under its parent.
+- **Out of 0.1.0.** Drill-down into a branch, a legend, and arcs placed by
+  hand.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -668,6 +716,7 @@ delegation.
 | D12 | The treemap: `sf-chart-treemap`, two levels through a `group` field (not id and parent), squarified, groups in the chart colours with light fills, names and values inside where they fit | 2026-11-05 | the owner's «Следующий график» in the chat; the chart and its form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `e79bd7f`, bus `msg-f886b54bb51d4e05a312`) |
 | D13 | The timeline: `sf-chart-timeline`, row, start, end and status fields, a row holding one range or many, milestones as diamonds, a status in a chart colour, the rows, layout and time scale in the core for reuse | 2026-11-05 | the owner's «Гант / таймлайн» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `3bb85b5`, bus `msg-6a10fbed66144c44b6ba`) |
 | D14 | The Sankey diagram: `sf-chart-sankey`, source, target and value fields, a pair summed, loops left out and counted, columns by the longest path with the ends last, a node in a chart colour and its bands in its light fill, the keyboard along the largest flows | 2026-11-05 | the owner's «Sankey» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `4a70440`, bus `msg-d8408d476f8b4d55b157`) |
+| D15 | The sunburst: `sf-chart-sunburst`, an id and a parent per row (`node`, `parent`) or a path of names, a parent's value its own with its children's, rings round a hole with the total, a branch in its top node's chart colour, names along the arcs, the keyboard round the rings and in and out | 2026-11-05 | the owner's «Солнечные круги» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `868426b`, bus `msg-285614a61887494785a1`) |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.

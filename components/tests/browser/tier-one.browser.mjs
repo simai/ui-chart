@@ -4,7 +4,7 @@
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
 // sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box,
 // sf-chart-radar, sf-chart-candlestick, sf-chart-waterfall, sf-chart-treemap,
-// sf-chart-timeline and sf-chart-sankey.
+// sf-chart-timeline, sf-chart-sankey and sf-chart-sunburst.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -33,7 +33,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap', 'chart-timeline', 'chart-sankey'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap', 'chart-timeline', 'chart-sankey', 'chart-sunburst'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -1479,6 +1479,96 @@ try {
     }));
     evidence.sankey.forced = plain;
     if (plain.bar === plain.band || plain.line !== plain.bar) note({case: 'sankey: in forced colours the nodes are the text colour and the bands the canvas with a line of it', got: plain});
+    await forced.close();
+  }
+
+  // 3o. The sunburst: the plot is its rung's height and every arc and name
+  // stays in it on every rung and width; each branch's line holds 3:1
+  // against the page in both themes, in a colour of its own, and the names
+  // and the total 4.5:1; the arcs are one Tab stop walked round the rings
+  // and in and out of them, each said with its path and shares; the
+  // pointer on an arc shows it; in forced colours every arc is the canvas
+  // with a line of the text colour.
+  {
+    const sales = [];
+    for (const [top, parts] of [['Электроника', [['Смартфоны', 420], ['Ноутбуки', 310], ['Наушники', 120], ['Планшеты', 90]]], ['Дом', [['Мебель', 260], ['Посуда', 110], ['Текстиль', 70]]], ['Одежда', [['Обувь', 180], ['Верхняя одежда', 150], ['Аксессуары', 60]]]]) {
+      sales.push({id: top});
+      for (const [id, value] of parts) sales.push({id, parent: top, value});
+    }
+    const rings = {label: 'Выручка', 'y-format': 'integer'};
+    const rgb = (value) => value.match(/[\d.]+/gu).slice(0, 3).map(Number);
+    evidence.sunburst = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-sunburst', {...rings, size}, {items: sales});
+          const shape = await shapeOf(page, {frame: '.sf-chart-sunburst-plot', marks: '.sf-chart-sunburst-marks .sf-chart-sunburst-arc', texts: '.sf-chart-sunburst-svg text'});
+          const names = await page.evaluate(() => [...document.querySelectorAll('#chart .sf-chart-sunburst-name')].map((node) => node.textContent));
+          evidence.sunburst.geometry.push({theme, width, size, height: shape.height, arcs: shape.marks, names: names.length});
+          if (shape.height !== RUNG[size] || shape.marks !== 13 || shape.outside || shape.pageOverflow > 0 || !names.includes('Электроника')) note({case: `sunburst ${theme} ${width}px size ${size}: the plot is its rung's height, thirteen arcs, every name inside, the largest top node named whole`, got: {shape, names}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-sunburst', rings, {items: sales});
+          const paint = await page.evaluate(() => ({
+            lines: ['Электроника', 'Дом', 'Одежда'].map((key) => getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-sunburst-branch[data-node="${key}"] .sf-chart-sunburst-arc`)).stroke),
+            ink: getComputedStyle(document.querySelector('#chart .sf-chart-sunburst-name')).fill,
+            total: getComputedStyle(document.querySelector('#chart .sf-chart-sunburst-total')).fill,
+          }));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const lines = paint.lines.map((one) => Math.round(contrast(rgb(one), background) * 100) / 100);
+          const inks = [paint.ink, paint.total].map((one) => Math.round(contrast(rgb(one), background) * 100) / 100);
+          evidence.sunburst.contrast[theme] = {lines, inks};
+          if (lines.some((ratio) => ratio < 3) || inks.some((ratio) => ratio < 4.5) || new Set(paint.lines).size !== 3) note({case: `sunburst ${theme}: each branch's line holds 3:1 against the page in a colour of its own, the names and the total 4.5:1`, got: {paint, lines, inks}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-sunburst', rings, {items: sales});
+    await page.focus('#before');
+    for (let press = 0; press < 2; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-sunburst-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/\u00a0|\u202f/gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const down = await said('ArrowDown');
+    const round = await said('ArrowLeft');
+    const up = await said('ArrowUp');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-sunburst-tooltip')?.textContent.replace(/\s+/gu, ' ').trim().replace(/\u00a0|\u202f/gu, ' ') ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-sunburst-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-sunburst-svg'));
+    // The pointer in the middle of the arc «Мебель».
+    const spot = await page.evaluate(() => {
+      const chart = document.querySelector('#chart');
+      const arc = chart._geometry.arcs.find((one) => one.node.name === 'Мебель');
+      const box = chart.querySelector('svg[role=group]').getBoundingClientRect();
+      return {x: box.left + arc.x, y: box.top + arc.y};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-sunburst-tooltip')?.textContent.replace(/\s+/gu, ' ').trim().replace(/\u00a0|\u202f/gu, ' ') ?? '');
+    const keys = {focused, first, down, round, up, end, chosen, tip, cleared, out, hover};
+    evidence.sunburst.keyboard = keys;
+    if (!focused || first !== 'Электроника: 940; 53,1 % всего; частей внутри: 4' || down !== 'Электроника / Смартфоны: 420; 44,7 % от «Электроника», 23,7 % всего' || round !== 'Одежда / Аксессуары: 60; 15,4 % от «Одежда», 3,4 % всего' || up !== 'Одежда: 390; 22 % всего; частей внутри: 3' || end !== up
+      || chosen.length !== 1 || chosen[0].node !== 'Одежда' || chosen[0].depth !== 0
+      || !tip.startsWith('Одежда') || cleared || !out || hover !== 'Дом / Мебель Значение 260 Доля от родителя 59,1 % Доля всего 14,7 %') note({case: 'sunburst: one Tab stop after the table button; the arrows go round the rings and in and out of them, each arc said with its path and shares; Enter selects, Escape clears; the pointer on an arc shows it', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-sunburst', rings, {items: sales});
+    const plain = await forced.evaluate(() => [...document.querySelectorAll('#chart .sf-chart-sunburst-arc')].slice(0, 4).map((one) => ({fill: getComputedStyle(one).fill, stroke: getComputedStyle(one).stroke})));
+    evidence.sunburst.forced = plain;
+    if (new Set(plain.map((one) => `${one.fill} ${one.stroke}`)).size !== 1 || plain[0].fill === plain[0].stroke) note({case: 'sunburst: in forced colours every arc is the canvas with a line of the text colour', got: plain});
     await forced.close();
   }
 

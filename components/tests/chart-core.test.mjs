@@ -25,6 +25,7 @@ import {isTotal, waterfallExtent, waterfallSteps} from '../src/smart/chart-core/
 import {squarify, treemapLayout, treemapRows} from '../src/smart/chart-core/treemap.js';
 import {cutText, durationOf, nearestRange, statusTimes, timelineLayout, timelineRows} from '../src/smart/chart-core/timeline.js';
 import {bandPathOf, onBand, sankeyLayout, sankeyRows} from '../src/smart/chart-core/sankey.js';
+import {arcAt, sunburstLayout, sunburstRows} from '../src/smart/chart-core/sunburst.js';
 import {compareRings, labelPlace, radarRuns, spokeAngle, spokePoint} from '../src/smart/chart-core/radar.js';
 import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
@@ -668,4 +669,35 @@ test('sankey layout keeps one scale, stacks the bands along their nodes, and fin
   assert.ok(onBand(band, (band.x0 + band.x1) / 2, (band.sy0 + band.sy1 + band.ty0 + band.ty1) / 4));
   assert.ok(!onBand(band, (band.x0 + band.x1) / 2, 1000));
   assert.match(bandPathOf(band), /^M[\d.]+ [\d.]+C.+Z$/u);
+});
+
+test('sunburst tree sums values up from ids and parents, and leaves out loops, twice-named ids and empty nodes', () => {
+  const model = sunburstRows([
+    {id: 'Электроника'}, {id: 'Дом', value: 20}, {id: 'Смартфоны', parent: 'Электроника', value: 420}, {id: 'Ноутбуки', parent: 'Электроника', value: 310},
+    {id: 'Мебель', parent: 'Дом', value: 260}, {id: 'a', parent: 'b', value: 5}, {id: 'b', parent: 'a', value: 5}, {id: 'c', parent: 'a', value: 1},
+    {id: 'Дом'}, {id: 'Пусто', parent: 'Дом'}, {id: '', value: 3}, {id: 'Сам', parent: 'Сам', value: 2}, {id: 'Сирота', parent: 'нет', value: 7},
+  ]);
+  assert.deepEqual([model.mode, model.valueField, model.depth, model.total, model.missing, model.dropped, model.looped], ['tree', 'value', 2, 1017, 2, 1, 4]);
+  assert.deepEqual(model.nodes.map((one) => [one.path.join('/'), one.value, one.depth, one.place]), [
+    ['Электроника', 730, 0, 0], ['Дом', 280, 0, 1], ['Сирота', 7, 0, 2],
+    ['Электроника/Смартфоны', 420, 1, 0], ['Электроника/Ноутбуки', 310, 1, 0], ['Дом/Мебель', 260, 1, 1],
+  ]);
+  const paths = sunburstRows([{p: ['A', 'x'], v: 3}, {p: ['A', 'y'], v: 1}, {p: ['B'], v: 4}, {p: ['A', 'x'], v: 1}, {p: [], v: 2}]);
+  assert.deepEqual([paths.mode, paths.pathField, paths.valueField, paths.depth, paths.total, paths.missing], ['path', 'p', 'v', 2, 9, 1]);
+  assert.deepEqual(paths.nodes.map((one) => `${one.path.join('/')}:${one.value}`), ['A:5', 'B:4', 'A/x:4', 'A/y:1']);
+});
+
+test('sunburst layout gives a child its parent\'s angle by its share, a ring per level, and finds the arc under a point', () => {
+  const model = sunburstRows([{p: ['A', 'x'], v: 3}, {p: ['A', 'y'], v: 1}, {p: ['B'], v: 4}, {p: ['A'], v: 2}]);
+  const layout = sunburstLayout(model, {cx: 100, cy: 100, radius: 100}, {hole: 0.3});
+  const of = (name) => layout.arcs.find((one) => one.node.name === name);
+  const turn = Math.PI * 2;
+  assert.ok(Math.abs(of('A').end - turn * 0.6) < 1e-9 && Math.abs(of('B').end - turn) < 1e-9);
+  // A's own value (2 of 6) stays as room after its children.
+  assert.ok(Math.abs(of('x').end - of('A').end * 0.5) < 1e-9 && Math.abs(of('y').end - of('A').end * (4 / 6)) < 1e-9);
+  assert.deepEqual([of('A').inner, of('A').outer, of('x').inner, of('x').outer], [30, 65, 65, 100]);
+  assert.equal(arcAt(layout, 150, 100).node.name, 'A');
+  assert.equal(arcAt(layout, 100, 10).node.name, 'x');
+  assert.equal(arcAt(layout, 100, 100), null);
+  assert.equal(arcAt(layout, 40, 100).node.name, 'B');
 });

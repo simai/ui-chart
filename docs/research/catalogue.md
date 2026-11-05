@@ -401,7 +401,9 @@ of Tier 1 except `kpi` draws on one shared cartesian or polar core (see
   ring.
 - **Evidence:** 5 (E A X R N).
 - **Relation:** part-to-whole.
-- **Component.** It shares the hierarchy contract with `treemap`.
+- **Component.** `sf-chart-sunburst` 0.1.0 (`docs/DECISIONS.md` D15) reads
+  the hierarchy contract: an id and a parent per row, or a path of names.
+  Drill-down is outside 0.1.0.
 
 ### Sankey
 

@@ -31,11 +31,12 @@
     "src/smart/chart-core/scatter.js",
     "src/smart/chart-core/settle.js",
     "src/smart/chart-core/stack.js",
+    "src/smart/chart-core/sunburst.js",
     "src/smart/chart-core/timeline.js",
     "src/smart/chart-core/treemap.js",
     "src/smart/chart-core/waterfall.js"
   ],
-  "content_sha256": "481779793c239143379032c655c177665b68368e5b49fc60bed56af122844209",
+  "content_sha256": "c31e11c9e1027e0285fb724d40166d9765c73344c7d132a37b8984b6ca5b2283",
   "dependencies": [
     {
       "id": "core.runtime",
