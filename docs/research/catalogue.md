@@ -412,7 +412,9 @@ of Tier 1 except `kpi` draws on one shared cartesian or polar core (see
   - stage counts only (use a funnel).
 - **Evidence:** 6 (E A S F R N).
 - **Relation:** flow.
-- **Component.** It needs a flow data contract of source, target and value.
+- **Component.** `sf-chart-sankey` 0.1.0 (`docs/DECISIONS.md` D14) reads
+  the flow data contract (source, target, value). Loops are left out and
+  counted.
 
 ### Gantt / timeline
 

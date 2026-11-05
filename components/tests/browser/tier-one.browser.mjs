@@ -3,8 +3,8 @@
 // The rest of Tier 1 on the built bytes (docs/START.md M1): sf-chart-sparkline,
 // sf-chart-bar, sf-chart-pie, sf-chart-metric, sf-chart-parts, sf-chart-heatmap,
 // sf-chart-funnel, sf-chart-gauge, sf-chart-scatter, sf-chart-box,
-// sf-chart-radar, sf-chart-candlestick, sf-chart-waterfall, sf-chart-treemap and
-// sf-chart-timeline.
+// sf-chart-radar, sf-chart-candlestick, sf-chart-waterfall, sf-chart-treemap,
+// sf-chart-timeline and sf-chart-sankey.
 // - geometry on the size ladder, light and dark, at 375, 768 and 1280 px: each
 //   chart is its rung's height, fits its width, and nothing leaves it;
 // - colour: marks hold 3:1 against the page in both themes, and the series
@@ -33,7 +33,7 @@ import {chromium} from 'playwright';
 
 if (!process.argv[2]) throw new Error('Build output root is required');
 const out = resolve(process.argv[2]);
-const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap', 'chart-timeline'];
+const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'chart-parts', 'chart-heatmap', 'chart-funnel', 'chart-gauge', 'chart-scatter', 'chart-box', 'chart-radar', 'chart-candlestick', 'chart-waterfall', 'chart-treemap', 'chart-timeline', 'chart-sankey'];
 // sf-progress-bar carries its styles in its script.
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
@@ -1380,6 +1380,105 @@ try {
     }), statuses);
     evidence.timeline.forced = plain;
     if (new Set(plain.map((one) => `${one.fill} ${one.dash}`)).size !== 3 || plain.some((one) => one.stroke === 'none')) note({case: 'timeline: in forced colours each status keeps a line of its own in the system colours', got: plain});
+    await forced.close();
+  }
+
+  // 3n. The Sankey diagram: the plot is its rung's height and every node,
+  // band and name stays in it on every rung and width, no two names touch;
+  // each node holds 3:1 against the page in both themes, in a colour of its
+  // own, and the names 4.5:1; the nodes are one Tab stop walked along the
+  // largest flows, each said with its flows; the pointer on a band shows the
+  // flow; in forced colours the nodes are the text colour and the bands the
+  // canvas with a line of it.
+  {
+    const budget = [['Продукты', 'Выручка', 520], ['Услуги', 'Выручка', 280], ['Выручка', 'Зарплаты', 360], ['Выручка', 'Маркетинг', 140], ['Выручка', 'Аренда', 90], ['Выручка', 'Прибыль', 210], ['Маркетинг', 'Поиск', 80], ['Маркетинг', 'Соцсети', 60]]
+      .map(([source, target, value]) => ({source, target, value}));
+    const flows = {label: 'Бюджет', 'y-format': 'integer'};
+    const rgb = (value) => value.match(/[\d.]+/gu).slice(0, 3).map(Number);
+    evidence.sankey = {geometry: [], contrast: {}};
+    for (const theme of ['light', 'dark']) {
+      for (const width of [375, 1280]) {
+        const page = await open({width, theme});
+        for (const size of ['1/2', '1', '2']) {
+          await make(page, 'sf-chart-sankey', {...flows, size}, {items: budget});
+          const shape = await shapeOf(page, {frame: '.sf-chart-sankey-plot', marks: '.sf-chart-sankey-marks rect, .sf-chart-sankey-marks path', texts: '.sf-chart-sankey-svg text'});
+          const touching = await page.evaluate(() => {
+            const boxes = [...document.querySelectorAll('#chart .sf-chart-sankey-name')].map((node) => ({text: node.textContent, box: node.getBoundingClientRect()}));
+            const pairs = [];
+            boxes.forEach((one, index) => boxes.slice(index + 1).forEach((other) => {
+              if (one.box.left < other.box.right && other.box.left < one.box.right && one.box.top < other.box.bottom && other.box.top < one.box.bottom) pairs.push([one.text, other.text]);
+            }));
+            return pairs;
+          });
+          const names = await page.evaluate(() => document.querySelectorAll('#chart .sf-chart-sankey-name').length);
+          evidence.sankey.geometry.push({theme, width, size, height: shape.height, marks: shape.marks, names});
+          if (shape.height !== RUNG[size] || shape.marks !== 17 || shape.outside || touching.length || shape.pageOverflow > 0) note({case: `sankey ${theme} ${width}px size ${size}: the plot is its rung's height, nine nodes and eight bands, every name inside and none touching another`, got: {shape, touching, names}, want: RUNG[size]});
+        }
+        if (width === 1280) {
+          await make(page, 'sf-chart-sankey', flows, {items: budget});
+          const paint = await page.evaluate(() => ({
+            bars: ['Продукты', 'Выручка', 'Услуги'].map((key) => getComputedStyle(document.querySelector(`#chart svg[role=group] .sf-chart-sankey-node[data-node="${key}"] .sf-chart-sankey-bar`)).fill),
+            ink: getComputedStyle(document.querySelector('#chart .sf-chart-sankey-name')).fill,
+            value: getComputedStyle(document.querySelector('#chart .sf-chart-sankey-value')).fill,
+          }));
+          const background = rgb(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+          const bars = paint.bars.map((one) => Math.round(contrast(rgb(one), background) * 100) / 100);
+          const inks = [paint.ink, paint.value].map((one) => Math.round(contrast(rgb(one), background) * 100) / 100);
+          evidence.sankey.contrast[theme] = {bars, inks};
+          if (bars.some((ratio) => ratio < 3) || inks.some((ratio) => ratio < 4.5) || new Set(paint.bars).size !== 3) note({case: `sankey ${theme}: each node holds 3:1 against the page in a colour of its own, the names and values 4.5:1`, got: {paint, bars, inks}});
+        }
+        await page.close();
+      }
+    }
+
+    const page = await open({width: 900});
+    await make(page, 'sf-chart-sankey', flows, {items: budget});
+    await page.focus('#before');
+    for (let press = 0; press < 2; press += 1) await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement.matches('.sf-chart-sankey-svg'));
+    const said = async (key) => {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(80);
+      return page.evaluate(() => document.querySelector('#chart [aria-live]').textContent.trim().replace(/ | /gu, ' '));
+    };
+    const first = await said('ArrowRight');
+    const second = await said('ArrowRight');
+    const third = await said('ArrowRight');
+    const back = await said('ArrowLeft');
+    const end = await said('End');
+    await page.keyboard.press('Enter');
+    const chosen = await page.evaluate(() => window.events.filter((one) => one.verb === 'select').map((one) => one.detail));
+    const tip = await page.evaluate(() => document.querySelector('.sf-chart-sankey-tooltip')?.textContent.replace(/\s+/gu, ' ').trim() ?? '');
+    await page.keyboard.press('Escape');
+    const cleared = await page.evaluate(() => document.querySelectorAll('.sf-chart-sankey-ring').length);
+    await page.keyboard.press('Tab');
+    const out = await page.evaluate(() => !document.activeElement.closest('.sf-chart-sankey-svg'));
+    // The pointer in the middle of the band from «Выручка» to «Зарплаты».
+    const spot = await page.evaluate(() => {
+      const chart = document.querySelector('#chart');
+      const flow = chart._geometry.links.find((one) => chart._model.nodes[one.source].key === 'Выручка' && chart._model.nodes[one.target].key === 'Зарплаты');
+      const box = chart.querySelector('svg[role=group]').getBoundingClientRect();
+      return {x: box.left + (flow.x0 + flow.x1) / 2, y: box.top + (flow.sy0 + flow.sy1 + flow.ty0 + flow.ty1) / 4};
+    });
+    await page.mouse.move(spot.x, spot.y);
+    await page.waitForTimeout(80);
+    const hover = await page.evaluate(() => document.querySelector('.sf-chart-sankey-tooltip')?.textContent.replace(/\s+/gu, ' ').trim().replace(/ | /gu, ' ') ?? '');
+    const keys = {focused, first, second, third, back, end, chosen, tip, cleared, out, hover};
+    evidence.sankey.keyboard = keys;
+    if (!focused || first !== 'Продукты: 520; уходит в «Выручка» 520' || second !== 'Выручка: 800; приходит из «Продукты» 520, «Услуги» 280; уходит в «Зарплаты» 360, «Прибыль» 210, «Маркетинг» 140 и ещё 1' || third !== 'Зарплаты: 360; приходит из «Выручка» 360' || back !== second || !end.startsWith('Соцсети: 60')
+      || chosen.length !== 1 || chosen[0].node !== 'Соцсети' || chosen[0].in !== 60
+      || !tip.startsWith('Соцсети') || cleared || !out || hover !== 'Выручка → Зарплаты Значение 360 Доля от источника 45 %') note({case: 'sankey: one Tab stop after the table button; the arrows go along the largest flows, each node said with its flows; Enter selects, Escape clears; the pointer on a band shows its flow', got: keys});
+    await page.close();
+
+    const forced = await open({colors: 'active'});
+    await make(forced, 'sf-chart-sankey', flows, {items: budget});
+    const plain = await forced.evaluate(() => ({
+      bar: getComputedStyle(document.querySelector('#chart .sf-chart-sankey-bar')).fill,
+      band: getComputedStyle(document.querySelector('#chart .sf-chart-sankey-band')).fill,
+      line: getComputedStyle(document.querySelector('#chart .sf-chart-sankey-band')).stroke,
+    }));
+    evidence.sankey.forced = plain;
+    if (plain.bar === plain.band || plain.line !== plain.bar) note({case: 'sankey: in forced colours the nodes are the text colour and the bands the canvas with a line of it', got: plain});
     await forced.close();
   }
 

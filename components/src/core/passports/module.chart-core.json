@@ -26,6 +26,7 @@
     "src/smart/chart-core/palettes.js",
     "src/smart/chart-core/path.js",
     "src/smart/chart-core/radar.js",
+    "src/smart/chart-core/sankey.js",
     "src/smart/chart-core/scale.js",
     "src/smart/chart-core/scatter.js",
     "src/smart/chart-core/settle.js",
@@ -34,7 +35,7 @@
     "src/smart/chart-core/treemap.js",
     "src/smart/chart-core/waterfall.js"
   ],
-  "content_sha256": "bcb852ec6040cc8c15d6237dd1f5887aac9e78a2f755b215d63fe7bb03cc4d8b",
+  "content_sha256": "481779793c239143379032c655c177665b68368e5b49fc60bed56af122844209",
   "dependencies": [
     {
       "id": "core.runtime",

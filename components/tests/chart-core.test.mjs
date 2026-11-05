@@ -24,6 +24,7 @@ import {mergeCandles, ohlcExtent, ohlcRows, tickPlaces} from '../src/smart/chart
 import {isTotal, waterfallExtent, waterfallSteps} from '../src/smart/chart-core/waterfall.js';
 import {squarify, treemapLayout, treemapRows} from '../src/smart/chart-core/treemap.js';
 import {cutText, durationOf, nearestRange, statusTimes, timelineLayout, timelineRows} from '../src/smart/chart-core/timeline.js';
+import {bandPathOf, onBand, sankeyLayout, sankeyRows} from '../src/smart/chart-core/sankey.js';
 import {compareRings, labelPlace, radarRuns, spokeAngle, spokePoint} from '../src/smart/chart-core/radar.js';
 import {boxSeries, boxStats, givenStats, quantile} from '../src/smart/chart-core/box.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../src/smart/chart-core/scatter.js';
@@ -639,4 +640,32 @@ test('timeline layout keeps bars in their rows, milestones whole and names cut t
   const many = timelineRows(Array.from({length: 40}, (_, index) => ({task: `t${index}`, start: '2026-01-01', end: '2026-01-02'})));
   const thin = timelineLayout(many, {width: 400, height: 200}, {names: many.lanes.map((one) => one.key)});
   assert.ok(thin.lanes.every((one) => one.text === '') && thin.inner.left < 20);
+});
+
+test('sankey flows sum a pair, leave out loops and empty rows, and stand nodes in columns by their longest path', () => {
+  const rows = [
+    {source: 'a', target: 'b', value: 5}, {source: 'a', target: 'c', value: 3}, {source: 'b', target: 'd', value: 4},
+    {source: 'c', target: 'd', value: 2}, {source: 'a', target: 'b', value: 1}, {source: 'd', target: 'a', value: 1},
+    {source: 'b', target: 'b', value: 2}, {source: 'c', target: '', value: 2}, {source: 'c', target: 'e', value: 0}, {source: 'a', target: 'e', value: 2},
+  ];
+  const model = sankeyRows(rows);
+  assert.deepEqual([model.valueField, model.missing, model.dropped, model.looped, model.total, model.columns], ['value', 2, 1, 1, 11, 3]);
+  assert.deepEqual(model.nodes.map((one) => [one.key, one.column, one.in, one.out, one.value]), [['a', 0, 0, 11, 11], ['b', 1, 6, 4, 6], ['c', 1, 3, 2, 3], ['d', 2, 6, 0, 6], ['e', 2, 2, 0, 2]]);
+  assert.equal(model.links.find((one) => one.source === 0 && one.target === 1).value, 6);
+});
+
+test('sankey layout keeps one scale, stacks the bands along their nodes, and finds a point on a band', () => {
+  const model = sankeyRows([{source: 'a', target: 'x', value: 6}, {source: 'b', target: 'x', value: 2}, {source: 'x', target: 'y', value: 5}, {source: 'x', target: 'z', value: 3}]);
+  const {nodes, links, scale} = sankeyLayout(model, {x: 0, y: 0, w: 300, h: 200}, {width: 10, gap: 10});
+  for (const one of nodes) assert.ok(Math.abs(one.y1 - one.y0 - one.value * scale) < 1e-9 && one.y0 >= -1e-9 && one.y1 <= 200 + 1e-9);
+  assert.deepEqual(nodes.map((one) => one.x0), [0, 145, 0, 290, 290]);
+  const x = nodes[1];
+  const ins = links.filter((one) => one.target === 1).sort((a, b) => a.ty0 - b.ty0);
+  assert.ok(Math.abs(ins[0].ty0 - x.y0) < 1e-9 && Math.abs(ins[ins.length - 1].ty1 - x.y1) < 1e-9);
+  const outs = links.filter((one) => one.source === 1).sort((a, b) => a.sy0 - b.sy0);
+  assert.ok(Math.abs(outs[0].sy0 - x.y0) < 1e-9 && Math.abs(outs[outs.length - 1].sy1 - x.y1) < 1e-9);
+  const band = links[0];
+  assert.ok(onBand(band, (band.x0 + band.x1) / 2, (band.sy0 + band.sy1 + band.ty0 + band.ty1) / 4));
+  assert.ok(!onBand(band, (band.x0 + band.x1) / 2, 1000));
+  assert.match(bandPathOf(band), /^M[\d.]+ [\d.]+C.+Z$/u);
 });

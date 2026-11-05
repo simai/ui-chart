@@ -277,6 +277,13 @@
       "change": "patch",
       "consumer": "Nothing to do: every chart says its numbers and dates as before.",
       "summary": "chart-core/format.js imports the core's number and date formatting from its modules without side effects (core/js/format-number.js and format-date.js, core.runtime 1.28.0, pair ui-62b1d9b6dc8d) instead of the whole format module, so a chart's bundle no longer carries the relative-date and file-size formats; the core.runtime range is now ^1.28.0."
+    },
+    {
+      "unit": "smart.chart-sankey",
+      "version": "0.1.0",
+      "recorded_on": "2026-11-05",
+      "change": "added",
+      "summary": "sf-chart-sankey: quantities flowing between stages or categories (source, target and value fields, the same pair summed), nodes in columns by their longest path from where the flows start and the ends in the last column, a band from node to node as wide as its flow, the order in a column chosen so the bands cross less, a node in a chart colour (--sf-chart-N, colors by node name) and its bands in the colour's light fill, names and values beside the nodes where they fit (labels), a tooltip for a node or a band, a keyboard cursor over the nodes along the largest flows, a summary sentence with the total, the largest flow and the node where the most arrives, every flow as a row of the table, loops left out and counted, loading, empty and error states."
     }
   ]
 }

@@ -35,6 +35,7 @@ const PENDING = [
   {component: 'chart-waterfall', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-treemap', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-timeline', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
+  {component: 'chart-sankey', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
   {component: 'chart-gauge', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
 ];
 

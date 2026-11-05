@@ -611,6 +611,41 @@ delegation.
 - **Out of 0.1.0.** Dependencies between tasks, editing by drag, a today
   line, zoom, and rows grouped under headings.
 
+## D14. The Sankey diagram
+
+After the timeline the owner chose «Sankey» (2026-11-05) as the next
+chart. Its form was decided by the recommendation under the owner's
+delegation.
+
+- **Tag.** `sf-chart-sankey`, the catalogue's name, with its core in
+  `chart-core/sankey.js` (own implementation).
+- **Data.** The flow shape of `parameters.md` §2.1: `source`, `target` and
+  `value` fields.
+  - The same pair named twice is one flow with the sum.
+  - A row without a source, a target or a positive value, or from a node
+    to itself, is left out and counted.
+  - A flow that would close a loop is left out and counted. The diagram
+    runs one way, and a loop has no column to stand in.
+- **Columns.** A node's column is its longest path from a node that
+  nothing flows into. A node that flows nowhere stands in the last column,
+  where the flows end.
+- **Layout.** One scale for every column, each column centred. The order
+  in a column starts as the rows give it, then is sorted a few times by
+  the weighted middle of the joined nodes, so the bands cross less.
+- **Colour.** A node takes the chart colour of its place
+  (`--sf-chart-N`). Its outgoing bands take the colour's light fill, so a
+  flow reads by where it comes from. `colors` by node name sets a page's
+  own.
+- **Words.** A node's name and value stand beside it, before it in the
+  last column. They are cut to the room between the columns, and a name
+  that would touch the name across the last gap is cut or left out.
+- **Keyboard.** The cursor is on the nodes. Up and Down move within a
+  column. Right follows the node's largest outgoing flow and Left its
+  largest incoming one. Each node is said with what comes in from where
+  and what goes out to where. The pointer reaches a band, and the table
+  has a row per flow.
+- **Out of 0.1.0.** Loops, nodes placed by hand, and drill-down.
+
 ## Answers
 
 | # | Answer | Date | Record |
@@ -632,6 +667,7 @@ delegation.
 | D11 | The waterfall: `sf-chart-waterfall` (not `accumulate` on bar), total rows on zero, a closing total, joining lines, signed values, the success, error and neutral tones | 2026-11-04 | the owner's «Каскадный график» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `c8a67cb`, bus `msg-7a432f38a14e4db9ad8d`) |
 | D12 | The treemap: `sf-chart-treemap`, two levels through a `group` field (not id and parent), squarified, groups in the chart colours with light fills, names and values inside where they fit | 2026-11-05 | the owner's «Следующий график» in the chat; the chart and its form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `e79bd7f`, bus `msg-f886b54bb51d4e05a312`) |
 | D13 | The timeline: `sf-chart-timeline`, row, start, end and status fields, a row holding one range or many, milestones as diamonds, a status in a chart colour, the rows, layout and time scale in the core for reuse | 2026-11-05 | the owner's «Гант / таймлайн» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `3bb85b5`, bus `msg-6a10fbed66144c44b6ba`) |
+| D14 | The Sankey diagram: `sf-chart-sankey`, source, target and value fields, a pair summed, loops left out and counted, columns by the longest path with the ends last, a node in a chart colour and its bands in its light fill, the keyboard along the largest flows | 2026-11-05 | the owner's «Sankey» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `4a70440`, bus `msg-d8408d476f8b4d55b157`) |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.
