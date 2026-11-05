@@ -25,5 +25,5 @@
 | Waterfall 0.1.0 | done (2026-11-04), to hand to the dispatcher: `sf-chart-waterfall` (the decision D11), how a start value becomes an end value through rises and falls, changes floating from the running total and totals on zero, a closing total, joining lines, each value written with its sign in the success, error and neutral tones, the keyboard cursor over the steps, the start, the end and the largest steps said in words | `components/src/smart/chart-waterfall/`, `docs/evidence/chart-waterfall-0.1.0.md` |
 | Release | waits for the Framework pair with parts 1–10 of the M0 and M1 evidence (the dispatcher's order) | — |
 
-Pinned SIMAI Framework release: `ui-de2b4437234a` (ui-source `5776ff08`, npm
-`@simai-studio/ui@5.20261102.2243`), in `components/framework.lock.json`.
+Pinned SIMAI Framework release: `ui-c3015f76bcc2` (ui-source `4863a40e`, npm
+`@simai-studio/ui@5.20261104.451`), in `components/framework.lock.json`.

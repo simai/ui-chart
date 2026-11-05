@@ -247,6 +247,14 @@
       "recorded_on": "2026-11-04",
       "change": "added",
       "summary": "sf-chart-waterfall: how a start value becomes an end value through steps (x and y fields), a change floating from the running total to the new one and a total row (the total field) standing on zero, a closing total added (end), thin lines joining the bars, each bar's value written with its sign (value-labels), the success, error and neutral tones (colors {up, down, total}), a key, a tooltip with the change and the total, a keyboard cursor over the steps, a summary sentence with the start, the end, the steps that added and took away most, the same data as a table, loading, empty and error states."
+    },
+    {
+      "unit": "module.chart-core",
+      "version": "0.3.0",
+      "recorded_on": "2026-11-05",
+      "change": "minor",
+      "consumer": "Nothing to do: a page's format words read as before; a page may now write decimal-<n> with two digits.",
+      "summary": "chart-core/format.js formats numbers and dates through the core's SF.format (core.runtime 1.20.0, pair ui-c3015f76bcc2), which took its number words from this file; the chart keeps only its axis-tick and full-date forms and its argument order. decimal-<n> now reads up to 20 digits, as the core does; nothing else a chart says changes."
     }
   ]
 }

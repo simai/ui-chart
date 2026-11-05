@@ -30,8 +30,8 @@ built and tested over the free Framework release pinned in
 
 ## The pin
 
-`framework.lock.json` pins ui-source `5776ff08`, the free release
-`ui-de2b4437234a` (npm `@simai-studio/ui@5.20261102.2243`). A package is
+`framework.lock.json` pins ui-source `4863a40e`, the free release
+`ui-c3015f76bcc2` (npm `@simai-studio/ui@5.20261104.451`). A package is
 built and tested against exactly one Framework revision; moving to a newer one
 is a change of the lock, a run of the suite and the probes, and a build.
 

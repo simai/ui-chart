@@ -3,7 +3,7 @@
   "schema_version": 1,
   "id": "module.chart-core",
   "kind": "module",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "owner": "simai/ui-chart",
   "summary": "The SIMAI Chart core: data, scales, formats, paths, decimation, the words and the keyboard cursor every chart shares.",
   "includes": [
@@ -32,8 +32,12 @@
     "src/smart/chart-core/stack.js",
     "src/smart/chart-core/waterfall.js"
   ],
-  "content_sha256": "ce6ae5ed29e15dd11ed4c0187bc53af5d19fa0be5ec16991b9c1b6c5c2d2c29b",
+  "content_sha256": "57e80182545ab0e5bd51e1fb05a3ec7be33cbf883394a366dab72479e4ad5a10",
   "dependencies": [
+    {
+      "id": "core.runtime",
+      "range": "^1.20.0"
+    },
     {
       "id": "tokens.colour",
       "range": "^1.1.0"
