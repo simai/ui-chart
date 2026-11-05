@@ -37,11 +37,12 @@ The standard and the reference followed:
   - `scripts/check-registry.mjs`: the passport against the registry at
     ui-source main;
   - `scripts/gates.sh`: every gate of the set over the commit at HEAD.
-- **Registry.** The registry lists 11 of the 19 names. The other 8 were
-  reserved by the dispatcher in ui-control and are pending in
-  `tests/set-registry.mjs`; the registry entries were ordered from the
-  dispatcher (bus `msg-d5774938bd5645768fd5`). The pending list only
-  shrinks: a name the registry lists fails the test until it is removed.
+- **Registry.** The registry at the first pin listed 11 of the 19 names.
+  The other 8 were reserved by the dispatcher in ui-control, were pending in
+  `tests/set-registry.mjs` and were ordered into the registry (bus
+  `msg-d5774938bd5645768fd5`). They are registered in `ui-e7b79c3a9e05`,
+  and the pending list is empty since the pin moved. The list stays as the
+  way to carry a name between its reservation and the registry.
 
 ## The site
 
@@ -82,22 +83,36 @@ site says.
 
 ## Checks
 
-The set's gates (`package/scripts/gates.sh`) ran over commit `166cbbc`
-(ui-source `ec2f29df`, pair `ui-62b1d9b6dc8d`):
+The set's gates (`package/scripts/gates.sh`) first ran over commit
+`166cbbc` on the pair `ui-62b1d9b6dc8d`. They ran again after the pin
+moved, over commit `993536a` (ui-source `5443d10d`, pair
+`ui-e7b79c3a9e05`):
 
 | Gate | Result |
 |---|---|
-| Two builds | **PASS**, byte-identical, 1083 files, output manifest sha256 `d6b999d19af9725d6d2e6bd45b44cb9ce4c81b04e5bcf630097f5496032255a9` |
-| Receipt | framework `ui-62b1d9b6dc8d`, package reference `set-passport`, archive sha256 `1c71e3502678c7660b2e354f64fd30238dfecd793fe2646c25ef1be3629714f8` |
+| Two builds | **PASS**, byte-identical, 1083 files, output manifest sha256 `501946666a660436f8e62e8920e152b16fa0b764e29fcffd31a0899889931c0e` |
+| Receipt | framework `ui-e7b79c3a9e05`, package reference `set-passport`, archive sha256 `7dcbd68a19f56ba52347b61bbd4ba8edbf19610832065c2a079164c84b94e9cb` |
 | Unit suite | 160 pass, 0 fail (4 skipped: the free axes test the package half stands in for), with the 3 passport tests |
-| Registry at main | 0 problems, 8 names pending |
+| Registry at main | 0 problems, nothing pending |
 | Manifest probes | 88/88 |
 | Browser probes | pass |
 | First paint | 510/510, CLS 0 |
 
+**The pin.** The dispatcher answered both of the set's orders in the pair
+`ui-e7b79c3a9e05` (npm `@simai-studio/ui@5.20261105.2041`, tarball
+sha256 `128c4cc9f889071f942781ab19c8cafa42974b89f115aa96e31f3f21804128bc`;
+bus `msg-28542ab184174391b643`, `msg-abff1fb7a2c64424a1ad`):
+
+- the registry lists all 19 chart names under owner `chart`;
+- `contracts/public-api-axes.json` records `chart-map.scheme`.
+
+The pin moved to it in `993536a`, and the pending lists of the passport and
+axes tests are empty. Between the two pins, ui-source changed no source a
+chart uses.
+
 The site was built over that build (`site/scripts/build.sh`):
 
-- **Static check.** Docara `verify-static` passed: 47 pages, 5047 local
+- **Static check.** Docara `verify-static` passed: 47 pages, 5049 local
   references, none broken.
 - **Generators.** `build-pages.mjs --check` is clean. `build-reference.mjs`
   wrote 19 pages with every manifest string translated.
