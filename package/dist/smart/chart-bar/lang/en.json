@@ -1,0 +1,41 @@
+{
+  "title": "Bar chart",
+  "runtime": {
+    "untitled": "Chart",
+    "roledescription": "bar chart",
+    "summary-empty": "No data.",
+    "cursor": "{x}, {name}: {value}",
+    "gap": "no data",
+    "show-table": "Table",
+    "legend": "Series",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data",
+    "x-column": "Category",
+    "summary-count": "Categories: {count}.",
+    "summary-series": "{name}: highest {max} ({maxAt}), lowest {min} ({minAt}).",
+    "summary-lines": "As lines: {names}.",
+    "share": "{share} ({value})",
+    "count": "Count",
+    "bin-range": "{from} – {to}",
+    "summary-bins": "Values: {count}, from {min} to {max}; intervals: {bins}, {width} wide.",
+    "summary-bin-series": "{name}: median {median}, most in {range} ({max}).",
+    "summary-missing": "Rows without a value: {count}."
+  },
+  "events": {
+    "toggle": {
+      "label": "Hide or show a series"
+    },
+    "select": {
+      "label": "Choose a bar"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Show every series"
+    }
+  }
+}

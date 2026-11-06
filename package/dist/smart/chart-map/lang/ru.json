@@ -1,0 +1,39 @@
+{
+  "title": "Карта",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "карта",
+    "summary-total": "Областей: {regions}, с данными: {count}; значения от {min} до {max}.",
+    "summary-high": "Больше всего — «{name}»: {value}.",
+    "summary-low": "Меньше всего — «{name}»: {value}.",
+    "summary-gaps": "Без данных: {count}.",
+    "summary-unmatched": "Строк без области на карте: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{name}: {value}, место {rank} из {count}",
+    "cursor-gap": "{name}: нет данных",
+    "rank-of": "{rank} из {count}",
+    "region": "Область",
+    "value": "Значение",
+    "rank": "Место",
+    "legend": "Шкала",
+    "step": "{from} – {to}",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать область"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Убрать курсор"
+    }
+  }
+}

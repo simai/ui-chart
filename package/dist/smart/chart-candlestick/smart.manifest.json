@@ -1,0 +1,439 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-candlestick",
+  "version": "0.1.0",
+  "title": "Candlestick chart",
+  "summary": "A candlestick chart: the open, high, low and close of each period on a price axis, side by side in time order, a rising period hollow and a falling one filled in the success and error tones, neighbours merged as a longer period when they crowd, a key of rise and fall, a tooltip, a keyboard cursor over the candles, a summary in words, and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "candlestick",
+    "ohlc",
+    "finance",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-candlestick",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+      },
+      "x": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the periods: a date or a time (the candles then go in time order) or a label (in the data's order); the first field other than the prices when unset."
+      },
+      "open": {
+        "type": "string",
+        "default": "open",
+        "description": "The field of the period's first price."
+      },
+      "high": {
+        "type": "string",
+        "default": "high",
+        "description": "The field of the period's highest price; held up to the open and the close when it is below them."
+      },
+      "low": {
+        "type": "string",
+        "default": "low",
+        "description": "The field of the period's lowest price; held down to the open and the close when it is above them."
+      },
+      "close": {
+        "type": "string",
+        "default": "close",
+        "description": "The field of the period's last price."
+      },
+      "shape": {
+        "type": "string",
+        "default": "candle",
+        "description": "candle: a body from open to close, hollow when the price rose and filled when it fell, with wicks to the high and the low. bar: a line from high to low with the open's tick to the left and the close's to the right.",
+        "enum": [
+          "candle",
+          "bar"
+        ]
+      },
+      "y-min": {
+        "type": "number",
+        "description": "The start of the price axis; the lowest low, rounded, when unset."
+      },
+      "y-max": {
+        "type": "number",
+        "description": "The end of the price axis; the highest high, rounded, when unset."
+      },
+      "y-zero": {
+        "type": "boolean",
+        "default": false,
+        "description": "The price axis takes zero in. Off by default: a price's change matters, not its distance from zero."
+      },
+      "legend": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto shows the key of rise and fall above the plot.",
+        "enum": [
+          "auto",
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "candle",
+        "description": "candle: under the pointer or the cursor, the period, its open, high, low and close, and its change.",
+        "enum": [
+          "candle",
+          "none"
+        ]
+      },
+      "grid": {
+        "type": "string",
+        "default": "value",
+        "description": "value draws guide lines across the plot at the price ticks.",
+        "enum": [
+          "value",
+          "none"
+        ]
+      },
+      "x-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the periods, said under the axis and as the table's first column; the x field's name when unset."
+      },
+      "y-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the price, said above the axis."
+      },
+      "x-format": {
+        "type": "string",
+        "default": "auto",
+        "description": "The periods' date format: auto (from the data's unit), or an Intl date style (short, medium, long, full), in the page's language."
+      },
+      "y-format": {
+        "type": "string",
+        "default": "number",
+        "description": "The prices' format: number, integer, decimal-<n>, compact, currency-<CODE> or unit-<unit>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the count of periods and their span, the first open and the last close with the change, the highest high and the lowest low with their periods, how many periods rose and fell), said before the plot. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with candles, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records, one per period ([{day, open, high, low, close}, …]), or an object of columns. A row without all four prices is left out; the summary says how many."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "The colours of rise and fall: {up: 'success', down: 'error'} by default. A colour is a Framework role, which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A rising body stays hollow and a falling one filled whatever the colour."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-candlestick-select": {
+      "summary": "The person chose a candle: a click on its band, or Enter or Space on the keyboard cursor. index is its first period's place in time order, row its row in items, x the period as given; the prices are the drawn candle's, which spans several periods when neighbours merged.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "index",
+          "row",
+          "x",
+          "open",
+          "high",
+          "low",
+          "close"
+        ],
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "row": {
+            "type": "number"
+          },
+          "x": {
+            "type": "string"
+          },
+          "open": {
+            "type": "number"
+          },
+          "high": {
+            "type": "number"
+          },
+          "low": {
+            "type": "number"
+          },
+          "close": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-candlestick-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-candlestick/index.js",
+        "sha256": "f09ee68ac77a01589d5ee87db0eb22d45cce6cae7f1bcdfd6f0320adf9daaf64"
+      },
+      {
+        "path": "src/smart/chart-candlestick/js/templates/default.js",
+        "sha256": "ba05c64647b85c07e4fac96f8d16e75c37d082e34fba9e9c74446575e6dea271"
+      },
+      {
+        "path": "src/smart/chart-candlestick/js/templates/default.css",
+        "sha256": "44e89d224f088c63f887bbaabde393decad2947cf6980436d965809b3db0e24d"
+      },
+      {
+        "path": "src/smart/chart-candlestick/rule.js",
+        "sha256": "e33a5b8da4280dc3810e17b7f722ddfd5fd45efbfe67a19d8173c9b8397be376"
+      },
+      {
+        "path": "src/smart/chart-candlestick/docs.md",
+        "sha256": "550a83ba6744ff372163b12f05d8762c4970afe418037b5377be941bc06102b3"
+      },
+      {
+        "path": "src/smart/chart-candlestick/component.json",
+        "sha256": "810809e8fad2bb6d5e7a1a39d7226be2a44b05b7844eea6e802db51e478c3cdb"
+      },
+      {
+        "path": "src/smart/chart-candlestick/lang/en.json",
+        "sha256": "4fcaffa489bf91c877de42b64cacfb946b7eb9b003c14b0155d37e1bb7c61fcd"
+      },
+      {
+        "path": "src/smart/chart-candlestick/lang/ru.json",
+        "sha256": "e6a0a16fe7b12396f26ef916a179700ca97e7a74624d6a3d49a6cbe98d1f5eae"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-candlestick to show the open, high, low and close of a price per period (a share's days, a currency's hours) for people who read prices.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not use it for a general audience; a sf-chart-line of the close prices reads more easily",
+      "Do not use it for values that are not opened and closed per period"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-candlestick label=\"Акция, октябрь 2026\" x=\"day\" y-format=\"decimal-2\"></sf-chart-candlestick>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-scatter",
+  "title": "scatter reference",
+  "summary": "Deterministic reference fixture for sf-chart-scatter.",
+  "locale": "ru",
+  "props": {
+    "label": "Цена и продажи товаров",
+    "x": "price",
+    "y": "sold",
+    "series": "kind",
+    "point": "product",
+    "x-label": "Цена, ₽",
+    "y-label": "Продано, шт.",
+    "x-format": "integer",
+    "y-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

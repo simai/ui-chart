@@ -1,0 +1,39 @@
+{
+  "title": "Круговая диаграмма",
+  "runtime": {
+    "untitled": "Круговая диаграмма",
+    "roledescription": "круговая диаграмма",
+    "summary-empty": "Нет данных.",
+    "cursor": "{name}: {part}",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "legend": "Части",
+    "loading": "Загрузка данных диаграммы",
+    "empty-title": "Нет данных для диаграммы",
+    "error-title": "Не удалось загрузить данные",
+    "summary-total": "Частей: {count}, всего {total}.",
+    "summary-part": "{name}: {part}.",
+    "part": "{share} ({value})",
+    "other": "Другое",
+    "total": "всего",
+    "share-column": "Доля",
+    "category-column": "Часть",
+    "value-column": "Значение"
+  },
+  "events": {
+    "toggle": {
+      "label": "Скрыть или показать часть"
+    },
+    "select": {
+      "label": "Выбрать часть"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Показать все части"
+    }
+  }
+}

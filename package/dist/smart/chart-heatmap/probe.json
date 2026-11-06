@@ -1,0 +1,102 @@
+{
+  "component": "sf-chart-heatmap",
+  "probe": "sf-chart-heatmap against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+  "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+  "page": {
+    "lang": "ru",
+    "body": [
+      "<main style=\"inline-size: 40rem\">",
+      "  <sf-chart-heatmap id=\"c\" label=\"Нагрузка\" x=\"hour\" y=\"day\" value=\"load\" value-format=\"integer\"></sf-chart-heatmap>",
+      "  <sf-chart-heatmap id=\"d\" label=\"Отклонение\" x=\"x\" y=\"y\" value=\"v\" scale=\"diverging\" table=\"hidden\"></sf-chart-heatmap>",
+      "  <sf-chart-heatmap id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-heatmap>",
+      "</main>"
+    ]
+  },
+  "probes": [
+    {
+      "id": "p1-figure-grid-summary",
+      "title": "a figure named by its label; the grid is one group described by its size, range and extremes; a cell per pair and a legend step per scale step",
+      "covers": "accessibility (role figure, name label), settings.items, settings.x, settings.y, settings.value, settings.steps, settings.legend, settings.summary",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"mon\": \"Пн\", \"tue\": \"Вт\"}; c.items = [{\"hour\": \"9:00\", \"day\": \"mon\", \"load\": 32}, {\"hour\": \"10:00\", \"day\": \"mon\", \"load\": 44}, {\"hour\": \"11:00\", \"day\": \"mon\", \"load\": 60}, {\"hour\": \"12:00\", \"day\": \"mon\", \"load\": 74}, {\"hour\": \"13:00\", \"day\": \"mon\", \"load\": 80}, {\"hour\": \"14:00\", \"day\": \"mon\", \"load\": 74}, {\"hour\": \"15:00\", \"day\": \"mon\", \"load\": 60}, {\"hour\": \"16:00\", \"day\": \"mon\", \"load\": 44}, {\"hour\": \"17:00\", \"day\": \"mon\", \"load\": 32}, {\"hour\": \"18:00\", \"day\": \"mon\", \"load\": 25}, {\"hour\": \"9:00\", \"day\": \"tue\", \"load\": 34}, {\"hour\": \"10:00\", \"day\": \"tue\", \"load\": 46}, {\"hour\": \"11:00\", \"day\": \"tue\", \"load\": 62}, {\"hour\": \"12:00\", \"day\": \"tue\", \"load\": 76}, {\"hour\": \"13:00\", \"day\": \"tue\", \"load\": 82}, {\"hour\": \"14:00\", \"day\": \"tue\", \"load\": 76}, {\"hour\": \"15:00\", \"day\": \"tue\", \"load\": 62}, {\"hour\": \"16:00\", \"day\": \"tue\", \"load\": 46}, {\"hour\": \"17:00\", \"day\": \"tue\", \"load\": 34}, {\"hour\": \"18:00\", \"day\": \"tue\", \"load\": 27}]; document.querySelector('#d').items = [{\"x\": \"a\", \"y\": \"r\", \"v\": -2}, {\"x\": \"b\", \"y\": \"r\", \"v\": 0.5}, {\"x\": \"c\", \"y\": \"r\", \"v\": 6}, {\"x\": \"a\", \"y\": \"s\", \"v\": null}, {\"x\": \"b\", \"y\": \"s\", \"v\": 1}]; return true; })()",
+          "wait": 250,
+          "check": "(() => { const f = document.querySelector('#c figure'); const g = document.querySelector('#c [role=group]'); const d = document.getElementById(g.getAttribute('aria-describedby')).textContent.replace(/\\u00a0/gu, ' '); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Нагрузка' && g.getAttribute('aria-roledescription') === 'тепловая карта' && d.startsWith('Строк: 2, столбцов: 10; значения от 25 до 82.') && document.querySelectorAll('#c .sf-chart-heatmap-cell').length === 20 && document.querySelectorAll('#c .sf-chart-heatmap-legend-item').length === 5; })()"
+        }
+      ]
+    },
+    {
+      "id": "p2-keyboard-grid",
+      "title": "the arrows walk a row and across rows, Home and End go to a row's ends, each move said; Enter chooses the cell",
+      "covers": "keyboard.host (ArrowRight, ArrowDown, End, Home, Enter, Escape), events.select",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"mon\": \"Пн\", \"tue\": \"Вт\"}; c.items = [{\"hour\": \"9:00\", \"day\": \"mon\", \"load\": 32}, {\"hour\": \"10:00\", \"day\": \"mon\", \"load\": 44}, {\"hour\": \"11:00\", \"day\": \"mon\", \"load\": 60}, {\"hour\": \"12:00\", \"day\": \"mon\", \"load\": 74}, {\"hour\": \"13:00\", \"day\": \"mon\", \"load\": 80}, {\"hour\": \"14:00\", \"day\": \"mon\", \"load\": 74}, {\"hour\": \"15:00\", \"day\": \"mon\", \"load\": 60}, {\"hour\": \"16:00\", \"day\": \"mon\", \"load\": 44}, {\"hour\": \"17:00\", \"day\": \"mon\", \"load\": 32}, {\"hour\": \"18:00\", \"day\": \"mon\", \"load\": 25}, {\"hour\": \"9:00\", \"day\": \"tue\", \"load\": 34}, {\"hour\": \"10:00\", \"day\": \"tue\", \"load\": 46}, {\"hour\": \"11:00\", \"day\": \"tue\", \"load\": 62}, {\"hour\": \"12:00\", \"day\": \"tue\", \"load\": 76}, {\"hour\": \"13:00\", \"day\": \"tue\", \"load\": 82}, {\"hour\": \"14:00\", \"day\": \"tue\", \"load\": 76}, {\"hour\": \"15:00\", \"day\": \"tue\", \"load\": 62}, {\"hour\": \"16:00\", \"day\": \"tue\", \"load\": 46}, {\"hour\": \"17:00\", \"day\": \"tue\", \"load\": 34}, {\"hour\": \"18:00\", \"day\": \"tue\", \"load\": 27}]; document.querySelector('#d').items = [{\"x\": \"a\", \"y\": \"r\", \"v\": -2}, {\"x\": \"b\", \"y\": \"r\", \"v\": 0.5}, {\"x\": \"c\", \"y\": \"r\", \"v\": 6}, {\"x\": \"a\", \"y\": \"s\", \"v\": null}, {\"x\": \"b\", \"y\": \"s\", \"v\": 1}]; return true; })()",
+          "wait": 250
+        },
+        {
+          "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-heatmap-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c [role=group]').focus(); return true; })()",
+          "wait": 60
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim() === 'Пн, 9:00: 32')()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim() === 'Пн, 10:00: 44')()"
+        },
+        {
+          "user": "keyboard:ArrowDown",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim() === 'Вт, 10:00: 46')()"
+        },
+        {
+          "user": "keyboard:End",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim() === 'Вт, 18:00: 27')()"
+        },
+        {
+          "user": "keyboard:Enter",
+          "wait": 80,
+          "check": "(() => window.__chosen && window.__chosen.x === '18:00' && window.__chosen.y === 'tue' && window.__chosen.value === 27)()"
+        },
+        {
+          "user": "keyboard:Escape",
+          "wait": 80,
+          "check": "(() => !document.querySelector('#c .sf-chart-heatmap-focus'))()"
+        }
+      ]
+    },
+    {
+      "id": "p3-diverging-gap",
+      "title": "a diverging scale has an odd number of steps even around its middle; a gap is an outlined empty cell, said in the summary and the table",
+      "covers": "settings.scale, settings.middle, settings.better, settings.table",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"mon\": \"Пн\", \"tue\": \"Вт\"}; c.items = [{\"hour\": \"9:00\", \"day\": \"mon\", \"load\": 32}, {\"hour\": \"10:00\", \"day\": \"mon\", \"load\": 44}, {\"hour\": \"11:00\", \"day\": \"mon\", \"load\": 60}, {\"hour\": \"12:00\", \"day\": \"mon\", \"load\": 74}, {\"hour\": \"13:00\", \"day\": \"mon\", \"load\": 80}, {\"hour\": \"14:00\", \"day\": \"mon\", \"load\": 74}, {\"hour\": \"15:00\", \"day\": \"mon\", \"load\": 60}, {\"hour\": \"16:00\", \"day\": \"mon\", \"load\": 44}, {\"hour\": \"17:00\", \"day\": \"mon\", \"load\": 32}, {\"hour\": \"18:00\", \"day\": \"mon\", \"load\": 25}, {\"hour\": \"9:00\", \"day\": \"tue\", \"load\": 34}, {\"hour\": \"10:00\", \"day\": \"tue\", \"load\": 46}, {\"hour\": \"11:00\", \"day\": \"tue\", \"load\": 62}, {\"hour\": \"12:00\", \"day\": \"tue\", \"load\": 76}, {\"hour\": \"13:00\", \"day\": \"tue\", \"load\": 82}, {\"hour\": \"14:00\", \"day\": \"tue\", \"load\": 76}, {\"hour\": \"15:00\", \"day\": \"tue\", \"load\": 62}, {\"hour\": \"16:00\", \"day\": \"tue\", \"load\": 46}, {\"hour\": \"17:00\", \"day\": \"tue\", \"load\": 34}, {\"hour\": \"18:00\", \"day\": \"tue\", \"load\": 27}]; document.querySelector('#d').items = [{\"x\": \"a\", \"y\": \"r\", \"v\": -2}, {\"x\": \"b\", \"y\": \"r\", \"v\": 0.5}, {\"x\": \"c\", \"y\": \"r\", \"v\": 6}, {\"x\": \"a\", \"y\": \"s\", \"v\": null}, {\"x\": \"b\", \"y\": \"s\", \"v\": 1}]; return true; })()",
+          "wait": 250,
+          "check": "(() => { const ranges = [...document.querySelectorAll('#d .sf-chart-heatmap-legend-range')].map((one) => one.textContent.replace(/\\u00a0/gu, ' ').replace(/\\u2212/gu, '-')); const d = document.getElementById(document.querySelector('#d [role=group]').getAttribute('aria-describedby')).textContent; return ranges.length === 6 && ranges[0] === '-6 – -3,6' && ranges[4] === '3,6 – 6' && ranges[5] === 'нет данных' && document.querySelectorAll('#d .sf-chart-heatmap-cell--gap').length === 2 && /Без данных: 2\\.$/u.test(d) && [...document.querySelectorAll('#d table td')].some((one) => one.textContent.trim() === 'нет данных'); })()"
+        }
+      ]
+    },
+    {
+      "id": "p4-error-refresh",
+      "title": "the error state offers a retry that sends refresh",
+      "covers": "settings.data-state, events.refresh",
+      "steps": [
+        {
+          "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-heatmap-refresh', () => { window.__refresh += 1; }); return true; })()",
+          "wait": 200
+        },
+        {
+          "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+          "wait": 120,
+          "check": "(() => window.__refresh === 1)()"
+        }
+      ]
+    }
+  ]
+}

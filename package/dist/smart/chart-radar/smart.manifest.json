@@ -1,0 +1,447 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-radar",
+  "version": "0.1.0",
+  "title": "Radar chart",
+  "summary": "A radar chart: a spoke per measure from a centre, each series a ring through its values on one scale, to compare a few items over several measures; a legend that hides series, a tooltip, a keyboard cursor round the spokes and across the series, a summary in words, and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "radar",
+    "spider",
+    "profile",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-radar",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+      },
+      "palette": {
+        "type": "string",
+        "default": "theme",
+        "description": "The seriess' colours as a named set, by place, each a light and a dark tone that change with the theme and hold 3:1 against surfaces 0-2: theme (the theme's own tones, as before), vivid (8, the first the brand's), soft (8, muted), warm (6), cool (6), brand (4 steps of the primary family, for ordered data). Past its size a set starts again. colors wins for the seriess it names.",
+        "enum": [
+          "theme",
+          "vivid",
+          "soft",
+          "warm",
+          "cool",
+          "brand"
+        ]
+      },
+      "x": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the spokes, one per distinct value in the data's order, the first straight up and the rest clockwise; the first field when unset. 3 to 8 spokes read best."
+      },
+      "y": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the values, or a comma list, one series per field; with no y, every numeric field but x and series."
+      },
+      "series": {
+        "type": "string",
+        "default": "",
+        "description": "The long form: one series per distinct value of this field, its value in the y field."
+      },
+      "min": {
+        "type": "number",
+        "description": "The value at the centre; zero, or the least value when below zero, when unset."
+      },
+      "max": {
+        "type": "number",
+        "description": "The value at the outer ring, for a scale with a known top (a score out of 10); the largest value, rounded up, when unset."
+      },
+      "grid": {
+        "type": "string",
+        "default": "polygon",
+        "description": "The scale's rings: polygon (straight between the spokes), circle, or none (the outer ring only).",
+        "enum": [
+          "polygon",
+          "circle",
+          "none"
+        ]
+      },
+      "fill": {
+        "type": "string",
+        "default": "area",
+        "description": "area fills each series' ring lightly under its line; none draws the line only, for several series that overlap. A ring broken by a gap is never filled.",
+        "enum": [
+          "area",
+          "none"
+        ]
+      },
+      "legend": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto shows the legend above the plot when there are two series or more. Each entry is a button that hides and shows its series.",
+        "enum": [
+          "auto",
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "spoke",
+        "description": "spoke: under the pointer or the cursor, the spoke's name and every shown series' value on it.",
+        "enum": [
+          "spoke",
+          "none"
+        ]
+      },
+      "x-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the spokes, said as the table's first column; the x field's name when unset."
+      },
+      "y-format": {
+        "type": "string",
+        "default": "number",
+        "description": "The measure's format: number, integer, decimal-<n>, percent (a share 0..1), compact, currency-<CODE> or unit-<unit>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the count of spokes and the range, each series' strongest and weakest spoke, the first two series compared spoke by spoke, the gaps), said before the plot. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with values, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records, one per spoke ([{skill, anna, boris}, …]), or an object of columns. A missing value is a gap: the series' ring is broken there, never drawn to zero."
+      },
+      "names": {
+        "type": "object",
+        "default": {},
+        "description": "What each series is called, by its key: {eu: «Европа»}. A series without a name is called by its key."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "What colour each series is, by its key: {fact: 'primary', plan: 'neutral'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A series without one keeps the palette by its place. In forced colours a series is its dash."
+      },
+      "hidden-series": {
+        "type": "array",
+        "default": [],
+        "description": "The keys of the series the person hid with the legend."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Shows every series again and takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-radar-toggle": {
+      "summary": "The person hid or showed a series with its legend button; applied at once (the vocabulary's local toggle).",
+      "payload": {
+        "type": "object",
+        "required": [
+          "id",
+          "hidden"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-radar-select": {
+      "summary": "The person chose a value: a click on its mark or its spoke, or Enter or Space on the keyboard cursor. index is the spoke's place, spoke its name; value is null in a gap.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "series",
+          "index",
+          "spoke",
+          "value"
+        ],
+        "properties": {
+          "series": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          },
+          "spoke": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-radar-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the legend buttons and the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-radar/index.js",
+        "sha256": "550e39e1903df431354807b0e7fb1242c69953309508d7288c7c1f5a5a8348fc"
+      },
+      {
+        "path": "src/smart/chart-radar/js/templates/default.js",
+        "sha256": "476dae2a5a0752e46428d4a1fd5b91bc29a8b518f38ab3e3bf7966e079648230"
+      },
+      {
+        "path": "src/smart/chart-radar/js/templates/default.css",
+        "sha256": "74de5a71e7057395b231764ce90d16b87c078772db542db3191ee62623d7f551"
+      },
+      {
+        "path": "src/smart/chart-radar/rule.js",
+        "sha256": "ddea4d82d3e75d2a8537fd7131515f7605b1cfbb61ba8ec13f2816e47f390cef"
+      },
+      {
+        "path": "src/smart/chart-radar/docs.md",
+        "sha256": "946ebc9672d8e9dca9fb86c2e84967682cbddb2ee9a3ac223a42c76e3aff7f3e"
+      },
+      {
+        "path": "src/smart/chart-radar/component.json",
+        "sha256": "8faaebb0d220e91d44d2f24cdad5892edf7ad97d2e351e5cba58e9dc96c33600"
+      },
+      {
+        "path": "src/smart/chart-radar/lang/en.json",
+        "sha256": "8a0c1b8291946aaa6aa7e8055fc0c8af7a1b6ba20ae4d16ea5cae7f89ec6fa56"
+      },
+      {
+        "path": "src/smart/chart-radar/lang/ru.json",
+        "sha256": "464a9075f9eabe4e61aac1596152d233e1366a22873827ab8565a7fc0d55e49f"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-radar to compare two or three items over 3 to 8 measures on one scale (skill profiles, product ratings out of 10).",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not mix measures on different scales; that is a grouped sf-chart-bar",
+      "Do not compare more than three items or read exact values from it; give them as a bar chart or the table"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-radar label=\"Навыки команды\" x=\"skill\" y=\"anna,boris\" max=\"10\"></sf-chart-radar>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

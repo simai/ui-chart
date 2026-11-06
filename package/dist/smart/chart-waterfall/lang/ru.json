@@ -1,0 +1,42 @@
+{
+  "title": "Каскадный график",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "каскадный график",
+    "summary-range": "Шагов: {count}, от {start} до {finish}: {change}.",
+    "summary-most-up": "Больше всего прибавил шаг «{name}»: {value}.",
+    "summary-most-down": "Больше всего убавил шаг «{name}»: {value}.",
+    "summary-count": "Шагов роста: {up}, снижения: {down}.",
+    "summary-missing": "Строк без значения: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{name}: {change}, итог {total}",
+    "cursor-total": "{name}: {total}",
+    "step-n": "Шаг {n}",
+    "step-column": "Шаг",
+    "end": "Итого",
+    "change": "Изменение",
+    "total-value": "Итог",
+    "up": "Рост",
+    "down": "Снижение",
+    "total": "Итог",
+    "legend": "Обозначения",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать шаг"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Убрать курсор"
+    }
+  }
+}

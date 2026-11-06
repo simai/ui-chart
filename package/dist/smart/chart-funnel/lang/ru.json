@@ -1,0 +1,34 @@
+{
+  "title": "Воронка",
+  "runtime": {
+    "untitled": "Воронка",
+    "roledescription": "воронка",
+    "cursor": "{name}: {stage}",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных диаграммы",
+    "empty-title": "Нет данных для диаграммы",
+    "error-title": "Не удалось загрузить данные",
+    "stage-first": "{value}",
+    "stage-next": "{value}, {previous} от предыдущего, {first} от первого",
+    "previous-short": "{share} от предыдущего",
+    "first-short": "{share} от первого",
+    "summary-whole": "Этапов: {count}, от {from} до {to}, итоговая конверсия {overall}.",
+    "summary-short": "Этапов: {count}.",
+    "summary-worst": "Больше всего теряется между «{from}» и «{to}»: дальше проходит {share}.",
+    "summary-grows": "Этапы не вложены: есть этап больше предыдущего.",
+    "summary-gaps": "Нет данных: {count}.",
+    "stage-column": "Этап",
+    "value-column": "Значение",
+    "previous-column": "От предыдущего",
+    "first-column": "От первого"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать этап"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-radar",
+  "title": "radar reference",
+  "summary": "Deterministic reference fixture for sf-chart-radar.",
+  "locale": "ru",
+  "props": {
+    "label": "Навыки: Анна и Борис",
+    "x": "skill",
+    "y": "anna,boris",
+    "max": 10,
+    "x-label": "Навык",
+    "y-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-waterfall",
+  "title": "waterfall reference",
+  "summary": "Deterministic reference fixture for sf-chart-waterfall.",
+  "locale": "ru",
+  "props": {
+    "label": "Выручка: 2025 → 2026",
+    "x": "step",
+    "y": "value",
+    "y-format": "integer",
+    "y-label": "млн ₽"
+  },
+  "children": [],
+  "state": "default"
+}

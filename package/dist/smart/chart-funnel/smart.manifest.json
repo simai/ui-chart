@@ -1,0 +1,383 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-funnel",
+  "version": "0.1.0",
+  "title": "Funnel",
+  "summary": "A funnel: the stages of a process, each a subset of the last (visits, cart, payment), as bars on a common baseline with the value and the conversion beside each stage, a tooltip, a keyboard cursor, a summary in words (the overall conversion, where the most is lost) and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "funnel",
+    "conversion",
+    "stages",
+    "flow",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-funnel",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name, the table's caption and the file name of an export. Required in practice: without it the chart is named «Воронка»."
+      },
+      "stage": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the stages' keys; the first field when unset."
+      },
+      "value": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the stages' values; the first numeric field but stage when unset."
+      },
+      "conversion": {
+        "type": "string",
+        "default": "previous",
+        "description": "The share written beside each stage after the first: previous, of the stage before (how many went on); first, of the first stage (how many are left of the start); none, the values alone. The tooltip, the summary and the table say both all the same.",
+        "enum": [
+          "previous",
+          "first",
+          "none"
+        ]
+      },
+      "align": {
+        "type": "string",
+        "default": "start",
+        "description": "start: every bar starts at the same edge, so the lengths compare on a common baseline (the stronger reading); center: the bars are centred, the familiar funnel shape, for a picture more than a comparison.",
+        "enum": [
+          "start",
+          "center"
+        ]
+      },
+      "color": {
+        "type": "string",
+        "default": "",
+        "description": "The colour of the bars: a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable. It wins over --sf-chart-funnel-color; a value that is not a colour is dropped with a console report, as is one under 3:1 against the background (drawn all the same). One measure, one colour: the stages are told apart by their names and order."
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "stage",
+        "description": "stage: under the pointer or the cursor, the stage's name, value, its share of the stage before and of the first.",
+        "enum": [
+          "stage",
+          "none"
+        ]
+      },
+      "stage-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the stages: the table's first column (the stage field's own name when unset)."
+      },
+      "value-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the values: the table's second column (the value field's own name when unset)."
+      },
+      "value-format": {
+        "type": "string",
+        "default": "number",
+        "description": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the bars' thickness, the text and the gaps. 1/2 for a tile, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the funnel for it, visible shows it under the funnel, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of the whole (how many stages, from what to what, the overall conversion, where the most is lost, the gaps), kept for screen readers. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with data, empty without. loading draws the stages' place without bars; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records ([{stage, count}, …]) or an object of columns, one record per stage in the order of the process. A stage with no value is a gap: it is said and kept in the table, with no bar and no conversion."
+      },
+      "names": {
+        "type": "object",
+        "default": {},
+        "description": "What each stage is called, by its key: {cart: «Корзина»}. A stage without a name is called by its key."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {},
+  "events": {
+    "sf-chart-funnel-select": {
+      "summary": "The person chose a stage: a click on it, or Enter or Space on the keyboard cursor. x is its key as the data gave it, index its place, value its value (null for a gap).",
+      "payload": {
+        "type": "object",
+        "required": [
+          "series",
+          "index",
+          "x",
+          "value"
+        ],
+        "properties": {
+          "series": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          },
+          "x": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-funnel-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the stages, then the table button. The summary is the stages' description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-funnel/index.js",
+        "sha256": "5410751f5797d1bdc4fcb2942096e2cba91009133f729ce2852992bafa8533f7"
+      },
+      {
+        "path": "src/smart/chart-funnel/js/templates/default.js",
+        "sha256": "7131b6ebf201dd4615497ba6262f7911a7592b2fd2825d306f93f7599c46324f"
+      },
+      {
+        "path": "src/smart/chart-funnel/js/templates/default.css",
+        "sha256": "0a468d3e14a42391ab378cbb764964c7516d773f61694c09d81d8278116a8ecb"
+      },
+      {
+        "path": "src/smart/chart-funnel/rule.js",
+        "sha256": "e653148285d05bb2931323901a4a27153b1b227f01eb207e16d2eee22cf1d317"
+      },
+      {
+        "path": "src/smart/chart-funnel/docs.md",
+        "sha256": "00389b2bee28d7bf363746f2af8d95c5f6a9026ee349f80af590f6751af798a2"
+      },
+      {
+        "path": "src/smart/chart-funnel/component.json",
+        "sha256": "157b0ade052e170b2e14120594e21596cd656dacdd9bdd904c00e7b1e5babf1a"
+      },
+      {
+        "path": "src/smart/chart-funnel/lang/en.json",
+        "sha256": "979e13395831afb40bbad8c58ed4e21dd294c53f330bd11bacd790d429d4ae94"
+      },
+      {
+        "path": "src/smart/chart-funnel/lang/ru.json",
+        "sha256": "eaecb423323945032c32b9d4654e246d05f2f68ffadf7583da951a9578660f9f"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-funnel for the stages of a process where each stage is a subset of the last: a sales funnel, a sign-up, an order's path, with the conversion between the stages.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not use it for categories that are not nested; that is sf-chart-bar",
+      "Do not use it for flows that branch; that is a sankey",
+      "Do not sort the stages: their order is the process"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-funnel label=\"Воронка заказа\" stage=\"step\" value=\"people\" value-format=\"integer\"></sf-chart-funnel>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

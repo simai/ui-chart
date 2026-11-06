@@ -1,0 +1,17 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "first",
+  "component": "smart.chart-funnel",
+  "title": "funnel first",
+  "summary": "Deterministic reference fixture for sf-chart-funnel.",
+  "locale": "ru",
+  "props": {
+    "label": "Воронка заказа",
+    "stage": "step",
+    "value": "people",
+    "value-format": "integer",
+    "conversion": "first"
+  },
+  "children": [],
+  "state": "default"
+}

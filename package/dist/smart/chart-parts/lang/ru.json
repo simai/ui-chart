@@ -1,0 +1,34 @@
+{
+  "title": "Полоса частей",
+  "runtime": {
+    "untitled": "Полоса частей",
+    "roledescription": "полоса частей",
+    "cursor": "{name}: {part}",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "legend": "Части",
+    "loading": "Загрузка данных диаграммы",
+    "empty-title": "Нет данных для диаграммы",
+    "error-title": "Не удалось загрузить данные",
+    "summary-used": "Занято {used} из {max} ({share}).",
+    "summary-over": "Занято {used} из {max}: больше на {over}.",
+    "summary-total": "Частей: {count}, всего {total}.",
+    "summary-part": "{name}: {part}.",
+    "part": "{value} ({share})",
+    "head-used": "{used} из {max} ({share})",
+    "head-total": "всего {total}",
+    "other": "Другое",
+    "free": "Свободно",
+    "share-column": "Доля",
+    "category-column": "Часть",
+    "value-column": "Значение"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать часть"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  }
+}

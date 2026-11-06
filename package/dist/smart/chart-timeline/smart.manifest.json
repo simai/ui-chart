@@ -1,0 +1,391 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-timeline",
+  "version": "0.1.0",
+  "title": "Gantt chart",
+  "summary": "A timeline (Gantt chart): tasks or states as ranges of time on rows, a row a lane with its name at the start, a bar from each range's start to its end on a calendar time axis and a diamond for a milestone, a status in a chart colour with its key, a tooltip with the start, the end and the length, a keyboard cursor along the rows and across them, a summary in words, and the same data as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "timeline",
+    "gantt",
+    "change-over-time",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-timeline",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+      },
+      "row": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the rows' names, a task or a service: a row is a lane across the plot and may hold one range or many. The first field other than start, end and the status when unset."
+      },
+      "start": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the ranges' starts; start when unset."
+      },
+      "end": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the ranges' ends; end when unset."
+      },
+      "status": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the ranges' statuses, a plan's phase or a service's state: each status takes a colour of its own and a line of the key. Unset: every range in the first colour, no key."
+      },
+      "legend": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto shows the key of the statuses above the plot when there is a status field, none without.",
+        "enum": [
+          "auto",
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "range",
+        "description": "range: under the pointer or the cursor, the row's name, the status, the start, the end and the length, or the date of a milestone.",
+        "enum": [
+          "range",
+          "none"
+        ]
+      },
+      "row-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the rows, the table's first column; the row field's name when unset."
+      },
+      "x-format": {
+        "type": "string",
+        "default": "auto",
+        "description": "The dates of the tooltip, the live line and the table: auto in the unit the data is given in (a day, or a day with its time), or an Intl date style (short, medium, long, full), in the page's language. The axis always takes the short form of its calendar step."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the count of rows and ranges with the whole span, the longest range, the status that takes the most time, the milestones), said before the plot. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with ranges, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records, one per range ([{task, start, end, status}, …]), or an object of columns. A start and an end are ISO 8601 dates or times, Date objects or epoch milliseconds; a range whose start and end are one moment is a milestone. A row without a start or an end, or ending before it starts, is left out; the summary says how many."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "The colours of the statuses by key ({готово: 'success', 'в работе': 'primary'}): a Framework role, which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A status without one takes the chart colour of its place, in the order the rows first name it."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-timeline-select": {
+      "summary": "The person chose a range: a click on it, or Enter or Space on the keyboard cursor. index is its place in the keyboard's order (row after row, by start in each), row its row in items, lane its row's name, status its status ('' without a status field), start and end its times in epoch milliseconds.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "index",
+          "row",
+          "lane",
+          "status",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "row": {
+            "type": "number"
+          },
+          "lane": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "start": {
+            "type": "number"
+          },
+          "end": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-timeline-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-timeline/index.js",
+        "sha256": "1b0980539e681f359a9ef8685ed85de3d8b3087df193b77c5182ab48d324a21a"
+      },
+      {
+        "path": "src/smart/chart-timeline/js/templates/default.js",
+        "sha256": "111d5c99b0b5253c01ba8250c9f6b38691c2dddc16b9fd0806bd2d0d903f5d2a"
+      },
+      {
+        "path": "src/smart/chart-timeline/js/templates/default.css",
+        "sha256": "c06da8a9ef273d6ca09295f0c059e3c0ac554e95347071a5979a02889c87b478"
+      },
+      {
+        "path": "src/smart/chart-timeline/rule.js",
+        "sha256": "bb6aece9c5c7af250dc91c39d567a51f580e8a88a6c5c451babab6553f1f4ccd"
+      },
+      {
+        "path": "src/smart/chart-timeline/docs.md",
+        "sha256": "edc4665632d4d4f0c3261d6e8b78283038d2b887333632319dedea7df2d5ca6a"
+      },
+      {
+        "path": "src/smart/chart-timeline/component.json",
+        "sha256": "e5b926f705a8b7ad92db1bdd2dbcbe99c32d2d50a8e331f54aca52d1a25a80ee"
+      },
+      {
+        "path": "src/smart/chart-timeline/lang/en.json",
+        "sha256": "bfbf9d001e6bc73d738f8dcbb469494fc3afe11ea8d84ff29cfc41630d51e522"
+      },
+      {
+        "path": "src/smart/chart-timeline/lang/ru.json",
+        "sha256": "1e7447979975a5e795b13c94e84ebc39977babf3993af414e373374ab0d119ed"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-timeline to show tasks or states as ranges of time on rows: a project's plan, a schedule, the history of a service's states.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not use it for a measure over time; a sf-chart-line shows it",
+      "Do not expect dependencies or editing: 0.1.0 draws the ranges only"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-timeline label=\"План проекта\" row=\"task\" start=\"start\" end=\"end\" status=\"status\"></sf-chart-timeline>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

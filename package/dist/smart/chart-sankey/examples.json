@@ -1,0 +1,447 @@
+{
+  "examples": [
+    {
+      "name": "reference",
+      "title": "Бюджет компании",
+      "settings": {
+        "label": "Бюджет компании, млн ₽",
+        "source": "from",
+        "target": "to",
+        "value": "amount",
+        "y-format": "integer",
+        "items": [
+          {
+            "from": "Продукты",
+            "to": "Выручка",
+            "amount": 520
+          },
+          {
+            "from": "Услуги",
+            "to": "Выручка",
+            "amount": 280
+          },
+          {
+            "from": "Выручка",
+            "to": "Зарплаты",
+            "amount": 360
+          },
+          {
+            "from": "Выручка",
+            "to": "Маркетинг",
+            "amount": 140
+          },
+          {
+            "from": "Выручка",
+            "to": "Аренда",
+            "amount": 90
+          },
+          {
+            "from": "Выручка",
+            "to": "Прибыль",
+            "amount": 210
+          },
+          {
+            "from": "Маркетинг",
+            "to": "Поиск",
+            "amount": 80
+          },
+          {
+            "from": "Маркетинг",
+            "to": "Соцсети",
+            "amount": 60
+          }
+        ]
+      },
+      "expect": {
+        "name": "Бюджет компании, млн ₽",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "sankey reference",
+        "props": {
+          "label": "Бюджет компании, млн ₽",
+          "source": "from",
+          "target": "to",
+          "value": "amount",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "paths",
+      "title": "Пути посетителей",
+      "settings": {
+        "label": "Пути посетителей",
+        "y-format": "integer",
+        "items": [
+          {
+            "source": "Главная",
+            "target": "Каталог",
+            "value": 500
+          },
+          {
+            "source": "Главная",
+            "target": "Поиск",
+            "value": 300
+          },
+          {
+            "source": "Каталог",
+            "target": "Корзина",
+            "value": 220
+          },
+          {
+            "source": "Поиск",
+            "target": "Корзина",
+            "value": 120
+          },
+          {
+            "source": "Каталог",
+            "target": "Уход",
+            "value": 280
+          },
+          {
+            "source": "Поиск",
+            "target": "Уход",
+            "value": 180
+          },
+          {
+            "source": "Корзина",
+            "target": "Заказ",
+            "value": 210
+          },
+          {
+            "source": "Корзина",
+            "target": "Уход",
+            "value": 130
+          },
+          {
+            "source": "Корзина",
+            "target": "Каталог",
+            "value": 40
+          },
+          {
+            "source": "Главная",
+            "target": "",
+            "value": 15
+          }
+        ]
+      },
+      "expect": {
+        "name": "Пути посетителей",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "sankey paths",
+        "props": {
+          "label": "Пути посетителей",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors",
+      "title": "Свои цвета",
+      "settings": {
+        "label": "Бюджет: свои цвета",
+        "source": "from",
+        "target": "to",
+        "value": "amount",
+        "y-format": "integer",
+        "colors": {
+          "Продукты": "primary",
+          "Услуги": "tertiary",
+          "Прибыль": "success"
+        },
+        "items": [
+          {
+            "from": "Продукты",
+            "to": "Выручка",
+            "amount": 520
+          },
+          {
+            "from": "Услуги",
+            "to": "Выручка",
+            "amount": 280
+          },
+          {
+            "from": "Выручка",
+            "to": "Зарплаты",
+            "amount": 360
+          },
+          {
+            "from": "Выручка",
+            "to": "Маркетинг",
+            "amount": 140
+          },
+          {
+            "from": "Выручка",
+            "to": "Аренда",
+            "amount": 90
+          },
+          {
+            "from": "Выручка",
+            "to": "Прибыль",
+            "amount": 210
+          },
+          {
+            "from": "Маркетинг",
+            "to": "Поиск",
+            "amount": 80
+          },
+          {
+            "from": "Маркетинг",
+            "to": "Соцсети",
+            "amount": 60
+          }
+        ]
+      },
+      "expect": {
+        "name": "Бюджет: свои цвета",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "sankey colors",
+        "props": {
+          "label": "Бюджет: свои цвета",
+          "source": "from",
+          "target": "to",
+          "value": "amount",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "small",
+      "title": "Маленький",
+      "settings": {
+        "label": "Бюджет компании",
+        "source": "from",
+        "target": "to",
+        "value": "amount",
+        "y-format": "integer",
+        "size": "1/2",
+        "items": [
+          {
+            "from": "Продукты",
+            "to": "Выручка",
+            "amount": 520
+          },
+          {
+            "from": "Услуги",
+            "to": "Выручка",
+            "amount": 280
+          },
+          {
+            "from": "Выручка",
+            "to": "Зарплаты",
+            "amount": 360
+          },
+          {
+            "from": "Выручка",
+            "to": "Маркетинг",
+            "amount": 140
+          },
+          {
+            "from": "Выручка",
+            "to": "Аренда",
+            "amount": 90
+          },
+          {
+            "from": "Выручка",
+            "to": "Прибыль",
+            "amount": 210
+          },
+          {
+            "from": "Маркетинг",
+            "to": "Поиск",
+            "amount": 80
+          },
+          {
+            "from": "Маркетинг",
+            "to": "Соцсети",
+            "amount": 60
+          }
+        ]
+      },
+      "expect": {
+        "name": "Бюджет компании",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "sankey small",
+        "props": {
+          "label": "Бюджет компании",
+          "source": "from",
+          "target": "to",
+          "value": "amount",
+          "y-format": "integer",
+          "size": "1/2"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "loading",
+      "title": "Загрузка",
+      "settings": {
+        "label": "Бюджет компании, млн ₽",
+        "data-state": "loading"
+      },
+      "expect": {
+        "name": "Бюджет компании, млн ₽"
+      }
+    },
+    {
+      "name": "empty",
+      "title": "Нет данных",
+      "settings": {
+        "label": "Бюджет компании, млн ₽",
+        "items": []
+      },
+      "expect": {
+        "name": "Бюджет компании, млн ₽"
+      }
+    },
+    {
+      "name": "error",
+      "title": "Ошибка",
+      "settings": {
+        "label": "Бюджет компании, млн ₽",
+        "data-state": "error"
+      },
+      "expect": {
+        "name": "Бюджет компании, млн ₽"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "conformance",
+      "title": "sf-chart-sankey against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+      "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+      "page": {
+        "lang": "ru",
+        "body": [
+          "<main style=\"inline-size: 40rem\">",
+          "  <sf-chart-sankey id=\"c\" label=\"Бюджет компании, млн ₽\" source=\"from\" target=\"to\" value=\"amount\" y-format=\"integer\"></sf-chart-sankey>",
+          "  <sf-chart-sankey id=\"p\" label=\"Пути посетителей\" y-format=\"integer\" table=\"hidden\"></sf-chart-sankey>",
+          "  <sf-chart-sankey id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-sankey>",
+          "</main>"
+        ]
+      },
+      "checks": [
+        {
+          "id": "p1-figure-and-summary",
+          "title": "a figure named by its label; the plot is one group described by the nodes, the flows, the stages and the total, the largest flow with its share of the source and the node where the most arrives; a bar per node, a band per flow, names and values beside the nodes, the first node in the first colour",
+          "covers": "accessibility (role figure, name label), settings.items, settings.source, settings.target, settings.value, settings.labels, settings.summary",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"from\": \"Продукты\", \"to\": \"Выручка\", \"amount\": 520}, {\"from\": \"Услуги\", \"to\": \"Выручка\", \"amount\": 280}, {\"from\": \"Выручка\", \"to\": \"Зарплаты\", \"amount\": 360}, {\"from\": \"Выручка\", \"to\": \"Маркетинг\", \"amount\": 140}, {\"from\": \"Выручка\", \"to\": \"Аренда\", \"amount\": 90}, {\"from\": \"Выручка\", \"to\": \"Прибыль\", \"amount\": 210}, {\"from\": \"Маркетинг\", \"to\": \"Поиск\", \"amount\": 80}, {\"from\": \"Маркетинг\", \"to\": \"Соцсети\", \"amount\": 60}]; document.querySelector('#p').items = [{\"source\": \"Главная\", \"target\": \"Каталог\", \"value\": 500}, {\"source\": \"Главная\", \"target\": \"Поиск\", \"value\": 300}, {\"source\": \"Каталог\", \"target\": \"Корзина\", \"value\": 220}, {\"source\": \"Поиск\", \"target\": \"Корзина\", \"value\": 120}, {\"source\": \"Каталог\", \"target\": \"Уход\", \"value\": 280}, {\"source\": \"Поиск\", \"target\": \"Уход\", \"value\": 180}, {\"source\": \"Корзина\", \"target\": \"Заказ\", \"value\": 210}, {\"source\": \"Корзина\", \"target\": \"Уход\", \"value\": 130}, {\"source\": \"Корзина\", \"target\": \"Каталог\", \"value\": 40}, {\"source\": \"Главная\", \"target\": \"\", \"value\": 15}]; return true; })()",
+              "wait": 400,
+              "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const names = [...document.querySelectorAll('#c .sf-chart-sankey-name')].map((t) => t.textContent.replace(/\\u00a0|\\u202f/gu, ' ')).join('|'); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Бюджет компании, млн ₽' && s.getAttribute('aria-roledescription') === 'диаграмма потоков' && s.tabIndex === 0 && d === 'Узлов: 9, потоков: 8, этапов: 4; всего 800. Крупнейший поток — «Продукты» → «Выручка»: 520 (100 % от «Продукты»). Больше всего приходит в «Зарплаты»: 360 (45 %).' && document.querySelectorAll('#c svg[role=group] .sf-chart-sankey-bar').length === 9 && document.querySelectorAll('#c svg[role=group] .sf-chart-sankey-band').length === 8 && names.includes('Выручка 800') && document.querySelector('#c .sf-chart-sankey-node.sf-chart-sankey-c1').dataset.node === 'Продукты'; })()"
+            }
+          ]
+        },
+        {
+          "id": "p2-keyboard-cursor",
+          "title": "Right walks along the largest flows, each node said with what comes in from where and what goes out to where, the three largest each way; Left goes back along the largest incoming flow; Enter chooses the node; Escape clears",
+          "covers": "keyboard.host (ArrowRight, ArrowLeft, Enter, Escape), events.select",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"from\": \"Продукты\", \"to\": \"Выручка\", \"amount\": 520}, {\"from\": \"Услуги\", \"to\": \"Выручка\", \"amount\": 280}, {\"from\": \"Выручка\", \"to\": \"Зарплаты\", \"amount\": 360}, {\"from\": \"Выручка\", \"to\": \"Маркетинг\", \"amount\": 140}, {\"from\": \"Выручка\", \"to\": \"Аренда\", \"amount\": 90}, {\"from\": \"Выручка\", \"to\": \"Прибыль\", \"amount\": 210}, {\"from\": \"Маркетинг\", \"to\": \"Поиск\", \"amount\": 80}, {\"from\": \"Маркетинг\", \"to\": \"Соцсети\", \"amount\": 60}]; document.querySelector('#p').items = [{\"source\": \"Главная\", \"target\": \"Каталог\", \"value\": 500}, {\"source\": \"Главная\", \"target\": \"Поиск\", \"value\": 300}, {\"source\": \"Каталог\", \"target\": \"Корзина\", \"value\": 220}, {\"source\": \"Поиск\", \"target\": \"Корзина\", \"value\": 120}, {\"source\": \"Каталог\", \"target\": \"Уход\", \"value\": 280}, {\"source\": \"Поиск\", \"target\": \"Уход\", \"value\": 180}, {\"source\": \"Корзина\", \"target\": \"Заказ\", \"value\": 210}, {\"source\": \"Корзина\", \"target\": \"Уход\", \"value\": 130}, {\"source\": \"Корзина\", \"target\": \"Каталог\", \"value\": 40}, {\"source\": \"Главная\", \"target\": \"\", \"value\": 15}]; return true; })()",
+              "wait": 400
+            },
+            {
+              "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-sankey-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Продукты: 520; уходит в «Выручка» 520')()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Выручка: 800; приходит из «Продукты» 520, «Услуги» 280; уходит в «Зарплаты» 360, «Прибыль» 210, «Маркетинг» 140 и ещё 1')()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Зарплаты: 360; приходит из «Выручка» 360')()"
+            },
+            {
+              "user": "keyboard:ArrowLeft",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ').startsWith('Выручка: 800') && document.querySelectorAll('#c .sf-chart-sankey-ring').length === 1)()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__chosen && window.__chosen.index === 1 && window.__chosen.node === 'Выручка' && window.__chosen.value === 800 && window.__chosen.in === 800 && window.__chosen.out === 800)()"
+            },
+            {
+              "user": "keyboard:Escape",
+              "wait": 80,
+              "check": "(() => !document.querySelector('#c .sf-chart-sankey-ring'))()"
+            }
+          ]
+        },
+        {
+          "id": "p3-loops-and-table",
+          "title": "the default fields; a row without a target and a flow that would close a loop are left out and counted in the summary; the hidden table has a row per flow with its share of the source",
+          "covers": "settings.source (unset), settings.target (unset), settings.value (unset), settings.table, settings.summary",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"from\": \"Продукты\", \"to\": \"Выручка\", \"amount\": 520}, {\"from\": \"Услуги\", \"to\": \"Выручка\", \"amount\": 280}, {\"from\": \"Выручка\", \"to\": \"Зарплаты\", \"amount\": 360}, {\"from\": \"Выручка\", \"to\": \"Маркетинг\", \"amount\": 140}, {\"from\": \"Выручка\", \"to\": \"Аренда\", \"amount\": 90}, {\"from\": \"Выручка\", \"to\": \"Прибыль\", \"amount\": 210}, {\"from\": \"Маркетинг\", \"to\": \"Поиск\", \"amount\": 80}, {\"from\": \"Маркетинг\", \"to\": \"Соцсети\", \"amount\": 60}]; document.querySelector('#p').items = [{\"source\": \"Главная\", \"target\": \"Каталог\", \"value\": 500}, {\"source\": \"Главная\", \"target\": \"Поиск\", \"value\": 300}, {\"source\": \"Каталог\", \"target\": \"Корзина\", \"value\": 220}, {\"source\": \"Поиск\", \"target\": \"Корзина\", \"value\": 120}, {\"source\": \"Каталог\", \"target\": \"Уход\", \"value\": 280}, {\"source\": \"Поиск\", \"target\": \"Уход\", \"value\": 180}, {\"source\": \"Корзина\", \"target\": \"Заказ\", \"value\": 210}, {\"source\": \"Корзина\", \"target\": \"Уход\", \"value\": 130}, {\"source\": \"Корзина\", \"target\": \"Каталог\", \"value\": 40}, {\"source\": \"Главная\", \"target\": \"\", \"value\": 15}]; return true; })()",
+              "wait": 400,
+              "check": "(() => { const s = document.querySelector('#p svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const head = [...document.querySelectorAll('#p table thead th')].map((t) => t.textContent.trim()).join('|'); const rows = [...document.querySelectorAll('#p table tbody tr')].map((r) => [...r.children].map((t) => t.textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')).join('|')); return d === 'Узлов: 6, потоков: 8, этапов: 4; всего 800. Крупнейший поток — «Главная» → «Каталог»: 500 (62,5 % от «Главная»). Больше всего приходит в «Уход»: 590 (73,8 %). Строк без потока: 1. Потоков, замыкающих круг, пропущено: 1.' && document.querySelectorAll('#p svg[role=group] .sf-chart-sankey-band').length === 8 && head === 'Откуда|Куда|Значение|Доля от источника' && rows.length === 8 && rows[0] === 'Главная|Каталог|500|62,5 %' && rows[7] === 'Корзина|Уход|130|38,2 %'; })()"
+            }
+          ]
+        },
+        {
+          "id": "p4-error-refresh",
+          "title": "the error state offers a retry that sends refresh",
+          "covers": "settings.data-state, events.refresh",
+          "steps": [
+            {
+              "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-sankey-refresh', () => { window.__refresh += 1; }); return true; })()",
+              "wait": 200
+            },
+            {
+              "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+              "wait": 120,
+              "check": "(() => window.__refresh === 1)()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,548 @@
+@layer sf.reset, sf.tokens, sf.base, sf.utilities, sf.components, sf.overrides, sf.states;
+@layer sf.components {
+  /* sf-chart-scatter. Every value is a Framework token; light and dark come
+     from the roles. The public variables (component.json css-variables) are
+     read here and never set:
+       --sf-chart-scatter-height                  the plot's height (by size rung)
+       --sf-chart-scatter-grid-color              the guide lines
+       --sf-chart-scatter-baseline-color          the axis line and zero
+       --sf-chart-scatter-label-color             tick and axis labels
+       --sf-chart-scatter-hover-background-color  a legend entry under the pointer
+       --sf-chart-scatter-hidden-color            a hidden series' legend entry */
+  sf-chart-scatter {
+    display: block;
+    min-width: 0;
+    min-inline-size: 0;
+  }
+  .sf-chart-scatter {
+    --sf-chart-scatter--height: var(--sf-chart-scatter-height, var(--sf-f5));
+    --sf-chart-scatter--ink: var(--sf-chart-scatter-label-color, var(--sf-on-surface-variant));
+    --sf-chart-scatter--font: var(--sf-text-small--size);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sf-space-1\/3);
+    margin: 0;
+    min-width: 0;
+    min-inline-size: 0;
+    color: var(--sf-on-surface);
+    font-family: var(--sf-text--family);
+  }
+  .sf-chart-scatter--size-1-2 {
+    --sf-chart-scatter--height: var(--sf-chart-scatter-height, var(--sf-f0));
+  }
+  .sf-chart-scatter--size-2 {
+    --sf-chart-scatter--height: var(--sf-chart-scatter-height, var(--sf-g2));
+    --sf-chart-scatter--font: var(--sf-text-medium--size);
+  }
+  .sf-chart-scatter-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sf-space-1\/2);
+    min-height: var(--sf-text-medium--height);
+    min-block-size: var(--sf-text-medium--height);
+  }
+  .sf-chart-scatter-label {
+    font-size: var(--sf-text-medium--size);
+    line-height: var(--sf-text-medium--height);
+    font-weight: var(--sf-font-weight-medium);
+  }
+  .sf-chart-scatter--size-2 .sf-chart-scatter-label {
+    font-size: var(--sf-text-large--size);
+    line-height: var(--sf-text-large--height);
+  }
+  /* The plot holds its height from the size rung before data or width
+     arrive, so the first paint and the drawn chart are the same box. */
+  .sf-chart-scatter-plot {
+    position: relative;
+    height: var(--sf-chart-scatter--height);
+    block-size: var(--sf-chart-scatter--height);
+    min-width: 0;
+    min-inline-size: 0;
+  }
+  .sf-chart-scatter-plot[hidden] {
+    display: none;
+  }
+  .sf-chart-scatter-svg {
+    display: block;
+    width: 100%;
+    inline-size: 100%;
+    height: 100%;
+    block-size: 100%;
+    overflow: visible;
+    border-radius: var(--sf-radius-1);
+    font-size: var(--sf-chart-scatter--font);
+    touch-action: pan-y;
+  }
+  .sf-chart-scatter-svg:focus {
+    outline: none;
+  }
+  .sf-chart-scatter-svg.focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+  .sf-chart-scatter-svg:focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+  .sf-chart-scatter-grid {
+    stroke: var(--sf-outline-variant);
+    stroke: var(--sf-chart-scatter-grid-color, var(--sf-outline-variant));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+  .sf-chart-scatter-baseline {
+    stroke: var(--sf-outline);
+    stroke: var(--sf-chart-scatter-baseline-color, var(--sf-outline));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+  .sf-chart-scatter-tick,
+  .sf-chart-scatter-axis-label {
+    fill: var(--sf-chart-scatter--ink);
+    -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+  .sf-chart-scatter-axis-label {
+    font-weight: var(--sf-font-weight-medium);
+  }
+  /* Series colours: the graphic tone of a role family, until the
+     Framework's categorical roles --sf-chart-1..8 arrive (docs/DECISIONS.md
+     D4). A series past the first has its own mark's shape, and a bubble
+     series its outline's dash in forced colours, so colour is never the
+     only difference. */
+  .sf-chart-scatter-series--c1 {
+    --sf-chart-scatter--series: var(--sf-on-primary-container-graphic);
+  }
+  .sf-chart-scatter-series--c2 {
+    --sf-chart-scatter--series: var(--sf-on-secondary-container-graphic);
+  }
+  .sf-chart-scatter-series--c3 {
+    --sf-chart-scatter--series: var(--sf-on-tertiary-container-graphic);
+  }
+  .sf-chart-scatter-series--c4 {
+    --sf-chart-scatter--series: var(--sf-on-neutral-container-graphic);
+  }
+  /* A page's own colour (colors, docs/DECISIONS.md D6), set in a style. */
+  .sf-chart-scatter-series--custom {
+    --sf-chart-scatter--series: var(--sf-chart-scatter--custom);
+  }
+  .sf-chart-scatter-series--d1 {
+    --sf-chart-scatter--dash: 6 3;
+  }
+  .sf-chart-scatter-series--d2 {
+    --sf-chart-scatter--dash: 2 3;
+  }
+  .sf-chart-scatter-series--d3 {
+    --sf-chart-scatter--dash: 8 3 2 3;
+  }
+  .sf-chart-scatter-series--d4 {
+    --sf-chart-scatter--dash: 4 4;
+  }
+  .sf-chart-scatter-series--d5 {
+    --sf-chart-scatter--dash: 10 4;
+  }
+  .sf-chart-scatter-series--d6 {
+    --sf-chart-scatter--dash: 1 4;
+  }
+  .sf-chart-scatter-series--d7 {
+    --sf-chart-scatter--dash: 6 2 2 2 2 2;
+  }
+  /* A point is solid with a rim of the surface, so points that touch stay
+     apart; a bubble is a light fill under a solid outline, so bubbles that
+     overlap both show. */
+  .sf-chart-scatter-series > * {
+    fill: var(--sf-chart-scatter--series);
+    stroke: var(--sf-surface-0);
+    stroke-width: 1;
+  }
+  .sf-chart-scatter-series--bubbles > * {
+    fill-opacity: 0.45;
+    stroke: var(--sf-chart-scatter--series);
+  }
+  .sf-chart-scatter-series--bubbles > .sf-chart-scatter-hollow {
+    fill: none;
+  }
+  .sf-chart-scatter-trend {
+    stroke: var(--sf-chart-scatter--series);
+    stroke-width: var(--sf-a2);
+    stroke-dasharray: 6 4;
+    stroke-linecap: round;
+  }
+  .sf-chart-scatter-crosshair {
+    stroke: var(--sf-outline);
+    stroke: var(--sf-chart-scatter-baseline-color, var(--sf-outline));
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+    shape-rendering: crispEdges;
+  }
+  .sf-chart-scatter-focus {
+    fill: var(--sf-chart-scatter--series);
+    stroke: var(--sf-surface-0);
+    stroke-width: 1;
+  }
+  .sf-chart-scatter-ring {
+    fill: none;
+    stroke: var(--sf-on-surface);
+    stroke-width: 2;
+  }
+  .sf-chart-scatter-cursor {
+    pointer-events: none;
+  }
+  /* Past 2,000 marks they are drawn on a canvas under the SVG; the probes
+     give it the series' and the surface's colours as the page has them. */
+  .sf-chart-scatter-canvas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    inset: 0;
+    width: 100%;
+    inline-size: 100%;
+    height: 100%;
+    block-size: 100%;
+    pointer-events: none;
+  }
+  .sf-chart-scatter-paint {
+    color: var(--sf-chart-scatter--series);
+  }
+  .sf-chart-scatter-ground {
+    color: var(--sf-surface-0);
+  }
+  .sf-chart-scatter-svg {
+    position: relative;
+  }
+  _:-ms-input-placeholder, html:not([dir="rtl"]) .sf-chart-scatter-tooltip {
+    margin-left: var(--sf-chart-scatter--off);
+  }
+  @supports not (margin-inline-start: initial) {
+  html:not([dir="rtl"]) .sf-chart-scatter-tooltip {
+    margin-left: var(--sf-chart-scatter--off);
+    }
+  }
+  .sf-chart-scatter-tooltip:where(:dir(ltr)) {
+    margin-left: var(--sf-chart-scatter--off);
+  }
+  _:-ms-input-placeholder, [dir="rtl"] .sf-chart-scatter-tooltip {
+    margin-right: var(--sf-chart-scatter--off);
+  }
+  @supports not (margin-inline-start: initial) {
+  [dir="rtl"] .sf-chart-scatter-tooltip {
+    margin-right: var(--sf-chart-scatter--off);
+    }
+  }
+  .sf-chart-scatter-tooltip:where(:dir(rtl)) {
+    margin-right: var(--sf-chart-scatter--off);
+  }
+  .sf-chart-scatter-tooltip {
+    position: absolute;
+    z-index: 1;
+    display: grid;
+    grid-gap: var(--sf-a2);
+    gap: var(--sf-a2);
+    /* Beside the mark, never over it: held off by its radius (--reach). */
+    --sf-chart-scatter--off: calc(var(--sf-chart-scatter--reach, 0) * var(--sf-px) + var(--sf-space-1\/3));
+    min-width: var(--sf-f0);
+    min-inline-size: var(--sf-f0);
+    max-width: var(--sf-g2);
+    max-inline-size: var(--sf-g2);
+    -webkit-margin-start: var(--sf-chart-scatter--off);
+            margin-inline-start: var(--sf-chart-scatter--off);
+    padding: var(--sf-space-1\/3) var(--sf-space-1\/2);
+    translate: 0 -50%;
+    border-radius: var(--sf-radius-1);
+    background: var(--sf-elevation-2--surface);
+    box-shadow: var(--sf-elevation-2--shadow);
+    color: var(--sf-on-surface);
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    pointer-events: none;
+  }
+  _:-ms-input-placeholder, html:not([dir="rtl"]) .sf-chart-scatter-tooltip--flip {
+    margin-left: 0;
+  }
+  @supports not (margin-inline-start: initial) {
+  html:not([dir="rtl"]) .sf-chart-scatter-tooltip--flip {
+    margin-left: 0;
+    }
+  }
+  .sf-chart-scatter-tooltip--flip:where(:dir(ltr)) {
+    margin-left: 0;
+  }
+  _:-ms-input-placeholder, [dir="rtl"] .sf-chart-scatter-tooltip--flip {
+    margin-right: 0;
+  }
+  @supports not (margin-inline-start: initial) {
+  [dir="rtl"] .sf-chart-scatter-tooltip--flip {
+    margin-right: 0;
+    }
+  }
+  .sf-chart-scatter-tooltip--flip:where(:dir(rtl)) {
+    margin-right: 0;
+  }
+  .sf-chart-scatter-tooltip--flip {
+    -webkit-margin-start: 0;
+            margin-inline-start: 0;
+    translate: calc(-100% - var(--sf-chart-scatter--off)) -50%;
+  }
+  .sf-chart-scatter-tooltip-row > :first-child {
+    white-space: nowrap;
+  }
+  .sf-chart-scatter-tooltip-name {
+    display: flex;
+    align-items: center;
+    gap: var(--sf-space-1\/4);
+    font-weight: var(--sf-font-weight-medium);
+  }
+  .sf-chart-scatter-tooltip-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    grid-gap: var(--sf-space-1\/2);
+    gap: var(--sf-space-1\/2);
+    color: var(--sf-on-surface-variant);
+  }
+  .sf-chart-scatter-tooltip-value {
+    -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+  .sf-chart-scatter-swatch {
+    display: inline-flex;
+    flex: none;
+    width: var(--sf-a8);
+    inline-size: var(--sf-a8);
+    width: var(--sf-a8);
+    width: var(--sf-a12, var(--sf-a8));
+    inline-size: var(--sf-a12, var(--sf-a8));
+    height: var(--sf-a8);
+    block-size: var(--sf-a8);
+    height: var(--sf-a8);
+    height: var(--sf-a12, var(--sf-a8));
+    block-size: var(--sf-a12, var(--sf-a8));
+  }
+  .sf-chart-scatter-swatch svg {
+    width: 100%;
+    inline-size: 100%;
+    height: 100%;
+    block-size: 100%;
+    fill: var(--sf-chart-scatter--series);
+    stroke: var(--sf-chart-scatter--series);
+    stroke-width: 1;
+  }
+  .sf-chart-scatter-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sf-a2) var(--sf-space-1\/3);
+  }
+  .sf-chart-scatter-legend-item,
+  .sf-chart-scatter-view {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sf-space-1\/4);
+    margin: 0;
+    padding: var(--sf-a2) var(--sf-space-1\/4);
+    border: 0;
+    border-radius: var(--sf-radius-1);
+    background: transparent;
+    color: var(--sf-on-surface);
+    font: inherit;
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    cursor: pointer;
+  }
+  .sf-chart-scatter-legend-item:hover,
+  .sf-chart-scatter-view:hover {
+    background: var(--sf-surface-transparent-hover);
+    background: var(--sf-chart-scatter-hover-background-color, var(--sf-surface-transparent-hover));
+  }
+  .sf-chart-scatter-legend-item.focus-visible,
+  .sf-chart-scatter-view.focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+  .sf-chart-scatter-legend-item:focus-visible,
+  .sf-chart-scatter-view:focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+  .sf-chart-scatter-legend-item[aria-pressed=false] {
+    color: var(--sf-on-disable);
+    color: var(--sf-chart-scatter-hidden-color, var(--sf-on-disable));
+  }
+  .sf-chart-scatter-legend-item[aria-pressed=false] .sf-chart-scatter-swatch svg {
+    fill: var(--sf-outline-variant);
+    fill: var(--sf-chart-scatter-hidden-color, var(--sf-outline-variant));
+    stroke: var(--sf-outline-variant);
+    stroke: var(--sf-chart-scatter-hidden-color, var(--sf-outline-variant));
+  }
+  .sf-chart-scatter-view {
+    border: var(--sf-px) solid var(--sf-outline-variant);
+  }
+  .sf-chart-scatter-view[aria-pressed=true] {
+    background: var(--sf-surface-transparent-select);
+  }
+  .sf-chart-scatter-loading {
+    height: 100%;
+    block-size: 100%;
+    border-bottom: var(--sf-px) solid var(--sf-outline-variant);
+    -webkit-border-after: var(--sf-px) solid var(--sf-outline-variant);
+            border-block-end: var(--sf-px) solid var(--sf-outline-variant);
+    border-radius: var(--sf-radius-1);
+    background: var(--sf-surface-1);
+  }
+  .sf-chart-scatter-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    block-size: 100%;
+  }
+  .sf-chart-scatter-description {
+    color: var(--sf-on-surface-variant);
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+  }
+  .sf-chart-scatter-table {
+    overflow-x: auto;
+    max-height: var(--sf-g4);
+    max-block-size: var(--sf-g4);
+  }
+  .sf-chart-scatter-table table {
+    width: 100%;
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+  .sf-chart-scatter-table caption {
+    position: absolute;
+    -webkit-clip-path: inset(50%);
+            clip-path: inset(50%);
+    width: var(--sf-px);
+    inline-size: var(--sf-px);
+    height: var(--sf-px);
+    block-size: var(--sf-px);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  _:-ms-input-placeholder, html:not([dir="rtl"]) .sf-chart-scatter-table th,html:not([dir="rtl"])
+  .sf-chart-scatter-table td {
+    text-align: right;
+  }
+  @supports not (text-align: end) {
+  html:not([dir="rtl"]) .sf-chart-scatter-table th,html:not([dir="rtl"])
+  .sf-chart-scatter-table td {
+    text-align: right;
+    }
+  }
+  .sf-chart-scatter-table th:where(:dir(ltr)),
+  .sf-chart-scatter-table td:where(:dir(ltr)) {
+    text-align: right;
+  }
+  _:-ms-input-placeholder, [dir="rtl"] .sf-chart-scatter-table th,[dir="rtl"]
+  .sf-chart-scatter-table td {
+    text-align: left;
+  }
+  @supports not (text-align: end) {
+  [dir="rtl"] .sf-chart-scatter-table th,[dir="rtl"]
+  .sf-chart-scatter-table td {
+    text-align: left;
+    }
+  }
+  .sf-chart-scatter-table th:where(:dir(rtl)),
+  .sf-chart-scatter-table td:where(:dir(rtl)) {
+    text-align: left;
+  }
+  .sf-chart-scatter-table th,
+  .sf-chart-scatter-table td {
+    padding: var(--sf-a2) var(--sf-space-1\/3);
+    border-bottom: var(--sf-px) solid var(--sf-outline-variant);
+    -webkit-border-after: var(--sf-px) solid var(--sf-outline-variant);
+            border-block-end: var(--sf-px) solid var(--sf-outline-variant);
+    text-align: end;
+  }
+  _:-ms-input-placeholder, html:not([dir="rtl"]) .sf-chart-scatter-table th:first-child {
+    text-align: left;
+  }
+  @supports not (text-align: start) {
+  html:not([dir="rtl"]) .sf-chart-scatter-table th:first-child {
+    text-align: left;
+    }
+  }
+  .sf-chart-scatter-table th:first-child:where(:dir(ltr)) {
+    text-align: left;
+  }
+  _:-ms-input-placeholder, [dir="rtl"] .sf-chart-scatter-table th:first-child {
+    text-align: right;
+  }
+  @supports not (text-align: start) {
+  [dir="rtl"] .sf-chart-scatter-table th:first-child {
+    text-align: right;
+    }
+  }
+  .sf-chart-scatter-table th:first-child:where(:dir(rtl)) {
+    text-align: right;
+  }
+  .sf-chart-scatter-table th:first-child {
+    text-align: start;
+  }
+  .sf-chart-scatter-table thead th {
+    color: var(--sf-on-surface-variant);
+    font-weight: var(--sf-font-weight-medium);
+  }
+  /* For screen readers only: in the page's reading order, out of view. */
+  .sf-chart-scatter-sr {
+    position: absolute;
+    -webkit-clip-path: inset(50%);
+            clip-path: inset(50%);
+    width: var(--sf-px);
+    inline-size: var(--sf-px);
+    height: var(--sf-px);
+    block-size: var(--sf-px);
+    margin: calc(-1 * var(--sf-px));
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  @media (forced-colors: active) {
+    .sf-chart-scatter-series,
+    .sf-chart-scatter-trend,
+    .sf-chart-scatter-cursor > g {
+      --sf-chart-scatter--series: CanvasText;
+    }
+    .sf-chart-scatter-series > * {
+      stroke: Canvas;
+    }
+    .sf-chart-scatter-series--bubbles > * {
+      stroke: CanvasText;
+      stroke-dasharray: none;
+      stroke-dasharray: var(--sf-chart-scatter--dash, none);
+    }
+    .sf-chart-scatter-ring {
+      stroke: Highlight;
+    }
+    .sf-chart-scatter-legend-item[aria-pressed=false] {
+      color: GrayText;
+    }
+    .sf-chart-scatter-swatch svg {
+      fill: CanvasText;
+      stroke: CanvasText;
+      forced-color-adjust: none;
+    }
+    .sf-chart-scatter-legend-item[aria-pressed=false] .sf-chart-scatter-swatch svg {
+      fill: GrayText;
+      stroke: GrayText;
+    }
+  }
+  @media print {
+    .sf-chart-scatter-view,
+    .sf-chart-scatter-tooltip {
+      display: none;
+    }
+  }
+}

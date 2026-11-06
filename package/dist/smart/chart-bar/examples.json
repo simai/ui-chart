@@ -1,0 +1,986 @@
+{
+  "examples": [
+    {
+      "name": "reference",
+      "title": "Продажи по городам, два квартала",
+      "settings": {
+        "label": "Продажи по городам, 2026",
+        "x": "city",
+        "y": "q1,q2",
+        "names": {
+          "q1": "I квартал",
+          "q2": "II квартал"
+        },
+        "y-format": "integer",
+        "items": [
+          {
+            "city": "Москва",
+            "q1": 420,
+            "q2": 465
+          },
+          {
+            "city": "Санкт-Петербург",
+            "q1": 310,
+            "q2": 298
+          },
+          {
+            "city": "Казань",
+            "q1": 180,
+            "q2": 214
+          },
+          {
+            "city": "Новосибирск",
+            "q1": 150,
+            "q2": 171
+          },
+          {
+            "city": "Екатеринбург",
+            "q1": 164,
+            "q2": 159
+          },
+          {
+            "city": "Нижний Новгород",
+            "q1": 120,
+            "q2": null
+          }
+        ]
+      },
+      "expect": {
+        "name": "Продажи по городам, 2026",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "bar chart reference",
+        "props": {
+          "label": "Продажи по городам, 2026",
+          "x": "city",
+          "y": "q1,q2",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors",
+      "title": "I квартал нейтральным, II фирменным",
+      "settings": {
+        "label": "Продажи по городам, 2026",
+        "x": "city",
+        "y": "q1,q2",
+        "names": {
+          "q1": "I квартал",
+          "q2": "II квартал"
+        },
+        "y-format": "integer",
+        "items": [
+          {
+            "city": "Москва",
+            "q1": 420,
+            "q2": 465
+          },
+          {
+            "city": "Санкт-Петербург",
+            "q1": 310,
+            "q2": 298
+          },
+          {
+            "city": "Казань",
+            "q1": 180,
+            "q2": 214
+          },
+          {
+            "city": "Новосибирск",
+            "q1": 150,
+            "q2": 171
+          },
+          {
+            "city": "Екатеринбург",
+            "q1": 164,
+            "q2": 159
+          },
+          {
+            "city": "Нижний Новгород",
+            "q1": 120,
+            "q2": null
+          }
+        ],
+        "colors": {
+          "q1": "neutral",
+          "q2": "primary"
+        }
+      },
+      "expect": {
+        "name": "Продажи по городам, 2026",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "bar chart colors",
+        "props": {
+          "label": "Продажи по городам, 2026",
+          "x": "city",
+          "y": "q1,q2",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "palette",
+      "title": "Готовый набор soft",
+      "settings": {
+        "label": "Продажи по городам, 2026",
+        "x": "city",
+        "y": "q1,q2",
+        "names": {
+          "q1": "I квартал",
+          "q2": "II квартал"
+        },
+        "y-format": "integer",
+        "items": [
+          {
+            "city": "Москва",
+            "q1": 420,
+            "q2": 465
+          },
+          {
+            "city": "Санкт-Петербург",
+            "q1": 310,
+            "q2": 298
+          },
+          {
+            "city": "Казань",
+            "q1": 180,
+            "q2": 214
+          },
+          {
+            "city": "Новосибирск",
+            "q1": 150,
+            "q2": 171
+          },
+          {
+            "city": "Екатеринбург",
+            "q1": 164,
+            "q2": 159
+          },
+          {
+            "city": "Нижний Новгород",
+            "q1": 120,
+            "q2": null
+          }
+        ],
+        "palette": "soft"
+      },
+      "expect": {
+        "name": "Продажи по городам, 2026",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "bar chart palette",
+        "props": {
+          "label": "Продажи по городам, 2026",
+          "x": "city",
+          "y": "q1,q2",
+          "y-format": "integer",
+          "palette": "soft"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "stacked",
+      "title": "Каналы продаж стопкой",
+      "settings": {
+        "label": "Заказы по каналам",
+        "x": "month",
+        "y": "web,shop,partners",
+        "names": {
+          "web": "Сайт",
+          "shop": "Магазин",
+          "partners": "Партнёры"
+        },
+        "stack": "stacked",
+        "value-labels": "end",
+        "items": [
+          {
+            "month": "2026-07",
+            "web": 42,
+            "shop": 30,
+            "partners": 12
+          },
+          {
+            "month": "2026-08",
+            "web": 45,
+            "shop": 28,
+            "partners": 15
+          },
+          {
+            "month": "2026-09",
+            "web": 51,
+            "shop": 26,
+            "partners": 14
+          },
+          {
+            "month": "2026-10",
+            "web": 55,
+            "shop": 25,
+            "partners": 18
+          },
+          {
+            "month": "2026-11",
+            "web": 58,
+            "shop": 24,
+            "partners": 20
+          },
+          {
+            "month": "2026-12",
+            "web": 66,
+            "shop": 29,
+            "partners": 22
+          }
+        ]
+      },
+      "expect": {
+        "role": "figure"
+      }
+    },
+    {
+      "name": "normalized",
+      "title": "Доли каналов",
+      "settings": {
+        "label": "Доля каналов",
+        "x": "month",
+        "y": "web,shop,partners",
+        "names": {
+          "web": "Сайт",
+          "shop": "Магазин",
+          "partners": "Партнёры"
+        },
+        "stack": "normalized",
+        "items": [
+          {
+            "month": "2026-07",
+            "web": 42,
+            "shop": 30,
+            "partners": 12
+          },
+          {
+            "month": "2026-08",
+            "web": 45,
+            "shop": 28,
+            "partners": 15
+          },
+          {
+            "month": "2026-09",
+            "web": 51,
+            "shop": 26,
+            "partners": 14
+          },
+          {
+            "month": "2026-10",
+            "web": 55,
+            "shop": 25,
+            "partners": 18
+          },
+          {
+            "month": "2026-11",
+            "web": 58,
+            "shop": 24,
+            "partners": 20
+          },
+          {
+            "month": "2026-12",
+            "web": 66,
+            "shop": 29,
+            "partners": 22
+          }
+        ]
+      },
+      "expect": {
+        "role": "figure"
+      }
+    },
+    {
+      "name": "horizontal",
+      "title": "Рейтинг, горизонтально",
+      "settings": {
+        "label": "Продажи за I квартал",
+        "x": "city",
+        "y": "q1",
+        "names": {
+          "q1": "I квартал",
+          "q2": "II квартал"
+        },
+        "orientation": "horizontal",
+        "sort": "descending",
+        "value-labels": "end",
+        "y-format": "integer",
+        "items": [
+          {
+            "city": "Москва",
+            "q1": 420,
+            "q2": 465
+          },
+          {
+            "city": "Санкт-Петербург",
+            "q1": 310,
+            "q2": 298
+          },
+          {
+            "city": "Казань",
+            "q1": 180,
+            "q2": 214
+          },
+          {
+            "city": "Новосибирск",
+            "q1": 150,
+            "q2": 171
+          },
+          {
+            "city": "Екатеринбург",
+            "q1": 164,
+            "q2": 159
+          },
+          {
+            "city": "Нижний Новгород",
+            "q1": 120,
+            "q2": null
+          }
+        ]
+      },
+      "expect": {
+        "role": "figure"
+      }
+    },
+    {
+      "name": "lines",
+      "title": "Факт столбцами, план линией",
+      "settings": {
+        "label": "Продажи: факт и план",
+        "x": "month",
+        "y": "fact,plan",
+        "lines": "plan",
+        "y-format": "integer",
+        "names": {
+          "fact": "Факт",
+          "plan": "План"
+        },
+        "items": [
+          {
+            "month": "Янв",
+            "fact": 180,
+            "plan": 175
+          },
+          {
+            "month": "Фев",
+            "fact": 176,
+            "plan": 180
+          },
+          {
+            "month": "Мар",
+            "fact": 190,
+            "plan": 185
+          },
+          {
+            "month": "Апр",
+            "fact": 204,
+            "plan": 195
+          },
+          {
+            "month": "Май",
+            "fact": 198,
+            "plan": 205
+          },
+          {
+            "month": "Июн",
+            "fact": 221,
+            "plan": 215
+          }
+        ]
+      },
+      "expect": {
+        "role": "figure"
+      }
+    },
+    {
+      "name": "own-axis",
+      "title": "Линия на своей шкале: маржа над выручкой",
+      "settings": {
+        "label": "Выручка и маржа",
+        "x": "q",
+        "y": "revenue,margin",
+        "lines": "margin",
+        "line-axis": "own",
+        "line-format": "percent",
+        "y-format": "integer",
+        "names": {
+          "revenue": "Выручка",
+          "margin": "Маржа"
+        },
+        "items": [
+          {
+            "q": "I кв.",
+            "revenue": 1200,
+            "margin": 0.18
+          },
+          {
+            "q": "II кв.",
+            "revenue": 1350,
+            "margin": 0.21
+          },
+          {
+            "q": "III кв.",
+            "revenue": 1280,
+            "margin": 0.17
+          },
+          {
+            "q": "IV кв.",
+            "revenue": 1500,
+            "margin": 0.24
+          }
+        ]
+      },
+      "expect": {
+        "role": "figure"
+      }
+    },
+    {
+      "name": "histogram",
+      "title": "Гистограмма: распределение одной меры",
+      "settings": {
+        "label": "Время доставки заказов",
+        "x": "hours",
+        "bin": "auto",
+        "x-label": "Часов",
+        "y-label": "Заказов",
+        "y-format": "integer",
+        "items": [
+          {
+            "hours": 5
+          },
+          {
+            "hours": 8
+          },
+          {
+            "hours": 9
+          },
+          {
+            "hours": 11
+          },
+          {
+            "hours": 12
+          },
+          {
+            "hours": 12
+          },
+          {
+            "hours": 14
+          },
+          {
+            "hours": 15
+          },
+          {
+            "hours": 16
+          },
+          {
+            "hours": 17
+          },
+          {
+            "hours": 18
+          },
+          {
+            "hours": 18
+          },
+          {
+            "hours": 19
+          },
+          {
+            "hours": 20
+          },
+          {
+            "hours": 21
+          },
+          {
+            "hours": 22
+          },
+          {
+            "hours": 23
+          },
+          {
+            "hours": 24
+          },
+          {
+            "hours": 26
+          },
+          {
+            "hours": 27
+          },
+          {
+            "hours": 29
+          },
+          {
+            "hours": 31
+          },
+          {
+            "hours": 33
+          },
+          {
+            "hours": 36
+          },
+          {
+            "hours": 38
+          },
+          {
+            "hours": 41
+          },
+          {
+            "hours": 44
+          },
+          {
+            "hours": 47
+          },
+          {
+            "hours": 52
+          },
+          {
+            "hours": 61
+          }
+        ]
+      },
+      "expect": {
+        "name": "Время доставки заказов",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "bar histogram",
+        "props": {
+          "label": "Время доставки заказов",
+          "x": "hours",
+          "bin": "auto",
+          "x-label": "Часов",
+          "y-label": "Заказов",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "histogram-stacked",
+      "title": "Гистограмма по складам, стопкой",
+      "settings": {
+        "label": "Время доставки по складам",
+        "x": "hours",
+        "series": "store",
+        "bin": "10",
+        "stack": "stacked",
+        "names": {
+          "north": "Север",
+          "south": "Юг"
+        },
+        "x-label": "Часов",
+        "y-format": "integer",
+        "items": [
+          {
+            "hours": 5,
+            "store": "south"
+          },
+          {
+            "hours": 8,
+            "store": "north"
+          },
+          {
+            "hours": 9,
+            "store": "north"
+          },
+          {
+            "hours": 11,
+            "store": "south"
+          },
+          {
+            "hours": 12,
+            "store": "north"
+          },
+          {
+            "hours": 12,
+            "store": "north"
+          },
+          {
+            "hours": 14,
+            "store": "south"
+          },
+          {
+            "hours": 15,
+            "store": "north"
+          },
+          {
+            "hours": 16,
+            "store": "north"
+          },
+          {
+            "hours": 17,
+            "store": "south"
+          },
+          {
+            "hours": 18,
+            "store": "north"
+          },
+          {
+            "hours": 18,
+            "store": "north"
+          },
+          {
+            "hours": 19,
+            "store": "south"
+          },
+          {
+            "hours": 20,
+            "store": "north"
+          },
+          {
+            "hours": 21,
+            "store": "north"
+          },
+          {
+            "hours": 22,
+            "store": "south"
+          },
+          {
+            "hours": 23,
+            "store": "north"
+          },
+          {
+            "hours": 24,
+            "store": "north"
+          },
+          {
+            "hours": 26,
+            "store": "south"
+          },
+          {
+            "hours": 27,
+            "store": "north"
+          },
+          {
+            "hours": 29,
+            "store": "north"
+          },
+          {
+            "hours": 31,
+            "store": "south"
+          },
+          {
+            "hours": 33,
+            "store": "north"
+          },
+          {
+            "hours": 36,
+            "store": "north"
+          },
+          {
+            "hours": 38,
+            "store": "south"
+          },
+          {
+            "hours": 41,
+            "store": "north"
+          },
+          {
+            "hours": 44,
+            "store": "north"
+          },
+          {
+            "hours": 47,
+            "store": "south"
+          },
+          {
+            "hours": 52,
+            "store": "north"
+          },
+          {
+            "hours": 61,
+            "store": "north"
+          }
+        ]
+      },
+      "expect": {
+        "name": "Время доставки по складам",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "bar histogram-stacked",
+        "props": {
+          "label": "Время доставки по складам",
+          "x": "hours",
+          "series": "store",
+          "bin": "10",
+          "stack": "stacked",
+          "x-label": "Часов",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "loading",
+      "title": "Загрузка",
+      "settings": {
+        "label": "Продажи, 2026",
+        "data-state": "loading"
+      },
+      "expect": {
+        "name": "Продажи, 2026"
+      }
+    },
+    {
+      "name": "empty",
+      "title": "Нет данных",
+      "settings": {
+        "label": "Продажи, 2026",
+        "items": []
+      },
+      "expect": {
+        "name": "Продажи, 2026"
+      }
+    },
+    {
+      "name": "error",
+      "title": "Ошибка",
+      "settings": {
+        "label": "Продажи, 2026",
+        "data-state": "error"
+      },
+      "expect": {
+        "name": "Продажи, 2026"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "conformance",
+      "title": "sf-chart-bar against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+      "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+      "page": {
+        "lang": "ru",
+        "body": [
+          "<main style=\"inline-size: 40rem\">",
+          "  <sf-chart-bar id=\"c\" label=\"Продажи по городам, 2026\" x=\"city\" y=\"q1,q2\" y-format=\"integer\"></sf-chart-bar>",
+          "  <sf-chart-bar id=\"s\" label=\"Заказы по каналам\" x=\"month\" y=\"web,shop,partners\" stack=\"normalized\"></sf-chart-bar>",
+          "  <sf-chart-bar id=\"h\" label=\"Рейтинг\" x=\"city\" y=\"q1\" orientation=\"horizontal\" sort=\"descending\"></sf-chart-bar>",
+          "  <sf-chart-bar id=\"l\" label=\"Выручка и маржа\" x=\"q\" y=\"revenue,margin\" lines=\"margin\" line-axis=\"own\" line-format=\"percent\" y-format=\"integer\" table=\"hidden\"></sf-chart-bar>",
+          "  <sf-chart-bar id=\"b\" label=\"Время доставки заказов\" x=\"hours\" bin=\"auto\" x-label=\"Часов\" y-label=\"Заказов\" y-format=\"integer\"></sf-chart-bar>",
+          "  <sf-chart-bar id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-bar>",
+          "</main>"
+        ]
+      },
+      "checks": [
+        {
+          "id": "p1-figure-and-summary",
+          "title": "a figure named by its label; the plot is one group described by a summary; a gap draws no bar",
+          "covers": "accessibility (role figure, name label), settings.items, settings.summary",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"q1\": \"I квартал\", \"q2\": \"II квартал\"}; c.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; const s = document.querySelector('#s'); s.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\"}; s.items = [{\"month\": \"2026-07\", \"web\": 42, \"shop\": 30, \"partners\": 12}, {\"month\": \"2026-08\", \"web\": 45, \"shop\": 28, \"partners\": 15}, {\"month\": \"2026-09\", \"web\": 51, \"shop\": 26, \"partners\": 14}, {\"month\": \"2026-10\", \"web\": 55, \"shop\": 25, \"partners\": 18}, {\"month\": \"2026-11\", \"web\": 58, \"shop\": 24, \"partners\": 20}, {\"month\": \"2026-12\", \"web\": 66, \"shop\": 29, \"partners\": 22}]; const h = document.querySelector('#h'); h.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Продажи по городам, 2026' && s.getAttribute('aria-roledescription') === 'диаграмма' && /Категорий: 6\\./u.test(d.textContent) && /I квартал: наибольшее 420 \\(Москва\\)/u.test(d.textContent) && document.querySelectorAll('#c .sf-chart-bar-bar').length === 11; })()"
+            }
+          ]
+        },
+        {
+          "id": "p2-keyboard-cursor",
+          "title": "the arrows walk the bars and the series, each move is said; Enter chooses the bar",
+          "covers": "keyboard.host (ArrowRight, ArrowDown, End, Enter, Escape), events.select",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"q1\": \"I квартал\", \"q2\": \"II квартал\"}; c.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; const s = document.querySelector('#s'); s.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\"}; s.items = [{\"month\": \"2026-07\", \"web\": 42, \"shop\": 30, \"partners\": 12}, {\"month\": \"2026-08\", \"web\": 45, \"shop\": 28, \"partners\": 15}, {\"month\": \"2026-09\", \"web\": 51, \"shop\": 26, \"partners\": 14}, {\"month\": \"2026-10\", \"web\": 55, \"shop\": 25, \"partners\": 18}, {\"month\": \"2026-11\", \"web\": 58, \"shop\": 24, \"partners\": 20}, {\"month\": \"2026-12\", \"web\": 66, \"shop\": 29, \"partners\": 22}]; const h = document.querySelector('#h'); h.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-bar-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => /^Москва, I квартал: 420$/u.test(document.querySelector('#c [aria-live]').textContent.trim()))()"
+            },
+            {
+              "user": "keyboard:ArrowDown",
+              "wait": 80,
+              "check": "(() => /^Москва, II квартал: 465$/u.test(document.querySelector('#c [aria-live]').textContent.trim()))()"
+            },
+            {
+              "user": "keyboard:End",
+              "wait": 80,
+              "check": "(() => /^Нижний Новгород, II квартал: нет данных$/u.test(document.querySelector('#c [aria-live]').textContent.trim()))()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__chosen && window.__chosen.series === 'q2' && window.__chosen.x === 'Нижний Новгород' && window.__chosen.index === 5)()"
+            },
+            {
+              "user": "keyboard:Escape",
+              "wait": 80,
+              "check": "(() => !document.querySelector('#c .sf-chart-bar-focus'))()"
+            }
+          ]
+        },
+        {
+          "id": "p3-normalized-shares",
+          "title": "normalized stacks every category to the whole, and the cursor says the share and the value",
+          "covers": "settings.stack, settings.tooltip",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"q1\": \"I квартал\", \"q2\": \"II квартал\"}; c.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; const s = document.querySelector('#s'); s.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\"}; s.items = [{\"month\": \"2026-07\", \"web\": 42, \"shop\": 30, \"partners\": 12}, {\"month\": \"2026-08\", \"web\": 45, \"shop\": 28, \"partners\": 15}, {\"month\": \"2026-09\", \"web\": 51, \"shop\": 26, \"partners\": 14}, {\"month\": \"2026-10\", \"web\": 55, \"shop\": 25, \"partners\": 18}, {\"month\": \"2026-11\", \"web\": 58, \"shop\": 24, \"partners\": 20}, {\"month\": \"2026-12\", \"web\": 66, \"shop\": 29, \"partners\": 22}]; const h = document.querySelector('#h'); h.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(document.querySelector('#s svg[role=group]').focus(), true)",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => { const bars = [...document.querySelectorAll('#s .sf-chart-bar-series')].map((g) => g.querySelector('.sf-chart-bar-bar')); const total = bars.reduce((sum, bar) => sum + Number(bar.getAttribute('height')), 0); const plot = document.querySelector('#s .sf-chart-bar-baseline'); return Math.abs(total - (Number(plot.getAttribute('y1')) - Number(bars[2].getAttribute('y')))) <= 2 && /^июль 2026 г\\.?, Сайт: 50 ?% \\(42\\)$/u.test(document.querySelector('#s [aria-live]').textContent.trim().replace(/\\u00a0/gu, ' ')); })()"
+            }
+          ]
+        },
+        {
+          "id": "p4-horizontal-sorted",
+          "title": "horizontal sorted descending puts the largest first, from the top",
+          "covers": "settings.orientation, settings.sort",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"q1\": \"I квартал\", \"q2\": \"II квартал\"}; c.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; const s = document.querySelector('#s'); s.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\"}; s.items = [{\"month\": \"2026-07\", \"web\": 42, \"shop\": 30, \"partners\": 12}, {\"month\": \"2026-08\", \"web\": 45, \"shop\": 28, \"partners\": 15}, {\"month\": \"2026-09\", \"web\": 51, \"shop\": 26, \"partners\": 14}, {\"month\": \"2026-10\", \"web\": 55, \"shop\": 25, \"partners\": 18}, {\"month\": \"2026-11\", \"web\": 58, \"shop\": 24, \"partners\": 20}, {\"month\": \"2026-12\", \"web\": 66, \"shop\": 29, \"partners\": 22}]; const h = document.querySelector('#h'); h.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const bars = [...document.querySelectorAll('#h .sf-chart-bar-bar')]; const ys = bars.map((bar) => Number(bar.getAttribute('y'))); const ws = bars.map((bar) => Number(bar.getAttribute('width'))); return bars.length === 6 && ys.every((y, i) => i === 0 || y > ys[i - 1]) && ws.every((w, i) => i === 0 || w <= ws[i - 1]); })()"
+            }
+          ]
+        },
+        {
+          "id": "p5-legend-toggle",
+          "title": "a legend button hides its series and says so; the reset action shows every series",
+          "covers": "events.toggle, values.hidden-series, actions.reset",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"q1\": \"I квартал\", \"q2\": \"II квартал\"}; c.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; const s = document.querySelector('#s'); s.names = {\"web\": \"Сайт\", \"shop\": \"Магазин\", \"partners\": \"Партнёры\"}; s.items = [{\"month\": \"2026-07\", \"web\": 42, \"shop\": 30, \"partners\": 12}, {\"month\": \"2026-08\", \"web\": 45, \"shop\": 28, \"partners\": 15}, {\"month\": \"2026-09\", \"web\": 51, \"shop\": 26, \"partners\": 14}, {\"month\": \"2026-10\", \"web\": 55, \"shop\": 25, \"partners\": 18}, {\"month\": \"2026-11\", \"web\": 58, \"shop\": 24, \"partners\": 20}, {\"month\": \"2026-12\", \"web\": 66, \"shop\": 29, \"partners\": 22}]; const h = document.querySelector('#h'); h.items = [{\"city\": \"Москва\", \"q1\": 420, \"q2\": 465}, {\"city\": \"Санкт-Петербург\", \"q1\": 310, \"q2\": 298}, {\"city\": \"Казань\", \"q1\": 180, \"q2\": 214}, {\"city\": \"Новосибирск\", \"q1\": 150, \"q2\": 171}, {\"city\": \"Екатеринбург\", \"q1\": 164, \"q2\": 159}, {\"city\": \"Нижний Новгород\", \"q1\": 120, \"q2\": null}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(() => { window.__toggled = null; const c = document.querySelector('#c'); c.addEventListener('sf-chart-bar-toggle', (event) => { window.__toggled = event.detail; }); c.querySelector('.sf-chart-bar-legend-item[data-series=q2]').click(); return true; })()",
+              "wait": 120,
+              "check": "(() => window.__toggled && window.__toggled.id === 'q2' && window.__toggled.hidden === true && document.querySelectorAll('#c .sf-chart-bar-bar').length === 6 && document.querySelector('#c').hiddenSeries.includes('q2'))()"
+            },
+            {
+              "script": "(document.querySelector('#c').reset(), true)",
+              "wait": 120,
+              "check": "(() => document.querySelectorAll('#c .sf-chart-bar-bar').length === 11)()"
+            }
+          ]
+        },
+        {
+          "id": "p6-error-refresh",
+          "title": "the error state offers a retry that sends refresh",
+          "covers": "settings.data-state, events.refresh",
+          "steps": [
+            {
+              "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-bar-refresh', () => { window.__refresh += 1; }); return true; })()",
+              "wait": 200
+            },
+            {
+              "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+              "wait": 120,
+              "check": "(() => window.__refresh === 1)()"
+            }
+          ]
+        },
+        {
+          "id": "p7-lines-own-axis",
+          "title": "a series named in lines is a line with points over the bars, on its own scale with its own format; the cursor walks onto it and select carries it",
+          "covers": "settings.lines, settings.line-axis, settings.line-format",
+          "steps": [
+            {
+              "script": "(() => { const l = document.querySelector('#l'); l.names = {\"revenue\": \"Выручка\", \"margin\": \"Маржа\"}; l.items = [{\"q\": \"I кв.\", \"revenue\": 1200, \"margin\": 0.18}, {\"q\": \"II кв.\", \"revenue\": 1350, \"margin\": 0.21}, {\"q\": \"III кв.\", \"revenue\": 1280, \"margin\": 0.17}, {\"q\": \"IV кв.\", \"revenue\": 1500, \"margin\": 0.24}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const l = document.querySelector('#l'); const d = document.getElementById(l.querySelector('svg[role=group]').getAttribute('aria-describedby')).textContent.replace(/\\u00a0/gu, ' '); const ticks = [...l.querySelectorAll('.sf-chart-bar-tick--line')].map((one) => one.textContent); return l.querySelectorAll('.sf-chart-bar-line').length === 1 && l.querySelectorAll('.sf-chart-bar-bar').length === 4 && ticks.length > 1 && ticks.every((one) => /%$/u.test(one)) && /Линией: Маржа\\./u.test(d) && /Маржа: наибольшее 24 ?% \\(IV кв\\.\\)/u.test(d) && [...l.querySelectorAll('.sf-chart-bar-sr table td')].some((one) => /^18 ?%$/u.test(one.textContent.trim().replace(/\\u00a0/gu, ' '))); })()"
+            },
+            {
+              "script": "(() => { window.__lineChosen = null; document.querySelector('#l').addEventListener('sf-chart-bar-select', (event) => { window.__lineChosen = event.detail; }); document.querySelector('#l svg[role=group]').focus(); return true; })()",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => /^I кв\\., Выручка: 1 200$/u.test(document.querySelector('#l [aria-live]').textContent.trim().replace(/\\u00a0/gu, ' ')))()"
+            },
+            {
+              "user": "keyboard:ArrowDown",
+              "wait": 80,
+              "check": "(() => /^I кв\\., Маржа: 18 ?%$/u.test(document.querySelector('#l [aria-live]').textContent.trim().replace(/\\u00a0/gu, ' ')) && !!document.querySelector('#l circle.sf-chart-bar-focus'))()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__lineChosen && window.__lineChosen.series === 'margin' && window.__lineChosen.x === 'I кв.' && window.__lineChosen.value === 0.18)()"
+            }
+          ]
+        },
+        {
+          "id": "p8-histogram",
+          "title": "with bin the rows are cut into intervals of one round width: one touching bar per interval, the axis marked at the edges and the counts on whole steps, the summary says the count, the range, the intervals and the median, and the cursor says each interval's count",
+          "covers": "settings.bin",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#b').items = [{\"hours\": 5}, {\"hours\": 8}, {\"hours\": 9}, {\"hours\": 11}, {\"hours\": 12}, {\"hours\": 12}, {\"hours\": 14}, {\"hours\": 15}, {\"hours\": 16}, {\"hours\": 17}, {\"hours\": 18}, {\"hours\": 18}, {\"hours\": 19}, {\"hours\": 20}, {\"hours\": 21}, {\"hours\": 22}, {\"hours\": 23}, {\"hours\": 24}, {\"hours\": 26}, {\"hours\": 27}, {\"hours\": 29}, {\"hours\": 31}, {\"hours\": 33}, {\"hours\": 36}, {\"hours\": 38}, {\"hours\": 41}, {\"hours\": 44}, {\"hours\": 47}, {\"hours\": 52}, {\"hours\": 61}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const s = document.querySelector('#b svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const bars = [...document.querySelectorAll('#b .sf-chart-bar-bar')].map((r) => [Number(r.getAttribute('x')), Number(r.getAttribute('width'))]); const ticks = [...document.querySelectorAll('#b .sf-chart-bar-tick--x')].map((t) => t.textContent); const values = [...document.querySelectorAll('#b .sf-chart-bar-tick:not(.sf-chart-bar-tick--x)')].map((t) => t.textContent); return /^Значений: 30, от 5 до 61; интервалов: 7, шириной 10\\. Количество: медиана 21,5, больше всего — 10 – 20 \\(10\\)\\.$/u.test(d) && bars.length === 7 && bars.every(([x, w], i) => i === 0 || Math.abs(bars[i - 1][0] + bars[i - 1][1] - x) < 0.2) && ticks.join('|') === '0|10|20|30|40|50|60|70' && values.length >= 3 && values.every((t) => /^\\d+$/u.test(t)); })()"
+            },
+            {
+              "script": "(() => { document.querySelector('#b svg[role=group]').focus(); return true; })()",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#b [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === '0 – 10, Количество: 3')()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#b [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === '10 – 20, Количество: 10')()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
