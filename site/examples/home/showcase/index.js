@@ -37,12 +37,6 @@ customElements.whenDefined('sf-chart-bar').then(() => {
   ];
 });
 
-// Мини-график: «tile» of package/src/smart/chart-sparkline/examples.json.
-customElements.whenDefined('sf-chart-sparkline').then(() => {
-  const chart = document.getElementById('home-sparkline');
-  chart.items = [18,22,25,21,30,34,29,27,24,20,16,14];
-});
-
 // Свечной график: «reference» of package/src/smart/chart-candlestick/examples.json.
 customElements.whenDefined('sf-chart-candlestick').then(() => {
   const chart = document.getElementById('home-candlestick');
@@ -67,24 +61,6 @@ customElements.whenDefined('sf-chart-pie').then(() => {
   ];
 });
 
-// Полоса частей: «reference» of package/src/smart/chart-parts/examples.json.
-customElements.whenDefined('sf-chart-parts').then(() => {
-  const chart = document.getElementById('home-parts');
-  chart.names = {"system":"Система","apps":"Приложения","docs":"Документы","photos":"Фото"};
-  chart.items = [
-    {"kind":"system","size":22},
-    {"kind":"apps","size":13},
-    {"kind":"docs","size":7},
-    {"kind":"photos","size":3},
-  ];
-});
-
-// Плиточная диаграмма: «reference» of package/src/smart/chart-treemap/examples.json.
-customElements.whenDefined('sf-chart-treemap').then(() => {
-  const chart = document.getElementById('home-treemap');
-  chart.items = {"name":["Смартфоны","Ноутбуки","Наушники","Планшеты","Мебель","Посуда","Текстиль","Обувь","Верхняя одежда","Аксессуары"],"value":[420,310,120,90,260,110,70,180,150,60],"area":["Электроника","Электроника","Электроника","Электроника","Дом","Дом","Дом","Одежда","Одежда","Одежда"]};
-});
-
 // Солнечные круги: «reference» of package/src/smart/chart-sunburst/examples.json.
 customElements.whenDefined('sf-chart-sunburst').then(() => {
   const chart = document.getElementById('home-sunburst');
@@ -102,6 +78,24 @@ customElements.whenDefined('sf-chart-sunburst').then(() => {
     {"id":"Обувь","parent":"Одежда","value":180},
     {"id":"Верхняя одежда","parent":"Одежда","value":150},
     {"id":"Аксессуары","parent":"Одежда","value":60},
+  ];
+});
+
+// Плиточная диаграмма: «reference» of package/src/smart/chart-treemap/examples.json.
+customElements.whenDefined('sf-chart-treemap').then(() => {
+  const chart = document.getElementById('home-treemap');
+  chart.items = {"name":["Смартфоны","Ноутбуки","Наушники","Планшеты","Мебель","Посуда","Текстиль","Обувь","Верхняя одежда","Аксессуары"],"value":[420,310,120,90,260,110,70,180,150,60],"area":["Электроника","Электроника","Электроника","Электроника","Дом","Дом","Дом","Одежда","Одежда","Одежда"]};
+});
+
+// Полоса частей: «reference» of package/src/smart/chart-parts/examples.json.
+customElements.whenDefined('sf-chart-parts').then(() => {
+  const chart = document.getElementById('home-parts');
+  chart.names = {"system":"Система","apps":"Приложения","docs":"Документы","photos":"Фото"};
+  chart.items = [
+    {"kind":"system","size":22},
+    {"kind":"apps","size":13},
+    {"kind":"docs","size":7},
+    {"kind":"photos","size":3},
   ];
 });
 
@@ -177,19 +171,6 @@ customElements.whenDefined('sf-chart-radar').then(() => {
   ];
 });
 
-// Воронка: «reference» of package/src/smart/chart-funnel/examples.json.
-customElements.whenDefined('sf-chart-funnel').then(() => {
-  const chart = document.getElementById('home-funnel');
-  chart.names = {"visit":"Визиты","catalog":"Каталог","cart":"Корзина","checkout":"Оформление","paid":"Оплата"};
-  chart.items = [
-    {"step":"visit","people":12400},
-    {"step":"catalog","people":7800},
-    {"step":"cart","people":2900},
-    {"step":"checkout","people":1300},
-    {"step":"paid","people":860},
-  ];
-});
-
 // Диаграмма Санки: «reference» of package/src/smart/chart-sankey/examples.json.
 customElements.whenDefined('sf-chart-sankey').then(() => {
   const chart = document.getElementById('home-sankey');
@@ -202,6 +183,19 @@ customElements.whenDefined('sf-chart-sankey').then(() => {
     {"from":"Выручка","to":"Прибыль","amount":210},
     {"from":"Маркетинг","to":"Поиск","amount":80},
     {"from":"Маркетинг","to":"Соцсети","amount":60},
+  ];
+});
+
+// Воронка: «reference» of package/src/smart/chart-funnel/examples.json.
+customElements.whenDefined('sf-chart-funnel').then(() => {
+  const chart = document.getElementById('home-funnel');
+  chart.names = {"visit":"Визиты","catalog":"Каталог","cart":"Корзина","checkout":"Оформление","paid":"Оплата"};
+  chart.items = [
+    {"step":"visit","people":12400},
+    {"step":"catalog","people":7800},
+    {"step":"cart","people":2900},
+    {"step":"checkout","people":1300},
+    {"step":"paid","people":860},
   ];
 });
 
@@ -310,4 +304,10 @@ customElements.whenDefined('sf-chart-map').then(() => {
 customElements.whenDefined('sf-chart-gauge').then(() => {
   const chart = document.getElementById('home-gauge');
   chart.bands = [{"to":70,"role":"success"},{"to":90,"role":"warning"},{"to":100,"role":"error"}];
+});
+
+// Мини-график: «tile» of package/src/smart/chart-sparkline/examples.json.
+customElements.whenDefined('sf-chart-sparkline').then(() => {
+  const chart = document.getElementById('home-sparkline');
+  chart.items = [18,22,25,21,30,34,29,27,24,20,16,14];
 });

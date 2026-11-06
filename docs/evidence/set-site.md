@@ -101,6 +101,16 @@ The owner looked at ui-chart.test on 2026-11-06 and asked for:
   `docara.json` to ui-effects commit
   `264cb2efc182fd7af6bc273bdcc3006f1588af18`; it follows the page's theme
   and has its own pause button.
+- **Cards, not a heap.** After a second look the owner asked for order in
+  the tabs: every chart is on a card of the theme's surface, the whole row
+  wide or half of it, two halves one height, and the small charts (metric
+  tile, gauge, sparkline) are tiles on «Показатели». Each group's `home`
+  list in `config/components.json` names its cards in order; the generator
+  checks that every chart is there once and that halves come in pairs.
+- **Square icons without a radius** are Docara 3.11.1's: its icon container
+  takes `--sf-radius-default`, which the Framework does not define. Docara
+  fixed it on main (`751168e3`, bus `msg-71a04c672a4149bfb612`); the site
+  moves to the Docara release that carries it.
 - **A calmer bottom.** No more than three blocks a row: the advantages are
   two rows of three columns without frames, and the footer has three
   columns, with the links as one line under them.

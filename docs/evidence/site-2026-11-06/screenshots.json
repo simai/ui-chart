@@ -9,9 +9,9 @@
    "file": "home-1-1280-light.png",
    "panel": {
     "visible": true,
-    "charts": 5,
-    "drawn": 5,
-    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад. Линейный график Продажи и план, 2026 Таблица Прода"
+    "charts": 4,
+    "drawn": 4,
+    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, свечи и каскад. Линейный график ряды по времени, числу или категориям линиями и"
    },
    "elements": [
     {
@@ -22,12 +22,6 @@
     },
     {
      "tag": "sf-chart-bar",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
-     "tag": "sf-chart-sparkline",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -51,7 +45,7 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -63,7 +57,7 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -87,13 +81,13 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -124,6 +118,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -141,7 +141,7 @@
     "visible": true,
     "charts": 4,
     "drawn": 4,
-    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма Заказы по каналам Таблица 54 % 31 % 12 "
+    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма части одного целого секторами круга или"
    },
    "elements": [
     {
@@ -155,12 +155,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -181,7 +175,7 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -193,7 +187,7 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -217,13 +211,13 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -254,6 +248,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -271,7 +271,7 @@
     "visible": true,
     "charts": 3,
     "drawn": 3,
-    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма Регионы: менеджеры, выручка и клиенты "
+    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма как связаны две меры, третья площадью "
    },
    "elements": [
     {
@@ -285,12 +285,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -311,10 +305,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -323,10 +317,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -347,13 +341,13 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -384,6 +378,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -401,7 +401,7 @@
     "visible": true,
     "charts": 3,
     "drawn": 3,
-    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Воронка Воронка заказа Таблица Визиты 12 400 Каталог 7 800 62,9 % Корзина 2 900 3"
+    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Диаграмма Санки как величина перетекает между этапами и категориями Бюджет компан"
    },
    "elements": [
     {
@@ -415,12 +415,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -441,10 +435,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -453,10 +447,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -477,13 +471,13 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": true
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -514,6 +508,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -531,7 +531,7 @@
     "visible": true,
     "charts": 2,
     "drawn": 2,
-    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб "
+    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта одна величина по двум категориям сеткой ячее"
    },
    "elements": [
     {
@@ -545,12 +545,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -571,10 +565,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -583,10 +577,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -607,16 +601,16 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
      "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
     },
     {
      "tag": "sf-chart-timeline",
@@ -644,6 +638,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -659,9 +659,9 @@
    "file": "home-6-1280-light.png",
    "panel": {
     "visible": true,
-    "charts": 2,
-    "drawn": 2,
-    "text": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке. Плитка показателя Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к пр"
+    "charts": 3,
+    "drawn": 3,
+    "text": "Маленькие графики для панелей и таблиц: плитка показателя с изменением, шкала с зонами и мини-график размером со слово. Плитка показателя одно важное число с из"
    },
    "elements": [
     {
@@ -675,12 +675,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -701,10 +695,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -713,10 +707,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -737,16 +731,16 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
      "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
     },
     {
      "tag": "sf-chart-timeline",
@@ -774,6 +768,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -941,9 +941,9 @@
    "file": "home-1-390-light.png",
    "panel": {
     "visible": true,
-    "charts": 5,
-    "drawn": 5,
-    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад. Линейный график Продажи и план, 2026 Таблица Прода"
+    "charts": 4,
+    "drawn": 4,
+    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, свечи и каскад. Линейный график ряды по времени, числу или категориям линиями и"
    },
    "elements": [
     {
@@ -954,12 +954,6 @@
     },
     {
      "tag": "sf-chart-bar",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
-     "tag": "sf-chart-sparkline",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -983,7 +977,7 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -995,7 +989,7 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1019,13 +1013,13 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1056,6 +1050,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1073,7 +1073,7 @@
     "visible": true,
     "charts": 4,
     "drawn": 4,
-    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма Заказы по каналам Таблица 54 % 31 % 12 "
+    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма части одного целого секторами круга или"
    },
    "elements": [
     {
@@ -1087,12 +1087,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -1113,7 +1107,7 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -1125,7 +1119,7 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -1149,13 +1143,13 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1186,6 +1180,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1203,7 +1203,7 @@
     "visible": true,
     "charts": 3,
     "drawn": 3,
-    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма Регионы: менеджеры, выручка и клиенты "
+    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма как связаны две меры, третья площадью "
    },
    "elements": [
     {
@@ -1217,12 +1217,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -1243,10 +1237,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -1255,10 +1249,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -1279,13 +1273,13 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1316,6 +1310,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1333,7 +1333,7 @@
     "visible": true,
     "charts": 3,
     "drawn": 3,
-    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Воронка Воронка заказа Таблица Визиты 12 400 Каталог 7 800 62,9 % Корзина 2 900 3"
+    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Диаграмма Санки как величина перетекает между этапами и категориями Бюджет компан"
    },
    "elements": [
     {
@@ -1347,12 +1347,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -1373,10 +1367,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -1385,10 +1379,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -1409,13 +1403,13 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": true
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -1446,6 +1440,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1463,7 +1463,7 @@
     "visible": true,
     "charts": 2,
     "drawn": 2,
-    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб "
+    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта одна величина по двум категориям сеткой ячее"
    },
    "elements": [
     {
@@ -1477,12 +1477,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -1503,10 +1497,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -1515,10 +1509,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -1539,16 +1533,16 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
      "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
     },
     {
      "tag": "sf-chart-timeline",
@@ -1576,6 +1570,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1591,9 +1591,9 @@
    "file": "home-6-390-light.png",
    "panel": {
     "visible": true,
-    "charts": 2,
-    "drawn": 2,
-    "text": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке. Плитка показателя Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к пр"
+    "charts": 3,
+    "drawn": 3,
+    "text": "Маленькие графики для панелей и таблиц: плитка показателя с изменением, шкала с зонами и мини-график размером со слово. Плитка показателя одно важное число с из"
    },
    "elements": [
     {
@@ -1607,12 +1607,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -1633,10 +1627,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -1645,10 +1639,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -1669,16 +1663,16 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
      "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
     },
     {
      "tag": "sf-chart-timeline",
@@ -1706,6 +1700,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -1873,9 +1873,9 @@
    "file": "home-1-1280-dark.png",
    "panel": {
     "visible": true,
-    "charts": 5,
-    "drawn": 5,
-    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад. Линейный график Продажи и план, 2026 Таблица Прода"
+    "charts": 4,
+    "drawn": 4,
+    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, свечи и каскад. Линейный график ряды по времени, числу или категориям линиями и"
    },
    "elements": [
     {
@@ -1886,12 +1886,6 @@
     },
     {
      "tag": "sf-chart-bar",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
-     "tag": "sf-chart-sparkline",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -1915,7 +1909,7 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1927,7 +1921,7 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1951,13 +1945,13 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -1988,6 +1982,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2005,7 +2005,7 @@
     "visible": true,
     "charts": 4,
     "drawn": 4,
-    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма Заказы по каналам Таблица 54 % 31 % 12 "
+    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма части одного целого секторами круга или"
    },
    "elements": [
     {
@@ -2019,12 +2019,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -2045,7 +2039,7 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -2057,7 +2051,7 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -2081,13 +2075,13 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2118,6 +2112,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2135,7 +2135,7 @@
     "visible": true,
     "charts": 3,
     "drawn": 3,
-    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма Регионы: менеджеры, выручка и клиенты "
+    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма как связаны две меры, третья площадью "
    },
    "elements": [
     {
@@ -2149,12 +2149,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -2175,10 +2169,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -2187,10 +2181,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -2211,13 +2205,13 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2248,6 +2242,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2265,7 +2265,7 @@
     "visible": true,
     "charts": 3,
     "drawn": 3,
-    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Воронка Воронка заказа Таблица Визиты 12 400 Каталог 7 800 62,9 % Корзина 2 900 3"
+    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Диаграмма Санки как величина перетекает между этапами и категориями Бюджет компан"
    },
    "elements": [
     {
@@ -2279,12 +2279,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -2305,10 +2299,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -2317,10 +2311,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -2341,13 +2335,13 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": true
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -2378,6 +2372,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2395,7 +2395,7 @@
     "visible": true,
     "charts": 2,
     "drawn": 2,
-    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб "
+    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта одна величина по двум категориям сеткой ячее"
    },
    "elements": [
     {
@@ -2409,12 +2409,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -2435,10 +2429,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -2447,10 +2441,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -2471,16 +2465,16 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
      "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
     },
     {
      "tag": "sf-chart-timeline",
@@ -2508,6 +2502,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2523,9 +2523,9 @@
    "file": "home-6-1280-dark.png",
    "panel": {
     "visible": true,
-    "charts": 2,
-    "drawn": 2,
-    "text": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке. Плитка показателя Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к пр"
+    "charts": 3,
+    "drawn": 3,
+    "text": "Маленькие графики для панелей и таблиц: плитка показателя с изменением, шкала с зонами и мини-график размером со слово. Плитка показателя одно важное число с из"
    },
    "elements": [
     {
@@ -2539,12 +2539,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -2565,10 +2559,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -2577,10 +2571,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -2601,16 +2595,16 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
      "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
     },
     {
      "tag": "sf-chart-timeline",
@@ -2638,6 +2632,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -2653,9 +2653,9 @@
    "file": "home-1-390-dark.png",
    "panel": {
     "visible": true,
-    "charts": 5,
-    "drawn": 5,
-    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, мини-график, свечи и каскад. Линейный график Продажи и план, 2026 Таблица Прода"
+    "charts": 4,
+    "drawn": 4,
+    "text": "Как меняются величины во времени и чем отличаются друг от друга: линии, столбцы, свечи и каскад. Линейный график ряды по времени, числу или категориям линиями и"
    },
    "elements": [
     {
@@ -2666,12 +2666,6 @@
     },
     {
      "tag": "sf-chart-bar",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
-     "tag": "sf-chart-sparkline",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -2695,7 +2689,7 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2707,7 +2701,7 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2731,13 +2725,13 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2768,6 +2762,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2785,7 +2785,7 @@
     "visible": true,
     "charts": 4,
     "drawn": 4,
-    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма Заказы по каналам Таблица 54 % 31 % 12 "
+    "text": "Из каких частей состоит целое: круг или кольцо, полоса частей, плитки и солнечные круги для иерархии. Круговая диаграмма части одного целого секторами круга или"
    },
    "elements": [
     {
@@ -2799,12 +2799,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -2825,7 +2819,7 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -2837,7 +2831,7 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -2861,13 +2855,13 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2898,6 +2892,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -2915,7 +2915,7 @@
     "visible": true,
     "charts": 3,
     "drawn": 3,
-    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма Регионы: менеджеры, выручка и клиенты "
+    "text": "Как распределена мера и как связаны меры между собой: пузырьки, ящики с усами и лепестковая диаграмма. Точечная диаграмма как связаны две меры, третья площадью "
    },
    "elements": [
     {
@@ -2929,12 +2929,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -2955,10 +2949,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -2967,10 +2961,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -2991,13 +2985,13 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": false,
      "visible": false,
      "drawn": false
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -3028,6 +3022,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -3045,7 +3045,7 @@
     "visible": true,
     "charts": 3,
     "drawn": 3,
-    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Воронка Воронка заказа Таблица Визиты 12 400 Каталог 7 800 62,9 % Корзина 2 900 3"
+    "text": "Как идёт процесс: этапы воронки, перетоки Санки и план работ диаграммой Ганта. Диаграмма Санки как величина перетекает между этапами и категориями Бюджет компан"
    },
    "elements": [
     {
@@ -3059,12 +3059,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -3085,10 +3079,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -3097,10 +3091,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -3121,13 +3115,13 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
+     "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": true
     },
     {
-     "tag": "sf-chart-sankey",
+     "tag": "sf-chart-funnel",
      "defined": true,
      "visible": false,
      "drawn": true
@@ -3158,6 +3152,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -3175,7 +3175,7 @@
     "visible": true,
     "charts": 2,
     "drawn": 2,
-    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта Нагрузка по часам Таблица Пн Вт Ср Чт Пт Сб "
+    "text": "Одна величина по двум категориям или по областям: тепловая карта и карта, границы которой даёт сайт. Тепловая карта одна величина по двум категориям сеткой ячее"
    },
    "elements": [
     {
@@ -3189,12 +3189,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -3215,10 +3209,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -3227,10 +3221,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -3251,16 +3245,16 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
      "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
     },
     {
      "tag": "sf-chart-timeline",
@@ -3288,6 +3282,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": false,
+     "visible": false,
+     "drawn": false
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": false,
      "visible": false,
      "drawn": false
@@ -3303,9 +3303,9 @@
    "file": "home-6-390-dark.png",
    "panel": {
     "visible": true,
-    "charts": 2,
-    "drawn": 2,
-    "text": "Числа для панелей: плитка показателя с изменением, шкала с зонами и мини-график в плитке. Плитка показателя Выручка за неделю 1 250 000,00 ₽ ▲ рост +13,6 % к пр"
+    "charts": 3,
+    "drawn": 3,
+    "text": "Маленькие графики для панелей и таблиц: плитка показателя с изменением, шкала с зонами и мини-график размером со слово. Плитка показателя одно важное число с из"
    },
    "elements": [
     {
@@ -3319,12 +3319,6 @@
      "defined": true,
      "visible": false,
      "drawn": false
-    },
-    {
-     "tag": "sf-chart-sparkline",
-     "defined": true,
-     "visible": false,
-     "drawn": true
     },
     {
      "tag": "sf-chart-candlestick",
@@ -3345,10 +3339,10 @@
      "drawn": false
     },
     {
-     "tag": "sf-chart-parts",
+     "tag": "sf-chart-sunburst",
      "defined": true,
      "visible": false,
-     "drawn": true
+     "drawn": false
     },
     {
      "tag": "sf-chart-treemap",
@@ -3357,10 +3351,10 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-sunburst",
+     "tag": "sf-chart-parts",
      "defined": true,
      "visible": false,
-     "drawn": false
+     "drawn": true
     },
     {
      "tag": "sf-chart-scatter",
@@ -3381,16 +3375,16 @@
      "drawn": true
     },
     {
-     "tag": "sf-chart-funnel",
-     "defined": true,
-     "visible": false,
-     "drawn": true
-    },
-    {
      "tag": "sf-chart-sankey",
      "defined": true,
      "visible": false,
      "drawn": false
+    },
+    {
+     "tag": "sf-chart-funnel",
+     "defined": true,
+     "visible": false,
+     "drawn": true
     },
     {
      "tag": "sf-chart-timeline",
@@ -3418,6 +3412,12 @@
     },
     {
      "tag": "sf-chart-gauge",
+     "defined": true,
+     "visible": false,
+     "drawn": true
+    },
+    {
+     "tag": "sf-chart-sparkline",
      "defined": true,
      "visible": false,
      "drawn": true

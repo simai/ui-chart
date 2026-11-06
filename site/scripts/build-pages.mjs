@@ -15,8 +15,10 @@
 //     A page is titled in words; the element's tag and the set's state are
 //     badges under the title;
 //   - examples/home/showcase/index.html and index.js: the home page's
-//     examples, a tab per group with every chart of the group, each from the
-//     example config/components.json names for it (its first by default).
+//     examples, a tab per group with the cards its home list names, each
+//     chart once: the whole row (full), half of it (half, in pairs of one
+//     height) or a tile (tile, three a row), from the example the entry
+//     names (the component's first by default).
 //
 // docs.md's own list of public CSS variables is left out: the reference part
 // lists them with what each sets. Run build-reference.mjs after this.
@@ -96,6 +98,7 @@ const examplesDirectory = join(site, 'examples/components');
 const contentDirectory = join(site, 'content/ru/components');
 const overview = [];
 const home = {panels: [], scripts: []};
+const known = new Map();
 // Under a page's title: the element's tag, and the component's state in the
 // set's passport while it is a preview.
 const passport = JSON.parse(readFileSync(resolve(site, '../package/set.json'), 'utf8'));
@@ -107,7 +110,6 @@ const BADGES = (tag) => {
 config.groups.forEach((group, groupIndex) => {
   put(`content/ru/components/${group.id}/section.json`, json({schema: 'docara.section.v1', title: group.title, navigation: {order: (groupIndex + 1) * 10}}));
   overview.push(`## ${group.title}`, '', '| График | Элемент | Что показывает |', '|:---|:---|:---|');
-  const cells = [];
   group.components.forEach((component, index) => {
     const {folder} = component;
     const manifest = JSON.parse(readFileSync(join(smart, folder, 'component.json'), 'utf8'));
@@ -122,18 +124,7 @@ config.groups.forEach((group, groupIndex) => {
       if (js) put(`examples/components/${id}/index.js`, js);
       blocks.push(`### ${entry.title}`, '', `:::example {id="components/${id}" label="${attribute(entry.title)}"}`, ':::', '');
     }
-    // The home page shows the example the config names, or the first one.
-    const chosen = shown.find((entry) => entry.name === (component.home ?? shown[0].name));
-    if (!chosen) throw new Error(`${folder}: no example «${component.home}» for the home page`);
-    const homeId = `home-${folder.replace(/^chart-/u, '')}`;
-    const homeExample = example(tag, folder, chosen, homeId);
-    cells.push([
-      `      <figure class="showcase-cell${component.wide ? ' showcase-wide' : ''} flex flex-col gap-1 m-0">`,
-      `        <figcaption><a href="/ru/components/${group.id}/${folder}/" target="_top">${component.title}</a></figcaption>`,
-      `        ${homeExample.html}`,
-      '      </figure>',
-    ].join('\n'));
-    if (homeExample.properties.length) home.scripts.push(`// ${component.title}: «${chosen.name}» of package/src/smart/${folder}/examples.json.`, ...setter(tag, homeId, homeExample.properties), '');
+    known.set(folder, {tag, group, component, shown});
     const {intro, rest} = body(folder);
     const others = group.components.filter((other) => other.folder !== folder);
     const page = [
@@ -166,16 +157,53 @@ config.groups.forEach((group, groupIndex) => {
     overview.push(`| [${component.title}](${group.id}/${folder}/) | \`${tag}\` | ${component.description.replace(/^[^—]*— /u, '').replace(/\.$/u, '')} |`);
   });
   overview.push('');
-  const position = home.panels.length;
+});
+
+// The home page: a tab per group, its cards in the order of its home list.
+const placed = new Set();
+config.groups.forEach((group, position) => {
+  const cards = [];
+  let halves = 0;
+  for (const card of group.home) {
+    const entry = known.get(card.folder);
+    if (!entry) throw new Error(`${group.id}: home names an unknown component ${card.folder}`);
+    if (placed.has(card.folder)) throw new Error(`${card.folder}: on the home page twice`);
+    if (!['full', 'half', 'tile'].includes(card.span)) throw new Error(`${card.folder}: span ${card.span}`);
+    placed.add(card.folder);
+    // Halves come in pairs, so every row is full and its two cards one height.
+    if (card.span === 'half') halves += 1;
+    else if (halves % 2) throw new Error(`${group.id}: a half card without its pair before ${card.folder}`);
+    const {tag, group: home_group, component, shown} = entry;
+    const chosen = shown.find((one) => one.name === (card.example ?? shown[0].name));
+    if (!chosen) throw new Error(`${card.folder}: no example «${card.example}» for the home page`);
+    // A full or half card sets the chart's size itself; a tile keeps the example's.
+    const settings = {...chosen.settings};
+    if (card.span !== 'tile') delete settings.size;
+    const id = `home-${card.folder.replace(/^chart-/u, '')}`;
+    const made = example(tag, card.folder, {...chosen, settings}, id);
+    cards.push([
+      `      <figure class="showcase-card showcase-${card.span} m-0">`,
+      '        <figcaption class="showcase-head">',
+      `          <a href="/ru/components/${home_group.id}/${card.folder}/" target="_top">${component.title}</a>`,
+      `          <span>${component.description.replace(/^[^—]*— /u, '').replace(/\.$/u, '')}</span>`,
+      '        </figcaption>',
+      `        <div class="showcase-plot">${made.html}</div>`,
+      '      </figure>',
+    ].join('\n'));
+    if (made.properties.length) home.scripts.push(`// ${component.title}: «${chosen.name}» of package/src/smart/${card.folder}/examples.json.`, ...setter(tag, id, made.properties), '');
+  }
+  if (halves % 2) throw new Error(`${group.id}: a half card without its pair`);
   home.panels.push([
     `    <section slot="panel-${position}" class="flex flex-col gap-3 p-top-2" aria-label="${group.tab}">`,
     `      <p class="m-0 color-on-surface-variant">${group.lead}</p>`,
     '      <div class="showcase-grid">',
-    ...cells,
+    ...cards,
     '      </div>',
     '    </section>',
   ].join('\n'));
 });
+const missing = [...known.keys()].filter((folder) => !placed.has(folder));
+if (missing.length) throw new Error(`not on the home page: ${missing.join(', ')}`);
 
 put('examples/home/showcase/index.html', [
   '<div class="flex flex-col gap-3" data-showcase>',
