@@ -1,0 +1,96 @@
+{
+  "component": "sf-chart-waterfall",
+  "probe": "sf-chart-waterfall against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+  "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+  "page": {
+    "lang": "ru",
+    "body": [
+      "<main style=\"inline-size: 40rem\">",
+      "  <sf-chart-waterfall id=\"c\" label=\"Выручка: 2025 → 2026\" x=\"step\" y=\"value\" y-label=\"млн ₽\" y-format=\"integer\"></sf-chart-waterfall>",
+      "  <sf-chart-waterfall id=\"s\" label=\"Отчёт о прибыли, млн ₽\" x=\"line\" x-label=\"Статья\" y-format=\"integer\" table=\"hidden\"></sf-chart-waterfall>",
+      "  <sf-chart-waterfall id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-waterfall>",
+      "</main>"
+    ]
+  },
+  "probes": [
+    {
+      "id": "p1-figure-and-summary",
+      "title": "a figure named by its label; the plot is one group described by the count of changes, the start and the end, the steps that added and took away most, and the count of rises and falls; a bar per step and a closing total, rises, falls and totals in groups of their own, each with its signed value",
+      "covers": "accessibility (role figure, name label), settings.items, settings.x, settings.y, settings.total, settings.end, settings.value-labels, settings.summary, settings.legend",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"step\": \"Выручка 2025\", \"value\": 820, \"total\": true}, {\"step\": \"Новые клиенты\", \"value\": 240}, {\"step\": \"Повышение цен\", \"value\": 95}, {\"step\": \"Отток\", \"value\": -130}, {\"step\": \"Скидки\", \"value\": -60}, {\"step\": \"Курс валют\", \"value\": 35}]; document.querySelector('#s').items = [{\"line\": \"Выручка\", \"value\": 1200, \"total\": true}, {\"line\": \"Себестоимость\", \"value\": -640}, {\"line\": \"Валовая прибыль\", \"value\": null, \"total\": true}, {\"line\": \"Маркетинг\", \"value\": -180}, {\"line\": \"Зарплаты\", \"value\": -220}, {\"line\": \"Налоги\", \"value\": -40}]; return true; })()",
+          "wait": 400,
+          "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const count = (kind) => document.querySelectorAll(`#c svg[role=group] .sf-chart-waterfall-${kind} .sf-chart-waterfall-bar`).length; const values = [...document.querySelectorAll('#c .sf-chart-waterfall-value')].map((t) => t.textContent.replace(/\\u00a0|\\u202f/gu, ' ')).join('|'); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Выручка: 2025 → 2026' && s.getAttribute('aria-roledescription') === 'каскадный график' && s.tabIndex === 0 && d === 'Шагов: 5, от 820 до 1 000: +180 (+22 %). Больше всего прибавил шаг «Новые клиенты»: +240. Больше всего убавил шаг «Отток»: −130. Шагов роста: 3, снижения: 2.' && document.querySelectorAll('#c svg[role=group] .sf-chart-waterfall-bar').length === 7 && count('up') === 3 && count('down') === 2 && count('total') === 2 && values === '820|+240|+95|−130|−60|+35|1 000' && document.querySelectorAll('#c .sf-chart-waterfall-link').length === 1; })()"
+        }
+      ]
+    },
+    {
+      "id": "p2-keyboard-cursor",
+      "title": "the arrows walk the steps in order, each said with its change and the total it reaches; End goes to the closing total; Enter chooses it; Escape clears",
+      "covers": "keyboard.host (ArrowRight, End, Enter, Escape), events.select",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"step\": \"Выручка 2025\", \"value\": 820, \"total\": true}, {\"step\": \"Новые клиенты\", \"value\": 240}, {\"step\": \"Повышение цен\", \"value\": 95}, {\"step\": \"Отток\", \"value\": -130}, {\"step\": \"Скидки\", \"value\": -60}, {\"step\": \"Курс валют\", \"value\": 35}]; document.querySelector('#s').items = [{\"line\": \"Выручка\", \"value\": 1200, \"total\": true}, {\"line\": \"Себестоимость\", \"value\": -640}, {\"line\": \"Валовая прибыль\", \"value\": null, \"total\": true}, {\"line\": \"Маркетинг\", \"value\": -180}, {\"line\": \"Зарплаты\", \"value\": -220}, {\"line\": \"Налоги\", \"value\": -40}]; return true; })()",
+          "wait": 400
+        },
+        {
+          "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-waterfall-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Выручка 2025: 820')()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Новые клиенты: +240, итог 1 060')()"
+        },
+        {
+          "user": "keyboard:End",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Итого: 1 000' && document.querySelectorAll('#c .sf-chart-waterfall-ring').length === 1)()"
+        },
+        {
+          "user": "keyboard:Enter",
+          "wait": 80,
+          "check": "(() => window.__chosen && window.__chosen.index === 6 && window.__chosen.row === -1 && window.__chosen.kind === 'total' && window.__chosen.total === 1000 && window.__chosen.x === 'Итого')()"
+        },
+        {
+          "user": "keyboard:Escape",
+          "wait": 80,
+          "check": "(() => !document.querySelector('#c .sf-chart-waterfall-ring'))()"
+        }
+      ]
+    },
+    {
+      "id": "p3-subtotal-and-table",
+      "title": "a total row without a value stands on zero at the running total; the hidden table has a row per step with its change and the total it reaches",
+      "covers": "settings.total, settings.table, settings.x-label",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"step\": \"Выручка 2025\", \"value\": 820, \"total\": true}, {\"step\": \"Новые клиенты\", \"value\": 240}, {\"step\": \"Повышение цен\", \"value\": 95}, {\"step\": \"Отток\", \"value\": -130}, {\"step\": \"Скидки\", \"value\": -60}, {\"step\": \"Курс валют\", \"value\": 35}]; document.querySelector('#s').items = [{\"line\": \"Выручка\", \"value\": 1200, \"total\": true}, {\"line\": \"Себестоимость\", \"value\": -640}, {\"line\": \"Валовая прибыль\", \"value\": null, \"total\": true}, {\"line\": \"Маркетинг\", \"value\": -180}, {\"line\": \"Зарплаты\", \"value\": -220}, {\"line\": \"Налоги\", \"value\": -40}]; return true; })()",
+          "wait": 400,
+          "check": "(() => { const totals = [...document.querySelectorAll('#s .sf-chart-waterfall-total .sf-chart-waterfall-bar')].filter((bar) => bar.closest('svg[role=group]')); const zero = Number(document.querySelector('#s .sf-chart-waterfall-baseline').getAttribute('y1')); const onZero = totals.every((bar) => Math.abs(Number(bar.getAttribute('y')) + Number(bar.getAttribute('height')) - zero) < 0.6); const head = [...document.querySelectorAll('#s table thead th')].map((th) => th.textContent.trim()).join('|'); const rows = [...document.querySelectorAll('#s table tbody tr')].map((tr) => [...tr.children].map((td) => td.textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')).join('|')); return totals.length === 3 && onZero && head === 'Статья|Изменение|Итог' && rows.length === 7 && rows[2] === 'Валовая прибыль||560' && rows[3] === 'Маркетинг|−180|380' && rows[6] === 'Итого||120'; })()"
+        }
+      ]
+    },
+    {
+      "id": "p4-error-refresh",
+      "title": "the error state offers a retry that sends refresh",
+      "covers": "settings.data-state, events.refresh",
+      "steps": [
+        {
+          "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-waterfall-refresh', () => { window.__refresh += 1; }); return true; })()",
+          "wait": 200
+        },
+        {
+          "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+          "wait": 120,
+          "check": "(() => window.__refresh === 1)()"
+        }
+      ]
+    }
+  ]
+}

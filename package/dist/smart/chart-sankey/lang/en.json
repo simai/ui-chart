@@ -1,0 +1,43 @@
+{
+  "title": "Sankey diagram",
+  "runtime": {
+    "untitled": "Chart",
+    "roledescription": "flow diagram",
+    "summary-total": "Nodes: {nodes}, flows: {flows}, stages: {columns}; total {total}.",
+    "summary-largest": "The largest flow is «{source}» → «{target}»: {value} ({share} of «{source}»).",
+    "summary-end": "The most arrives at «{name}»: {value} ({share}).",
+    "summary-left": "Rows without a flow: {count}.",
+    "summary-looped": "Flows closing a loop, left out: {count}.",
+    "summary-empty": "No data.",
+    "cursor": "{name}: {value}",
+    "cursor-in": "in from {list}",
+    "cursor-out": "out to {list}",
+    "flow-item": "«{name}» {value}",
+    "more": "{list} and {count} more",
+    "flow-name": "{source} → {target}",
+    "source": "From",
+    "target": "To",
+    "value": "Value",
+    "share-of-source": "Share of the source",
+    "in": "In",
+    "out": "Out",
+    "gap": "no data",
+    "show-table": "Table",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data"
+  },
+  "events": {
+    "select": {
+      "label": "Choose a node"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Take the cursor away"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-treemap",
+  "title": "treemap reference",
+  "summary": "Deterministic reference fixture for sf-chart-treemap.",
+  "locale": "ru",
+  "props": {
+    "label": "Выручка по направлениям, млн ₽",
+    "x": "name",
+    "y": "value",
+    "group": "area",
+    "y-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

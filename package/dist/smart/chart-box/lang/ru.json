@@ -1,0 +1,52 @@
+{
+  "title": "Ящик с усами",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "ящик с усами",
+    "summary-groups": "Групп: {groups}.",
+    "summary-groups-values": "Групп: {groups}, значений: {values}.",
+    "summary-series": "{name}: медиана выше всего — {high} ({highMedian}), ниже всего — {low} ({lowMedian}); шире всего разброс — {wide} (половина значений в пределах {spread}).",
+    "summary-one": "{name}: медиана {median}, половина значений от {from} до {to}.",
+    "summary-outliers": "Выбросов: {count}.",
+    "summary-missing": "Строк без значения: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{name}: медиана {median}, квартили {q1} – {q3}, усы {low} – {high}{outliers}",
+    "cursor-outliers": ", выбросов {count}",
+    "cursor-none": "{name}: нет данных",
+    "group-n": "Группа {n}",
+    "box-in": "{group}, {series}",
+    "group-column": "Группа",
+    "series-column": "Ряд",
+    "value": "Значение",
+    "min": "Минимум",
+    "q1": "Нижний квартиль",
+    "median": "Медиана",
+    "q3": "Верхний квартиль",
+    "max": "Максимум",
+    "mean": "Среднее",
+    "count": "Значений",
+    "outliers": "Выбросы",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "legend": "Ряды",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "toggle": {
+      "label": "Скрыть или показать ряд"
+    },
+    "select": {
+      "label": "Выбрать ящик"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Показать все ряды"
+    }
+  }
+}

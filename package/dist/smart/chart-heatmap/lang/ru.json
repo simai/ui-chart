@@ -1,0 +1,28 @@
+{
+  "title": "Тепловая карта",
+  "runtime": {
+    "untitled": "Тепловая карта",
+    "roledescription": "тепловая карта",
+    "cursor": "{y}, {x}: {value}",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "legend": "Шкала",
+    "step": "{from} – {to}",
+    "loading": "Загрузка данных диаграммы",
+    "empty-title": "Нет данных для диаграммы",
+    "error-title": "Не удалось загрузить данные",
+    "summary-grid": "Строк: {rows}, столбцов: {columns}; значения от {min} до {max}.",
+    "summary-high": "Наибольшее {value}: {y}, {x}.",
+    "summary-low": "Наименьшее {value}: {y}, {x}.",
+    "summary-gaps": "Без данных: {count}.",
+    "y-column": "Строка"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать ячейку"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  }
+}

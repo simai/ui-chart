@@ -1,0 +1,17 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-heatmap",
+  "title": "heatmap reference",
+  "summary": "Deterministic reference fixture for sf-chart-heatmap.",
+  "locale": "ru",
+  "props": {
+    "label": "Нагрузка по часам",
+    "x": "hour",
+    "y": "day",
+    "value": "load",
+    "value-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

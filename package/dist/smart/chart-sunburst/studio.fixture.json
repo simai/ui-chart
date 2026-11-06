@@ -1,0 +1,14 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-sunburst",
+  "title": "sunburst reference",
+  "summary": "Deterministic reference fixture for sf-chart-sunburst.",
+  "locale": "ru",
+  "props": {
+    "label": "Выручка по направлениям, млн ₽",
+    "y-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

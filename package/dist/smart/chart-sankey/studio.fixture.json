@@ -1,0 +1,17 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-sankey",
+  "title": "sankey reference",
+  "summary": "Deterministic reference fixture for sf-chart-sankey.",
+  "locale": "ru",
+  "props": {
+    "label": "Бюджет компании, млн ₽",
+    "source": "from",
+    "target": "to",
+    "value": "amount",
+    "y-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

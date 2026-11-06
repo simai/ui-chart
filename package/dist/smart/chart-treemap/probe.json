@@ -1,0 +1,101 @@
+{
+  "component": "sf-chart-treemap",
+  "probe": "sf-chart-treemap against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+  "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+  "page": {
+    "lang": "ru",
+    "body": [
+      "<main style=\"inline-size: 40rem\">",
+      "  <sf-chart-treemap id=\"c\" label=\"Выручка по направлениям, млн ₽\" x=\"name\" y=\"value\" group=\"area\" y-format=\"integer\"></sf-chart-treemap>",
+      "  <sf-chart-treemap id=\"f\" label=\"Бюджет отдела, тыс. ₽\" x=\"item\" x-label=\"Статья\" y-format=\"integer\" table=\"hidden\"></sf-chart-treemap>",
+      "  <sf-chart-treemap id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-treemap>",
+      "</main>"
+    ]
+  },
+  "probes": [
+    {
+      "id": "p1-figure-and-summary",
+      "title": "a figure named by its label; the plot is one group described by the total and the count of parts, the largest part and the largest group with their shares; a rectangle per part in a group of its own colour, the groups' names in bands and in the key",
+      "covers": "accessibility (role figure, name label), settings.items, settings.x, settings.y, settings.group, settings.labels, settings.summary, settings.legend",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"name\": \"Смартфоны\", \"value\": 420, \"area\": \"Электроника\"}, {\"name\": \"Ноутбуки\", \"value\": 310, \"area\": \"Электроника\"}, {\"name\": \"Наушники\", \"value\": 120, \"area\": \"Электроника\"}, {\"name\": \"Планшеты\", \"value\": 90, \"area\": \"Электроника\"}, {\"name\": \"Мебель\", \"value\": 260, \"area\": \"Дом\"}, {\"name\": \"Посуда\", \"value\": 110, \"area\": \"Дом\"}, {\"name\": \"Текстиль\", \"value\": 70, \"area\": \"Дом\"}, {\"name\": \"Обувь\", \"value\": 180, \"area\": \"Одежда\"}, {\"name\": \"Верхняя одежда\", \"value\": 150, \"area\": \"Одежда\"}, {\"name\": \"Аксессуары\", \"value\": 60, \"area\": \"Одежда\"}]; document.querySelector('#f').items = [{\"item\": \"Зарплаты\", \"amount\": 5200}, {\"item\": \"Аренда\", \"amount\": 1400}, {\"item\": \"Реклама\", \"amount\": 900}, {\"item\": \"Программы\", \"amount\": 450}, {\"item\": \"Обучение\", \"amount\": 300}, {\"item\": \"Связь\", \"amount\": 120}, {\"item\": \"Прочее\", \"amount\": 80}, {\"item\": \"Возврат\", \"amount\": null}]; return true; })()",
+          "wait": 400,
+          "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const groups = [...document.querySelectorAll('#c svg[role=group] .sf-chart-treemap-group')].map((g) => g.dataset.group + ':' + g.querySelectorAll('.sf-chart-treemap-part').length).join('|'); const keys = [...document.querySelectorAll('#c .sf-chart-treemap-legend-item')].map((li) => li.textContent.trim()).join('|'); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Выручка по направлениям, млн ₽' && s.getAttribute('aria-roledescription') === 'плиточная диаграмма' && s.tabIndex === 0 && d === 'Всего 1 770, частей: 10. Больше всего — «Смартфоны»: 420 (23,7 %). Групп: 3, крупнейшая — «Электроника»: 940 (53,1 %).' && groups === 'Электроника:4|Дом:3|Одежда:3' && keys === 'Электроника|Дом|Одежда' && document.querySelector('#c .sf-chart-treemap-group.sf-chart-treemap-c1').dataset.group === 'Электроника'; })()"
+        }
+      ]
+    },
+    {
+      "id": "p2-keyboard-cursor",
+      "title": "the arrows walk the parts largest first, each said with its group, value and share; Down goes to the next group's first part; End goes to the last part; Enter chooses it; Escape clears",
+      "covers": "keyboard.host (ArrowRight, ArrowDown, End, Enter, Escape), events.select",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"name\": \"Смартфоны\", \"value\": 420, \"area\": \"Электроника\"}, {\"name\": \"Ноутбуки\", \"value\": 310, \"area\": \"Электроника\"}, {\"name\": \"Наушники\", \"value\": 120, \"area\": \"Электроника\"}, {\"name\": \"Планшеты\", \"value\": 90, \"area\": \"Электроника\"}, {\"name\": \"Мебель\", \"value\": 260, \"area\": \"Дом\"}, {\"name\": \"Посуда\", \"value\": 110, \"area\": \"Дом\"}, {\"name\": \"Текстиль\", \"value\": 70, \"area\": \"Дом\"}, {\"name\": \"Обувь\", \"value\": 180, \"area\": \"Одежда\"}, {\"name\": \"Верхняя одежда\", \"value\": 150, \"area\": \"Одежда\"}, {\"name\": \"Аксессуары\", \"value\": 60, \"area\": \"Одежда\"}]; document.querySelector('#f').items = [{\"item\": \"Зарплаты\", \"amount\": 5200}, {\"item\": \"Аренда\", \"amount\": 1400}, {\"item\": \"Реклама\", \"amount\": 900}, {\"item\": \"Программы\", \"amount\": 450}, {\"item\": \"Обучение\", \"amount\": 300}, {\"item\": \"Связь\", \"amount\": 120}, {\"item\": \"Прочее\", \"amount\": 80}, {\"item\": \"Возврат\", \"amount\": null}]; return true; })()",
+          "wait": 400
+        },
+        {
+          "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-treemap-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Электроника — Смартфоны: 420 (23,7 %)')()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Электроника — Ноутбуки: 310 (17,5 %)')()"
+        },
+        {
+          "user": "keyboard:ArrowDown",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Дом — Мебель: 260 (14,7 %)')()"
+        },
+        {
+          "user": "keyboard:End",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Одежда — Аксессуары: 60 (3,4 %)' && document.querySelectorAll('#c .sf-chart-treemap-ring').length === 1)()"
+        },
+        {
+          "user": "keyboard:Enter",
+          "wait": 80,
+          "check": "(() => window.__chosen && window.__chosen.index === 9 && window.__chosen.row === 9 && window.__chosen.x === 'Аксессуары' && window.__chosen.group === 'Одежда' && window.__chosen.value === 60)()"
+        },
+        {
+          "user": "keyboard:Escape",
+          "wait": 80,
+          "check": "(() => !document.querySelector('#c .sf-chart-treemap-ring'))()"
+        }
+      ]
+    },
+    {
+      "id": "p3-one-level-and-table",
+      "title": "without a group field the parts are one level in the first colour with no key; a row without a value is counted in the summary; the hidden table has a row per part with its value and share",
+      "covers": "settings.group (unset), settings.x-label, settings.table, settings.summary",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"name\": \"Смартфоны\", \"value\": 420, \"area\": \"Электроника\"}, {\"name\": \"Ноутбуки\", \"value\": 310, \"area\": \"Электроника\"}, {\"name\": \"Наушники\", \"value\": 120, \"area\": \"Электроника\"}, {\"name\": \"Планшеты\", \"value\": 90, \"area\": \"Электроника\"}, {\"name\": \"Мебель\", \"value\": 260, \"area\": \"Дом\"}, {\"name\": \"Посуда\", \"value\": 110, \"area\": \"Дом\"}, {\"name\": \"Текстиль\", \"value\": 70, \"area\": \"Дом\"}, {\"name\": \"Обувь\", \"value\": 180, \"area\": \"Одежда\"}, {\"name\": \"Верхняя одежда\", \"value\": 150, \"area\": \"Одежда\"}, {\"name\": \"Аксессуары\", \"value\": 60, \"area\": \"Одежда\"}]; document.querySelector('#f').items = [{\"item\": \"Зарплаты\", \"amount\": 5200}, {\"item\": \"Аренда\", \"amount\": 1400}, {\"item\": \"Реклама\", \"amount\": 900}, {\"item\": \"Программы\", \"amount\": 450}, {\"item\": \"Обучение\", \"amount\": 300}, {\"item\": \"Связь\", \"amount\": 120}, {\"item\": \"Прочее\", \"amount\": 80}, {\"item\": \"Возврат\", \"amount\": null}]; return true; })()",
+          "wait": 400,
+          "check": "(() => { const s = document.querySelector('#f svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const head = [...document.querySelectorAll('#f table thead th')].map((t) => t.textContent.trim()).join('|'); const rows = [...document.querySelectorAll('#f table tbody tr')].map((r) => [...r.children].map((t) => t.textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')).join('|')); return d === 'Всего 8 450, частей: 7. Больше всего — «Зарплаты»: 5 200 (61,5 %). Три крупнейшие части — 88,8 % всего. Строк без положительного значения: 1.' && document.querySelectorAll('#f .sf-chart-treemap-group').length === 1 && document.querySelectorAll('#f .sf-chart-treemap-part').length === 7 && !document.querySelector('#f .sf-chart-treemap-legend') && head === 'Статья|Значение|Доля' && rows.length === 7 && rows[0] === 'Зарплаты|5 200|61,5 %' && rows[6] === 'Прочее|80|0,9 %'; })()"
+        }
+      ]
+    },
+    {
+      "id": "p4-error-refresh",
+      "title": "the error state offers a retry that sends refresh",
+      "covers": "settings.data-state, events.refresh",
+      "steps": [
+        {
+          "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-treemap-refresh', () => { window.__refresh += 1; }); return true; })()",
+          "wait": 200
+        },
+        {
+          "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+          "wait": 120,
+          "check": "(() => window.__refresh === 1)()"
+        }
+      ]
+    }
+  ]
+}

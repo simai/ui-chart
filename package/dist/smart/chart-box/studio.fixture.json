@@ -1,0 +1,18 @@
+{
+  "schema": "simai.smart-component-fixture.v2",
+  "id": "reference",
+  "component": "smart.chart-box",
+  "title": "box reference",
+  "summary": "Deterministic reference fixture for sf-chart-box.",
+  "locale": "ru",
+  "props": {
+    "label": "Время доставки по складам",
+    "x": "warehouse",
+    "y": "hours",
+    "x-label": "Склад",
+    "y-label": "Часов в пути",
+    "y-format": "integer"
+  },
+  "children": [],
+  "state": "default"
+}

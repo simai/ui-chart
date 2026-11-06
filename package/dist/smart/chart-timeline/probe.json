@@ -1,0 +1,123 @@
+{
+  "component": "sf-chart-timeline",
+  "probe": "sf-chart-timeline against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+  "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+  "page": {
+    "lang": "ru",
+    "body": [
+      "<main style=\"inline-size: 40rem\">",
+      "  <sf-chart-timeline id=\"c\" label=\"План проекта\" row=\"task\" status=\"status\"></sf-chart-timeline>",
+      "  <sf-chart-timeline id=\"s\" label=\"Состояние сервисов\" row=\"service\" start=\"from\" end=\"to\" status=\"state\" row-label=\"Сервис\" table=\"hidden\"></sf-chart-timeline>",
+      "  <sf-chart-timeline id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-timeline>",
+      "</main>"
+    ]
+  },
+  "probes": [
+    {
+      "id": "p1-figure-and-summary",
+      "title": "a figure named by its label; the plot is one group described by the rows, the ranges and the span, the longest range, the status that takes the most time and the milestones; a bar per range in a group of its status's colour, a diamond for the milestone, the rows' names at the start and the statuses in the key",
+      "covers": "accessibility (role figure, name label), settings.items, settings.row, settings.start, settings.end, settings.status, settings.summary, settings.legend",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"task\": \"Анализ\", \"start\": \"2026-03-02\", \"end\": \"2026-03-13\", \"status\": \"готово\"}, {\"task\": \"Дизайн\", \"start\": \"2026-03-09\", \"end\": \"2026-03-27\", \"status\": \"готово\"}, {\"task\": \"Разработка\", \"start\": \"2026-03-23\", \"end\": \"2026-04-24\", \"status\": \"в работе\"}, {\"task\": \"Тестирование\", \"start\": \"2026-04-13\", \"end\": \"2026-05-08\", \"status\": \"план\"}, {\"task\": \"Обучение\", \"start\": \"2026-04-27\", \"end\": \"2026-05-15\", \"status\": \"план\"}, {\"task\": \"Запуск\", \"start\": \"2026-05-15\", \"end\": \"2026-05-15\", \"status\": \"план\"}]; document.querySelector('#s').items = [{\"service\": \"API\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T09:40\", \"state\": \"работает\"}, {\"service\": \"API\", \"from\": \"2026-11-04T09:40\", \"to\": \"2026-11-04T10:25\", \"state\": \"с ошибками\"}, {\"service\": \"API\", \"from\": \"2026-11-04T10:25\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T03:00\", \"state\": \"работает\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T03:00\", \"to\": \"2026-11-04T03:30\", \"state\": \"недоступна\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T03:30\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T14:10\", \"state\": \"работает\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T14:10\", \"to\": \"2026-11-04T16:40\", \"state\": \"с ошибками\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T16:40\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Почта\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Почта\", \"from\": \"2026-11-05T00:00\", \"to\": null, \"state\": \"работает\"}]; return true; })()",
+          "wait": 400,
+          "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const statuses = [...document.querySelectorAll('#c svg[role=group] .sf-chart-timeline-status')].map((g) => g.dataset.status + ':' + g.querySelectorAll('.sf-chart-timeline-range, .sf-chart-timeline-milestone').length).join('|'); const keys = [...document.querySelectorAll('#c .sf-chart-timeline-legend-item')].map((li) => li.textContent.trim()).join('|'); const names = [...document.querySelectorAll('#c .sf-chart-timeline-name')].map((t) => t.textContent).join('|'); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'План проекта' && s.getAttribute('aria-roledescription') === 'диаграмма Ганта' && s.tabIndex === 0 && d === 'Рядов: 6, отрезков: 6, 2 марта 2026 г. – 15 мая 2026 г. (74 дн.). Дольше всего — «Разработка»: 32 дн. Больше всего времени — «план»: 41,3 %. Вех: 1.' && statuses === 'готово:2|в работе:1|план:3' && document.querySelectorAll('#c svg[role=group] .sf-chart-timeline-milestone').length === 1 && keys === 'готово|в работе|план' && names === 'Анализ|Дизайн|Разработка|Тестирование|Обучение|Запуск'; })()"
+        }
+      ]
+    },
+    {
+      "id": "p2-keyboard-cursor",
+      "title": "the arrows walk the ranges row after row, each said with its status, its dates and its length; Down goes to the nearest range of the next row; End goes to the milestone, said as one; Up goes to the nearest range of the row above; Enter chooses it; Escape clears",
+      "covers": "keyboard.host (ArrowRight, ArrowDown, End, ArrowUp, Enter, Escape), events.select",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"task\": \"Анализ\", \"start\": \"2026-03-02\", \"end\": \"2026-03-13\", \"status\": \"готово\"}, {\"task\": \"Дизайн\", \"start\": \"2026-03-09\", \"end\": \"2026-03-27\", \"status\": \"готово\"}, {\"task\": \"Разработка\", \"start\": \"2026-03-23\", \"end\": \"2026-04-24\", \"status\": \"в работе\"}, {\"task\": \"Тестирование\", \"start\": \"2026-04-13\", \"end\": \"2026-05-08\", \"status\": \"план\"}, {\"task\": \"Обучение\", \"start\": \"2026-04-27\", \"end\": \"2026-05-15\", \"status\": \"план\"}, {\"task\": \"Запуск\", \"start\": \"2026-05-15\", \"end\": \"2026-05-15\", \"status\": \"план\"}]; document.querySelector('#s').items = [{\"service\": \"API\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T09:40\", \"state\": \"работает\"}, {\"service\": \"API\", \"from\": \"2026-11-04T09:40\", \"to\": \"2026-11-04T10:25\", \"state\": \"с ошибками\"}, {\"service\": \"API\", \"from\": \"2026-11-04T10:25\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T03:00\", \"state\": \"работает\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T03:00\", \"to\": \"2026-11-04T03:30\", \"state\": \"недоступна\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T03:30\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T14:10\", \"state\": \"работает\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T14:10\", \"to\": \"2026-11-04T16:40\", \"state\": \"с ошибками\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T16:40\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Почта\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Почта\", \"from\": \"2026-11-05T00:00\", \"to\": null, \"state\": \"работает\"}]; return true; })()",
+          "wait": 400
+        },
+        {
+          "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-timeline-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Анализ, готово: 2 марта 2026 г. – 13 марта 2026 г., 11 дн.')()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Дизайн, готово: 9 марта 2026 г. – 27 марта 2026 г., 18 дн.')()"
+        },
+        {
+          "user": "keyboard:ArrowDown",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Разработка, в работе: 23 марта 2026 г. – 24 апреля 2026 г., 32 дн.')()"
+        },
+        {
+          "user": "keyboard:End",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Запуск, план: 15 мая 2026 г., веха' && document.querySelectorAll('#c .sf-chart-timeline-ring').length === 1)()"
+        },
+        {
+          "user": "keyboard:ArrowUp",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Обучение, план: 27 апреля 2026 г. – 15 мая 2026 г., 18 дн.')()"
+        },
+        {
+          "user": "keyboard:Enter",
+          "wait": 80,
+          "check": "(() => window.__chosen && window.__chosen.index === 4 && window.__chosen.row === 4 && window.__chosen.lane === 'Обучение' && window.__chosen.status === 'план' && window.__chosen.start === new Date(2026, 3, 27).getTime() && window.__chosen.end === new Date(2026, 4, 15).getTime())()"
+        },
+        {
+          "user": "keyboard:Escape",
+          "wait": 80,
+          "check": "(() => !document.querySelector('#c .sf-chart-timeline-ring'))()"
+        }
+      ]
+    },
+    {
+      "id": "p3-states-and-table",
+      "title": "many ranges on a row, as a service's states through a day: a range per state, the end said by its time within one day, a row without an end counted in the summary; the hidden table has a row per range with its status, start, end and length under the row label",
+      "covers": "settings.start (from), settings.end (to), settings.row-label, settings.table, settings.summary",
+      "steps": [
+        {
+          "script": "(() => { document.querySelector('#c').items = [{\"task\": \"Анализ\", \"start\": \"2026-03-02\", \"end\": \"2026-03-13\", \"status\": \"готово\"}, {\"task\": \"Дизайн\", \"start\": \"2026-03-09\", \"end\": \"2026-03-27\", \"status\": \"готово\"}, {\"task\": \"Разработка\", \"start\": \"2026-03-23\", \"end\": \"2026-04-24\", \"status\": \"в работе\"}, {\"task\": \"Тестирование\", \"start\": \"2026-04-13\", \"end\": \"2026-05-08\", \"status\": \"план\"}, {\"task\": \"Обучение\", \"start\": \"2026-04-27\", \"end\": \"2026-05-15\", \"status\": \"план\"}, {\"task\": \"Запуск\", \"start\": \"2026-05-15\", \"end\": \"2026-05-15\", \"status\": \"план\"}]; document.querySelector('#s').items = [{\"service\": \"API\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T09:40\", \"state\": \"работает\"}, {\"service\": \"API\", \"from\": \"2026-11-04T09:40\", \"to\": \"2026-11-04T10:25\", \"state\": \"с ошибками\"}, {\"service\": \"API\", \"from\": \"2026-11-04T10:25\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T03:00\", \"state\": \"работает\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T03:00\", \"to\": \"2026-11-04T03:30\", \"state\": \"недоступна\"}, {\"service\": \"База данных\", \"from\": \"2026-11-04T03:30\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-04T14:10\", \"state\": \"работает\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T14:10\", \"to\": \"2026-11-04T16:40\", \"state\": \"с ошибками\"}, {\"service\": \"Очередь\", \"from\": \"2026-11-04T16:40\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Почта\", \"from\": \"2026-11-04T00:00\", \"to\": \"2026-11-05T00:00\", \"state\": \"работает\"}, {\"service\": \"Почта\", \"from\": \"2026-11-05T00:00\", \"to\": null, \"state\": \"работает\"}]; return true; })()",
+          "wait": 400,
+          "check": "(() => { const s = document.querySelector('#s svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const head = [...document.querySelectorAll('#s table thead th')].map((t) => t.textContent.trim()).join('|'); const rows = [...document.querySelectorAll('#s table tbody tr')].map((r) => [...r.children].map((t) => t.textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')).join('|')); return d === 'Рядов: 4, отрезков: 10, 4 нояб. 2026 г., 00:00 – 5 нояб. 2026 г., 00:00 (24 ч). Дольше всего — «Почта»: 24 ч. Больше всего времени — «работает»: 96,1 %. Строк без верного начала и конца: 1.' && document.querySelectorAll('#s svg[role=group] .sf-chart-timeline-range').length === 10 && head === 'Сервис|Статус|Начало|Конец|Длительность' && rows.length === 10 && rows[1] === 'API|с ошибками|4 нояб. 2026 г., 09:40|4 нояб. 2026 г., 10:25|45 мин' && rows[4] === 'База данных|недоступна|4 нояб. 2026 г., 03:00|4 нояб. 2026 г., 03:30|30 мин'; })()"
+        },
+        {
+          "script": "(() => { document.querySelector('#s svg[role=group]').focus(); return true; })()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#s [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'API, с ошибками: 4 нояб. 2026 г., 09:40 – 10:25, 45 мин')()"
+        },
+        {
+          "user": "keyboard:ArrowDown",
+          "wait": 80,
+          "check": "(() => document.querySelector('#s [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'База данных, работает: 4 нояб. 2026 г., 03:30 – 5 нояб. 2026 г., 00:00, 21 ч')()"
+        }
+      ]
+    },
+    {
+      "id": "p4-error-refresh",
+      "title": "the error state offers a retry that sends refresh",
+      "covers": "settings.data-state, events.refresh",
+      "steps": [
+        {
+          "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-timeline-refresh', () => { window.__refresh += 1; }); return true; })()",
+          "wait": 200
+        },
+        {
+          "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+          "wait": 120,
+          "check": "(() => window.__refresh === 1)()"
+        }
+      ]
+    }
+  ]
+}

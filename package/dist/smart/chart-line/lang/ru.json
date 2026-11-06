@@ -1,0 +1,37 @@
+{
+  "title": "Линейный график",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "график",
+    "summary-range": "{from} — {to}.",
+    "summary-series": "{name}: от {first} до {last}, наибольшее {max} ({maxAt}), наименьшее {min} ({minAt}).",
+    "summary-empty": "Нет данных.",
+    "cursor": "{x}, {name}: {value}",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "legend": "Ряды",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные",
+    "x-column": "Значение по оси X",
+    "share": "{share} ({value})",
+    "summary-stacked": "Ряды сложены стопкой.",
+    "summary-normalized": "Ряды показаны долями от общей суммы."
+  },
+  "events": {
+    "toggle": {
+      "label": "Скрыть или показать ряд"
+    },
+    "select": {
+      "label": "Выбрать точку"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Показать все ряды"
+    }
+  }
+}

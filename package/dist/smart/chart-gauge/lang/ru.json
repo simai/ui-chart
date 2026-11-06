@@ -1,0 +1,35 @@
+{
+  "title": "Шкала",
+  "runtime": {
+    "untitled": "Шкала",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных диаграммы",
+    "empty-title": "Нет данных для диаграммы",
+    "error-title": "Не удалось загрузить данные",
+    "target": "Цель",
+    "target-line": "{name}: {target}",
+    "target-where": ", {where}",
+    "above": "выше на {by}",
+    "below": "ниже на {by}",
+    "at": "ровно",
+    "value-text": "{value}, {band}",
+    "zone-success": "Норма",
+    "zone-warning": "Внимание",
+    "zone-error": "Критично",
+    "zone-other": "Зона {number}",
+    "range": "{from} – {to}",
+    "summary-value": "{value} на шкале от {min} до {max} ({share}).",
+    "summary-over": "{value}: выше шкалы, она кончается на {max}.",
+    "summary-under": "{value}: ниже шкалы, она начинается с {min}.",
+    "summary-band": "Зона «{band}»: {range}.",
+    "summary-target": "{name} {target}: {where}.",
+    "value-column": "Значение",
+    "what-column": "Что"
+  },
+  "events": {
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  }
+}

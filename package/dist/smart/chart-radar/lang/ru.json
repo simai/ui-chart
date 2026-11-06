@@ -1,0 +1,41 @@
+{
+  "title": "Лепестковая диаграмма",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "лепестковая диаграмма",
+    "summary-spokes": "Осей: {count}, значения от {min} до {max}.",
+    "summary-one": "Сильнее всего — {high} ({highValue}), слабее всего — {low} ({lowValue}).",
+    "summary-series": "{name}: сильнее всего — {high} ({highValue}), слабее всего — {low} ({lowValue}).",
+    "summary-even": "Везде {value}.",
+    "summary-even-series": "{name}: везде {value}.",
+    "summary-compare": "{a} выше, чем {b}, на осях: {above} из {count}, ниже: {below}.",
+    "summary-gaps": "Пропусков: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{spoke}: {value}",
+    "cursor-series": "{spoke}, {series}: {value}",
+    "spoke-n": "Ось {n}",
+    "spoke-column": "Ось",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "legend": "Ряды",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "toggle": {
+      "label": "Скрыть или показать ряд"
+    },
+    "select": {
+      "label": "Выбрать значение"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Показать все ряды"
+    }
+  }
+}

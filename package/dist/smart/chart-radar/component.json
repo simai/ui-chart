@@ -1,0 +1,442 @@
+{
+  "$comment": "The source of sf-chart-radar (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Radar) and docs/research/parameters.md §1, the keyboard docs/research/rendering.md §3.1, the renderer D5, the name the owner's M2 plan of 2026-11-03 (docs/DECISIONS.md D9).",
+  "id": "smart.chart-radar",
+  "tag": "sf-chart-radar",
+  "version": "0.1.0",
+  "kind": "leaf",
+  "family": "chart",
+  "settings": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "summary": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+    },
+    "items": {
+      "type": "list",
+      "default": [],
+      "of": "object",
+      "summary": "The data: a list of records, one per spoke ([{skill, anna, boris}, …]), or an object of columns. A missing value is a gap: the series' ring is broken there, never drawn to zero."
+    },
+    "names": {
+      "type": "object",
+      "default": {},
+      "summary": "What each series is called, by its key: {eu: «Европа»}. A series without a name is called by its key."
+    },
+    "colors": {
+      "type": "object",
+      "default": {},
+      "summary": "What colour each series is, by its key: {fact: 'primary', plan: 'neutral'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A series without one keeps the palette by its place. In forced colours a series is its dash."
+    },
+    "palette": {
+      "type": "enum",
+      "values": [
+        "theme",
+        "vivid",
+        "soft",
+        "warm",
+        "cool",
+        "brand"
+      ],
+      "default": "theme",
+      "summary": "The seriess' colours as a named set, by place, each a light and a dark tone that change with the theme and hold 3:1 against surfaces 0-2: theme (the theme's own tones, as before), vivid (8, the first the brand's), soft (8, muted), warm (6), cool (6), brand (4 steps of the primary family, for ordered data). Past its size a set starts again. colors wins for the seriess it names."
+    },
+    "x": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the spokes, one per distinct value in the data's order, the first straight up and the rest clockwise; the first field when unset. 3 to 8 spokes read best."
+    },
+    "y": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the values, or a comma list, one series per field; with no y, every numeric field but x and series."
+    },
+    "series": {
+      "type": "string",
+      "default": "",
+      "summary": "The long form: one series per distinct value of this field, its value in the y field."
+    },
+    "min": {
+      "type": "number",
+      "optional": true,
+      "summary": "The value at the centre; zero, or the least value when below zero, when unset."
+    },
+    "max": {
+      "type": "number",
+      "optional": true,
+      "summary": "The value at the outer ring, for a scale with a known top (a score out of 10); the largest value, rounded up, when unset."
+    },
+    "grid": {
+      "type": "enum",
+      "values": [
+        "polygon",
+        "circle",
+        "none"
+      ],
+      "default": "polygon",
+      "summary": "The scale's rings: polygon (straight between the spokes), circle, or none (the outer ring only)."
+    },
+    "fill": {
+      "type": "enum",
+      "values": [
+        "area",
+        "none"
+      ],
+      "default": "area",
+      "summary": "area fills each series' ring lightly under its line; none draws the line only, for several series that overlap. A ring broken by a gap is never filled."
+    },
+    "legend": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "top",
+        "bottom",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto shows the legend above the plot when there are two series or more. Each entry is a button that hides and shows its series."
+    },
+    "tooltip": {
+      "type": "enum",
+      "values": [
+        "spoke",
+        "none"
+      ],
+      "default": "spoke",
+      "summary": "spoke: under the pointer or the cursor, the spoke's name and every shown series' value on it."
+    },
+    "x-label": {
+      "type": "string",
+      "default": "",
+      "summary": "The name of the spokes, said as the table's first column; the x field's name when unset."
+    },
+    "y-format": {
+      "type": "string",
+      "default": "number",
+      "summary": "The measure's format: number, integer, decimal-<n>, percent (a share 0..1), compact, currency-<CODE> or unit-<unit>, in the page's language."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "default": "1",
+      "summary": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own."
+    },
+    "table": {
+      "type": "enum",
+      "values": [
+        "toggle",
+        "visible",
+        "hidden"
+      ],
+      "default": "toggle",
+      "summary": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text."
+    },
+    "summary": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a sentence of what the data does (the count of spokes and the range, each series' strongest and weakest spoke, the first two series compared spoke by spoke, the gaps), said before the plot. The description slot adds the host's own words."
+    },
+    "data-state": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ],
+      "default": "auto",
+      "summary": "auto: ready with values, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh."
+    }
+  },
+  "values": {
+    "hidden-series": {
+      "type": "list",
+      "default": [],
+      "of": "string",
+      "summary": "The keys of the series the person hid with the legend."
+    }
+  },
+  "events": {
+    "toggle": {
+      "carries": {
+        "id": "string",
+        "hidden": "boolean"
+      },
+      "summary": "The person hid or showed a series with its legend button; applied at once (the vocabulary's local toggle)."
+    },
+    "select": {
+      "carries": {
+        "series": "string",
+        "index": "number",
+        "spoke": "string",
+        "value": "number"
+      },
+      "summary": "The person chose a value: a click on its mark or its spoke, or Enter or Space on the keyboard cursor. index is the spoke's place, spoke its name; value is null in a gap."
+    },
+    "refresh": {
+      "carries": {},
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items."
+    }
+  },
+  "actions": {
+    "reset": {
+      "with": {},
+      "x-outcomes": [
+        "applied"
+      ],
+      "summary": "Shows every series again and takes the cursor away."
+    }
+  },
+  "slots": {
+    "description": {
+      "$comment": "The host's own words about the chart: said with the summary (aria-describedby) and shown under the plot."
+    }
+  },
+  "keyboard": {
+    "host": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "PageUp": "focus:prev",
+      "PageDown": "focus:next",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    }
+  },
+  "relations": [
+    {
+      "name": "cl-empty-state"
+    }
+  ],
+  "templates": {
+    "default": {
+      "file": "js/templates/default.js",
+      "$comment": "The Lit template in JavaScript, the migration form of §5.2 (§16); the plot is SVG (D5): a radar draws a few marks per series, never thousands."
+    }
+  },
+  "styles": "js/templates/default.css",
+  "examples": "examples.json",
+  "docs": "docs.md",
+  "lang": "lang/",
+  "presentation": {
+    "skeleton": {
+      "$comment": "The items arrive after the first paint when the host loads them: the derived skeleton holds the plot's box (its height is the size rung's) until they do (standard 1.3.8 §5.4).",
+      "late": [
+        "items"
+      ]
+    }
+  },
+  "accessibility": {
+    "role": "figure",
+    "name": {
+      "from": [
+        "label",
+        "runtime.untitled"
+      ]
+    },
+    "keys": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "PageUp": "focus:prev",
+      "PageDown": "focus:next",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    },
+    "x-keys": "The plot is one Tab stop (role group, aria-roledescription «лепестковая диаграмма»). Left and Right move the cursor round the spokes, Up and Down across the shown series; Home and End to the first and last spoke; Page Up and Page Down a tenth at a time. Each move is said in a polite live region: the spoke, the series and the value. Enter and Space choose the value (select); Escape takes the cursor away. The legend entries and the table button are buttons of their own."
+  },
+  "css-variables": {
+    "--sf-chart-radar-height": {
+      "type": "length",
+      "state": "default"
+    },
+    "--sf-chart-radar-grid-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-radar-baseline-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-radar-label-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-radar-hover-background-color": {
+      "type": "color",
+      "state": "hover"
+    },
+    "--sf-chart-radar-hidden-color": {
+      "type": "color",
+      "state": "disabled"
+    }
+  },
+  "x-summary": "A radar chart: a spoke per measure from a centre, each series a ring through its values on one scale, to compare a few items over several measures; a legend that hides series, a tooltip, a keyboard cursor round the spokes and across the series, a summary in words, and the same data as a table.",
+  "x-source": {
+    "package": "chart",
+    "folder": "chart-radar",
+    "research": "simai/ui-chart docs/research/catalogue.md (Radar), docs/research/parameters.md §1 and aspect, docs/research/rendering.md §3.1"
+  },
+  "x-words": [
+    "label",
+    "x-label"
+  ],
+  "x-decisions": [
+    "name: sf-chart-radar, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart (the owner's M2 plan of 2026-11-03; docs/DECISIONS.md D9), family chart. Sent to the dispatcher for reservation on 2026-11-03.",
+    "data: items with the field mapping of the line and bar charts (D3): x names the spokes, y the series' fields or series the long form; the x field is always read as categories.",
+    "scale: one for every spoke, from min (zero by default) to max (the data's, rounded up, or given). A radar of measures on different scales is the misuse catalogue.md names; the docs send it to a grouped bar.",
+    "the first spoke points straight up and the rest go clockwise, as people read a clock face.",
+    "a gap breaks the ring and its fill, so a missing value never reads as zero.",
+    "renderer: own SVG (D5). A radar draws a few marks per series, so it has no canvas layer.",
+    "colour is never the only cue: a series past the first has its own values' mark shape (circle, square, triangle, diamond, a triangle down) and in forced colours its ring's dash.",
+    "keyboard: the arrows of rendering.md §3.1 over categories, as the bar chart's (chart-core/cursor): Left and Right round the spokes, Up and Down across the series.",
+    "summary: each series' strongest and weakest spoke, and the first two series compared spoke by spoke (above on so many of so many).",
+    "select: {series, index, spoke, value}.",
+    "table: never none; one row per spoke, a column per series."
+  ],
+  "x-registry": {
+    "capabilities": [
+      "interaction",
+      "keyboard",
+      "responsive",
+      "live-announcement"
+    ],
+    "persistence": {
+      "mode": "none",
+      "source_of_truth": "host",
+      "network_owner": "host",
+      "revision_field": null
+    },
+    "readiness": {
+      "level": "runnable",
+      "required_checks": [
+        "manifest",
+        "fixture",
+        "runtime-upgrade",
+        "keyboard",
+        "responsive",
+        "a11y"
+      ]
+    },
+    "tags": [
+      "chart",
+      "radar",
+      "spider",
+      "profile",
+      "data-visualization"
+    ],
+    "state": {
+      "machines": {
+        "data-state": [
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "visual_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "ownership": {
+      "source": "simai/ui-chart",
+      "data": "host",
+      "effects": "host",
+      "forbidden_client_responsibilities": [
+        "fetching data",
+        "aggregating on a server"
+      ]
+    },
+    "security": {
+      "permissions_owner": "host",
+      "untrusted_inputs": [
+        "props"
+      ],
+      "network_policy": "deny"
+    },
+    "presentation": {
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "locales": [
+        "ru",
+        "en"
+      ],
+      "responsive": [
+        "desktop",
+        "mobile",
+        "ltr",
+        "rtl",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "skeleton": {
+        "shape": "block",
+        "while_loading": "template"
+      }
+    },
+    "ai_guidance": {
+      "use_when": "Use sf-chart-radar to compare two or three items over 3 to 8 measures on one scale (skill profiles, product ratings out of 10).",
+      "do_not": [
+        "Do not draw a chart without a label",
+        "Do not mix measures on different scales; that is a grouped sf-chart-bar",
+        "Do not compare more than three items or read exact values from it; give them as a bar chart or the table"
+      ],
+      "required_reads": [
+        "inputs",
+        "events",
+        "accessibility"
+      ],
+      "minimal_example": "<sf-chart-radar label=\"Навыки команды\" x=\"skill\" y=\"anna,boris\" max=\"10\"></sf-chart-radar>",
+      "owner_commands": [
+        "node scripts/test.mjs"
+      ]
+    },
+    "accessibility": {
+      "accessible_name": "required",
+      "keyboard": [
+        "Tab",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Home",
+        "End",
+        "PageUp",
+        "PageDown",
+        "Enter",
+        "Space",
+        "Escape"
+      ],
+      "focus": "One Tab stop on the plot, then the legend buttons and the table button. The summary is the plot's description; each cursor move is said politely."
+    }
+  },
+  "x-rule": {
+    "$comment": [
+      "The chart draws its empty and error states as sf-empty-state; a tag it renders is a tag it fetches.",
+      "Its own buttons (the legend, the table toggle) are native buttons, so it fetches no sf-button."
+    ]
+  }
+}

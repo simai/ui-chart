@@ -1,0 +1,360 @@
+@layer sf.reset, sf.tokens, sf.base, sf.utilities, sf.components, sf.overrides, sf.states;
+@layer sf.components {
+  /* sf-chart-parts. Every value is a Framework token; light and dark come
+     from the roles. The public variables (component.json css-variables) are
+     read here and never set:
+       --sf-chart-parts-thickness    the bar's thickness (by size rung)
+       --sf-chart-parts-free-color   the free remainder of the capacity
+       --sf-chart-parts-label-color  the whole beside the label, the values
+       --sf-chart-parts-gap-width    the separator between parts */
+  sf-chart-parts {
+    display: block;
+    min-inline-size: 0;
+  }
+
+  .sf-chart-parts {
+    --sf-chart-parts--thickness: var(--sf-chart-parts-thickness, var(--sf-b2));
+    --sf-chart-parts--ink: var(--sf-chart-parts-label-color, var(--sf-on-surface-variant));
+    --sf-chart-parts--gap: var(--sf-chart-parts-gap-width, var(--sf-a2));
+    --sf-chart-parts--font: var(--sf-text-small--size);
+    --sf-chart-parts--line: var(--sf-text-small--height);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sf-space-1\/3);
+    margin: 0;
+    min-inline-size: 0;
+    color: var(--sf-on-surface);
+    font-family: var(--sf-text--family);
+  }
+
+  .sf-chart-parts--size-1-2 {
+    --sf-chart-parts--thickness: var(--sf-chart-parts-thickness, var(--sf-a6));
+    --sf-chart-parts--gap: var(--sf-chart-parts-gap-width, var(--sf-a1));
+  }
+
+  .sf-chart-parts--size-2 {
+    --sf-chart-parts--thickness: var(--sf-chart-parts-thickness, var(--sf-c0));
+    --sf-chart-parts--gap: var(--sf-chart-parts-gap-width, var(--sf-a3));
+    --sf-chart-parts--font: var(--sf-text-medium--size);
+    --sf-chart-parts--line: var(--sf-text-medium--height);
+  }
+
+  .sf-chart-parts-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--sf-space-1\/4) var(--sf-space-1\/2);
+    min-block-size: var(--sf-text-medium--height);
+  }
+
+  .sf-chart-parts-label {
+    font-size: var(--sf-text-medium--size);
+    line-height: var(--sf-text-medium--height);
+    font-weight: var(--sf-font-weight-medium);
+  }
+
+  .sf-chart-parts--size-1-2 .sf-chart-parts-label {
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+  }
+
+  .sf-chart-parts--size-2 .sf-chart-parts-label {
+    font-size: var(--sf-text-large--size);
+    line-height: var(--sf-text-large--height);
+  }
+
+  .sf-chart-parts-whole {
+    color: var(--sf-chart-parts--ink);
+    font-size: var(--sf-chart-parts--font);
+    line-height: var(--sf-chart-parts--line);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sf-chart-parts-head .sf-chart-parts-view {
+    margin-inline-start: auto;
+  }
+
+  .sf-chart-parts-layout {
+    display: grid;
+    gap: var(--sf-space-1\/2);
+  }
+
+  .sf-chart-parts-layout[hidden] {
+    display: none;
+  }
+
+  .sf-chart-parts-plot {
+    position: relative;
+    min-inline-size: 0;
+  }
+
+  /* The bar holds its thickness from the size rung before data arrive, and
+     its parts share its width by their values: the first paint and the
+     drawn bar are the same box at any width. The track has no colour of its
+     own, so the gaps between the parts are the page behind them. */
+  .sf-chart-parts-track {
+    display: flex;
+    gap: var(--sf-chart-parts--gap);
+    block-size: var(--sf-chart-parts--thickness);
+    overflow: hidden;
+    border-radius: var(--sf-radius-rounded);
+    touch-action: pan-y;
+  }
+
+  .sf-chart-parts-track:focus {
+    outline: none;
+  }
+
+  .sf-chart-parts-track:focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+
+  .sf-chart-parts-track--loading {
+    background: var(--sf-chart-parts-free-color, var(--sf-surface-3));
+  }
+
+  /* Series colours: the graphic tone of a role family, until the
+     Framework's categorical roles --sf-chart-1..8 arrive (docs/DECISIONS.md
+     D4). Past the fourth part the tones come again, lighter. */
+  .sf-chart-parts-series--c1 { --sf-chart-parts--series: var(--sf-on-primary-container-graphic); }
+  .sf-chart-parts-series--c2 { --sf-chart-parts--series: var(--sf-on-secondary-container-graphic); }
+  .sf-chart-parts-series--c3 { --sf-chart-parts--series: var(--sf-on-tertiary-container-graphic); }
+  .sf-chart-parts-series--c4 { --sf-chart-parts--series: var(--sf-on-neutral-container-graphic); }
+  /* A page's own colour (colors, docs/DECISIONS.md D6), set in a style. */
+  .sf-chart-parts-series--custom { --sf-chart-parts--series: var(--sf-chart-parts--custom); }
+  .sf-chart-parts-series--free { --sf-chart-parts--series: var(--sf-chart-parts-free-color, var(--sf-surface-3)); }
+
+  .sf-chart-parts-part {
+    flex-basis: 0;
+    flex-shrink: 1;
+    min-inline-size: var(--sf-a2);
+    background: var(--sf-chart-parts--series);
+  }
+
+  .sf-chart-parts-series--t2.sf-chart-parts-part,
+  .sf-chart-parts-series--t2 .sf-chart-parts-swatch {
+    opacity: 0.55;
+  }
+
+  /* The free remainder is the track itself; a sliver of it needs no width. */
+  .sf-chart-parts-series--free.sf-chart-parts-part {
+    min-inline-size: 0;
+  }
+
+  .sf-chart-parts-part--dim {
+    opacity: 0.4;
+  }
+
+  .sf-chart-parts-series--t2.sf-chart-parts-part--dim {
+    opacity: 0.25;
+  }
+
+  .sf-chart-parts-part--current {
+    box-shadow: inset 0 0 0 var(--sf-a1) var(--sf-on-surface);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sf-chart-parts-part {
+      transition: opacity var(--sf-duration-normal), flex-grow var(--sf-duration-normal);
+    }
+  }
+
+  .sf-chart-parts-swatch {
+    display: inline-block;
+    flex: none;
+    inline-size: var(--sf-a8);
+    block-size: var(--sf-a8);
+    border-radius: var(--sf-a2);
+    background: var(--sf-chart-parts--series);
+  }
+
+  .sf-chart-parts-series--free .sf-chart-parts-swatch {
+    box-shadow: inset 0 0 0 var(--sf-px) var(--sf-outline-variant);
+  }
+
+  /* The list: a row per part, its value and share aligned at the end. */
+  .sf-chart-parts-list {
+    display: grid;
+    gap: var(--sf-a2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--sf-chart-parts--font);
+    line-height: var(--sf-chart-parts--line);
+  }
+
+  .sf-chart-parts-item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto minmax(var(--sf-d0), auto);
+    align-items: center;
+    gap: var(--sf-space-1\/3);
+  }
+
+  .sf-chart-parts-item-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sf-chart-parts-item-value,
+  .sf-chart-parts-item-share {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sf-chart-parts-item-share {
+    color: var(--sf-chart-parts--ink);
+  }
+
+  .sf-chart-parts-list--inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sf-a2) var(--sf-space-1\/2);
+  }
+
+  .sf-chart-parts-list--inline .sf-chart-parts-item {
+    display: inline-flex;
+    gap: var(--sf-space-1\/4);
+  }
+
+  .sf-chart-parts-tooltip {
+    position: absolute;
+    inset-block-start: calc(100% + var(--sf-space-1\/4));
+    z-index: 1;
+    display: grid;
+    min-inline-size: var(--sf-f0);
+    max-inline-size: var(--sf-g0);
+    padding: var(--sf-space-1\/3) var(--sf-space-1\/2);
+    border-radius: var(--sf-radius-1);
+    background: var(--sf-elevation-2--surface);
+    box-shadow: var(--sf-elevation-2--shadow);
+    color: var(--sf-on-surface);
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    pointer-events: none;
+  }
+
+  .sf-chart-parts-tooltip--middle { translate: -50% 0; }
+  .sf-chart-parts-tooltip--end { translate: -100% 0; }
+  .sf-chart-parts-tooltip--middle:dir(rtl) { translate: 50% 0; }
+  .sf-chart-parts-tooltip--end:dir(rtl) { translate: 100% 0; }
+
+  .sf-chart-parts-tooltip-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--sf-space-1\/3);
+  }
+
+  .sf-chart-parts-tooltip-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sf-chart-parts-view {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: var(--sf-a2) var(--sf-space-1\/4);
+    border: var(--sf-px) solid var(--sf-outline-variant);
+    border-radius: var(--sf-radius-1);
+    background: transparent;
+    color: var(--sf-on-surface);
+    font: inherit;
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    cursor: pointer;
+  }
+
+  .sf-chart-parts-view:hover {
+    background: var(--sf-surface-transparent-hover);
+  }
+
+  .sf-chart-parts-view:focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+
+  .sf-chart-parts-view[aria-pressed='true'] {
+    background: var(--sf-surface-transparent-select);
+  }
+
+  .sf-chart-parts-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sf-chart-parts-description {
+    color: var(--sf-on-surface-variant);
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+  }
+
+  .sf-chart-parts-table {
+    overflow-x: auto;
+    max-block-size: var(--sf-g4);
+  }
+
+  .sf-chart-parts-table table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sf-chart-parts-table caption {
+    position: absolute;
+    clip-path: inset(50%);
+    inline-size: var(--sf-px);
+    block-size: var(--sf-px);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .sf-chart-parts-table th,
+  .sf-chart-parts-table td {
+    padding: var(--sf-a2) var(--sf-space-1\/3);
+    border-block-end: var(--sf-px) solid var(--sf-outline-variant);
+    text-align: end;
+  }
+
+  .sf-chart-parts-table th:first-child {
+    text-align: start;
+  }
+
+  .sf-chart-parts-table thead th,
+  .sf-chart-parts-table-free {
+    color: var(--sf-on-surface-variant);
+  }
+
+  .sf-chart-parts-table thead th {
+    font-weight: var(--sf-font-weight-medium);
+  }
+
+  /* For screen readers only: in the page's reading order, out of view. */
+  .sf-chart-parts-sr {
+    position: absolute;
+    clip-path: inset(50%);
+    inline-size: var(--sf-px);
+    block-size: var(--sf-px);
+    margin: calc(-1 * var(--sf-px));
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  @media (forced-colors: active) {
+    .sf-chart-parts-track { background: Canvas; outline: var(--sf-px) solid CanvasText; forced-color-adjust: none; }
+    .sf-chart-parts-part { background: CanvasText; opacity: 1; }
+    .sf-chart-parts-series--free.sf-chart-parts-part { background: Canvas; }
+    .sf-chart-parts-part--current { background: Highlight; }
+    .sf-chart-parts-swatch { background: CanvasText; forced-color-adjust: none; }
+    .sf-chart-parts-series--free .sf-chart-parts-swatch { background: Canvas; box-shadow: inset 0 0 0 var(--sf-px) CanvasText; }
+  }
+
+  @media print {
+    .sf-chart-parts-view,
+    .sf-chart-parts-tooltip { display: none; }
+  }
+}

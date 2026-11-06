@@ -1,0 +1,42 @@
+{
+  "title": "Waterfall chart",
+  "runtime": {
+    "untitled": "Chart",
+    "roledescription": "waterfall chart",
+    "summary-range": "Steps: {count}, from {start} to {finish}: {change}.",
+    "summary-most-up": "The step that added most is «{name}»: {value}.",
+    "summary-most-down": "The step that took away most is «{name}»: {value}.",
+    "summary-count": "Rises: {up}, falls: {down}.",
+    "summary-missing": "Rows without a value: {count}.",
+    "summary-empty": "No data.",
+    "cursor": "{name}: {change}, total {total}",
+    "cursor-total": "{name}: {total}",
+    "step-n": "Step {n}",
+    "step-column": "Step",
+    "end": "Total",
+    "change": "Change",
+    "total-value": "Total",
+    "up": "Rise",
+    "down": "Fall",
+    "total": "Total",
+    "legend": "Key",
+    "gap": "no data",
+    "show-table": "Table",
+    "loading": "Loading the chart's data",
+    "empty-title": "No data for the chart",
+    "error-title": "Could not load the data"
+  },
+  "events": {
+    "select": {
+      "label": "Choose a step"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Take the cursor away"
+    }
+  }
+}

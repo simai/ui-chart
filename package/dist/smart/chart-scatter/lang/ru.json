@@ -1,0 +1,49 @@
+{
+  "title": "Точечная диаграмма",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "точечная диаграмма",
+    "summary-range": "Точек: {count}. {xName}: от {xMin} до {xMax}; {yName}: от {yMin} до {yMax}.",
+    "summary-bubble": "Размер — {name}: от {min} до {max}.",
+    "summary-one": "Связь: {relation}.",
+    "summary-series": "{name} — связь: {relation}.",
+    "summary-top": "{yName}: больше всего — {high} ({highY}), меньше всего — {low} ({lowY}).",
+    "summary-missing": "Строк без координат: {count}.",
+    "summary-empty": "Нет данных.",
+    "relation": "{strength}, {direction} (r = {r})",
+    "relation-none": "нет (r = {r})",
+    "strength-weak": "слабая",
+    "strength-moderate": "умеренная",
+    "strength-strong": "сильная",
+    "direction-up": "прямая",
+    "direction-down": "обратная",
+    "cursor": "{name}: {xName} {x}, {yName} {y}{bubble}",
+    "cursor-bubble": ", {name} {value}",
+    "point-n": "Точка {n}",
+    "point-in": "{name}, {series}",
+    "point-column": "Точка",
+    "series-column": "Ряд",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "legend": "Ряды",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "toggle": {
+      "label": "Скрыть или показать ряд"
+    },
+    "select": {
+      "label": "Выбрать точку"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Показать все ряды"
+    }
+  }
+}

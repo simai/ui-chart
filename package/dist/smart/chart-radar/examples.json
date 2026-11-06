@@ -1,0 +1,590 @@
+{
+  "examples": [
+    {
+      "name": "reference",
+      "title": "Два профиля навыков",
+      "settings": {
+        "label": "Навыки: Анна и Борис",
+        "x": "skill",
+        "y": "anna,boris",
+        "max": 10,
+        "x-label": "Навык",
+        "y-format": "integer",
+        "names": {
+          "anna": "Анна",
+          "boris": "Борис"
+        },
+        "items": [
+          {
+            "skill": "Аналитика",
+            "anna": 8,
+            "boris": 5
+          },
+          {
+            "skill": "Код",
+            "anna": 9,
+            "boris": 6
+          },
+          {
+            "skill": "Дизайн",
+            "anna": 4,
+            "boris": 8
+          },
+          {
+            "skill": "Общение",
+            "anna": 6,
+            "boris": 9
+          },
+          {
+            "skill": "Тесты",
+            "anna": 7,
+            "boris": 4
+          },
+          {
+            "skill": "Планирование",
+            "anna": 5,
+            "boris": 7
+          }
+        ]
+      },
+      "expect": {
+        "name": "Навыки: Анна и Борис",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "radar reference",
+        "props": {
+          "label": "Навыки: Анна и Борис",
+          "x": "skill",
+          "y": "anna,boris",
+          "max": 10,
+          "x-label": "Навык",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "single",
+      "title": "Один ряд: оценка товара",
+      "settings": {
+        "label": "Оценка товара",
+        "x": "criterion",
+        "y": "score",
+        "max": 10,
+        "x-label": "Критерий",
+        "y-format": "integer",
+        "items": [
+          {
+            "criterion": "Цена",
+            "score": 7
+          },
+          {
+            "criterion": "Качество",
+            "score": 9
+          },
+          {
+            "criterion": "Доставка",
+            "score": 6
+          },
+          {
+            "criterion": "Сервис",
+            "score": 8
+          },
+          {
+            "criterion": "Упаковка",
+            "score": 5
+          }
+        ]
+      },
+      "expect": {
+        "name": "Оценка товара",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "radar single",
+        "props": {
+          "label": "Оценка товара",
+          "x": "criterion",
+          "y": "score",
+          "max": 10,
+          "x-label": "Критерий",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "lines",
+      "title": "Три ряда линиями, круглая сетка",
+      "settings": {
+        "label": "Команды по шести показателям",
+        "x": "month",
+        "y": "score",
+        "series": "team",
+        "fill": "none",
+        "grid": "circle",
+        "max": 10,
+        "names": {
+          "north": "Север",
+          "south": "Юг",
+          "west": "Запад"
+        },
+        "items": {
+          "month": [
+            "Скорость",
+            "Качество",
+            "Срок",
+            "Бюджет",
+            "Клиенты",
+            "Риски",
+            "Скорость",
+            "Качество",
+            "Срок",
+            "Бюджет",
+            "Клиенты",
+            "Риски",
+            "Скорость",
+            "Качество",
+            "Срок",
+            "Бюджет",
+            "Клиенты",
+            "Риски"
+          ],
+          "team": [
+            "north",
+            "north",
+            "north",
+            "north",
+            "north",
+            "north",
+            "south",
+            "south",
+            "south",
+            "south",
+            "south",
+            "south",
+            "west",
+            "west",
+            "west",
+            "west",
+            "west",
+            "west"
+          ],
+          "score": [
+            6,
+            7,
+            5,
+            8,
+            6,
+            7,
+            8,
+            5,
+            7,
+            6,
+            7,
+            4,
+            5,
+            8,
+            6,
+            5,
+            8,
+            6
+          ]
+        },
+        "y-format": "integer"
+      },
+      "expect": {
+        "name": "Команды по шести показателям",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "radar lines",
+        "props": {
+          "label": "Команды по шести показателям",
+          "x": "month",
+          "y": "score",
+          "series": "team",
+          "fill": "none",
+          "grid": "circle",
+          "max": 10,
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "gap",
+      "title": "Пропуск разрывает кольцо",
+      "settings": {
+        "label": "Оценка товара: без упаковки",
+        "x": "criterion",
+        "y": "score",
+        "max": 10,
+        "x-label": "Критерий",
+        "y-format": "integer",
+        "items": [
+          {
+            "criterion": "Цена",
+            "score": 7
+          },
+          {
+            "criterion": "Качество",
+            "score": 9
+          },
+          {
+            "criterion": "Доставка",
+            "score": 6
+          },
+          {
+            "criterion": "Сервис",
+            "score": 8
+          },
+          {
+            "criterion": "Упаковка",
+            "score": null
+          }
+        ]
+      },
+      "expect": {
+        "name": "Оценка товара: без упаковки",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "radar gap",
+        "props": {
+          "label": "Оценка товара: без упаковки",
+          "x": "criterion",
+          "y": "score",
+          "max": 10,
+          "x-label": "Критерий",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors",
+      "title": "Свои цвета рядов",
+      "settings": {
+        "label": "Навыки: свои цвета",
+        "x": "skill",
+        "y": "anna,boris",
+        "max": 10,
+        "x-label": "Навык",
+        "y-format": "integer",
+        "names": {
+          "anna": "Анна",
+          "boris": "Борис"
+        },
+        "colors": {
+          "anna": "primary",
+          "boris": "warning"
+        },
+        "items": [
+          {
+            "skill": "Аналитика",
+            "anna": 8,
+            "boris": 5
+          },
+          {
+            "skill": "Код",
+            "anna": 9,
+            "boris": 6
+          },
+          {
+            "skill": "Дизайн",
+            "anna": 4,
+            "boris": 8
+          },
+          {
+            "skill": "Общение",
+            "anna": 6,
+            "boris": 9
+          },
+          {
+            "skill": "Тесты",
+            "anna": 7,
+            "boris": 4
+          },
+          {
+            "skill": "Планирование",
+            "anna": 5,
+            "boris": 7
+          }
+        ]
+      },
+      "expect": {
+        "name": "Навыки: свои цвета",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "radar colors",
+        "props": {
+          "label": "Навыки: свои цвета",
+          "x": "skill",
+          "y": "anna,boris",
+          "max": 10,
+          "x-label": "Навык",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "small",
+      "title": "Маленький размер",
+      "settings": {
+        "label": "Навыки: Анна и Борис",
+        "x": "skill",
+        "y": "anna,boris",
+        "max": 10,
+        "x-label": "Навык",
+        "y-format": "integer",
+        "size": "1/2",
+        "names": {
+          "anna": "Анна",
+          "boris": "Борис"
+        },
+        "items": [
+          {
+            "skill": "Аналитика",
+            "anna": 8,
+            "boris": 5
+          },
+          {
+            "skill": "Код",
+            "anna": 9,
+            "boris": 6
+          },
+          {
+            "skill": "Дизайн",
+            "anna": 4,
+            "boris": 8
+          },
+          {
+            "skill": "Общение",
+            "anna": 6,
+            "boris": 9
+          },
+          {
+            "skill": "Тесты",
+            "anna": 7,
+            "boris": 4
+          },
+          {
+            "skill": "Планирование",
+            "anna": 5,
+            "boris": 7
+          }
+        ]
+      },
+      "expect": {
+        "name": "Навыки: Анна и Борис",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "radar small",
+        "props": {
+          "label": "Навыки: Анна и Борис",
+          "x": "skill",
+          "y": "anna,boris",
+          "max": 10,
+          "x-label": "Навык",
+          "y-format": "integer",
+          "size": "1/2"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "loading",
+      "title": "Загрузка",
+      "settings": {
+        "label": "Навыки: Анна и Борис",
+        "data-state": "loading"
+      },
+      "expect": {
+        "name": "Навыки: Анна и Борис"
+      }
+    },
+    {
+      "name": "empty",
+      "title": "Нет данных",
+      "settings": {
+        "label": "Навыки: Анна и Борис",
+        "items": []
+      },
+      "expect": {
+        "name": "Навыки: Анна и Борис"
+      }
+    },
+    {
+      "name": "error",
+      "title": "Ошибка",
+      "settings": {
+        "label": "Навыки: Анна и Борис",
+        "data-state": "error"
+      },
+      "expect": {
+        "name": "Навыки: Анна и Борис"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "conformance",
+      "title": "sf-chart-radar against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+      "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+      "page": {
+        "lang": "ru",
+        "body": [
+          "<main style=\"inline-size: 40rem\">",
+          "  <sf-chart-radar id=\"c\" label=\"Навыки: Анна и Борис\" x=\"skill\" y=\"anna,boris\" max=\"10\" x-label=\"Навык\" y-format=\"integer\"></sf-chart-radar>",
+          "  <sf-chart-radar id=\"g\" label=\"Оценка товара\" x=\"criterion\" y=\"score\" max=\"10\" grid=\"circle\" x-label=\"Критерий\" y-format=\"integer\" table=\"hidden\"></sf-chart-radar>",
+          "  <sf-chart-radar id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-radar>",
+          "</main>"
+        ]
+      },
+      "checks": [
+        {
+          "id": "p1-figure-and-summary",
+          "title": "a figure named by its label; the plot is one group described by the spokes' count and range, each series' strongest and weakest spoke and the two series compared; a spoke per measure, a filled ring per series, and the second series' marks of their own shape",
+          "covers": "accessibility (role figure, name label), settings.items, settings.x, settings.y, settings.max, settings.fill, settings.summary, settings.legend",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"anna\": \"Анна\", \"boris\": \"Борис\"}; c.items = [{\"skill\": \"Аналитика\", \"anna\": 8, \"boris\": 5}, {\"skill\": \"Код\", \"anna\": 9, \"boris\": 6}, {\"skill\": \"Дизайн\", \"anna\": 4, \"boris\": 8}, {\"skill\": \"Общение\", \"anna\": 6, \"boris\": 9}, {\"skill\": \"Тесты\", \"anna\": 7, \"boris\": 4}, {\"skill\": \"Планирование\", \"anna\": 5, \"boris\": 7}]; document.querySelector('#g').items = [{\"criterion\": \"Цена\", \"score\": 7}, {\"criterion\": \"Качество\", \"score\": 9}, {\"criterion\": \"Доставка\", \"score\": 6}, {\"criterion\": \"Сервис\", \"score\": 8}, {\"criterion\": \"Упаковка\", \"score\": null}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Навыки: Анна и Борис' && s.getAttribute('aria-roledescription') === 'лепестковая диаграмма' && s.tabIndex === 0 && d === 'Осей: 6, значения от 4 до 9. Анна: сильнее всего — Код (9), слабее всего — Дизайн (4). Борис: сильнее всего — Общение (9), слабее всего — Тесты (4). Анна выше, чем Борис, на осях: 3 из 6, ниже: 3.' && document.querySelectorAll('#c .sf-chart-radar-spoke').length === 6 && document.querySelectorAll('#c .sf-chart-radar-area').length === 2 && document.querySelectorAll('#c .sf-chart-radar-series[data-series=anna] > circle').length === 6 && document.querySelectorAll('#c .sf-chart-radar-series[data-series=boris] > path.sf-chart-radar-dot').length === 6 && [...document.querySelectorAll('#c .sf-chart-radar-tick')].pop().textContent === '10' && document.querySelectorAll('#c .sf-chart-radar-legend-item').length === 2; })()"
+            }
+          ]
+        },
+        {
+          "id": "p2-keyboard-cursor",
+          "title": "the arrows go round the spokes and across the series, each move said with the spoke, the series and the value; End goes to the last spoke; Enter chooses a value; Escape clears",
+          "covers": "keyboard.host (ArrowRight, ArrowDown, End, Enter, Escape), events.select",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"anna\": \"Анна\", \"boris\": \"Борис\"}; c.items = [{\"skill\": \"Аналитика\", \"anna\": 8, \"boris\": 5}, {\"skill\": \"Код\", \"anna\": 9, \"boris\": 6}, {\"skill\": \"Дизайн\", \"anna\": 4, \"boris\": 8}, {\"skill\": \"Общение\", \"anna\": 6, \"boris\": 9}, {\"skill\": \"Тесты\", \"anna\": 7, \"boris\": 4}, {\"skill\": \"Планирование\", \"anna\": 5, \"boris\": 7}]; document.querySelector('#g').items = [{\"criterion\": \"Цена\", \"score\": 7}, {\"criterion\": \"Качество\", \"score\": 9}, {\"criterion\": \"Доставка\", \"score\": 6}, {\"criterion\": \"Сервис\", \"score\": 8}, {\"criterion\": \"Упаковка\", \"score\": null}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-radar-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Аналитика, Анна: 8')()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Код, Анна: 9')()"
+            },
+            {
+              "user": "keyboard:ArrowDown",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Код, Борис: 6' && document.querySelectorAll('#c .sf-chart-radar-ring').length === 1)()"
+            },
+            {
+              "user": "keyboard:End",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Планирование, Борис: 7')()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__chosen && window.__chosen.series === 'boris' && window.__chosen.index === 5 && window.__chosen.spoke === 'Планирование' && window.__chosen.value === 7)()"
+            },
+            {
+              "user": "keyboard:Escape",
+              "wait": 80,
+              "check": "(() => !document.querySelector('#c .sf-chart-radar-ring'))()"
+            }
+          ]
+        },
+        {
+          "id": "p3-gap-and-table",
+          "title": "a gap breaks the ring and leaves it unfilled; the circle grid draws circles; the summary counts the gap; the hidden table has a row per spoke and leaves the gap empty",
+          "covers": "settings.grid, settings.table, settings.x-label",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"anna\": \"Анна\", \"boris\": \"Борис\"}; c.items = [{\"skill\": \"Аналитика\", \"anna\": 8, \"boris\": 5}, {\"skill\": \"Код\", \"anna\": 9, \"boris\": 6}, {\"skill\": \"Дизайн\", \"anna\": 4, \"boris\": 8}, {\"skill\": \"Общение\", \"anna\": 6, \"boris\": 9}, {\"skill\": \"Тесты\", \"anna\": 7, \"boris\": 4}, {\"skill\": \"Планирование\", \"anna\": 5, \"boris\": 7}]; document.querySelector('#g').items = [{\"criterion\": \"Цена\", \"score\": 7}, {\"criterion\": \"Качество\", \"score\": 9}, {\"criterion\": \"Доставка\", \"score\": 6}, {\"criterion\": \"Сервис\", \"score\": 8}, {\"criterion\": \"Упаковка\", \"score\": null}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const s = document.querySelector('#g svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const head = [...document.querySelectorAll('#g table thead th')].map((th) => th.textContent.trim()).join('|'); const last = [...document.querySelectorAll('#g table tbody tr:last-child > *')].map((td) => td.textContent.trim()).join('|'); return d === 'Осей: 5, значения от 6 до 9. Сильнее всего — Качество (9), слабее всего — Доставка (6). Пропусков: 1.' && !document.querySelector('#g .sf-chart-radar-area') && document.querySelectorAll('#g .sf-chart-radar-line').length === 1 && !document.querySelector('#g .sf-chart-radar-line').getAttribute('d').endsWith('Z') && document.querySelectorAll('#g .sf-chart-radar-dot').length === 4 && document.querySelectorAll('#g circle.sf-chart-radar-grid').length > 0 && head === 'Критерий|score' && document.querySelectorAll('#g table tbody tr').length === 5 && last === 'Упаковка|'; })()"
+            }
+          ]
+        },
+        {
+          "id": "p4-legend",
+          "title": "the legend hides a series and sends toggle",
+          "covers": "values.hidden-series, events.toggle, settings.names",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"anna\": \"Анна\", \"boris\": \"Борис\"}; c.items = [{\"skill\": \"Аналитика\", \"anna\": 8, \"boris\": 5}, {\"skill\": \"Код\", \"anna\": 9, \"boris\": 6}, {\"skill\": \"Дизайн\", \"anna\": 4, \"boris\": 8}, {\"skill\": \"Общение\", \"anna\": 6, \"boris\": 9}, {\"skill\": \"Тесты\", \"anna\": 7, \"boris\": 4}, {\"skill\": \"Планирование\", \"anna\": 5, \"boris\": 7}]; document.querySelector('#g').items = [{\"criterion\": \"Цена\", \"score\": 7}, {\"criterion\": \"Качество\", \"score\": 9}, {\"criterion\": \"Доставка\", \"score\": 6}, {\"criterion\": \"Сервис\", \"score\": 8}, {\"criterion\": \"Упаковка\", \"score\": null}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(() => { window.__toggled = null; document.querySelector('#c').addEventListener('sf-chart-radar-toggle', (event) => { window.__toggled = event.detail; }); document.querySelector('#c .sf-chart-radar-legend-item[data-series=boris]').click(); return true; })()",
+              "wait": 120,
+              "check": "(() => document.querySelectorAll('#c .sf-chart-radar-series').length === 1 && window.__toggled && window.__toggled.id === 'boris' && window.__toggled.hidden === true && document.querySelector('#c').hiddenSeries.join() === 'boris')()"
+            }
+          ]
+        },
+        {
+          "id": "p5-error-refresh",
+          "title": "the error state offers a retry that sends refresh",
+          "covers": "settings.data-state, events.refresh",
+          "steps": [
+            {
+              "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-radar-refresh', () => { window.__refresh += 1; }); return true; })()",
+              "wait": 200
+            },
+            {
+              "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+              "wait": 120,
+              "check": "(() => window.__refresh === 1)()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

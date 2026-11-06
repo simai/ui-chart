@@ -1,0 +1,770 @@
+{
+  "examples": [
+    {
+      "name": "reference",
+      "title": "Цена акции по дням",
+      "settings": {
+        "label": "Акция SIMA, октябрь 2026",
+        "x": "day",
+        "y-format": "decimal-1",
+        "y-label": "Цена, ₽",
+        "items": {
+          "day": [
+            "2026-10-01",
+            "2026-10-02",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09",
+            "2026-10-12",
+            "2026-10-13",
+            "2026-10-14",
+            "2026-10-15",
+            "2026-10-16",
+            "2026-10-19",
+            "2026-10-20",
+            "2026-10-21",
+            "2026-10-22",
+            "2026-10-23",
+            "2026-10-26",
+            "2026-10-27",
+            "2026-10-28"
+          ],
+          "open": [
+            101.0,
+            102.4,
+            104.1,
+            103.2,
+            105.8,
+            107.3,
+            106.1,
+            104.9,
+            106.6,
+            108.9,
+            110.2,
+            109.4,
+            111.8,
+            113.5,
+            112.1,
+            110.6,
+            112.9,
+            115.3,
+            114.2,
+            116.8
+          ],
+          "high": [
+            103.6,
+            105.6,
+            104.9,
+            107.7,
+            108.4,
+            107.9,
+            107.0,
+            108.3,
+            110.2,
+            111.8,
+            110.9,
+            113.6,
+            114.7,
+            114.0,
+            112.9,
+            114.5,
+            116.7,
+            116.2,
+            118.3,
+            119.4
+          ],
+          "low": [
+            100.1,
+            101.8,
+            101.6,
+            102.5,
+            105.0,
+            104.4,
+            103.5,
+            104.4,
+            105.7,
+            107.8,
+            107.9,
+            108.8,
+            110.9,
+            110.3,
+            109.2,
+            109.9,
+            111.9,
+            112.5,
+            113.4,
+            115.7
+          ],
+          "close": [
+            102.4,
+            104.1,
+            103.2,
+            105.8,
+            107.3,
+            106.1,
+            104.9,
+            106.6,
+            108.9,
+            110.2,
+            109.4,
+            111.8,
+            113.5,
+            112.1,
+            110.6,
+            112.9,
+            115.3,
+            114.2,
+            116.8,
+            118.1
+          ]
+        }
+      },
+      "expect": {
+        "name": "Акция SIMA, октябрь 2026",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "candlestick reference",
+        "props": {
+          "label": "Акция SIMA, октябрь 2026",
+          "x": "day",
+          "y-format": "decimal-1",
+          "y-label": "Цена, ₽"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "bar",
+      "title": "Палочки вместо свечей",
+      "settings": {
+        "label": "Акция SIMA: палочки",
+        "x": "day",
+        "y-format": "decimal-1",
+        "y-label": "Цена, ₽",
+        "shape": "bar",
+        "items": {
+          "day": [
+            "2026-10-01",
+            "2026-10-02",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09",
+            "2026-10-12",
+            "2026-10-13",
+            "2026-10-14",
+            "2026-10-15",
+            "2026-10-16",
+            "2026-10-19",
+            "2026-10-20",
+            "2026-10-21",
+            "2026-10-22",
+            "2026-10-23",
+            "2026-10-26",
+            "2026-10-27",
+            "2026-10-28"
+          ],
+          "open": [
+            101.0,
+            102.4,
+            104.1,
+            103.2,
+            105.8,
+            107.3,
+            106.1,
+            104.9,
+            106.6,
+            108.9,
+            110.2,
+            109.4,
+            111.8,
+            113.5,
+            112.1,
+            110.6,
+            112.9,
+            115.3,
+            114.2,
+            116.8
+          ],
+          "high": [
+            103.6,
+            105.6,
+            104.9,
+            107.7,
+            108.4,
+            107.9,
+            107.0,
+            108.3,
+            110.2,
+            111.8,
+            110.9,
+            113.6,
+            114.7,
+            114.0,
+            112.9,
+            114.5,
+            116.7,
+            116.2,
+            118.3,
+            119.4
+          ],
+          "low": [
+            100.1,
+            101.8,
+            101.6,
+            102.5,
+            105.0,
+            104.4,
+            103.5,
+            104.4,
+            105.7,
+            107.8,
+            107.9,
+            108.8,
+            110.9,
+            110.3,
+            109.2,
+            109.9,
+            111.9,
+            112.5,
+            113.4,
+            115.7
+          ],
+          "close": [
+            102.4,
+            104.1,
+            103.2,
+            105.8,
+            107.3,
+            106.1,
+            104.9,
+            106.6,
+            108.9,
+            110.2,
+            109.4,
+            111.8,
+            113.5,
+            112.1,
+            110.6,
+            112.9,
+            115.3,
+            114.2,
+            116.8,
+            118.1
+          ]
+        }
+      },
+      "expect": {
+        "name": "Акция SIMA: палочки",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "candlestick bar",
+        "props": {
+          "label": "Акция SIMA: палочки",
+          "x": "day",
+          "y-format": "decimal-1",
+          "y-label": "Цена, ₽",
+          "shape": "bar"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "quarters",
+      "title": "Подписи вместо дат",
+      "settings": {
+        "label": "Индекс по кварталам 2026",
+        "x": "q",
+        "y-format": "integer",
+        "items": [
+          {
+            "q": "I кв.",
+            "open": 80,
+            "high": 96,
+            "low": 74,
+            "close": 92
+          },
+          {
+            "q": "II кв.",
+            "open": 92,
+            "high": 99,
+            "low": 81,
+            "close": 85
+          },
+          {
+            "q": "III кв.",
+            "open": 85,
+            "high": 104,
+            "low": 84,
+            "close": 101
+          },
+          {
+            "q": "IV кв.",
+            "open": 101,
+            "high": 118,
+            "low": 97,
+            "close": 114
+          }
+        ]
+      },
+      "expect": {
+        "name": "Индекс по кварталам 2026",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "candlestick quarters",
+        "props": {
+          "label": "Индекс по кварталам 2026",
+          "x": "q",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors",
+      "title": "Свои цвета роста и падения",
+      "settings": {
+        "label": "Акция SIMA: свои цвета",
+        "x": "day",
+        "y-format": "decimal-1",
+        "y-label": "Цена, ₽",
+        "colors": {
+          "up": "primary",
+          "down": "warning"
+        },
+        "items": {
+          "day": [
+            "2026-10-01",
+            "2026-10-02",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09",
+            "2026-10-12",
+            "2026-10-13",
+            "2026-10-14",
+            "2026-10-15",
+            "2026-10-16",
+            "2026-10-19",
+            "2026-10-20",
+            "2026-10-21",
+            "2026-10-22",
+            "2026-10-23",
+            "2026-10-26",
+            "2026-10-27",
+            "2026-10-28"
+          ],
+          "open": [
+            101.0,
+            102.4,
+            104.1,
+            103.2,
+            105.8,
+            107.3,
+            106.1,
+            104.9,
+            106.6,
+            108.9,
+            110.2,
+            109.4,
+            111.8,
+            113.5,
+            112.1,
+            110.6,
+            112.9,
+            115.3,
+            114.2,
+            116.8
+          ],
+          "high": [
+            103.6,
+            105.6,
+            104.9,
+            107.7,
+            108.4,
+            107.9,
+            107.0,
+            108.3,
+            110.2,
+            111.8,
+            110.9,
+            113.6,
+            114.7,
+            114.0,
+            112.9,
+            114.5,
+            116.7,
+            116.2,
+            118.3,
+            119.4
+          ],
+          "low": [
+            100.1,
+            101.8,
+            101.6,
+            102.5,
+            105.0,
+            104.4,
+            103.5,
+            104.4,
+            105.7,
+            107.8,
+            107.9,
+            108.8,
+            110.9,
+            110.3,
+            109.2,
+            109.9,
+            111.9,
+            112.5,
+            113.4,
+            115.7
+          ],
+          "close": [
+            102.4,
+            104.1,
+            103.2,
+            105.8,
+            107.3,
+            106.1,
+            104.9,
+            106.6,
+            108.9,
+            110.2,
+            109.4,
+            111.8,
+            113.5,
+            112.1,
+            110.6,
+            112.9,
+            115.3,
+            114.2,
+            116.8,
+            118.1
+          ]
+        }
+      },
+      "expect": {
+        "name": "Акция SIMA: свои цвета",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "candlestick colors",
+        "props": {
+          "label": "Акция SIMA: свои цвета",
+          "x": "day",
+          "y-format": "decimal-1",
+          "y-label": "Цена, ₽"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "small",
+      "title": "Маленький размер",
+      "settings": {
+        "label": "Акция SIMA, октябрь 2026",
+        "x": "day",
+        "y-format": "decimal-1",
+        "y-label": "Цена, ₽",
+        "size": "1/2",
+        "items": {
+          "day": [
+            "2026-10-01",
+            "2026-10-02",
+            "2026-10-05",
+            "2026-10-06",
+            "2026-10-07",
+            "2026-10-08",
+            "2026-10-09",
+            "2026-10-12",
+            "2026-10-13",
+            "2026-10-14",
+            "2026-10-15",
+            "2026-10-16",
+            "2026-10-19",
+            "2026-10-20",
+            "2026-10-21",
+            "2026-10-22",
+            "2026-10-23",
+            "2026-10-26",
+            "2026-10-27",
+            "2026-10-28"
+          ],
+          "open": [
+            101.0,
+            102.4,
+            104.1,
+            103.2,
+            105.8,
+            107.3,
+            106.1,
+            104.9,
+            106.6,
+            108.9,
+            110.2,
+            109.4,
+            111.8,
+            113.5,
+            112.1,
+            110.6,
+            112.9,
+            115.3,
+            114.2,
+            116.8
+          ],
+          "high": [
+            103.6,
+            105.6,
+            104.9,
+            107.7,
+            108.4,
+            107.9,
+            107.0,
+            108.3,
+            110.2,
+            111.8,
+            110.9,
+            113.6,
+            114.7,
+            114.0,
+            112.9,
+            114.5,
+            116.7,
+            116.2,
+            118.3,
+            119.4
+          ],
+          "low": [
+            100.1,
+            101.8,
+            101.6,
+            102.5,
+            105.0,
+            104.4,
+            103.5,
+            104.4,
+            105.7,
+            107.8,
+            107.9,
+            108.8,
+            110.9,
+            110.3,
+            109.2,
+            109.9,
+            111.9,
+            112.5,
+            113.4,
+            115.7
+          ],
+          "close": [
+            102.4,
+            104.1,
+            103.2,
+            105.8,
+            107.3,
+            106.1,
+            104.9,
+            106.6,
+            108.9,
+            110.2,
+            109.4,
+            111.8,
+            113.5,
+            112.1,
+            110.6,
+            112.9,
+            115.3,
+            114.2,
+            116.8,
+            118.1
+          ]
+        }
+      },
+      "expect": {
+        "name": "Акция SIMA, октябрь 2026",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "candlestick small",
+        "props": {
+          "label": "Акция SIMA, октябрь 2026",
+          "x": "day",
+          "y-format": "decimal-1",
+          "y-label": "Цена, ₽",
+          "size": "1/2"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "loading",
+      "title": "Загрузка",
+      "settings": {
+        "label": "Акция SIMA, октябрь 2026",
+        "data-state": "loading"
+      },
+      "expect": {
+        "name": "Акция SIMA, октябрь 2026"
+      }
+    },
+    {
+      "name": "empty",
+      "title": "Нет данных",
+      "settings": {
+        "label": "Акция SIMA, октябрь 2026",
+        "items": []
+      },
+      "expect": {
+        "name": "Акция SIMA, октябрь 2026"
+      }
+    },
+    {
+      "name": "error",
+      "title": "Ошибка",
+      "settings": {
+        "label": "Акция SIMA, октябрь 2026",
+        "data-state": "error"
+      },
+      "expect": {
+        "name": "Акция SIMA, октябрь 2026"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "conformance",
+      "title": "sf-chart-candlestick against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+      "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+      "page": {
+        "lang": "ru",
+        "body": [
+          "<main style=\"inline-size: 40rem\">",
+          "  <sf-chart-candlestick id=\"c\" label=\"Акция SIMA, октябрь 2026\" x=\"day\" y-label=\"Цена, ₽\" y-format=\"decimal-1\"></sf-chart-candlestick>",
+          "  <sf-chart-candlestick id=\"q\" label=\"Индекс по кварталам 2026\" x=\"q\" x-label=\"Квартал\" y-format=\"integer\" table=\"hidden\"></sf-chart-candlestick>",
+          "  <sf-chart-candlestick id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-candlestick>",
+          "</main>"
+        ]
+      },
+      "checks": [
+        {
+          "id": "p1-figure-and-summary",
+          "title": "a figure named by its label; the plot is one group described by the periods, the change from the first open to the last close, the extremes and the count of rises and falls; a candle per period, rising ones hollow and falling ones filled",
+          "covers": "accessibility (role figure, name label), settings.items, settings.x, settings.open, settings.high, settings.low, settings.close, settings.summary, settings.legend",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"day\": \"2026-10-01\", \"open\": 101.0, \"high\": 103.6, \"low\": 100.1, \"close\": 102.4}, {\"day\": \"2026-10-02\", \"open\": 102.4, \"high\": 105.6, \"low\": 101.8, \"close\": 104.1}, {\"day\": \"2026-10-05\", \"open\": 104.1, \"high\": 104.9, \"low\": 101.6, \"close\": 103.2}, {\"day\": \"2026-10-06\", \"open\": 103.2, \"high\": 107.7, \"low\": 102.5, \"close\": 105.8}, {\"day\": \"2026-10-07\", \"open\": 105.8, \"high\": 108.4, \"low\": 105.0, \"close\": 107.3}, {\"day\": \"2026-10-08\", \"open\": 107.3, \"high\": 107.9, \"low\": 104.4, \"close\": 106.1}, {\"day\": \"2026-10-09\", \"open\": 106.1, \"high\": 107.0, \"low\": 103.5, \"close\": 104.9}, {\"day\": \"2026-10-12\", \"open\": 104.9, \"high\": 108.3, \"low\": 104.4, \"close\": 106.6}, {\"day\": \"2026-10-13\", \"open\": 106.6, \"high\": 110.2, \"low\": 105.7, \"close\": 108.9}, {\"day\": \"2026-10-14\", \"open\": 108.9, \"high\": 111.8, \"low\": 107.8, \"close\": 110.2}, {\"day\": \"2026-10-15\", \"open\": 110.2, \"high\": 110.9, \"low\": 107.9, \"close\": 109.4}, {\"day\": \"2026-10-16\", \"open\": 109.4, \"high\": 113.6, \"low\": 108.8, \"close\": 111.8}, {\"day\": \"2026-10-19\", \"open\": 111.8, \"high\": 114.7, \"low\": 110.9, \"close\": 113.5}, {\"day\": \"2026-10-20\", \"open\": 113.5, \"high\": 114.0, \"low\": 110.3, \"close\": 112.1}, {\"day\": \"2026-10-21\", \"open\": 112.1, \"high\": 112.9, \"low\": 109.2, \"close\": 110.6}, {\"day\": \"2026-10-22\", \"open\": 110.6, \"high\": 114.5, \"low\": 109.9, \"close\": 112.9}, {\"day\": \"2026-10-23\", \"open\": 112.9, \"high\": 116.7, \"low\": 111.9, \"close\": 115.3}, {\"day\": \"2026-10-26\", \"open\": 115.3, \"high\": 116.2, \"low\": 112.5, \"close\": 114.2}, {\"day\": \"2026-10-27\", \"open\": 114.2, \"high\": 118.3, \"low\": 113.4, \"close\": 116.8}, {\"day\": \"2026-10-28\", \"open\": 116.8, \"high\": 119.4, \"low\": 115.7, \"close\": 118.1}]; document.querySelector('#q').items = [{\"q\": \"I кв.\", \"open\": 80, \"high\": 96, \"low\": 74, \"close\": 92}, {\"q\": \"II кв.\", \"open\": 92, \"high\": 99, \"low\": 81, \"close\": 85}, {\"q\": \"III кв.\", \"open\": 85, \"high\": 104, \"low\": 84, \"close\": 101}, {\"q\": \"IV кв.\", \"open\": 101, \"high\": 118, \"low\": 97, \"close\": 114}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Акция SIMA, октябрь 2026' && s.getAttribute('aria-roledescription') === 'свечной график' && s.tabIndex === 0 && d === 'С 1 октября 2026 г. по 28 октября 2026 г. — свечей: 20. Открытие 101,0, закрытие 118,1: +17,1 (+16,9 %). Максимум 119,4 (28 октября 2026 г.), минимум 100,1 (1 октября 2026 г.). Рост: 13, падение: 7.' && document.querySelectorAll('#c svg[role=group] .sf-chart-candlestick-body').length === 20 && document.querySelectorAll('#c svg[role=group] .sf-chart-candlestick-down .sf-chart-candlestick-body').length === 7 && document.querySelectorAll('#c .sf-chart-candlestick-legend-item').length === 2; })()"
+            }
+          ]
+        },
+        {
+          "id": "p2-keyboard-cursor",
+          "title": "the arrows walk the candles in time order, each said with its period, its four prices and its change; End goes to the last; Enter chooses a candle; Escape clears",
+          "covers": "keyboard.host (ArrowRight, End, Enter, Escape), events.select",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"day\": \"2026-10-01\", \"open\": 101.0, \"high\": 103.6, \"low\": 100.1, \"close\": 102.4}, {\"day\": \"2026-10-02\", \"open\": 102.4, \"high\": 105.6, \"low\": 101.8, \"close\": 104.1}, {\"day\": \"2026-10-05\", \"open\": 104.1, \"high\": 104.9, \"low\": 101.6, \"close\": 103.2}, {\"day\": \"2026-10-06\", \"open\": 103.2, \"high\": 107.7, \"low\": 102.5, \"close\": 105.8}, {\"day\": \"2026-10-07\", \"open\": 105.8, \"high\": 108.4, \"low\": 105.0, \"close\": 107.3}, {\"day\": \"2026-10-08\", \"open\": 107.3, \"high\": 107.9, \"low\": 104.4, \"close\": 106.1}, {\"day\": \"2026-10-09\", \"open\": 106.1, \"high\": 107.0, \"low\": 103.5, \"close\": 104.9}, {\"day\": \"2026-10-12\", \"open\": 104.9, \"high\": 108.3, \"low\": 104.4, \"close\": 106.6}, {\"day\": \"2026-10-13\", \"open\": 106.6, \"high\": 110.2, \"low\": 105.7, \"close\": 108.9}, {\"day\": \"2026-10-14\", \"open\": 108.9, \"high\": 111.8, \"low\": 107.8, \"close\": 110.2}, {\"day\": \"2026-10-15\", \"open\": 110.2, \"high\": 110.9, \"low\": 107.9, \"close\": 109.4}, {\"day\": \"2026-10-16\", \"open\": 109.4, \"high\": 113.6, \"low\": 108.8, \"close\": 111.8}, {\"day\": \"2026-10-19\", \"open\": 111.8, \"high\": 114.7, \"low\": 110.9, \"close\": 113.5}, {\"day\": \"2026-10-20\", \"open\": 113.5, \"high\": 114.0, \"low\": 110.3, \"close\": 112.1}, {\"day\": \"2026-10-21\", \"open\": 112.1, \"high\": 112.9, \"low\": 109.2, \"close\": 110.6}, {\"day\": \"2026-10-22\", \"open\": 110.6, \"high\": 114.5, \"low\": 109.9, \"close\": 112.9}, {\"day\": \"2026-10-23\", \"open\": 112.9, \"high\": 116.7, \"low\": 111.9, \"close\": 115.3}, {\"day\": \"2026-10-26\", \"open\": 115.3, \"high\": 116.2, \"low\": 112.5, \"close\": 114.2}, {\"day\": \"2026-10-27\", \"open\": 114.2, \"high\": 118.3, \"low\": 113.4, \"close\": 116.8}, {\"day\": \"2026-10-28\", \"open\": 116.8, \"high\": 119.4, \"low\": 115.7, \"close\": 118.1}]; document.querySelector('#q').items = [{\"q\": \"I кв.\", \"open\": 80, \"high\": 96, \"low\": 74, \"close\": 92}, {\"q\": \"II кв.\", \"open\": 92, \"high\": 99, \"low\": 81, \"close\": 85}, {\"q\": \"III кв.\", \"open\": 85, \"high\": 104, \"low\": 84, \"close\": 101}, {\"q\": \"IV кв.\", \"open\": 101, \"high\": 118, \"low\": 97, \"close\": 114}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-candlestick-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === '1 октября 2026 г.: открытие 101,0, максимум 103,6, минимум 100,1, закрытие 102,4, +1,4 (+1,4 %)')()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === '2 октября 2026 г.: открытие 102,4, максимум 105,6, минимум 101,8, закрытие 104,1, +1,7 (+1,7 %)')()"
+            },
+            {
+              "user": "keyboard:End",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === '28 октября 2026 г.: открытие 116,8, максимум 119,4, минимум 115,7, закрытие 118,1, +1,3 (+1,1 %)' && document.querySelectorAll('#c .sf-chart-candlestick-ring').length === 1)()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__chosen && window.__chosen.index === 19 && window.__chosen.x === '2026-10-28' && window.__chosen.close === 118.1)()"
+            },
+            {
+              "user": "keyboard:Escape",
+              "wait": 80,
+              "check": "(() => !document.querySelector('#c .sf-chart-candlestick-ring'))()"
+            }
+          ]
+        },
+        {
+          "id": "p3-labels-and-table",
+          "title": "labels that are not dates keep their order and mark the axis; the hidden table has a row per period with its four prices and its change",
+          "covers": "settings.x (category), settings.table, settings.x-label",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"day\": \"2026-10-01\", \"open\": 101.0, \"high\": 103.6, \"low\": 100.1, \"close\": 102.4}, {\"day\": \"2026-10-02\", \"open\": 102.4, \"high\": 105.6, \"low\": 101.8, \"close\": 104.1}, {\"day\": \"2026-10-05\", \"open\": 104.1, \"high\": 104.9, \"low\": 101.6, \"close\": 103.2}, {\"day\": \"2026-10-06\", \"open\": 103.2, \"high\": 107.7, \"low\": 102.5, \"close\": 105.8}, {\"day\": \"2026-10-07\", \"open\": 105.8, \"high\": 108.4, \"low\": 105.0, \"close\": 107.3}, {\"day\": \"2026-10-08\", \"open\": 107.3, \"high\": 107.9, \"low\": 104.4, \"close\": 106.1}, {\"day\": \"2026-10-09\", \"open\": 106.1, \"high\": 107.0, \"low\": 103.5, \"close\": 104.9}, {\"day\": \"2026-10-12\", \"open\": 104.9, \"high\": 108.3, \"low\": 104.4, \"close\": 106.6}, {\"day\": \"2026-10-13\", \"open\": 106.6, \"high\": 110.2, \"low\": 105.7, \"close\": 108.9}, {\"day\": \"2026-10-14\", \"open\": 108.9, \"high\": 111.8, \"low\": 107.8, \"close\": 110.2}, {\"day\": \"2026-10-15\", \"open\": 110.2, \"high\": 110.9, \"low\": 107.9, \"close\": 109.4}, {\"day\": \"2026-10-16\", \"open\": 109.4, \"high\": 113.6, \"low\": 108.8, \"close\": 111.8}, {\"day\": \"2026-10-19\", \"open\": 111.8, \"high\": 114.7, \"low\": 110.9, \"close\": 113.5}, {\"day\": \"2026-10-20\", \"open\": 113.5, \"high\": 114.0, \"low\": 110.3, \"close\": 112.1}, {\"day\": \"2026-10-21\", \"open\": 112.1, \"high\": 112.9, \"low\": 109.2, \"close\": 110.6}, {\"day\": \"2026-10-22\", \"open\": 110.6, \"high\": 114.5, \"low\": 109.9, \"close\": 112.9}, {\"day\": \"2026-10-23\", \"open\": 112.9, \"high\": 116.7, \"low\": 111.9, \"close\": 115.3}, {\"day\": \"2026-10-26\", \"open\": 115.3, \"high\": 116.2, \"low\": 112.5, \"close\": 114.2}, {\"day\": \"2026-10-27\", \"open\": 114.2, \"high\": 118.3, \"low\": 113.4, \"close\": 116.8}, {\"day\": \"2026-10-28\", \"open\": 116.8, \"high\": 119.4, \"low\": 115.7, \"close\": 118.1}]; document.querySelector('#q').items = [{\"q\": \"I кв.\", \"open\": 80, \"high\": 96, \"low\": 74, \"close\": 92}, {\"q\": \"II кв.\", \"open\": 92, \"high\": 99, \"low\": 81, \"close\": 85}, {\"q\": \"III кв.\", \"open\": 85, \"high\": 104, \"low\": 84, \"close\": 101}, {\"q\": \"IV кв.\", \"open\": 101, \"high\": 118, \"low\": 97, \"close\": 114}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const ticks = [...document.querySelectorAll('#q .sf-chart-candlestick-axes text')].map((t) => t.textContent); const head = [...document.querySelectorAll('#q table thead th')].map((th) => th.textContent.trim()).join('|'); const second = [...document.querySelectorAll('#q table tbody tr:nth-child(2) > *')].map((td) => td.textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')).join('|'); return ['I кв.', 'II кв.', 'III кв.', 'IV кв.'].every((q) => ticks.includes(q)) && document.querySelectorAll('#q svg[role=group] .sf-chart-candlestick-body').length === 4 && head === 'Квартал|Открытие|Максимум|Минимум|Закрытие|Изменение' && second === 'II кв.|92|99|81|85|−7 (−7,6 %)'; })()"
+            }
+          ]
+        },
+        {
+          "id": "p4-error-refresh",
+          "title": "the error state offers a retry that sends refresh",
+          "covers": "settings.data-state, events.refresh",
+          "steps": [
+            {
+              "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-candlestick-refresh', () => { window.__refresh += 1; }); return true; })()",
+              "wait": 200
+            },
+            {
+              "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+              "wait": 120,
+              "check": "(() => window.__refresh === 1)()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

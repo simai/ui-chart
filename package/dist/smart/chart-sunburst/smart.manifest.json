@@ -1,0 +1,393 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-sunburst",
+  "version": "0.1.0",
+  "title": "Sunburst",
+  "summary": "A sunburst: a hierarchy as rings round a centre, a ring per level from the top nodes out, each arc its share of its parent's, read from ids and parents or from paths; a top node in a chart colour that its branch keeps, lighter past the first ring, with a line round each arc; a name along an arc where it fits and the total in the centre; a tooltip with the shares, a keyboard cursor round the rings and in and out of them, a summary in words, and every node as a row of a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "sunburst",
+    "part-to-whole",
+    "hierarchy",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-sunburst",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+      },
+      "node": {
+        "type": "string",
+        "default": "",
+        "description": "The field of a node's id; id when unset. (The setting is not called id: that is the element's own attribute.)"
+      },
+      "parent": {
+        "type": "string",
+        "default": "",
+        "description": "The field of a node's parent id; parent when unset. A parent that is not among the ids makes the node a top one."
+      },
+      "path": {
+        "type": "string",
+        "default": "",
+        "description": "The field holding a leaf's path, a list of names from the top down. When set, or when no node or parent is set and a field holds lists, the rows are read by path instead of by id and parent."
+      },
+      "value": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the values, positive; the first numeric field other than the id, the parent and the path when unset."
+      },
+      "name": {
+        "type": "string",
+        "default": "",
+        "description": "With ids and parents, the field of a node's name, written on its arc; the id when unset."
+      },
+      "labels": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto writes a node's name along the middle of its arc, cut with an ellipsis to the room, when the ring is a line and a half thick; an arc too small keeps its words in the tooltip, the live line and the table. none leaves them all there.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: under the pointer or the cursor, the arc's path, its value, its share of its parent and of the whole.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "y-format": {
+        "type": "string",
+        "default": "number",
+        "description": "The values' format: number, integer, decimal-<n>, compact, currency-<CODE> or unit-<unit>, in the page's language. Shares are always percent."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the levels, the parts and the total, the largest branch and the largest end part with their shares, the rows left out), said before the plot. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with parts, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records, or an object of columns. Either a node per row with its id and its parent ([{id, parent, value}, …]), or a leaf per row with its path, the names from the top down ([{path: ['Дом', 'Мебель'], value}, …]); the same path twice sums. A parent's value is its own with its children's. A row without an id or a path, a node with nothing to show, an id named twice and a chain of parents that comes back to itself are left out; the summary says how many."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "The colours of the branches by the top node's name ({Электроника: 'primary'}): a Framework role, which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A branch without one takes the chart colour of its top node's place, largest first."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-sunburst-select": {
+      "summary": "The person chose an arc: a click on it, or Enter or Space on the keyboard cursor. index is its place in the keyboard's order (ring after ring, clockwise), node its id (its path joined by a zero character with the path setting), name its name, path the names from the top down, depth its ring from 0, value its value with its children's, share its part of the whole, 0 to 1.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "index",
+          "node",
+          "name",
+          "path",
+          "depth",
+          "value",
+          "share"
+        ],
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "node": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "array"
+          },
+          "depth": {
+            "type": "number"
+          },
+          "value": {
+            "type": "number"
+          },
+          "share": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-sunburst-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-sunburst/index.js",
+        "sha256": "c476591ca595511724021b4d6e67f8a8457b8cb1d060ba6702503999df03ede9"
+      },
+      {
+        "path": "src/smart/chart-sunburst/js/templates/default.js",
+        "sha256": "50632072691fc7beef01af13be7ce6a5923a90f5825fdc0f10ccab912dad9b39"
+      },
+      {
+        "path": "src/smart/chart-sunburst/js/templates/default.css",
+        "sha256": "7e53c40c33059419510d2d787bf1ef863e2e1514b6d343750c8c7062933e1f4e"
+      },
+      {
+        "path": "src/smart/chart-sunburst/rule.js",
+        "sha256": "07885c9761f3e1b7657f6c54514264e8359aa48c0402e5363a29b6199f6219f6"
+      },
+      {
+        "path": "src/smart/chart-sunburst/docs.md",
+        "sha256": "cab07a17c9083a4e3443e5933784bcf44b6c637d28af500ec7a3345bfd95ccf7"
+      },
+      {
+        "path": "src/smart/chart-sunburst/component.json",
+        "sha256": "4a3518464c9517f69fcccf8ff4fd6a666ee8be4c0f264b1deee274f7f3795fcd"
+      },
+      {
+        "path": "src/smart/chart-sunburst/lang/en.json",
+        "sha256": "48fc3fccd82a917e6efe3dfcd6bbdae123f0e888c8578103bab4e7fced3f7700"
+      },
+      {
+        "path": "src/smart/chart-sunburst/lang/ru.json",
+        "sha256": "eea4e727eb8ef43ad1307b44051d1ac92166f9b07069a349b7c705fc4a438cb0"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-sunburst to show a hierarchy of parts where the levels matter: revenue by category and product, a budget by department and item, disk space by folder.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not use it to compare sizes exactly; a sf-chart-bar or a sf-chart-treemap reads them better",
+      "Do not use it for values that can be negative; an arc cannot show them"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-sunburst label=\"Выручка по направлениям\" parent=\"parent\" value=\"value\" y-format=\"integer\"></sf-chart-sunburst>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

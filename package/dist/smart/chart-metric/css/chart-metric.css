@@ -1,0 +1,263 @@
+@layer sf.reset, sf.tokens, sf.base, sf.utilities, sf.components, sf.overrides, sf.states;
+@layer sf.components {
+  /* sf-chart-metric. Every value is a Framework token; light and dark come from
+     the roles. The public variables (component.json css-variables) are read
+     here and never set:
+       --sf-chart-metric-background-color        the tile
+       --sf-chart-metric-label-color             the label and the period
+       --sf-chart-metric-value-color             the value
+       --sf-chart-metric-positive-color          a change for the better
+       --sf-chart-metric-negative-color          a change for the worse
+       --sf-chart-metric-meter-color             the limit's meter
+       --sf-chart-metric-hover-background-color  a link or button tile under the pointer
+       --sf-chart-metric-min-inline-size         the narrowest the tile gets */
+  sf-chart-metric {
+    display: block;
+    min-width: 0;
+    min-inline-size: 0;
+  }
+  _:-ms-input-placeholder, html:not([dir="rtl"]) .sf-chart-metric {
+    text-align: left;
+  }
+  @supports not (text-align: start) {
+  html:not([dir="rtl"]) .sf-chart-metric {
+    text-align: left;
+    }
+  }
+  .sf-chart-metric:where(:dir(ltr)) {
+    text-align: left;
+  }
+  _:-ms-input-placeholder, [dir="rtl"] .sf-chart-metric {
+    text-align: right;
+  }
+  @supports not (text-align: start) {
+  [dir="rtl"] .sf-chart-metric {
+    text-align: right;
+    }
+  }
+  .sf-chart-metric:where(:dir(rtl)) {
+    text-align: right;
+  }
+  .sf-chart-metric {
+    --sf-chart-metric--value: var(--sf-heading-3--size);
+    --sf-chart-metric--gap: var(--sf-space-1\/3);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sf-chart-metric--gap);
+    box-sizing: border-box;
+    width: 100%;
+    inline-size: 100%;
+    min-width: var(--sf-f0);
+    min-inline-size: var(--sf-f0);
+    min-width: var(--sf-f0);
+    min-width: var(--sf-chart-metric-min-inline-size, var(--sf-f0));
+    min-inline-size: var(--sf-chart-metric-min-inline-size, var(--sf-f0));
+    margin: 0;
+    padding: var(--sf-space-1\/2) var(--sf-space-1);
+    border: var(--sf-px) solid var(--sf-outline-variant);
+    border-radius: var(--sf-radius-2);
+    background: var(--sf-surface-1);
+    background: var(--sf-chart-metric-background-color, var(--sf-surface-1));
+    color: var(--sf-on-surface);
+    font: inherit;
+    font-family: var(--sf-text--family);
+    text-align: start;
+    text-decoration: none;
+  }
+  .sf-chart-metric--size-1-2 {
+    --sf-chart-metric--value: var(--sf-heading-5--size);
+    --sf-chart-metric--gap: var(--sf-a2);
+    padding: var(--sf-space-1\/3) var(--sf-space-1\/2);
+  }
+  .sf-chart-metric--size-2 {
+    --sf-chart-metric--value: var(--sf-heading-1--size);
+    --sf-chart-metric--gap: var(--sf-space-1\/2);
+    padding: var(--sf-space-1);
+  }
+  .sf-chart-metric--target {
+    cursor: pointer;
+  }
+  .sf-chart-metric--target:hover {
+    background: var(--sf-surface-container-hover);
+    background: var(--sf-chart-metric-hover-background-color, var(--sf-surface-container-hover));
+  }
+  .sf-chart-metric--target.focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+  .sf-chart-metric--target:focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+  .sf-chart-metric-label,
+  .sf-chart-metric-value {
+    display: block;
+  }
+  .sf-chart-metric-label {
+    color: var(--sf-on-surface-variant);
+    color: var(--sf-chart-metric-label-color, var(--sf-on-surface-variant));
+    font-size: var(--sf-text-medium--size);
+    line-height: var(--sf-text-medium--height);
+  }
+  .sf-chart-metric--size-1-2 .sf-chart-metric-label {
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+  }
+  /* The value line never wraps inside a number. */
+  .sf-chart-metric-value {
+    color: var(--sf-on-surface);
+    color: var(--sf-chart-metric-value-color, var(--sf-on-surface));
+    font-size: var(--sf-chart-metric--value);
+    font-weight: var(--sf-font-weight-medium);
+    line-height: 1.2;
+    -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sf-chart-metric-skeleton {
+    display: inline-block;
+    width: 60%;
+    inline-size: 60%;
+    height: 0.9em;
+    block-size: 0.9em;
+    border-radius: var(--sf-radius-1);
+    background: var(--sf-surface-3);
+    vertical-align: middle;
+  }
+  .sf-chart-metric-delta,
+  .sf-chart-metric-status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sf-space-1\/4) var(--sf-space-1\/3);
+    margin: 0;
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+  }
+  .sf-chart-metric-change {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sf-a4);
+    padding: 0 var(--sf-a6);
+    border-radius: var(--sf-radius-1);
+    font-weight: var(--sf-font-weight-medium);
+    -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+  .sf-chart-metric-change--positive {
+    background: var(--sf-success-container);
+    color: var(--sf-on-success-container);
+    color: var(--sf-chart-metric-positive-color, var(--sf-on-success-container));
+  }
+  .sf-chart-metric-change--negative {
+    background: var(--sf-error-container);
+    color: var(--sf-on-error-container);
+    color: var(--sf-chart-metric-negative-color, var(--sf-on-error-container));
+  }
+  .sf-chart-metric-change--neutral {
+    background: var(--sf-neutral-container);
+    color: var(--sf-on-neutral-container);
+  }
+  .sf-chart-metric-arrow {
+    font-size: 0.75em;
+  }
+  .sf-chart-metric-period,
+  .sf-chart-metric-hint,
+  .sf-chart-metric-limit {
+    color: var(--sf-on-surface-variant);
+    color: var(--sf-chart-metric-label-color, var(--sf-on-surface-variant));
+  }
+  .sf-chart-metric-meter {
+    display: grid;
+    grid-gap: var(--sf-a4);
+    gap: var(--sf-a4);
+  }
+  .sf-chart-metric-bar {
+    --sf-progress-bar-fill-color: var(--sf-chart-metric-meter-color);
+  }
+  .sf-chart-metric-limit {
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    -webkit-font-feature-settings: "tnum";
+            font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+  /* The hint wraps inside itself; the dot stays on its first line. */
+  .sf-chart-metric-status {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+  .sf-chart-metric-hint {
+    min-width: 0;
+    min-inline-size: 0;
+  }
+  .sf-chart-metric-dot {
+    flex: none;
+    margin-top: calc((var(--sf-text-small--height) - var(--sf-a8)) / 2);
+    -webkit-margin-before: calc((var(--sf-text-small--height) - var(--sf-a8)) / 2);
+            margin-block-start: calc((var(--sf-text-small--height) - var(--sf-a8)) / 2);
+    width: var(--sf-a8);
+    inline-size: var(--sf-a8);
+    height: var(--sf-a8);
+    block-size: var(--sf-a8);
+    border-radius: 50%;
+    background: var(--sf-on-neutral-container-graphic);
+  }
+  .sf-chart-metric-status--success .sf-chart-metric-dot {
+    background: var(--sf-on-success-container-graphic);
+  }
+  .sf-chart-metric-status--warning .sf-chart-metric-dot {
+    background: var(--sf-on-warning-container-graphic);
+  }
+  .sf-chart-metric-status--error .sf-chart-metric-dot {
+    background: var(--sf-on-error-container-graphic);
+  }
+  .sf-chart-metric-status--info .sf-chart-metric-dot {
+    background: var(--sf-on-info-container-graphic);
+  }
+  /* The page's chart (an sf-chart-sparkline) fills the tile's width. */
+  .sf-chart-metric-chart {
+    --sf-chart-sparkline-width: 100%;
+    display: flex;
+    min-width: 0;
+    min-inline-size: 0;
+  }
+  .sf-chart-metric-chart[hidden] {
+    display: none;
+  }
+  .sf-chart-metric-chart > * {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-inline-size: 0;
+  }
+  /* For screen readers only: in the page's reading order, out of view. */
+  .sf-chart-metric-sr {
+    position: absolute;
+    -webkit-clip-path: inset(50%);
+            clip-path: inset(50%);
+    width: var(--sf-px);
+    inline-size: var(--sf-px);
+    height: var(--sf-px);
+    block-size: var(--sf-px);
+    margin: calc(-1 * var(--sf-px));
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  @media (forced-colors: active) {
+    .sf-chart-metric {
+      border-color: CanvasText;
+    }
+    .sf-chart-metric-change {
+      border: var(--sf-px) solid CanvasText;
+    }
+    .sf-chart-metric-dot {
+      background: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+}

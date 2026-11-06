@@ -1,0 +1,34 @@
+{
+  "title": "Funnel",
+  "runtime": {
+    "untitled": "Funnel",
+    "roledescription": "funnel",
+    "cursor": "{name}: {stage}",
+    "gap": "no data",
+    "show-table": "Table",
+    "loading": "Loading the chart data",
+    "empty-title": "No data for the chart",
+    "error-title": "The data could not be loaded",
+    "stage-first": "{value}",
+    "stage-next": "{value}, {previous} of the previous, {first} of the first",
+    "previous-short": "{share} of the previous",
+    "first-short": "{share} of the first",
+    "summary-whole": "Stages: {count}, from {from} to {to}, overall conversion {overall}.",
+    "summary-short": "Stages: {count}.",
+    "summary-worst": "The most is lost between «{from}» and «{to}»: {share} go on.",
+    "summary-grows": "The stages are not nested: a stage is larger than the one before.",
+    "summary-gaps": "No data: {count}.",
+    "stage-column": "Stage",
+    "value-column": "Value",
+    "previous-column": "Of the previous",
+    "first-column": "Of the first"
+  },
+  "events": {
+    "select": {
+      "label": "Choose a stage"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  }
+}

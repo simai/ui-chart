@@ -1,0 +1,43 @@
+{
+  "title": "Диаграмма Санки",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "диаграмма потоков",
+    "summary-total": "Узлов: {nodes}, потоков: {flows}, этапов: {columns}; всего {total}.",
+    "summary-largest": "Крупнейший поток — «{source}» → «{target}»: {value} ({share} от «{source}»).",
+    "summary-end": "Больше всего приходит в «{name}»: {value} ({share}).",
+    "summary-left": "Строк без потока: {count}.",
+    "summary-looped": "Потоков, замыкающих круг, пропущено: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{name}: {value}",
+    "cursor-in": "приходит из {list}",
+    "cursor-out": "уходит в {list}",
+    "flow-item": "«{name}» {value}",
+    "more": "{list} и ещё {count}",
+    "flow-name": "{source} → {target}",
+    "source": "Откуда",
+    "target": "Куда",
+    "value": "Значение",
+    "share-of-source": "Доля от источника",
+    "in": "Приходит",
+    "out": "Уходит",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать узел"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Убрать курсор"
+    }
+  }
+}

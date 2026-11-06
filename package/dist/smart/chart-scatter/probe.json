@@ -1,0 +1,102 @@
+{
+  "component": "sf-chart-scatter",
+  "probe": "sf-chart-scatter against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+  "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+  "page": {
+    "lang": "ru",
+    "body": [
+      "<main style=\"inline-size: 40rem\">",
+      "  <sf-chart-scatter id=\"c\" label=\"Цена и продажи товаров\" x=\"price\" y=\"sold\" series=\"kind\" point=\"product\" x-label=\"Цена, ₽\" y-label=\"Продано, шт.\" x-format=\"integer\" y-format=\"integer\"></sf-chart-scatter>",
+      "  <sf-chart-scatter id=\"b\" label=\"Регионы\" x=\"managers\" y=\"revenue\" bubble=\"clients\" point=\"region\" x-label=\"Менеджеров\" y-label=\"Выручка, млн ₽\" bubble-label=\"Клиентов\" x-format=\"integer\" y-format=\"integer\" bubble-format=\"integer\" trend=\"linear\" table=\"hidden\"></sf-chart-scatter>",
+      "  <sf-chart-scatter id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-scatter>",
+      "</main>"
+    ]
+  },
+  "probes": [
+    {
+      "id": "p1-figure-and-summary",
+      "title": "a figure named by its label; the plot is one group described by the points' count and ranges, each series' relation in words with r, and the highest and lowest named point; a series past the first has its own mark's shape",
+      "covers": "accessibility (role figure, name label), settings.items, settings.series, settings.point, settings.summary, settings.legend",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"electronics\": \"Электроника\", \"accessories\": \"Аксессуары\"}; c.items = [{\"product\": \"Наушники\", \"kind\": \"electronics\", \"price\": 1200, \"sold\": 340}, {\"product\": \"Колонка\", \"kind\": \"electronics\", \"price\": 2500, \"sold\": 260}, {\"product\": \"Часы\", \"kind\": \"electronics\", \"price\": 3900, \"sold\": 210}, {\"product\": \"Планшет\", \"kind\": \"electronics\", \"price\": 5400, \"sold\": 150}, {\"product\": \"Телефон\", \"kind\": \"electronics\", \"price\": 7800, \"sold\": 120}, {\"product\": \"Ноутбук\", \"kind\": \"electronics\", \"price\": 9900, \"sold\": 80}, {\"product\": \"Чехол\", \"kind\": \"accessories\", \"price\": 300, \"sold\": 520}, {\"product\": \"Кабель\", \"kind\": \"accessories\", \"price\": 650, \"sold\": 470}, {\"product\": \"Зарядка\", \"kind\": \"accessories\", \"price\": 900, \"sold\": 390}, {\"product\": \"Сумка\", \"kind\": \"accessories\", \"price\": 1500, \"sold\": 350}, {\"product\": \"Подставка\", \"kind\": \"accessories\", \"price\": 2200, \"sold\": 240}, {\"product\": \"Клавиатура\", \"kind\": \"accessories\", \"price\": 2900, \"sold\": 230}]; document.querySelector('#b').items = [{\"region\": \"Север\", \"managers\": 4, \"revenue\": 18, \"clients\": 120}, {\"region\": \"Юг\", \"managers\": 7, \"revenue\": 31, \"clients\": 260}, {\"region\": \"Запад\", \"managers\": 5, \"revenue\": 26, \"clients\": 180}, {\"region\": \"Восток\", \"managers\": 3, \"revenue\": 12, \"clients\": 90}, {\"region\": \"Центр\", \"managers\": 9, \"revenue\": 44, \"clients\": 410}, {\"region\": \"Урал\", \"managers\": 6, \"revenue\": 24, \"clients\": 150}, {\"region\": \"Сибирь\", \"managers\": 2, \"revenue\": 9, \"clients\": 60}, {\"region\": \"Волга\", \"managers\": 8, \"revenue\": 35, \"clients\": 300}]; return true; })()",
+          "wait": 250,
+          "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Цена и продажи товаров' && s.getAttribute('aria-roledescription') === 'точечная диаграмма' && s.tabIndex === 0 && /^Точек: 12\\. Цена, ₽: от 300 до 9 900; Продано, шт\\.: от 80 до 520\\. Электроника — связь: сильная, обратная \\(r = [-−]0,96\\)\\. Аксессуары — связь: сильная, обратная \\(r = [-−]0,97\\)\\. Продано, шт\\.: больше всего — Чехол, Аксессуары \\(520\\), меньше всего — Ноутбук, Электроника \\(80\\)\\.$/u.test(d) && document.querySelectorAll('#c .sf-chart-scatter-series').length === 2 && document.querySelectorAll('#c .sf-chart-scatter-series[data-series=electronics] > circle').length === 6 && document.querySelectorAll('#c .sf-chart-scatter-series[data-series=accessories] > path').length === 6 && document.querySelectorAll('#c .sf-chart-scatter-legend-item').length === 2; })()"
+        }
+      ]
+    },
+    {
+      "id": "p2-keyboard-cursor",
+      "title": "the arrows walk the points in reading order, each move said with the point's name and measures; Up goes to the nearest point above; Enter chooses a point; Escape clears",
+      "covers": "keyboard.host (ArrowRight, ArrowUp, End, Enter, Escape), events.select",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"electronics\": \"Электроника\", \"accessories\": \"Аксессуары\"}; c.items = [{\"product\": \"Наушники\", \"kind\": \"electronics\", \"price\": 1200, \"sold\": 340}, {\"product\": \"Колонка\", \"kind\": \"electronics\", \"price\": 2500, \"sold\": 260}, {\"product\": \"Часы\", \"kind\": \"electronics\", \"price\": 3900, \"sold\": 210}, {\"product\": \"Планшет\", \"kind\": \"electronics\", \"price\": 5400, \"sold\": 150}, {\"product\": \"Телефон\", \"kind\": \"electronics\", \"price\": 7800, \"sold\": 120}, {\"product\": \"Ноутбук\", \"kind\": \"electronics\", \"price\": 9900, \"sold\": 80}, {\"product\": \"Чехол\", \"kind\": \"accessories\", \"price\": 300, \"sold\": 520}, {\"product\": \"Кабель\", \"kind\": \"accessories\", \"price\": 650, \"sold\": 470}, {\"product\": \"Зарядка\", \"kind\": \"accessories\", \"price\": 900, \"sold\": 390}, {\"product\": \"Сумка\", \"kind\": \"accessories\", \"price\": 1500, \"sold\": 350}, {\"product\": \"Подставка\", \"kind\": \"accessories\", \"price\": 2200, \"sold\": 240}, {\"product\": \"Клавиатура\", \"kind\": \"accessories\", \"price\": 2900, \"sold\": 230}]; document.querySelector('#b').items = [{\"region\": \"Север\", \"managers\": 4, \"revenue\": 18, \"clients\": 120}, {\"region\": \"Юг\", \"managers\": 7, \"revenue\": 31, \"clients\": 260}, {\"region\": \"Запад\", \"managers\": 5, \"revenue\": 26, \"clients\": 180}, {\"region\": \"Восток\", \"managers\": 3, \"revenue\": 12, \"clients\": 90}, {\"region\": \"Центр\", \"managers\": 9, \"revenue\": 44, \"clients\": 410}, {\"region\": \"Урал\", \"managers\": 6, \"revenue\": 24, \"clients\": 150}, {\"region\": \"Сибирь\", \"managers\": 2, \"revenue\": 9, \"clients\": 60}, {\"region\": \"Волга\", \"managers\": 8, \"revenue\": 35, \"clients\": 300}]; return true; })()",
+          "wait": 250
+        },
+        {
+          "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-scatter-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()",
+          "wait": 60
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Чехол, Аксессуары: Цена, ₽ 300, Продано, шт. 520')()"
+        },
+        {
+          "user": "keyboard:ArrowRight",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Кабель, Аксессуары: Цена, ₽ 650, Продано, шт. 470')()"
+        },
+        {
+          "user": "keyboard:End",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Ноутбук, Электроника: Цена, ₽ 9 900, Продано, шт. 80')()"
+        },
+        {
+          "user": "keyboard:ArrowUp",
+          "wait": 80,
+          "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Телефон, Электроника: Цена, ₽ 7 800, Продано, шт. 120' && document.querySelectorAll('#c .sf-chart-scatter-ring').length === 1)()"
+        },
+        {
+          "user": "keyboard:Enter",
+          "wait": 80,
+          "check": "(() => window.__chosen && window.__chosen.series === 'electronics' && window.__chosen.index === 4 && window.__chosen.point === 'Телефон' && window.__chosen.x === 7800 && window.__chosen.y === 120)()"
+        },
+        {
+          "user": "keyboard:Escape",
+          "wait": 80,
+          "check": "(() => !document.querySelector('#c .sf-chart-scatter-ring'))()"
+        }
+      ]
+    },
+    {
+      "id": "p3-bubbles",
+      "title": "a bubble field makes each point a circle whose area is in proportion to its value; the summary says the bubbles' range; the trend line is drawn; the hidden table has a column for the bubble",
+      "covers": "settings.bubble, settings.trend, settings.table",
+      "steps": [
+        {
+          "script": "(() => { const c = document.querySelector('#c'); c.names = {\"electronics\": \"Электроника\", \"accessories\": \"Аксессуары\"}; c.items = [{\"product\": \"Наушники\", \"kind\": \"electronics\", \"price\": 1200, \"sold\": 340}, {\"product\": \"Колонка\", \"kind\": \"electronics\", \"price\": 2500, \"sold\": 260}, {\"product\": \"Часы\", \"kind\": \"electronics\", \"price\": 3900, \"sold\": 210}, {\"product\": \"Планшет\", \"kind\": \"electronics\", \"price\": 5400, \"sold\": 150}, {\"product\": \"Телефон\", \"kind\": \"electronics\", \"price\": 7800, \"sold\": 120}, {\"product\": \"Ноутбук\", \"kind\": \"electronics\", \"price\": 9900, \"sold\": 80}, {\"product\": \"Чехол\", \"kind\": \"accessories\", \"price\": 300, \"sold\": 520}, {\"product\": \"Кабель\", \"kind\": \"accessories\", \"price\": 650, \"sold\": 470}, {\"product\": \"Зарядка\", \"kind\": \"accessories\", \"price\": 900, \"sold\": 390}, {\"product\": \"Сумка\", \"kind\": \"accessories\", \"price\": 1500, \"sold\": 350}, {\"product\": \"Подставка\", \"kind\": \"accessories\", \"price\": 2200, \"sold\": 240}, {\"product\": \"Клавиатура\", \"kind\": \"accessories\", \"price\": 2900, \"sold\": 230}]; document.querySelector('#b').items = [{\"region\": \"Север\", \"managers\": 4, \"revenue\": 18, \"clients\": 120}, {\"region\": \"Юг\", \"managers\": 7, \"revenue\": 31, \"clients\": 260}, {\"region\": \"Запад\", \"managers\": 5, \"revenue\": 26, \"clients\": 180}, {\"region\": \"Восток\", \"managers\": 3, \"revenue\": 12, \"clients\": 90}, {\"region\": \"Центр\", \"managers\": 9, \"revenue\": 44, \"clients\": 410}, {\"region\": \"Урал\", \"managers\": 6, \"revenue\": 24, \"clients\": 150}, {\"region\": \"Сибирь\", \"managers\": 2, \"revenue\": 9, \"clients\": 60}, {\"region\": \"Волга\", \"managers\": 8, \"revenue\": 35, \"clients\": 300}]; return true; })()",
+          "wait": 250,
+          "check": "(() => { const s = document.querySelector('#b svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const r = Object.fromEntries([...document.querySelectorAll('#b .sf-chart-scatter-series > circle')].map((c) => [Number(c.getAttribute('cx')) + ':' + Number(c.getAttribute('cy')), Number(c.getAttribute('r'))])); const radii = Object.values(r).sort((a, b) => b - a); const head = [...document.querySelectorAll('#b table thead th')].map((c) => c.textContent.trim()); return radii.length === 8 && Math.abs(radii[0] - 22) < 0.11 && Math.abs(radii[7] / radii[0] - Math.sqrt(60 / 410)) < 0.01 && /Размер — Клиентов: от 60 до 410\\. Связь: сильная, прямая \\(r = 0,98\\)\\./u.test(d) && document.querySelectorAll('#b .sf-chart-scatter-trend').length === 1 && head.join('|') === 'Точка|Менеджеров|Выручка, млн ₽|Клиентов'; })()"
+        }
+      ]
+    },
+    {
+      "id": "p4-error-refresh",
+      "title": "the error state offers a retry that sends refresh",
+      "covers": "settings.data-state, events.refresh",
+      "steps": [
+        {
+          "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-scatter-refresh', () => { window.__refresh += 1; }); return true; })()",
+          "wait": 200
+        },
+        {
+          "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+          "wait": 120,
+          "check": "(() => window.__refresh === 1)()"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Показатель",
+  "runtime": {
+    "untitled": "Показатель",
+    "no-value": "—",
+    "loading": "Загрузка значения",
+    "change-up": "рост",
+    "change-down": "снижение",
+    "change-flat": "без изменений",
+    "limit": "{value} из {max}",
+    "limit-name": "{label}: предел",
+    "status-success": "В норме:",
+    "status-warning": "Внимание:",
+    "status-error": "Ошибка:",
+    "status-info": "Сведения:"
+  },
+  "events": {
+    "open": {
+      "label": "Открыть подробности"
+    }
+  }
+}

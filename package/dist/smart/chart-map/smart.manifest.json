@@ -1,0 +1,453 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-map",
+  "version": "0.1.0",
+  "title": "Map",
+  "summary": "A choropleth map: a rate or a ratio by region, the regions given by the page as GeoJSON and projected to fit the plot, each filled by the step of its value on the theme's tone ladders (sequential or diverging, as the heatmap), a dashed outline for a region without data, the region's name in its middle where it fits, a legend of the steps, a tooltip with the value and the place, a keyboard cursor over the regions in reading order, a summary in words, and every region as a row of a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "map",
+    "choropleth",
+    "spatial",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-map",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+      },
+      "region": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the rows holding a region's key; the first text field when unset."
+      },
+      "value": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the rows holding the value; the first numeric field other than the region when unset. A rate or a ratio reads right on a map; a count favours the big regions."
+      },
+      "shape-key": {
+        "type": "string",
+        "default": "",
+        "description": "The feature property holding a region's key; the feature's id, else its properties.id, when unset."
+      },
+      "shape-name": {
+        "type": "string",
+        "default": "",
+        "description": "The feature property holding a region's name; name when unset, else the key."
+      },
+      "projection": {
+        "type": "string",
+        "default": "mercator",
+        "description": "How longitude and latitude are drawn flat, north up: mercator keeps angles (a city, a small country), albers keeps areas through two parallels of the map (a wide country such as Russia), equirectangular takes the degrees as they are, plane takes the coordinates as they are, y down (a floor plan, a scheme). A map across the 180th meridian is kept whole.",
+        "enum": [
+          "mercator",
+          "albers",
+          "equirectangular",
+          "plane"
+        ]
+      },
+      "scale": {
+        "type": "string",
+        "default": "sequential",
+        "description": "sequential: weak to strong on one colour family, for a count or a load. diverging: two families meeting at a neutral middle, for a change or a deviation from a norm.",
+        "enum": [
+          "sequential",
+          "diverging"
+        ]
+      },
+      "scheme": {
+        "type": "string",
+        "default": "primary",
+        "description": "The colour family of a sequential scale. Its tones are the theme's: the strongest value is the darkest tone in the light theme and the lightest in the dark.",
+        "enum": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "neutral",
+          "success",
+          "warning",
+          "error",
+          "info"
+        ]
+      },
+      "better": {
+        "type": "string",
+        "default": "up",
+        "description": "Which way is good on a diverging scale: up colours what is above the middle with success and below with error, down the other way; none uses primary and tertiary, which mean nothing.",
+        "enum": [
+          "up",
+          "down",
+          "none"
+        ]
+      },
+      "steps": {
+        "type": "number",
+        "default": 5,
+        "description": "How many colour steps the scale has, 3 to 9; a diverging scale takes an odd number, so it has a middle step. Steps are read more surely than a continuous ramp."
+      },
+      "middle": {
+        "type": "number",
+        "default": 0,
+        "description": "The middle of a diverging scale: the norm, the plan, zero for a change. The scale reaches as far on both sides of it."
+      },
+      "min": {
+        "type": "number",
+        "description": "The bottom of the scale; the data's own when unset."
+      },
+      "max": {
+        "type": "number",
+        "description": "The top of the scale; the data's own when unset."
+      },
+      "labels": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto writes a region's name in its middle, cut with an ellipsis to its width, when the region is a line and a half tall; a small region keeps its name in the tooltip, the live line and the table. none leaves them all there.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "legend": {
+        "type": "string",
+        "default": "bottom",
+        "description": "The scale's legend: a swatch per step with its range, and the gap when there is one. none only when the page explains the scale itself.",
+        "enum": [
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: under the pointer or the cursor, the region's name, its value and its place among the regions.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "value-format": {
+        "type": "string",
+        "default": "number",
+        "description": "number, integer, decimal-<n>, percent (a share 0..1), compact or currency-<CODE>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the regions and those with data, the range, the most and the least, the regions without data and the rows without a region on the map), said before the plot. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with regions and values, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The values: a list of records, or an object of columns, a row per region with its key and its value ([{region, value}, …]). A row whose key names no region on the map, or without a number, is left out; the summary says how many. The same key twice keeps the last."
+      },
+      "shapes": {
+        "type": "object",
+        "default": {},
+        "description": "The regions: GeoJSON, a FeatureCollection or a list of Features with Polygon or MultiPolygon geometry, in longitude and latitude (or in plane coordinates with projection plane). The page gives them: the package holds no map, so the boundaries, their source and their licence are the page's. A feature without a key or a polygon, or with a key named before, is left out."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-map-select": {
+      "summary": "The person chose a region: a click on it, or Enter or Space on the keyboard cursor. index is its place in shapes, region its key, name its name, value its value (null without one), rank its place by value, largest first (0 without a value).",
+      "payload": {
+        "type": "object",
+        "required": [
+          "index",
+          "region",
+          "name",
+          "value",
+          "rank"
+        ],
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "region": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "rank": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-map-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-map/index.js",
+        "sha256": "de6ed2e80f841fb06b0ca2940ceed097c783142f4c01ab1550c5bcb43c3d024d"
+      },
+      {
+        "path": "src/smart/chart-map/js/templates/default.js",
+        "sha256": "7fbd8d46d5e56eddbfc03b57f3e05bbad84f288d075d86e00e29d3334551260b"
+      },
+      {
+        "path": "src/smart/chart-map/js/templates/default.css",
+        "sha256": "d18922c57f23293ad673d37d61971630ed63019cd74f8a2bc2a1820d99f81f84"
+      },
+      {
+        "path": "src/smart/chart-map/rule.js",
+        "sha256": "29d8461bebcfad60e72695f8cd8139f9d2481eef924f688f8e9e59b0d5fc9d3a"
+      },
+      {
+        "path": "src/smart/chart-map/docs.md",
+        "sha256": "da1837610431588f603c255001f181546c7f4ed3e7533cdb4e0bb510548cb1a8"
+      },
+      {
+        "path": "src/smart/chart-map/component.json",
+        "sha256": "f46bc212a58ec7bebbf14dcc7f80bf5a3f8b948ad4bde03e6927fee961ee9670"
+      },
+      {
+        "path": "src/smart/chart-map/lang/en.json",
+        "sha256": "5dc15bd01f30ea9348c8d83000c91670bd84437db82173cfc29a231fa796cbf3"
+      },
+      {
+        "path": "src/smart/chart-map/lang/ru.json",
+        "sha256": "18774572ddbce5b79f7bc2320a19c22c04764d0beb5bffe41b62d76bc93ccce7"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-map to show a rate or a ratio by region, with the regions' boundaries given by the page as GeoJSON: unemployment by district, sales per head by region, load by warehouse zone.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not show counts on it; big regions look like more. Divide by population or area, or use a sf-chart-bar",
+      "Do not expect a map in the package: the page gives the boundaries and answers for them"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-map label=\"Безработица по районам, %\" region=\"district\" value=\"rate\" value-format=\"decimal-1\"></sf-chart-map>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

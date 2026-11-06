@@ -1,0 +1,44 @@
+{
+  "title": "Диаграмма Ганта",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "диаграмма Ганта",
+    "summary-range": "Рядов: {rows}, отрезков: {count}, {period} ({duration}).",
+    "summary-longest": "Дольше всего — «{name}»: {duration}.",
+    "summary-status": "Больше всего времени — «{status}»: {share}.",
+    "summary-milestones": "Вех: {count}.",
+    "summary-left": "Строк без верного начала и конца: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{name}: {when}, {duration}",
+    "cursor-status": "{name}, {status}: {when}, {duration}",
+    "period": "{from} – {to}",
+    "milestone": "веха",
+    "row-n": "Ряд {n}",
+    "row-column": "Ряд",
+    "status": "Статус",
+    "no-status": "Без статуса",
+    "start": "Начало",
+    "end": "Конец",
+    "at": "Дата",
+    "duration": "Длительность",
+    "legend": "Статусы",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать отрезок"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Убрать курсор"
+    }
+  }
+}

@@ -1,0 +1,433 @@
+{
+  "examples": [
+    {
+      "name": "reference",
+      "title": "Воронка заказа: доля от предыдущего этапа",
+      "settings": {
+        "label": "Воронка заказа",
+        "stage": "step",
+        "value": "people",
+        "value-format": "integer",
+        "names": {
+          "visit": "Визиты",
+          "catalog": "Каталог",
+          "cart": "Корзина",
+          "checkout": "Оформление",
+          "paid": "Оплата"
+        },
+        "items": [
+          {
+            "step": "visit",
+            "people": 12400
+          },
+          {
+            "step": "catalog",
+            "people": 7800
+          },
+          {
+            "step": "cart",
+            "people": 2900
+          },
+          {
+            "step": "checkout",
+            "people": 1300
+          },
+          {
+            "step": "paid",
+            "people": 860
+          }
+        ]
+      },
+      "expect": {
+        "name": "Воронка заказа",
+        "role": "figure"
+      }
+    },
+    {
+      "name": "first",
+      "title": "Доля от первого этапа",
+      "settings": {
+        "label": "Воронка заказа",
+        "stage": "step",
+        "value": "people",
+        "value-format": "integer",
+        "names": {
+          "visit": "Визиты",
+          "catalog": "Каталог",
+          "cart": "Корзина",
+          "checkout": "Оформление",
+          "paid": "Оплата"
+        },
+        "items": [
+          {
+            "step": "visit",
+            "people": 12400
+          },
+          {
+            "step": "catalog",
+            "people": 7800
+          },
+          {
+            "step": "cart",
+            "people": 2900
+          },
+          {
+            "step": "checkout",
+            "people": 1300
+          },
+          {
+            "step": "paid",
+            "people": 860
+          }
+        ],
+        "conversion": "first"
+      },
+      "expect": {
+        "name": "Воронка заказа",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "funnel first",
+        "props": {
+          "label": "Воронка заказа",
+          "stage": "step",
+          "value": "people",
+          "value-format": "integer",
+          "conversion": "first"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "center",
+      "title": "По центру: привычная форма воронки",
+      "settings": {
+        "label": "Воронка заказа",
+        "stage": "step",
+        "value": "people",
+        "value-format": "integer",
+        "names": {
+          "visit": "Визиты",
+          "catalog": "Каталог",
+          "cart": "Корзина",
+          "checkout": "Оформление",
+          "paid": "Оплата"
+        },
+        "items": [
+          {
+            "step": "visit",
+            "people": 12400
+          },
+          {
+            "step": "catalog",
+            "people": 7800
+          },
+          {
+            "step": "cart",
+            "people": 2900
+          },
+          {
+            "step": "checkout",
+            "people": 1300
+          },
+          {
+            "step": "paid",
+            "people": 860
+          }
+        ],
+        "align": "center"
+      },
+      "expect": {
+        "name": "Воронка заказа",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "funnel center",
+        "props": {
+          "label": "Воронка заказа",
+          "stage": "step",
+          "value": "people",
+          "value-format": "integer",
+          "align": "center"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "color",
+      "title": "Свой цвет",
+      "settings": {
+        "label": "Воронка заказа",
+        "stage": "step",
+        "value": "people",
+        "value-format": "integer",
+        "names": {
+          "visit": "Визиты",
+          "catalog": "Каталог",
+          "cart": "Корзина",
+          "checkout": "Оформление",
+          "paid": "Оплата"
+        },
+        "items": [
+          {
+            "step": "visit",
+            "people": 12400
+          },
+          {
+            "step": "catalog",
+            "people": 7800
+          },
+          {
+            "step": "cart",
+            "people": 2900
+          },
+          {
+            "step": "checkout",
+            "people": 1300
+          },
+          {
+            "step": "paid",
+            "people": 860
+          }
+        ],
+        "color": "tertiary"
+      },
+      "expect": {
+        "name": "Воронка заказа",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "funnel color",
+        "props": {
+          "label": "Воронка заказа",
+          "stage": "step",
+          "value": "people",
+          "value-format": "integer",
+          "color": "tertiary"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "gaps",
+      "title": "Пропуск в данных",
+      "settings": {
+        "label": "Регистрация",
+        "stage": "step",
+        "value": "n",
+        "value-format": "integer",
+        "items": [
+          {
+            "step": "Открыли форму",
+            "n": 5200
+          },
+          {
+            "step": "Ввели почту",
+            "n": 3100
+          },
+          {
+            "step": "Подтвердили",
+            "n": null
+          },
+          {
+            "step": "Заполнили профиль",
+            "n": 1400
+          }
+        ]
+      },
+      "expect": {
+        "name": "Регистрация",
+        "role": "figure"
+      }
+    },
+    {
+      "name": "small",
+      "title": "Для плитки",
+      "settings": {
+        "label": "Сделки за квартал",
+        "stage": "stage",
+        "value": "deals",
+        "size": "1/2",
+        "table": "hidden",
+        "conversion": "first",
+        "items": [
+          {
+            "stage": "Лиды",
+            "deals": 420
+          },
+          {
+            "stage": "Квалификация",
+            "deals": 180
+          },
+          {
+            "stage": "КП",
+            "deals": 64
+          },
+          {
+            "stage": "Договор",
+            "deals": 21
+          }
+        ]
+      },
+      "expect": {
+        "name": "Сделки за квартал",
+        "role": "figure"
+      }
+    },
+    {
+      "name": "loading",
+      "title": "Загрузка",
+      "settings": {
+        "label": "Воронка заказа",
+        "data-state": "loading"
+      },
+      "expect": {
+        "name": "Воронка заказа"
+      }
+    },
+    {
+      "name": "empty",
+      "title": "Нет данных",
+      "settings": {
+        "label": "Воронка заказа",
+        "items": []
+      },
+      "expect": {
+        "name": "Воронка заказа"
+      }
+    },
+    {
+      "name": "error",
+      "title": "Ошибка",
+      "settings": {
+        "label": "Воронка заказа",
+        "data-state": "error"
+      },
+      "expect": {
+        "name": "Воронка заказа"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "conformance",
+      "title": "sf-chart-funnel against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+      "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+      "page": {
+        "lang": "ru",
+        "body": [
+          "<main style=\"inline-size: 40rem\">",
+          "  <sf-chart-funnel id=\"c\" label=\"Воронка заказа\" stage=\"step\" value=\"people\" value-format=\"integer\"></sf-chart-funnel>",
+          "  <sf-chart-funnel id=\"g\" label=\"Регистрация\" stage=\"step\" value=\"n\" value-format=\"integer\" table=\"hidden\"></sf-chart-funnel>",
+          "  <sf-chart-funnel id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-funnel>",
+          "</main>"
+        ]
+      },
+      "checks": [
+        {
+          "id": "p1-figure-and-summary",
+          "title": "a figure named by its label; the stages are one group described by the stages' count, the range, the overall conversion and the largest loss; each stage after the first writes its share of the one before; the bars shorten stage by stage",
+          "covers": "accessibility (role figure, name label), settings.items, settings.conversion, settings.summary",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"visit\": \"Визиты\", \"catalog\": \"Каталог\", \"cart\": \"Корзина\", \"checkout\": \"Оформление\", \"paid\": \"Оплата\"}; c.items = [{\"step\": \"visit\", \"people\": 12400}, {\"step\": \"catalog\", \"people\": 7800}, {\"step\": \"cart\", \"people\": 2900}, {\"step\": \"checkout\", \"people\": 1300}, {\"step\": \"paid\", \"people\": 860}]; document.querySelector('#g').items = [{\"step\": \"Открыли форму\", \"n\": 5200}, {\"step\": \"Ввели почту\", \"n\": 3100}, {\"step\": \"Подтвердили\", \"n\": null}, {\"step\": \"Заполнили профиль\", \"n\": 1400}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const f = document.querySelector('#c figure'); const t = document.querySelector('#c [role=group]'); const d = document.getElementById(t.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const shares = [...document.querySelectorAll('#c .sf-chart-funnel-share')].map((one) => one.textContent.replace(/\\u00a0|\\u202f/gu, ' ').trim()); const bars = [...document.querySelectorAll('#c .sf-chart-funnel-bar')].map((one) => one.getBoundingClientRect().width); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Воронка заказа' && t.getAttribute('aria-roledescription') === 'воронка' && /^Этапов: 5, от 12 400 до 860, итоговая конверсия 6,9 ?%\\. Больше всего теряется между «Каталог» и «Корзина»: дальше проходит 37,2 ?%\\.$/u.test(d) && shares.join('|').replace(/ /gu, '') === '|62,9%|37,2%|44,8%|66,2%' && bars.length === 5 && bars.every((w, i) => i === 0 || w < bars[i - 1]); })()"
+            }
+          ]
+        },
+        {
+          "id": "p2-keyboard-cursor",
+          "title": "the arrows walk the stages, each move said with its value and both conversions; Enter chooses a stage; Escape clears",
+          "covers": "keyboard.host (ArrowDown, Home, End, Enter, Escape), events.select",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"visit\": \"Визиты\", \"catalog\": \"Каталог\", \"cart\": \"Корзина\", \"checkout\": \"Оформление\", \"paid\": \"Оплата\"}; c.items = [{\"step\": \"visit\", \"people\": 12400}, {\"step\": \"catalog\", \"people\": 7800}, {\"step\": \"cart\", \"people\": 2900}, {\"step\": \"checkout\", \"people\": 1300}, {\"step\": \"paid\", \"people\": 860}]; document.querySelector('#g').items = [{\"step\": \"Открыли форму\", \"n\": 5200}, {\"step\": \"Ввели почту\", \"n\": 3100}, {\"step\": \"Подтвердили\", \"n\": null}, {\"step\": \"Заполнили профиль\", \"n\": 1400}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-funnel-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c [role=group]').focus(); return true; })()",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowDown",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Визиты: 12 400')()"
+            },
+            {
+              "user": "keyboard:ArrowDown",
+              "wait": 80,
+              "check": "(() => /^Каталог: 7 800, 62,9 ?% от предыдущего, 62,9 ?% от первого$/u.test(document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')))()"
+            },
+            {
+              "user": "keyboard:End",
+              "wait": 80,
+              "check": "(() => /^Оплата: 860, 66,2 ?% от предыдущего, 6,9 ?% от первого$/u.test(document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')))()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__chosen && window.__chosen.x === 'paid' && window.__chosen.value === 860 && window.__chosen.series === 'people' && window.__chosen.index === 4)()"
+            },
+            {
+              "user": "keyboard:Home",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c .sf-chart-funnel-stage--current')?.dataset.place === '0')()"
+            },
+            {
+              "user": "keyboard:Escape",
+              "wait": 80,
+              "check": "(() => !document.querySelector('#c .sf-chart-funnel-stage--current'))()"
+            }
+          ]
+        },
+        {
+          "id": "p3-gap",
+          "title": "a stage with no value is a gap: no bar, an outlined track, said in the summary; the stage after it has no conversion from it, and the table keeps every row",
+          "covers": "settings.items (gaps), settings.table",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.names = {\"visit\": \"Визиты\", \"catalog\": \"Каталог\", \"cart\": \"Корзина\", \"checkout\": \"Оформление\", \"paid\": \"Оплата\"}; c.items = [{\"step\": \"visit\", \"people\": 12400}, {\"step\": \"catalog\", \"people\": 7800}, {\"step\": \"cart\", \"people\": 2900}, {\"step\": \"checkout\", \"people\": 1300}, {\"step\": \"paid\", \"people\": 860}]; document.querySelector('#g').items = [{\"step\": \"Открыли форму\", \"n\": 5200}, {\"step\": \"Ввели почту\", \"n\": 3100}, {\"step\": \"Подтвердили\", \"n\": null}, {\"step\": \"Заполнили профиль\", \"n\": 1400}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const t = document.querySelector('#g [role=group]'); const d = document.getElementById(t.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const rows = [...document.querySelectorAll('#g table tbody tr')].map((row) => [...row.children].map((cell) => cell.textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')).join('|')); return document.querySelectorAll('#g .sf-chart-funnel-bar').length === 3 && document.querySelectorAll('#g .sf-chart-funnel-stage--gap').length === 1 && /Нет данных: 1\\.$/u.test(d) && rows.length === 4 && /^Заполнили профиль\\|1 400\\|нет данных\\|26,9 ?%$/u.test(rows[3]); })()"
+            }
+          ]
+        },
+        {
+          "id": "p4-error-refresh",
+          "title": "the error state offers a retry that sends refresh",
+          "covers": "settings.data-state, events.refresh",
+          "steps": [
+            {
+              "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-funnel-refresh', () => { window.__refresh += 1; }); return true; })()",
+              "wait": 200
+            },
+            {
+              "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+              "wait": 120,
+              "check": "(() => window.__refresh === 1)()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "title": "Heatmap",
+  "runtime": {
+    "untitled": "Heatmap",
+    "roledescription": "heatmap",
+    "cursor": "{y}, {x}: {value}",
+    "gap": "no data",
+    "show-table": "Table",
+    "legend": "Scale",
+    "step": "{from} – {to}",
+    "loading": "Loading the chart data",
+    "empty-title": "No data for the chart",
+    "error-title": "The data could not be loaded",
+    "summary-grid": "Rows: {rows}, columns: {columns}; values from {min} to {max}.",
+    "summary-high": "Highest {value}: {y}, {x}.",
+    "summary-low": "Lowest {value}: {y}, {x}.",
+    "summary-gaps": "No data: {count}.",
+    "y-column": "Row"
+  },
+  "events": {
+    "select": {
+      "label": "Choose a cell"
+    },
+    "refresh": {
+      "label": "Load the data again"
+    }
+  }
+}

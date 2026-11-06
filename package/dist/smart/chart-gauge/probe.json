@@ -1,0 +1,73 @@
+{
+  "component": "sf-chart-gauge",
+  "probe": "sf-chart-gauge against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+  "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+  "page": {
+    "lang": "ru",
+    "body": [
+      "<main style=\"inline-size: 40rem\">",
+      "  <sf-chart-gauge id=\"c\" label=\"Загрузка процессора\" value=\"72\" target=\"80\" value-format=\"unit-percent\"></sf-chart-gauge>",
+      "  <sf-chart-gauge id=\"l\" label=\"Загрузка процессора\" value=\"72\" target=\"80\" shape=\"linear\" value-format=\"unit-percent\"></sf-chart-gauge>",
+      "  <sf-chart-gauge id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-gauge>",
+      "</main>"
+    ]
+  },
+  "probes": [
+    {
+      "id": "p1-meter-and-summary",
+      "title": "a figure named by its label; the gauge is a meter with min, max, the value and a value text with the band's name; the summary says the value on its scale, its band and the distance to the target; the bands, the value and the target are drawn",
+      "covers": "accessibility (role figure, name label; meter), settings.value, settings.min, settings.max, settings.bands, settings.target, settings.summary",
+      "steps": [
+        {
+          "script": "(() => { for (const id of ['c', 'l']) document.getElementById(id).bands = [{\"to\": 70, \"role\": \"success\"}, {\"to\": 90, \"role\": \"warning\"}, {\"to\": 100, \"role\": \"error\"}]; return true; })()",
+          "wait": 250,
+          "check": "(() => { const f = document.querySelector('#c figure'); const m = document.querySelector('#c [role=meter]'); const d = document.getElementById(m.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Загрузка процессора' && m.getAttribute('aria-label') === 'Загрузка процессора' && m.getAttribute('aria-valuemin') === '0' && m.getAttribute('aria-valuemax') === '100' && m.getAttribute('aria-valuenow') === '72' && /^72 ?%, Внимание$/u.test(m.getAttribute('aria-valuetext').replace(/\\u00a0|\\u202f/gu, ' ')) && /^72 ?% на шкале от 0 ?% до 100 ?% \\(72 ?%\\)\\. Зона «Внимание»: 70 ?% – 90 ?%\\. Цель 80 ?%: ниже на 8 ?%\\.$/u.test(d) && document.querySelectorAll('#c path.sf-chart-gauge-band').length === 3 && document.querySelector('#c .sf-chart-gauge-fill') && document.querySelector('#c .sf-chart-gauge-mark') && document.querySelector('#c .sf-chart-gauge-zone').textContent.trim() === 'Внимание'; })()"
+        }
+      ]
+    },
+    {
+      "id": "p2-past-the-scale",
+      "title": "a value past the scale is drawn at its end, the meter's value is kept to the scale and the summary says it is past it; it is in the band at that end",
+      "covers": "settings.value, settings.max",
+      "steps": [
+        {
+          "script": "(() => { for (const id of ['c', 'l']) document.getElementById(id).bands = [{\"to\": 70, \"role\": \"success\"}, {\"to\": 90, \"role\": \"warning\"}, {\"to\": 100, \"role\": \"error\"}]; return true; })()",
+          "wait": 250
+        },
+        {
+          "script": "(document.querySelector('#c').setAttribute('value', '112'), true)",
+          "wait": 150,
+          "check": "(() => { const m = document.querySelector('#c [role=meter]'); const d = document.getElementById(m.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); return m.getAttribute('aria-valuenow') === '100' && /^112 ?%: выше шкалы, она кончается на 100 ?%\\. Зона «Критично»: 90 ?% – 100 ?%\\. Цель 80 ?%: выше на 32 ?%\\.$/u.test(d); })()"
+        }
+      ]
+    },
+    {
+      "id": "p3-linear",
+      "title": "the linear form fills its rail to the value's share, the target mark stands at its share, and the bands are a strip of three",
+      "covers": "settings.shape, settings.bands, settings.target",
+      "steps": [
+        {
+          "script": "(() => { for (const id of ['c', 'l']) document.getElementById(id).bands = [{\"to\": 70, \"role\": \"success\"}, {\"to\": 90, \"role\": \"warning\"}, {\"to\": 100, \"role\": \"error\"}]; return true; })()",
+          "wait": 250,
+          "check": "(() => { const rail = document.querySelector('#l .sf-chart-gauge-rail').getBoundingClientRect(); const level = document.querySelector('#l .sf-chart-gauge-level').getBoundingClientRect(); const tick = document.querySelector('#l .sf-chart-gauge-tick').getBoundingClientRect(); const parts = document.querySelectorAll('#l .sf-chart-gauge-strip-part').length; return Math.abs(level.width - 0.72 * rail.width) < 1.5 && Math.abs(tick.left + tick.width / 2 - (rail.left + 0.8 * rail.width)) < 1.5 && parts === 3 && document.querySelector('#l [role=meter]').getAttribute('aria-valuenow') === '72'; })()"
+        }
+      ]
+    },
+    {
+      "id": "p4-error-refresh",
+      "title": "the error state offers a retry that sends refresh",
+      "covers": "settings.data-state, events.refresh",
+      "steps": [
+        {
+          "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-gauge-refresh', () => { window.__refresh += 1; }); return true; })()",
+          "wait": 200
+        },
+        {
+          "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+          "wait": 120,
+          "check": "(() => window.__refresh === 1)()"
+        }
+      ]
+    }
+  ]
+}

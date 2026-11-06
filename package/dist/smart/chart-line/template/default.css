@@ -1,0 +1,376 @@
+@layer sf.reset, sf.tokens, sf.base, sf.utilities, sf.components, sf.overrides, sf.states;
+@layer sf.components {
+  /* sf-chart-line. Every value is a Framework token; light and dark come
+     from the roles. The public variables (component.json css-variables) are
+     read here and never set:
+       --sf-chart-line-height                  the plot's height (by size rung)
+       --sf-chart-line-grid-color              the guide lines
+       --sf-chart-line-baseline-color          the axis line and zero
+       --sf-chart-line-label-color             tick and axis labels
+       --sf-chart-line-hover-background-color  a legend entry under the pointer
+       --sf-chart-line-hidden-color            a hidden series' legend entry
+       --sf-chart-line-line-width              the series lines */
+  sf-chart-line {
+    display: block;
+    min-inline-size: 0;
+  }
+
+  .sf-chart-line {
+    --sf-chart-line--height: var(--sf-chart-line-height, var(--sf-f5));
+    --sf-chart-line--ink: var(--sf-chart-line-label-color, var(--sf-on-surface-variant));
+    --sf-chart-line--line: var(--sf-chart-line-line-width, var(--sf-a2));
+    --sf-chart-line--font: var(--sf-text-small--size);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sf-space-1\/3);
+    margin: 0;
+    min-inline-size: 0;
+    color: var(--sf-on-surface);
+    font-family: var(--sf-text--family);
+  }
+
+  .sf-chart-line--size-1-2 {
+    --sf-chart-line--height: var(--sf-chart-line-height, var(--sf-f0));
+  }
+
+  .sf-chart-line--size-2 {
+    --sf-chart-line--height: var(--sf-chart-line-height, var(--sf-g2));
+    --sf-chart-line--font: var(--sf-text-medium--size);
+  }
+
+  .sf-chart-line-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sf-space-1\/2);
+    min-block-size: var(--sf-text-medium--height);
+  }
+
+  .sf-chart-line-label {
+    font-size: var(--sf-text-medium--size);
+    line-height: var(--sf-text-medium--height);
+    font-weight: var(--sf-font-weight-medium);
+  }
+
+  .sf-chart-line--size-2 .sf-chart-line-label {
+    font-size: var(--sf-text-large--size);
+    line-height: var(--sf-text-large--height);
+  }
+
+  /* The plot holds its height from the size rung before data or width
+     arrive, so the first paint and the drawn chart are the same box. */
+  .sf-chart-line-plot {
+    position: relative;
+    block-size: var(--sf-chart-line--height);
+    min-inline-size: 0;
+  }
+
+  .sf-chart-line-plot[hidden] {
+    display: none;
+  }
+
+  .sf-chart-line-svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: visible;
+    border-radius: var(--sf-radius-1);
+    font-size: var(--sf-chart-line--font);
+    touch-action: pan-y;
+  }
+
+  .sf-chart-line-svg:focus {
+    outline: none;
+  }
+
+  .sf-chart-line-svg:focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+
+  .sf-chart-line-grid {
+    stroke: var(--sf-chart-line-grid-color, var(--sf-outline-variant));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+
+  .sf-chart-line-baseline {
+    stroke: var(--sf-chart-line-baseline-color, var(--sf-outline));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+
+  .sf-chart-line-tick,
+  .sf-chart-line-axis-label {
+    fill: var(--sf-chart-line--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sf-chart-line-axis-label {
+    font-weight: var(--sf-font-weight-medium);
+  }
+
+  /* Series colours: the graphic tone of a role family, until the
+     Framework's categorical roles --sf-chart-1..8 arrive (docs/DECISIONS.md
+     D4). A dash per series past the first, always in forced colours and
+     past the third everywhere, so colour is never the only difference. */
+  .sf-chart-line-series--c1 { --sf-chart-line--series: var(--sf-on-primary-container-graphic); }
+  .sf-chart-line-series--c2 { --sf-chart-line--series: var(--sf-on-secondary-container-graphic); }
+  .sf-chart-line-series--c3 { --sf-chart-line--series: var(--sf-on-tertiary-container-graphic); }
+  .sf-chart-line-series--c4 { --sf-chart-line--series: var(--sf-on-neutral-container-graphic); }
+  /* A page's own colour (colors, docs/DECISIONS.md D6), set in a style. */
+  .sf-chart-line-series--custom { --sf-chart-line--series: var(--sf-chart-line--custom); }
+
+  .sf-chart-line-series--d1 { --sf-chart-line--dash: 6 3; }
+  .sf-chart-line-series--d2 { --sf-chart-line--dash: 2 3; }
+  .sf-chart-line-series--d3 { --sf-chart-line--dash: 8 3 2 3; }
+  .sf-chart-line-series--d4 { --sf-chart-line--dash: 4 4; }
+  .sf-chart-line-series--d5 { --sf-chart-line--dash: 10 4; }
+  .sf-chart-line-series--d6 { --sf-chart-line--dash: 1 4; }
+  .sf-chart-line-series--d7 { --sf-chart-line--dash: 6 2 2 2 2 2; }
+
+  .sf-chart-line-line {
+    fill: none;
+    stroke: var(--sf-chart-line--series);
+    stroke-width: var(--sf-chart-line--line);
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .sf-chart-line-series--d4 .sf-chart-line-line,
+  .sf-chart-line-series--d5 .sf-chart-line-line,
+  .sf-chart-line-series--d6 .sf-chart-line-line,
+  .sf-chart-line-series--d7 .sf-chart-line-line {
+    stroke-dasharray: var(--sf-chart-line--dash);
+  }
+
+  .sf-chart-line-area {
+    fill: var(--sf-chart-line--series);
+    fill-opacity: 0.12;
+    stroke: none;
+  }
+
+  /* A stacked layer is filled stronger than the light area under a line:
+     the layers are the reading, and each one's top line marks where it ends. */
+  .sf-chart-line-area--layer {
+    fill-opacity: 0.32;
+  }
+
+  .sf-chart-line-dot {
+    fill: var(--sf-chart-line--series);
+    stroke: var(--sf-surface-0);
+    stroke-width: 1;
+  }
+
+  .sf-chart-line-series--dim {
+    opacity: 0.4;
+  }
+
+  .sf-chart-line-crosshair {
+    stroke: var(--sf-chart-line-baseline-color, var(--sf-outline));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+    pointer-events: none;
+  }
+
+  .sf-chart-line-focus {
+    fill: var(--sf-surface-0);
+    stroke: var(--sf-chart-line--series);
+    stroke-width: 2;
+    pointer-events: none;
+  }
+
+  .sf-chart-line-focus--current {
+    fill: var(--sf-chart-line--series);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sf-chart-line-series {
+      transition: opacity var(--sf-duration-normal);
+    }
+  }
+
+  .sf-chart-line-tooltip {
+    position: absolute;
+    z-index: 1;
+    display: grid;
+    gap: var(--sf-a2);
+    min-inline-size: var(--sf-f0);
+    max-inline-size: var(--sf-g0);
+    margin-inline-start: var(--sf-space-1\/3);
+    padding: var(--sf-space-1\/3) var(--sf-space-1\/2);
+    border-radius: var(--sf-radius-1);
+    background: var(--sf-elevation-2--surface);
+    box-shadow: var(--sf-elevation-2--shadow);
+    color: var(--sf-on-surface);
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    pointer-events: none;
+  }
+
+  .sf-chart-line-tooltip--flip {
+    margin-inline-start: 0;
+    translate: calc(-100% - var(--sf-space-1\/3)) 0;
+  }
+
+  .sf-chart-line-tooltip-x {
+    font-weight: var(--sf-font-weight-medium);
+  }
+
+  .sf-chart-line-tooltip-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--sf-space-1\/3);
+    color: var(--sf-on-surface-variant);
+  }
+
+  .sf-chart-line-tooltip-row--current {
+    color: var(--sf-on-surface);
+  }
+
+  .sf-chart-line-tooltip-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sf-chart-line-swatch {
+    display: inline-block;
+    inline-size: var(--sf-a12, var(--sf-a8));
+    block-size: var(--sf-a2);
+    border-radius: var(--sf-a1);
+    background: var(--sf-chart-line--series);
+  }
+
+  .sf-chart-line-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sf-a2) var(--sf-space-1\/3);
+  }
+
+  .sf-chart-line-legend-item,
+  .sf-chart-line-view {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sf-space-1\/4);
+    margin: 0;
+    padding: var(--sf-a2) var(--sf-space-1\/4);
+    border: 0;
+    border-radius: var(--sf-radius-1);
+    background: transparent;
+    color: var(--sf-on-surface);
+    font: inherit;
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    cursor: pointer;
+  }
+
+  .sf-chart-line-legend-item:hover,
+  .sf-chart-line-view:hover {
+    background: var(--sf-chart-line-hover-background-color, var(--sf-surface-transparent-hover));
+  }
+
+  .sf-chart-line-legend-item:focus-visible,
+  .sf-chart-line-view:focus-visible {
+    outline: var(--sf-focus--width) var(--sf-focus--style) var(--sf-focus--color);
+    outline-offset: var(--sf-focus--offset);
+  }
+
+  .sf-chart-line-legend-item[aria-pressed='false'] {
+    color: var(--sf-chart-line-hidden-color, var(--sf-on-disable));
+  }
+
+  .sf-chart-line-legend-item[aria-pressed='false'] .sf-chart-line-swatch {
+    background: var(--sf-chart-line-hidden-color, var(--sf-outline-variant));
+  }
+
+  .sf-chart-line-view {
+    border: var(--sf-px) solid var(--sf-outline-variant);
+  }
+
+  .sf-chart-line-view[aria-pressed='true'] {
+    background: var(--sf-surface-transparent-select);
+  }
+
+  .sf-chart-line-loading {
+    block-size: 100%;
+    border-block-end: var(--sf-px) solid var(--sf-outline-variant);
+    border-radius: var(--sf-radius-1);
+    background: var(--sf-surface-1);
+  }
+
+  .sf-chart-line-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    block-size: 100%;
+  }
+
+  .sf-chart-line-description {
+    color: var(--sf-on-surface-variant);
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+  }
+
+  .sf-chart-line-table {
+    overflow-x: auto;
+    max-block-size: var(--sf-g4);
+  }
+
+  .sf-chart-line-table table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--sf-text-small--size);
+    line-height: var(--sf-text-small--height);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sf-chart-line-table caption {
+    position: absolute;
+    clip-path: inset(50%);
+    inline-size: var(--sf-px);
+    block-size: var(--sf-px);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .sf-chart-line-table th,
+  .sf-chart-line-table td {
+    padding: var(--sf-a2) var(--sf-space-1\/3);
+    border-block-end: var(--sf-px) solid var(--sf-outline-variant);
+    text-align: end;
+  }
+
+  .sf-chart-line-table th:first-child {
+    text-align: start;
+  }
+
+  .sf-chart-line-table thead th {
+    color: var(--sf-on-surface-variant);
+    font-weight: var(--sf-font-weight-medium);
+  }
+
+  /* For screen readers only: in the page's reading order, out of view. */
+  .sf-chart-line-sr {
+    position: absolute;
+    clip-path: inset(50%);
+    inline-size: var(--sf-px);
+    block-size: var(--sf-px);
+    margin: calc(-1 * var(--sf-px));
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  @media (forced-colors: active) {
+    .sf-chart-line-series { --sf-chart-line--series: CanvasText; }
+    .sf-chart-line-line { stroke-dasharray: var(--sf-chart-line--dash, none); }
+    .sf-chart-line-area--layer { fill: none; }
+    .sf-chart-line-legend-item[aria-pressed='false'] { color: GrayText; }
+    .sf-chart-line-legend-item[aria-pressed='false'] .sf-chart-line-swatch { background: GrayText; }
+    .sf-chart-line-swatch { background: CanvasText; forced-color-adjust: none; }
+  }
+
+  @media print {
+    .sf-chart-line-view,
+    .sf-chart-line-tooltip { display: none; }
+  }
+}

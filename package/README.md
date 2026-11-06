@@ -115,5 +115,17 @@ build, the stand at `/`:
 node examples/serve.mjs <ui distr at the pin> <package build output>
 ```
 
-Nothing here is published: a package release goes through the SIMAI
-Framework dispatcher's release route.
+## Releases
+
+**Version 1.0.0, released 2026-11-06** ([CHANGELOG.md](CHANGELOG.md)) through
+the dispatcher's release route as the sets `view` and `editor` were: the build
+committed under `dist/` with its receipt, the release lock
+`contracts/releases/chart-<12>.lock.json`, the tag `chart-<12>` with a GitHub
+release, and `npm publish` of `@simai-studio/chart` from the staged folder
+(`node scripts/stage-npm.mjs`). Paid sets publish on the public npm registry
+(owner, 2026-11-05); nothing here is published by this repository's own hand.
+One line connects it:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261105.2041/distr/core/js/core.min.js" data-sf-sets="chart@1.0.0"></script>
+```

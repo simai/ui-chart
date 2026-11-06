@@ -1,0 +1,470 @@
+{
+  "schema_version": 2,
+  "id": "smart.chart-box",
+  "version": "0.1.0",
+  "title": "Box plot",
+  "summary": "A box plot: for each group the median, the quartiles, the whiskers and the outliers of one measure, worked out from raw rows or given, to compare how it spreads; series side by side in a group, a legend that hides them, a tooltip, a keyboard cursor that walks the boxes, a summary in words, and the same statistics as a table.",
+  "kind": "smart",
+  "reuse_mode": "whole",
+  "lifecycle": "experimental",
+  "tags": [
+    "chart",
+    "box-plot",
+    "distribution",
+    "statistics",
+    "data-visualization"
+  ],
+  "capabilities": [
+    "interaction",
+    "keyboard",
+    "responsive",
+    "live-announcement"
+  ],
+  "custom_element": "sf-chart-box",
+  "templates": [
+    "default"
+  ],
+  "exported_parts": [],
+  "composition": {
+    "uses": [
+      "smart.empty-state"
+    ],
+    "public_parts": []
+  },
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "template": {
+        "type": "string",
+        "default": "default",
+        "description": "Template variant name for SfBaseElement external templates."
+      },
+      "root-class": {
+        "type": "string",
+        "default": "",
+        "description": "Classes added to the root element the component draws."
+      },
+      "root-style": {
+        "type": "string",
+        "default": "",
+        "description": "Inline style declarations set on the root element the component draws, custom properties included."
+      },
+      "label": {
+        "type": "string",
+        "default": "",
+        "description": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+      },
+      "palette": {
+        "type": "string",
+        "default": "theme",
+        "description": "The seriess' colours as a named set, by place, each a light and a dark tone that change with the theme and hold 3:1 against surfaces 0-2: theme (the theme's own tones, as before), vivid (8, the first the brand's), soft (8, muted), warm (6), cool (6), brand (4 steps of the primary family, for ordered data). Past its size a set starts again. colors wins for the seriess it names.",
+        "enum": [
+          "theme",
+          "vivid",
+          "soft",
+          "warm",
+          "cool",
+          "brand"
+        ]
+      },
+      "x": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the groups, one box (or one per series) each, in the data's first-seen order; the first field when unset."
+      },
+      "y": {
+        "type": "string",
+        "default": "",
+        "description": "The field of the measure whose spread each box shows, with stats raw; the first numeric field other than x and series when unset."
+      },
+      "series": {
+        "type": "string",
+        "default": "",
+        "description": "One series per distinct value of this field, a box of its own beside the others in each group; one series when unset."
+      },
+      "stats": {
+        "type": "string",
+        "default": "raw",
+        "description": "raw: the rows are observations and the chart works out each group's median, quartiles (linear between the two nearest, as a spreadsheet), whiskers and outliers. given: each row gives a group's min, q1, median, q3 and max (and mean) in fields of those names, as a server worked them out; the whiskers then reach min and max and there are no outliers.",
+        "enum": [
+          "raw",
+          "given"
+        ]
+      },
+      "whiskers": {
+        "type": "string",
+        "default": "tukey",
+        "description": "tukey: a whisker reaches the farthest value within 1.5 interquartile ranges of its box, and the values past it are drawn as outliers. range: the whiskers reach the least and the largest value, with no outliers.",
+        "enum": [
+          "tukey",
+          "range"
+        ]
+      },
+      "mean": {
+        "type": "boolean",
+        "default": false,
+        "description": "Also marks each group's mean with a small diamond, and gives it in the tooltip and the table."
+      },
+      "y-min": {
+        "type": "number",
+        "description": "The start of the value axis; the data's own when unset."
+      },
+      "y-max": {
+        "type": "number",
+        "description": "The end of the value axis; the data's own when unset."
+      },
+      "y-zero": {
+        "type": "boolean",
+        "default": false,
+        "description": "The value axis takes zero in."
+      },
+      "legend": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto shows the legend above the plot when there are two series or more. Each entry is a button that hides and shows its series.",
+        "enum": [
+          "auto",
+          "top",
+          "bottom",
+          "none"
+        ]
+      },
+      "tooltip": {
+        "type": "string",
+        "default": "box",
+        "description": "box: under the pointer or the cursor, the box's group and series and its statistics: maximum, quartiles, median, minimum, the mean when marked, the count of values and of outliers.",
+        "enum": [
+          "box",
+          "none"
+        ]
+      },
+      "grid": {
+        "type": "string",
+        "default": "value",
+        "description": "value draws guide lines across the plot at the value ticks; none keeps zero only.",
+        "enum": [
+          "value",
+          "none"
+        ]
+      },
+      "x-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the groups, said under the axis and as the table's first column; the x field's name when unset."
+      },
+      "y-label": {
+        "type": "string",
+        "default": "",
+        "description": "The name of the measure, said above the axis and in the summary; the y field's name when unset."
+      },
+      "y-format": {
+        "type": "string",
+        "default": "number",
+        "description": "The measure's format: number, integer, decimal-<n>, percent (a share 0..1), compact, currency-<CODE> or unit-<unit>, in the page's language."
+      },
+      "size": {
+        "type": "string",
+        "default": "1",
+        "description": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own.",
+        "enum": [
+          "1/2",
+          "1",
+          "2"
+        ]
+      },
+      "table": {
+        "type": "string",
+        "default": "toggle",
+        "description": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text.",
+        "enum": [
+          "toggle",
+          "visible",
+          "hidden"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: a sentence of what the data does (the count of groups and values, each series' highest and lowest median, its widest box, the count of outliers), said before the plot. The description slot adds the host's own words.",
+        "enum": [
+          "auto",
+          "none"
+        ]
+      },
+      "data-state": {
+        "type": "string",
+        "default": "auto",
+        "description": "auto: ready with boxes, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh.",
+        "enum": [
+          "auto",
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "default": [],
+        "description": "The data: a list of records or an object of columns. With stats raw, one row per observation ([{shop, minutes}, …]), cut into groups by x; with stats given, one row per group with its min, q1, median, q3 and max (and mean). A row without the measure is left out; the summary says how many."
+      },
+      "names": {
+        "type": "object",
+        "default": {},
+        "description": "What each series is called, by its key: {eu: «Европа»}. A series without a name is called by its key."
+      },
+      "colors": {
+        "type": "object",
+        "default": {},
+        "description": "What colour each series is, by its key: {fact: 'primary', plan: 'neutral'}. A colour is a Framework role (primary, secondary, tertiary, neutral, success, warning, error, info), which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A series without one keeps the palette by its place. In forced colours a series is its dash."
+      },
+      "hidden-series": {
+        "type": "array",
+        "default": [],
+        "description": "The keys of the series the person hid with the legend."
+      }
+    },
+    "additionalProperties": false
+  },
+  "item_contract": {},
+  "contracts": {},
+  "methods": {
+    "reset": {
+      "summary": "Shows every series again and takes the cursor away.",
+      "arguments": [],
+      "returns": {
+        "type": "object"
+      }
+    }
+  },
+  "events": {
+    "sf-chart-box-toggle": {
+      "summary": "The person hid or showed a series with its legend button; applied at once (the vocabulary's local toggle).",
+      "payload": {
+        "type": "object",
+        "required": [
+          "id",
+          "hidden"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-box-select": {
+      "summary": "The person chose a box: a click on it, or Enter or Space on the keyboard cursor. index is the group's place, group its name, median the box's median.",
+      "payload": {
+        "type": "object",
+        "required": [
+          "series",
+          "index",
+          "group",
+          "median"
+        ],
+        "properties": {
+          "series": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          },
+          "group": {
+            "type": "string"
+          },
+          "median": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sf-chart-box-refresh": {
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items.",
+      "payload": {
+        "type": "object",
+        "required": [],
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "state": {
+    "machines": {
+      "data-state": [
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ]
+    },
+    "visual_states": [
+      "default",
+      "loading",
+      "empty",
+      "error"
+    ]
+  },
+  "persistence": {
+    "mode": "none",
+    "source_of_truth": "host",
+    "network_owner": "host",
+    "revision_field": null
+  },
+  "ownership": {
+    "source": "simai/ui-chart",
+    "data": "host",
+    "effects": "host",
+    "forbidden_client_responsibilities": [
+      "fetching data",
+      "aggregating on a server"
+    ]
+  },
+  "security": {
+    "permissions_owner": "host",
+    "untrusted_inputs": [
+      "props"
+    ],
+    "network_policy": "deny"
+  },
+  "accessibility": {
+    "role": "figure",
+    "accessible_name": "required",
+    "keyboard": [
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+      "PageUp",
+      "PageDown",
+      "Enter",
+      "Space",
+      "Escape"
+    ],
+    "focus": "One Tab stop on the plot, then the legend buttons and the table button. The summary is the plot's description; each cursor move is said politely."
+  },
+  "presentation": {
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "responsive": [
+      "desktop",
+      "mobile",
+      "ltr",
+      "rtl",
+      "reduced-motion",
+      "forced-colors"
+    ],
+    "skeleton": {
+      "shape": "block",
+      "while_loading": "template"
+    }
+  },
+  "adapter": {
+    "kind": "generic",
+    "protocol": "simai.smart-studio-adapter.v1",
+    "module": null
+  },
+  "artifacts": {
+    "fixtures": [
+      "studio.fixture.json"
+    ],
+    "scenarios": [
+      "studio.scenario.json"
+    ]
+  },
+  "readiness": {
+    "level": "runnable",
+    "required_checks": [
+      "manifest",
+      "fixture",
+      "runtime-upgrade",
+      "keyboard",
+      "responsive",
+      "a11y"
+    ]
+  },
+  "compatibility": {
+    "contract_schema": {
+      "id": "https://simai.io/contracts/smart-component-manifest.v2.schema.json",
+      "version": 2
+    },
+    "runtime_pair": {
+      "ui_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c",
+      "ui_smart_revision": "382a11aeb3285fd0a2b02d993e9583b32e35082c"
+    },
+    "aliases": [],
+    "deprecations": [],
+    "replacement": null,
+    "migrations": []
+  },
+  "provenance": {
+    "source_repository": "simai/ui-chart",
+    "source_revision": "e9ebb71be20d513d09e90c9561319a70405dfc44",
+    "source_artifacts": [
+      {
+        "path": "src/smart/chart-box/index.js",
+        "sha256": "424974d82e5edcd5eabadeac04a3ae33cba5e3490ebede96cc4d4ee841205c1a"
+      },
+      {
+        "path": "src/smart/chart-box/js/templates/default.js",
+        "sha256": "1e7870ab3f76575feb6ac85853e55c6aed54ef2514b5d692be5ca37e09125ced"
+      },
+      {
+        "path": "src/smart/chart-box/js/templates/default.css",
+        "sha256": "b9d47fcfcd898f326822904db5d330afc0904ac47b938951253f21eefed5121d"
+      },
+      {
+        "path": "src/smart/chart-box/rule.js",
+        "sha256": "308b92137072bad6887e30ad37cab621852216a786043378c4246706a0bda900"
+      },
+      {
+        "path": "src/smart/chart-box/docs.md",
+        "sha256": "f6743222c9062c9ec8d4fc08ad4df748c3127d134885ed6c87c8c6eaec516fd5"
+      },
+      {
+        "path": "src/smart/chart-box/component.json",
+        "sha256": "0bb68e046819ab649e3c6e4c9d660a61b4bab1d962da301c648e2ad27c938e6e"
+      },
+      {
+        "path": "src/smart/chart-box/lang/en.json",
+        "sha256": "32981f9753a9c7b9547b1e0d988a8e5d66d78ea2cb55508df5d10cd85c86ad78"
+      },
+      {
+        "path": "src/smart/chart-box/lang/ru.json",
+        "sha256": "37e8a1a243610d15f7ba6adc6d65cf3aab1e1592d03387cdcad76710bdef0c60"
+      }
+    ],
+    "generated_runtime": []
+  },
+  "ai_guidance": {
+    "use_when": "Use sf-chart-box to compare how one measure spreads across groups (delivery times by warehouse, salaries by department): the median, the middle half, the range and the outliers of each.",
+    "do_not": [
+      "Do not draw a chart without a label",
+      "Do not use it for a single group's shape; that is the histogram, sf-chart-bar with bin",
+      "Do not use it for under five values a group; show the values themselves with sf-chart-scatter"
+    ],
+    "required_reads": [
+      "inputs",
+      "events",
+      "accessibility"
+    ],
+    "minimal_example": "<sf-chart-box label=\"Время доставки по складам\" x=\"warehouse\" y=\"hours\"></sf-chart-box>",
+    "owner_commands": [
+      "node scripts/test.mjs"
+    ]
+  }
+}

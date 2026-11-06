@@ -1,0 +1,372 @@
+{
+  "$comment": "The source of sf-chart-sunburst (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Sunburst) and the hierarchy shape of docs/research/parameters.md §2.1, the keyboard docs/research/rendering.md §3.1, the renderer D5, the name and the form docs/DECISIONS.md D15 (the owner's choice of the chart, the form by the recommendation under the owner's delegation, 2026-11-05).",
+  "id": "smart.chart-sunburst",
+  "tag": "sf-chart-sunburst",
+  "version": "0.1.0",
+  "kind": "leaf",
+  "family": "chart",
+  "settings": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "summary": "What the chart shows, in a few words: its accessible name and the table's caption. Required in practice: without it the chart is named «График»."
+    },
+    "items": {
+      "type": "list",
+      "default": [],
+      "of": "object",
+      "summary": "The data: a list of records, or an object of columns. Either a node per row with its id and its parent ([{id, parent, value}, …]), or a leaf per row with its path, the names from the top down ([{path: ['Дом', 'Мебель'], value}, …]); the same path twice sums. A parent's value is its own with its children's. A row without an id or a path, a node with nothing to show, an id named twice and a chain of parents that comes back to itself are left out; the summary says how many."
+    },
+    "colors": {
+      "type": "object",
+      "default": {},
+      "summary": "The colours of the branches by the top node's name ({Электроника: 'primary'}): a Framework role, which follows the theme, or any CSS colour or variable; anything else is dropped with a console report, as is a colour under 3:1 against the background (drawn all the same). A branch without one takes the chart colour of its top node's place, largest first."
+    },
+    "node": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of a node's id; id when unset. (The setting is not called id: that is the element's own attribute.)"
+    },
+    "parent": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of a node's parent id; parent when unset. A parent that is not among the ids makes the node a top one."
+    },
+    "path": {
+      "type": "string",
+      "default": "",
+      "summary": "The field holding a leaf's path, a list of names from the top down. When set, or when no node or parent is set and a field holds lists, the rows are read by path instead of by id and parent."
+    },
+    "value": {
+      "type": "string",
+      "default": "",
+      "summary": "The field of the values, positive; the first numeric field other than the id, the parent and the path when unset."
+    },
+    "name": {
+      "type": "string",
+      "default": "",
+      "summary": "With ids and parents, the field of a node's name, written on its arc; the id when unset."
+    },
+    "labels": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto writes a node's name along the middle of its arc, cut with an ellipsis to the room, when the ring is a line and a half thick; an arc too small keeps its words in the tooltip, the live line and the table. none leaves them all there."
+    },
+    "tooltip": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: under the pointer or the cursor, the arc's path, its value, its share of its parent and of the whole."
+    },
+    "y-format": {
+      "type": "string",
+      "default": "number",
+      "summary": "The values' format: number, integer, decimal-<n>, compact, currency-<CODE> or unit-<unit>, in the page's language. Shares are always percent."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "default": "1",
+      "summary": "The rung of the size ladder: the plot's height, the text and the gaps. 1/2 for a card, 2 for a page of its own."
+    },
+    "table": {
+      "type": "enum",
+      "values": [
+        "toggle",
+        "visible",
+        "hidden"
+      ],
+      "default": "toggle",
+      "summary": "The same data as a table: toggle offers a button that swaps the plot for it, visible shows it under the plot, hidden keeps it for screen readers only. Never none: the table is the chart's text."
+    },
+    "summary": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "none"
+      ],
+      "default": "auto",
+      "summary": "auto: a sentence of what the data does (the levels, the parts and the total, the largest branch and the largest end part with their shares, the rows left out), said before the plot. The description slot adds the host's own words."
+    },
+    "data-state": {
+      "type": "enum",
+      "values": [
+        "auto",
+        "loading",
+        "ready",
+        "empty",
+        "error"
+      ],
+      "default": "auto",
+      "summary": "auto: ready with parts, empty without. loading draws the frame without marks; error offers «Повторить», which sends refresh."
+    }
+  },
+  "events": {
+    "select": {
+      "carries": {
+        "index": "number",
+        "node": "string",
+        "name": "string",
+        "path": "list",
+        "depth": "number",
+        "value": "number",
+        "share": "number"
+      },
+      "summary": "The person chose an arc: a click on it, or Enter or Space on the keyboard cursor. index is its place in the keyboard's order (ring after ring, clockwise), node its id (its path joined by a zero character with the path setting), name its name, path the names from the top down, depth its ring from 0, value its value with its children's, share its part of the whole, 0 to 1."
+    },
+    "refresh": {
+      "carries": {},
+      "summary": "The person asked for the data again from the error state; the host loads it and sets items."
+    }
+  },
+  "actions": {
+    "reset": {
+      "with": {},
+      "x-outcomes": [
+        "applied"
+      ],
+      "summary": "Takes the cursor away."
+    }
+  },
+  "slots": {
+    "description": {
+      "$comment": "The host's own words about the chart: said with the summary (aria-describedby) and shown under the plot."
+    }
+  },
+  "keyboard": {
+    "host": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "PageUp": "focus:prev",
+      "PageDown": "focus:next",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    }
+  },
+  "relations": [
+    {
+      "name": "cl-empty-state"
+    }
+  ],
+  "templates": {
+    "default": {
+      "file": "js/templates/default.js",
+      "$comment": "The Lit template in JavaScript, the migration form of §5.2 (§16); the plot is SVG (D5): a sunburst has an arc per node, a few hundred at most."
+    }
+  },
+  "styles": "js/templates/default.css",
+  "examples": "examples.json",
+  "docs": "docs.md",
+  "lang": "lang/",
+  "presentation": {
+    "skeleton": {
+      "$comment": "The items arrive after the first paint when the host loads them: the derived skeleton holds the plot's box (its height is the size rung's) until they do (standard 1.3.8 §5.4).",
+      "late": [
+        "items"
+      ]
+    }
+  },
+  "accessibility": {
+    "role": "figure",
+    "name": {
+      "from": [
+        "label",
+        "runtime.untitled"
+      ]
+    },
+    "keys": {
+      "Tab": "reach",
+      "ArrowLeft": "focus:prev",
+      "ArrowRight": "focus:next",
+      "ArrowUp": "focus:prev",
+      "ArrowDown": "focus:next",
+      "Home": "focus:first",
+      "End": "focus:last",
+      "PageUp": "focus:prev",
+      "PageDown": "focus:next",
+      "Enter": "select",
+      "Space": "select",
+      "Escape": "dismiss"
+    },
+    "x-keys": "The plot is one Tab stop (role group, aria-roledescription «кольцевая диаграмма иерархии»). Left and Right move the cursor round the ring, Right clockwise, going round at the ends; Down goes out to the arc's largest child, Up back to its parent; Home and End go to the first and the last arc of the ring. Each move is said in a polite live region: the arc's path and value, its share of its parent and of the whole, and how many parts it holds. Enter and Space choose the arc (select); Escape takes the cursor away. The table button is a button of its own."
+  },
+  "css-variables": {
+    "--sf-chart-sunburst-height": {
+      "type": "length",
+      "state": "default"
+    },
+    "--sf-chart-sunburst-label-color": {
+      "type": "color",
+      "state": "default"
+    },
+    "--sf-chart-sunburst-hover-background-color": {
+      "type": "color",
+      "state": "hover"
+    }
+  },
+  "x-summary": "A sunburst: a hierarchy as rings round a centre, a ring per level from the top nodes out, each arc its share of its parent's, read from ids and parents or from paths; a top node in a chart colour that its branch keeps, lighter past the first ring, with a line round each arc; a name along an arc where it fits and the total in the centre; a tooltip with the shares, a keyboard cursor round the rings and in and out of them, a summary in words, and every node as a row of a table.",
+  "x-source": {
+    "package": "chart",
+    "folder": "chart-sunburst",
+    "research": "simai/ui-chart docs/research/catalogue.md (Sunburst), docs/research/parameters.md §2.1, docs/research/rendering.md §3.1"
+  },
+  "x-words": [
+    "label"
+  ],
+  "x-decisions": [
+    "name: sf-chart-sunburst, the catalogue's name, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart, as the charts of M2 (docs/DECISIONS.md D15), family chart. Reserved by the dispatcher (ui-control 868426b).",
+    "data: the hierarchy shape of parameters.md §2.1, an id and a parent per row (the node setting names the id field, because id is the element's own attribute), or a path field holding a list; a parent's value is its own with its children's; what cannot be drawn is left out and counted.",
+    "layout: own implementation in chart-core/sunburst; the top nodes share the turn clockwise from twelve o'clock, largest first, a child its parent's angle by its share; the rings share the radius outside a hole of three tenths.",
+    "colours: a top node takes the chart colour of its place (--sf-chart-1..8) and its branch keeps it, the colour's light fill with its line round each arc, lighter past the first ring, so the page's ink reads on every arc; colors by the top node's name for a page's own.",
+    "labels: a node's name along the middle of its arc, straight, turned round below the middle so it never reads upside down, cut with an ellipsis to the room inside the arc; the total in the centre when it fits.",
+    "renderer: own SVG (D5); a sunburst reads a few hundred arcs at most, so there is no canvas layer.",
+    "keyboard: Left and Right round a ring, Down to the largest child, Up to the parent (rendering.md §3.1 for a tree).",
+    "select: {index, node, name, path, depth, value, share}.",
+    "table: never none; one row per node, each branch under its parent, with its path, value and shares.",
+    "drill-down into a branch, a legend and arcs placed by hand: not in 0.1.0."
+  ],
+  "x-registry": {
+    "capabilities": [
+      "interaction",
+      "keyboard",
+      "responsive",
+      "live-announcement"
+    ],
+    "persistence": {
+      "mode": "none",
+      "source_of_truth": "host",
+      "network_owner": "host",
+      "revision_field": null
+    },
+    "readiness": {
+      "level": "runnable",
+      "required_checks": [
+        "manifest",
+        "fixture",
+        "runtime-upgrade",
+        "keyboard",
+        "responsive",
+        "a11y"
+      ]
+    },
+    "tags": [
+      "chart",
+      "sunburst",
+      "part-to-whole",
+      "hierarchy",
+      "data-visualization"
+    ],
+    "state": {
+      "machines": {
+        "data-state": [
+          "loading",
+          "ready",
+          "empty",
+          "error"
+        ]
+      },
+      "visual_states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ]
+    },
+    "ownership": {
+      "source": "simai/ui-chart",
+      "data": "host",
+      "effects": "host",
+      "forbidden_client_responsibilities": [
+        "fetching data",
+        "aggregating on a server"
+      ]
+    },
+    "security": {
+      "permissions_owner": "host",
+      "untrusted_inputs": [
+        "props"
+      ],
+      "network_policy": "deny"
+    },
+    "presentation": {
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "locales": [
+        "ru",
+        "en"
+      ],
+      "responsive": [
+        "desktop",
+        "mobile",
+        "ltr",
+        "rtl",
+        "reduced-motion",
+        "forced-colors"
+      ],
+      "skeleton": {
+        "shape": "block",
+        "while_loading": "template"
+      }
+    },
+    "ai_guidance": {
+      "use_when": "Use sf-chart-sunburst to show a hierarchy of parts where the levels matter: revenue by category and product, a budget by department and item, disk space by folder.",
+      "do_not": [
+        "Do not draw a chart without a label",
+        "Do not use it to compare sizes exactly; a sf-chart-bar or a sf-chart-treemap reads them better",
+        "Do not use it for values that can be negative; an arc cannot show them"
+      ],
+      "required_reads": [
+        "inputs",
+        "events",
+        "accessibility"
+      ],
+      "minimal_example": "<sf-chart-sunburst label=\"Выручка по направлениям\" parent=\"parent\" value=\"value\" y-format=\"integer\"></sf-chart-sunburst>",
+      "owner_commands": [
+        "node scripts/test.mjs"
+      ]
+    },
+    "accessibility": {
+      "accessible_name": "required",
+      "keyboard": [
+        "Tab",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Home",
+        "End",
+        "PageUp",
+        "PageDown",
+        "Enter",
+        "Space",
+        "Escape"
+      ],
+      "focus": "One Tab stop on the plot, then the table button. The summary is the plot's description; each cursor move is said politely."
+    }
+  },
+  "x-rule": {
+    "$comment": [
+      "The chart draws its empty and error states as sf-empty-state; a tag it renders is a tag it fetches.",
+      "Its own button (the table toggle) is a native button, so it fetches no sf-button."
+    ]
+  }
+}

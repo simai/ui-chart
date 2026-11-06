@@ -1,0 +1,511 @@
+{
+  "examples": [
+    {
+      "name": "reference",
+      "title": "Выручка по направлениям",
+      "settings": {
+        "label": "Выручка по направлениям, млн ₽",
+        "y-format": "integer",
+        "items": [
+          {
+            "id": "Электроника"
+          },
+          {
+            "id": "Смартфоны",
+            "parent": "Электроника",
+            "value": 420
+          },
+          {
+            "id": "Ноутбуки",
+            "parent": "Электроника",
+            "value": 310
+          },
+          {
+            "id": "Наушники",
+            "parent": "Электроника",
+            "value": 120
+          },
+          {
+            "id": "Планшеты",
+            "parent": "Электроника",
+            "value": 90
+          },
+          {
+            "id": "Дом"
+          },
+          {
+            "id": "Мебель",
+            "parent": "Дом",
+            "value": 260
+          },
+          {
+            "id": "Посуда",
+            "parent": "Дом",
+            "value": 110
+          },
+          {
+            "id": "Текстиль",
+            "parent": "Дом",
+            "value": 70
+          },
+          {
+            "id": "Одежда"
+          },
+          {
+            "id": "Обувь",
+            "parent": "Одежда",
+            "value": 180
+          },
+          {
+            "id": "Верхняя одежда",
+            "parent": "Одежда",
+            "value": 150
+          },
+          {
+            "id": "Аксессуары",
+            "parent": "Одежда",
+            "value": 60
+          }
+        ]
+      },
+      "expect": {
+        "name": "Выручка по направлениям, млн ₽",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "sunburst reference",
+        "props": {
+          "label": "Выручка по направлениям, млн ₽",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "paths",
+      "title": "Место на диске",
+      "settings": {
+        "label": "Место на диске, ГБ",
+        "path": "path",
+        "value": "size",
+        "y-format": "integer",
+        "items": [
+          {
+            "path": [
+              "Документы",
+              "Работа"
+            ],
+            "size": 40
+          },
+          {
+            "path": [
+              "Документы",
+              "Личное"
+            ],
+            "size": 15
+          },
+          {
+            "path": [
+              "Фото",
+              "2025"
+            ],
+            "size": 60
+          },
+          {
+            "path": [
+              "Фото",
+              "2026",
+              "Отпуск"
+            ],
+            "size": 35
+          },
+          {
+            "path": [
+              "Фото",
+              "2026",
+              "Семья"
+            ],
+            "size": 20
+          },
+          {
+            "path": [
+              "Видео"
+            ],
+            "size": 90
+          },
+          {
+            "path": [
+              "Программы",
+              "Офис"
+            ],
+            "size": 12
+          },
+          {
+            "path": [
+              "Программы",
+              "Графика"
+            ],
+            "size": 25
+          },
+          {
+            "path": [],
+            "size": 5
+          }
+        ]
+      },
+      "expect": {
+        "name": "Место на диске, ГБ",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "sunburst paths",
+        "props": {
+          "label": "Место на диске, ГБ",
+          "path": "path",
+          "value": "size",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors",
+      "title": "Свои цвета",
+      "settings": {
+        "label": "Выручка: свои цвета",
+        "y-format": "integer",
+        "colors": {
+          "Электроника": "primary",
+          "Дом": "tertiary",
+          "Одежда": "success"
+        },
+        "items": [
+          {
+            "id": "Электроника"
+          },
+          {
+            "id": "Смартфоны",
+            "parent": "Электроника",
+            "value": 420
+          },
+          {
+            "id": "Ноутбуки",
+            "parent": "Электроника",
+            "value": 310
+          },
+          {
+            "id": "Наушники",
+            "parent": "Электроника",
+            "value": 120
+          },
+          {
+            "id": "Планшеты",
+            "parent": "Электроника",
+            "value": 90
+          },
+          {
+            "id": "Дом"
+          },
+          {
+            "id": "Мебель",
+            "parent": "Дом",
+            "value": 260
+          },
+          {
+            "id": "Посуда",
+            "parent": "Дом",
+            "value": 110
+          },
+          {
+            "id": "Текстиль",
+            "parent": "Дом",
+            "value": 70
+          },
+          {
+            "id": "Одежда"
+          },
+          {
+            "id": "Обувь",
+            "parent": "Одежда",
+            "value": 180
+          },
+          {
+            "id": "Верхняя одежда",
+            "parent": "Одежда",
+            "value": 150
+          },
+          {
+            "id": "Аксессуары",
+            "parent": "Одежда",
+            "value": 60
+          }
+        ]
+      },
+      "expect": {
+        "name": "Выручка: свои цвета",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "sunburst colors",
+        "props": {
+          "label": "Выручка: свои цвета",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "small",
+      "title": "Маленький",
+      "settings": {
+        "label": "Выручка по направлениям",
+        "y-format": "integer",
+        "size": "1/2",
+        "items": [
+          {
+            "id": "Электроника"
+          },
+          {
+            "id": "Смартфоны",
+            "parent": "Электроника",
+            "value": 420
+          },
+          {
+            "id": "Ноутбуки",
+            "parent": "Электроника",
+            "value": 310
+          },
+          {
+            "id": "Наушники",
+            "parent": "Электроника",
+            "value": 120
+          },
+          {
+            "id": "Планшеты",
+            "parent": "Электроника",
+            "value": 90
+          },
+          {
+            "id": "Дом"
+          },
+          {
+            "id": "Мебель",
+            "parent": "Дом",
+            "value": 260
+          },
+          {
+            "id": "Посуда",
+            "parent": "Дом",
+            "value": 110
+          },
+          {
+            "id": "Текстиль",
+            "parent": "Дом",
+            "value": 70
+          },
+          {
+            "id": "Одежда"
+          },
+          {
+            "id": "Обувь",
+            "parent": "Одежда",
+            "value": 180
+          },
+          {
+            "id": "Верхняя одежда",
+            "parent": "Одежда",
+            "value": 150
+          },
+          {
+            "id": "Аксессуары",
+            "parent": "Одежда",
+            "value": 60
+          }
+        ]
+      },
+      "expect": {
+        "name": "Выручка по направлениям",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "sunburst small",
+        "props": {
+          "label": "Выручка по направлениям",
+          "y-format": "integer",
+          "size": "1/2"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "loading",
+      "title": "Загрузка",
+      "settings": {
+        "label": "Выручка по направлениям, млн ₽",
+        "data-state": "loading"
+      },
+      "expect": {
+        "name": "Выручка по направлениям, млн ₽"
+      }
+    },
+    {
+      "name": "empty",
+      "title": "Нет данных",
+      "settings": {
+        "label": "Выручка по направлениям, млн ₽",
+        "items": []
+      },
+      "expect": {
+        "name": "Выручка по направлениям, млн ₽"
+      }
+    },
+    {
+      "name": "error",
+      "title": "Ошибка",
+      "settings": {
+        "label": "Выручка по направлениям, млн ₽",
+        "data-state": "error"
+      },
+      "expect": {
+        "name": "Выручка по направлениям, млн ₽"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "conformance",
+      "title": "sf-chart-sunburst against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+      "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+      "page": {
+        "lang": "ru",
+        "body": [
+          "<main style=\"inline-size: 40rem\">",
+          "  <sf-chart-sunburst id=\"c\" label=\"Выручка по направлениям, млн ₽\" y-format=\"integer\"></sf-chart-sunburst>",
+          "  <sf-chart-sunburst id=\"p\" label=\"Место на диске, ГБ\" path=\"path\" value=\"size\" y-format=\"integer\" table=\"hidden\"></sf-chart-sunburst>",
+          "  <sf-chart-sunburst id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-sunburst>",
+          "</main>"
+        ]
+      },
+      "checks": [
+        {
+          "id": "p1-figure-and-summary",
+          "title": "a figure named by its label; the plot is one group described by the levels, the parts and the total, the largest branch and the largest end part with their shares; an arc per node in two rings, a branch in its top node's colour, names along the arcs and the total in the centre",
+          "covers": "accessibility (role figure, name label), settings.items, settings.node (unset), settings.parent (unset), settings.value (unset), settings.labels, settings.summary",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"id\": \"Электроника\"}, {\"id\": \"Смартфоны\", \"parent\": \"Электроника\", \"value\": 420}, {\"id\": \"Ноутбуки\", \"parent\": \"Электроника\", \"value\": 310}, {\"id\": \"Наушники\", \"parent\": \"Электроника\", \"value\": 120}, {\"id\": \"Планшеты\", \"parent\": \"Электроника\", \"value\": 90}, {\"id\": \"Дом\"}, {\"id\": \"Мебель\", \"parent\": \"Дом\", \"value\": 260}, {\"id\": \"Посуда\", \"parent\": \"Дом\", \"value\": 110}, {\"id\": \"Текстиль\", \"parent\": \"Дом\", \"value\": 70}, {\"id\": \"Одежда\"}, {\"id\": \"Обувь\", \"parent\": \"Одежда\", \"value\": 180}, {\"id\": \"Верхняя одежда\", \"parent\": \"Одежда\", \"value\": 150}, {\"id\": \"Аксессуары\", \"parent\": \"Одежда\", \"value\": 60}]; document.querySelector('#p').items = [{\"path\": [\"Документы\", \"Работа\"], \"size\": 40}, {\"path\": [\"Документы\", \"Личное\"], \"size\": 15}, {\"path\": [\"Фото\", \"2025\"], \"size\": 60}, {\"path\": [\"Фото\", \"2026\", \"Отпуск\"], \"size\": 35}, {\"path\": [\"Фото\", \"2026\", \"Семья\"], \"size\": 20}, {\"path\": [\"Видео\"], \"size\": 90}, {\"path\": [\"Программы\", \"Офис\"], \"size\": 12}, {\"path\": [\"Программы\", \"Графика\"], \"size\": 25}, {\"path\": [], \"size\": 5}]; return true; })()",
+              "wait": 400,
+              "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const rings = [0, 1].map((n) => document.querySelectorAll(`#c svg[role=group] .sf-chart-sunburst-arc[data-depth=\"${n}\"]`).length).join('|'); const total = document.querySelector('#c .sf-chart-sunburst-total').textContent.replace(/\\u00a0|\\u202f/gu, ' '); const names = [...document.querySelectorAll('#c .sf-chart-sunburst-name')].map((t) => t.textContent); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Выручка по направлениям, млн ₽' && s.getAttribute('aria-roledescription') === 'кольцевая диаграмма иерархии' && s.tabIndex === 0 && d === 'Уровней: 2, частей: 13; всего 1 770. Крупнейшая ветвь — «Электроника»: 940 (53,1 %). Крупнейшая конечная часть — «Электроника / Смартфоны»: 420 (23,7 %).' && document.querySelectorAll('#c svg[role=group] .sf-chart-sunburst-arc').length === 13 && rings === '3|10' && total === '1 770' && names.includes('Электроника') && names.includes('Смартфоны') && document.querySelector('#c .sf-chart-sunburst-branch.sf-chart-sunburst-c1').dataset.node === 'Электроника' && document.querySelectorAll('#c .sf-chart-sunburst-branch.sf-chart-sunburst-c2 .sf-chart-sunburst-arc').length === 4; })()"
+            }
+          ]
+        },
+        {
+          "id": "p2-keyboard-cursor",
+          "title": "Right and Left go round a ring, Down out to the largest child, Up back to the parent, End to the last arc of the ring, each arc said with its path, value and shares; Enter chooses it; Escape clears",
+          "covers": "keyboard.host (ArrowRight, ArrowLeft, ArrowDown, ArrowUp, End, Enter, Escape), events.select",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"id\": \"Электроника\"}, {\"id\": \"Смартфоны\", \"parent\": \"Электроника\", \"value\": 420}, {\"id\": \"Ноутбуки\", \"parent\": \"Электроника\", \"value\": 310}, {\"id\": \"Наушники\", \"parent\": \"Электроника\", \"value\": 120}, {\"id\": \"Планшеты\", \"parent\": \"Электроника\", \"value\": 90}, {\"id\": \"Дом\"}, {\"id\": \"Мебель\", \"parent\": \"Дом\", \"value\": 260}, {\"id\": \"Посуда\", \"parent\": \"Дом\", \"value\": 110}, {\"id\": \"Текстиль\", \"parent\": \"Дом\", \"value\": 70}, {\"id\": \"Одежда\"}, {\"id\": \"Обувь\", \"parent\": \"Одежда\", \"value\": 180}, {\"id\": \"Верхняя одежда\", \"parent\": \"Одежда\", \"value\": 150}, {\"id\": \"Аксессуары\", \"parent\": \"Одежда\", \"value\": 60}]; document.querySelector('#p').items = [{\"path\": [\"Документы\", \"Работа\"], \"size\": 40}, {\"path\": [\"Документы\", \"Личное\"], \"size\": 15}, {\"path\": [\"Фото\", \"2025\"], \"size\": 60}, {\"path\": [\"Фото\", \"2026\", \"Отпуск\"], \"size\": 35}, {\"path\": [\"Фото\", \"2026\", \"Семья\"], \"size\": 20}, {\"path\": [\"Видео\"], \"size\": 90}, {\"path\": [\"Программы\", \"Офис\"], \"size\": 12}, {\"path\": [\"Программы\", \"Графика\"], \"size\": 25}, {\"path\": [], \"size\": 5}]; return true; })()",
+              "wait": 400
+            },
+            {
+              "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-sunburst-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Электроника: 940; 53,1 % всего; частей внутри: 4')()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Дом: 440; 24,9 % всего; частей внутри: 3')()"
+            },
+            {
+              "user": "keyboard:ArrowDown",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Дом / Мебель: 260; 59,1 % от «Дом», 14,7 % всего')()"
+            },
+            {
+              "user": "keyboard:ArrowLeft",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Электроника / Планшеты: 90; 9,6 % от «Электроника», 5,1 % всего')()"
+            },
+            {
+              "user": "keyboard:ArrowUp",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ').startsWith('Электроника: 940') && document.querySelectorAll('#c .sf-chart-sunburst-ring').length === 1)()"
+            },
+            {
+              "user": "keyboard:End",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Одежда: 390; 22 % всего; частей внутри: 3')()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__chosen && window.__chosen.index === 2 && window.__chosen.node === 'Одежда' && window.__chosen.name === 'Одежда' && window.__chosen.depth === 0 && window.__chosen.value === 390 && window.__chosen.path.join('/') === 'Одежда')()"
+            },
+            {
+              "user": "keyboard:Escape",
+              "wait": 80,
+              "check": "(() => !document.querySelector('#c .sf-chart-sunburst-ring'))()"
+            }
+          ]
+        },
+        {
+          "id": "p3-paths-and-table",
+          "title": "paths of names three levels deep, the same leaf named once; a row without a path is left out and counted in the summary; the hidden table has a row per node, each branch under its parent, with its shares",
+          "covers": "settings.path, settings.value, settings.table, settings.summary",
+          "steps": [
+            {
+              "script": "(() => { document.querySelector('#c').items = [{\"id\": \"Электроника\"}, {\"id\": \"Смартфоны\", \"parent\": \"Электроника\", \"value\": 420}, {\"id\": \"Ноутбуки\", \"parent\": \"Электроника\", \"value\": 310}, {\"id\": \"Наушники\", \"parent\": \"Электроника\", \"value\": 120}, {\"id\": \"Планшеты\", \"parent\": \"Электроника\", \"value\": 90}, {\"id\": \"Дом\"}, {\"id\": \"Мебель\", \"parent\": \"Дом\", \"value\": 260}, {\"id\": \"Посуда\", \"parent\": \"Дом\", \"value\": 110}, {\"id\": \"Текстиль\", \"parent\": \"Дом\", \"value\": 70}, {\"id\": \"Одежда\"}, {\"id\": \"Обувь\", \"parent\": \"Одежда\", \"value\": 180}, {\"id\": \"Верхняя одежда\", \"parent\": \"Одежда\", \"value\": 150}, {\"id\": \"Аксессуары\", \"parent\": \"Одежда\", \"value\": 60}]; document.querySelector('#p').items = [{\"path\": [\"Документы\", \"Работа\"], \"size\": 40}, {\"path\": [\"Документы\", \"Личное\"], \"size\": 15}, {\"path\": [\"Фото\", \"2025\"], \"size\": 60}, {\"path\": [\"Фото\", \"2026\", \"Отпуск\"], \"size\": 35}, {\"path\": [\"Фото\", \"2026\", \"Семья\"], \"size\": 20}, {\"path\": [\"Видео\"], \"size\": 90}, {\"path\": [\"Программы\", \"Офис\"], \"size\": 12}, {\"path\": [\"Программы\", \"Графика\"], \"size\": 25}, {\"path\": [], \"size\": 5}]; return true; })()",
+              "wait": 400,
+              "check": "(() => { const s = document.querySelector('#p svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const head = [...document.querySelectorAll('#p table thead th')].map((t) => t.textContent.trim()).join('|'); const rows = [...document.querySelectorAll('#p table tbody tr')].map((r) => [...r.children].map((t) => t.textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ')).join('|')); return d === 'Уровней: 3, частей: 12; всего 297. Крупнейшая ветвь — «Фото»: 115 (38,7 %). Крупнейшая конечная часть — «Видео»: 90 (30,3 %). Строк без положительного значения: 1.' && document.querySelectorAll('#p svg[role=group] .sf-chart-sunburst-arc[data-depth=\"2\"]').length === 2 && head === 'Путь|Значение|Доля от родителя|Доля всего' && rows.length === 12 && rows[0] === 'Фото|115|—|38,7 %' && rows[3] === 'Фото / 2026 / Отпуск|35|63,6 %|11,8 %'; })()"
+            }
+          ]
+        },
+        {
+          "id": "p4-error-refresh",
+          "title": "the error state offers a retry that sends refresh",
+          "covers": "settings.data-state, events.refresh",
+          "steps": [
+            {
+              "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-sunburst-refresh', () => { window.__refresh += 1; }); return true; })()",
+              "wait": 200
+            },
+            {
+              "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+              "wait": 120,
+              "check": "(() => window.__refresh === 1)()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

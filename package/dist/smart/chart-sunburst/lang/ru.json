@@ -1,0 +1,39 @@
+{
+  "title": "Солнечные круги",
+  "runtime": {
+    "untitled": "График",
+    "roledescription": "кольцевая диаграмма иерархии",
+    "summary-total": "Уровней: {levels}, частей: {count}; всего {total}.",
+    "summary-branch": "Крупнейшая ветвь — «{name}»: {value} ({share}).",
+    "summary-leaf": "Крупнейшая конечная часть — «{name}»: {value} ({share}).",
+    "summary-left": "Строк без положительного значения: {count}.",
+    "summary-looped": "Строк, замыкающих круг родителей, пропущено: {count}.",
+    "summary-empty": "Нет данных.",
+    "cursor": "{name}: {value}",
+    "cursor-parent": "{share} от «{parent}», {whole} всего",
+    "cursor-whole": "{whole} всего",
+    "cursor-children": "частей внутри: {count}",
+    "path": "Путь",
+    "value": "Значение",
+    "share-of-parent": "Доля от родителя",
+    "share": "Доля всего",
+    "gap": "нет данных",
+    "show-table": "Таблица",
+    "loading": "Загрузка данных графика",
+    "empty-title": "Нет данных для графика",
+    "error-title": "Не удалось загрузить данные"
+  },
+  "events": {
+    "select": {
+      "label": "Выбрать часть"
+    },
+    "refresh": {
+      "label": "Загрузить данные заново"
+    }
+  },
+  "actions": {
+    "reset": {
+      "label": "Убрать курсор"
+    }
+  }
+}

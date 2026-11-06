@@ -1,0 +1,1101 @@
+{
+  "examples": [
+    {
+      "name": "reference",
+      "title": "Время доставки по складам",
+      "settings": {
+        "label": "Время доставки по складам",
+        "x": "warehouse",
+        "y": "hours",
+        "x-label": "Склад",
+        "y-label": "Часов в пути",
+        "y-format": "integer",
+        "items": [
+          {
+            "warehouse": "Москва",
+            "hours": 12
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 20
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 4
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 26
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 14
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 22
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 9
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 30
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 15
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 25
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 11
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 31
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 16
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 27
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 12
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 33
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 18
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 28
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 13
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 36
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 19
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 30
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 14
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 38
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 21
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 33
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 15
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 40
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 24
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 35
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 16
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 44
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 48
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 38
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 18
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 52
+          }
+        ]
+      },
+      "expect": {
+        "name": "Время доставки по складам",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "box reference",
+        "props": {
+          "label": "Время доставки по складам",
+          "x": "warehouse",
+          "y": "hours",
+          "x-label": "Склад",
+          "y-label": "Часов в пути",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "series",
+      "title": "Ряды рядом в группе",
+      "settings": {
+        "label": "Обычная и срочная доставка",
+        "x": "warehouse",
+        "y": "hours",
+        "series": "kind",
+        "x-label": "Склад",
+        "y-label": "Часов в пути",
+        "y-format": "integer",
+        "names": {
+          "standard": "Обычная",
+          "express": "Срочная"
+        },
+        "items": {
+          "warehouse": [
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара"
+          ],
+          "kind": [
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express"
+          ],
+          "hours": [
+            18,
+            6,
+            24,
+            8,
+            14,
+            5,
+            20,
+            7,
+            26,
+            9,
+            16,
+            6,
+            22,
+            8,
+            28,
+            11,
+            17,
+            6,
+            24,
+            9,
+            31,
+            12,
+            19,
+            7,
+            26,
+            10,
+            33,
+            14,
+            21,
+            8,
+            30,
+            12,
+            36,
+            15,
+            23,
+            9
+          ]
+        }
+      },
+      "expect": {
+        "name": "Обычная и срочная доставка",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "box series",
+        "props": {
+          "label": "Обычная и срочная доставка",
+          "x": "warehouse",
+          "y": "hours",
+          "series": "kind",
+          "x-label": "Склад",
+          "y-label": "Часов в пути",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "given",
+      "title": "Готовая статистика и среднее",
+      "settings": {
+        "label": "Зарплаты по отделам",
+        "x": "department",
+        "stats": "given",
+        "mean": true,
+        "x-label": "Отдел",
+        "y-label": "Зарплата, тыс. ₽",
+        "y-format": "integer",
+        "items": [
+          {
+            "department": "Продажи",
+            "min": 60,
+            "q1": 85,
+            "median": 110,
+            "q3": 150,
+            "max": 260,
+            "mean": 124
+          },
+          {
+            "department": "ИТ",
+            "min": 90,
+            "q1": 130,
+            "median": 160,
+            "q3": 200,
+            "max": 320,
+            "mean": 172
+          },
+          {
+            "department": "Склад",
+            "min": 45,
+            "q1": 55,
+            "median": 62,
+            "q3": 70,
+            "max": 95,
+            "mean": 64
+          },
+          {
+            "department": "Бухгалтерия",
+            "min": 55,
+            "q1": 70,
+            "median": 80,
+            "q3": 92,
+            "max": 130,
+            "mean": 84
+          },
+          {
+            "department": "Маркетинг",
+            "min": 60,
+            "q1": 80,
+            "median": 95,
+            "q3": 120,
+            "max": 190,
+            "mean": 104
+          }
+        ]
+      },
+      "expect": {
+        "name": "Зарплаты по отделам",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "box given",
+        "props": {
+          "label": "Зарплаты по отделам",
+          "x": "department",
+          "stats": "given",
+          "mean": true,
+          "x-label": "Отдел",
+          "y-label": "Зарплата, тыс. ₽",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "range",
+      "title": "Усы до крайних значений",
+      "settings": {
+        "label": "Время доставки: усы до крайних",
+        "x": "warehouse",
+        "y": "hours",
+        "x-label": "Склад",
+        "y-label": "Часов в пути",
+        "y-format": "integer",
+        "whiskers": "range",
+        "items": [
+          {
+            "warehouse": "Москва",
+            "hours": 12
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 20
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 4
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 26
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 14
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 22
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 9
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 30
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 15
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 25
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 11
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 31
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 16
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 27
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 12
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 33
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 18
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 28
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 13
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 36
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 19
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 30
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 14
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 38
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 21
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 33
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 15
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 40
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 24
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 35
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 16
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 44
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 48
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 38
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 18
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 52
+          }
+        ]
+      },
+      "expect": {
+        "name": "Время доставки: усы до крайних",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "box range",
+        "props": {
+          "label": "Время доставки: усы до крайних",
+          "x": "warehouse",
+          "y": "hours",
+          "x-label": "Склад",
+          "y-label": "Часов в пути",
+          "y-format": "integer",
+          "whiskers": "range"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "colors",
+      "title": "Свои цвета рядов",
+      "settings": {
+        "label": "Доставка: свои цвета",
+        "x": "warehouse",
+        "y": "hours",
+        "series": "kind",
+        "x-label": "Склад",
+        "y-label": "Часов в пути",
+        "y-format": "integer",
+        "names": {
+          "standard": "Обычная",
+          "express": "Срочная"
+        },
+        "colors": {
+          "standard": "neutral",
+          "express": "primary"
+        },
+        "items": {
+          "warehouse": [
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара",
+            "Москва",
+            "Москва",
+            "Казань",
+            "Казань",
+            "Самара",
+            "Самара"
+          ],
+          "kind": [
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express",
+            "standard",
+            "express"
+          ],
+          "hours": [
+            18,
+            6,
+            24,
+            8,
+            14,
+            5,
+            20,
+            7,
+            26,
+            9,
+            16,
+            6,
+            22,
+            8,
+            28,
+            11,
+            17,
+            6,
+            24,
+            9,
+            31,
+            12,
+            19,
+            7,
+            26,
+            10,
+            33,
+            14,
+            21,
+            8,
+            30,
+            12,
+            36,
+            15,
+            23,
+            9
+          ]
+        }
+      },
+      "expect": {
+        "name": "Доставка: свои цвета",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "box colors",
+        "props": {
+          "label": "Доставка: свои цвета",
+          "x": "warehouse",
+          "y": "hours",
+          "series": "kind",
+          "x-label": "Склад",
+          "y-label": "Часов в пути",
+          "y-format": "integer"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "small",
+      "title": "Маленький размер",
+      "settings": {
+        "label": "Время доставки по складам",
+        "x": "warehouse",
+        "y": "hours",
+        "x-label": "Склад",
+        "y-label": "Часов в пути",
+        "y-format": "integer",
+        "size": "1/2",
+        "items": [
+          {
+            "warehouse": "Москва",
+            "hours": 12
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 20
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 4
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 26
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 14
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 22
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 9
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 30
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 15
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 25
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 11
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 31
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 16
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 27
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 12
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 33
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 18
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 28
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 13
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 36
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 19
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 30
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 14
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 38
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 21
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 33
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 15
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 40
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 24
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 35
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 16
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 44
+          },
+          {
+            "warehouse": "Москва",
+            "hours": 48
+          },
+          {
+            "warehouse": "Казань",
+            "hours": 38
+          },
+          {
+            "warehouse": "Самара",
+            "hours": 18
+          },
+          {
+            "warehouse": "Пермь",
+            "hours": 52
+          }
+        ]
+      },
+      "expect": {
+        "name": "Время доставки по складам",
+        "role": "figure"
+      },
+      "studio": {
+        "title": "box small",
+        "props": {
+          "label": "Время доставки по складам",
+          "x": "warehouse",
+          "y": "hours",
+          "x-label": "Склад",
+          "y-label": "Часов в пути",
+          "y-format": "integer",
+          "size": "1/2"
+        },
+        "scenario": {
+          "assertions": [
+            "upgraded",
+            "no-console-error",
+            "no-network"
+          ]
+        }
+      }
+    },
+    {
+      "name": "loading",
+      "title": "Загрузка",
+      "settings": {
+        "label": "Время доставки по складам",
+        "data-state": "loading"
+      },
+      "expect": {
+        "name": "Время доставки по складам"
+      }
+    },
+    {
+      "name": "empty",
+      "title": "Нет данных",
+      "settings": {
+        "label": "Время доставки по складам",
+        "items": []
+      },
+      "expect": {
+        "name": "Время доставки по складам"
+      }
+    },
+    {
+      "name": "error",
+      "title": "Ошибка",
+      "settings": {
+        "label": "Время доставки по складам",
+        "data-state": "error"
+      },
+      "expect": {
+        "name": "Время доставки по складам"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "conformance",
+      "title": "sf-chart-box against component.json (standard simai.smart-component 1.3.8 §12, gate 20)",
+      "format": "the runner is ui-source tests/browser/manifest-probes.browser.mjs, run for the package by scripts/run-manifest-probes.mjs",
+      "page": {
+        "lang": "ru",
+        "body": [
+          "<main style=\"inline-size: 40rem\">",
+          "  <sf-chart-box id=\"c\" label=\"Время доставки по складам\" x=\"warehouse\" y=\"hours\" x-label=\"Склад\" y-label=\"Часов в пути\" y-format=\"integer\"></sf-chart-box>",
+          "  <sf-chart-box id=\"g\" label=\"Зарплаты по отделам\" x=\"department\" stats=\"given\" mean x-label=\"Отдел\" y-label=\"Зарплата, тыс. ₽\" y-format=\"integer\" table=\"hidden\"></sf-chart-box>",
+          "  <sf-chart-box id=\"s\" label=\"Обычная и срочная доставка\" x=\"warehouse\" y=\"hours\" series=\"kind\" x-label=\"Склад\" y-label=\"Часов в пути\" y-format=\"integer\"></sf-chart-box>",
+          "  <sf-chart-box id=\"e\" label=\"Пусто\" data-state=\"error\"></sf-chart-box>",
+          "</main>"
+        ]
+      },
+      "checks": [
+        {
+          "id": "p1-figure-and-summary",
+          "title": "a figure named by its label; the plot is one group described by the count of groups and values, the highest and lowest median, the widest box and the outliers; one box per group with its whiskers and outliers, no legend for one series",
+          "covers": "accessibility (role figure, name label), settings.items, settings.x, settings.y, settings.whiskers, settings.summary, settings.legend",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.items = [{\"warehouse\": \"Москва\", \"hours\": 12}, {\"warehouse\": \"Казань\", \"hours\": 20}, {\"warehouse\": \"Самара\", \"hours\": 4}, {\"warehouse\": \"Пермь\", \"hours\": 26}, {\"warehouse\": \"Москва\", \"hours\": 14}, {\"warehouse\": \"Казань\", \"hours\": 22}, {\"warehouse\": \"Самара\", \"hours\": 9}, {\"warehouse\": \"Пермь\", \"hours\": 30}, {\"warehouse\": \"Москва\", \"hours\": 15}, {\"warehouse\": \"Казань\", \"hours\": 25}, {\"warehouse\": \"Самара\", \"hours\": 11}, {\"warehouse\": \"Пермь\", \"hours\": 31}, {\"warehouse\": \"Москва\", \"hours\": 16}, {\"warehouse\": \"Казань\", \"hours\": 27}, {\"warehouse\": \"Самара\", \"hours\": 12}, {\"warehouse\": \"Пермь\", \"hours\": 33}, {\"warehouse\": \"Москва\", \"hours\": 18}, {\"warehouse\": \"Казань\", \"hours\": 28}, {\"warehouse\": \"Самара\", \"hours\": 13}, {\"warehouse\": \"Пермь\", \"hours\": 36}, {\"warehouse\": \"Москва\", \"hours\": 19}, {\"warehouse\": \"Казань\", \"hours\": 30}, {\"warehouse\": \"Самара\", \"hours\": 14}, {\"warehouse\": \"Пермь\", \"hours\": 38}, {\"warehouse\": \"Москва\", \"hours\": 21}, {\"warehouse\": \"Казань\", \"hours\": 33}, {\"warehouse\": \"Самара\", \"hours\": 15}, {\"warehouse\": \"Пермь\", \"hours\": 40}, {\"warehouse\": \"Москва\", \"hours\": 24}, {\"warehouse\": \"Казань\", \"hours\": 35}, {\"warehouse\": \"Самара\", \"hours\": 16}, {\"warehouse\": \"Пермь\", \"hours\": 44}, {\"warehouse\": \"Москва\", \"hours\": 48}, {\"warehouse\": \"Казань\", \"hours\": 38}, {\"warehouse\": \"Самара\", \"hours\": 18}, {\"warehouse\": \"Пермь\", \"hours\": 52}]; const g = document.querySelector('#g'); g.items = [{\"department\": \"Продажи\", \"min\": 60, \"q1\": 85, \"median\": 110, \"q3\": 150, \"max\": 260, \"mean\": 124}, {\"department\": \"ИТ\", \"min\": 90, \"q1\": 130, \"median\": 160, \"q3\": 200, \"max\": 320, \"mean\": 172}, {\"department\": \"Склад\", \"min\": 45, \"q1\": 55, \"median\": 62, \"q3\": 70, \"max\": 95, \"mean\": 64}, {\"department\": \"Бухгалтерия\", \"min\": 55, \"q1\": 70, \"median\": 80, \"q3\": 92, \"max\": 130, \"mean\": 84}, {\"department\": \"Маркетинг\", \"min\": 60, \"q1\": 80, \"median\": 95, \"q3\": 120, \"max\": 190, \"mean\": 104}]; const s = document.querySelector('#s'); s.names = {\"standard\": \"Обычная\", \"express\": \"Срочная\"}; s.items = [{\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 18}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 24}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 14}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 5}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 20}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 7}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 26}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 9}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 16}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 22}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 28}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 11}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 17}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 24}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 9}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 31}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 12}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 19}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 7}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 26}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 10}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 33}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 14}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 21}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 30}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 12}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 36}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 15}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 23}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 9}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const f = document.querySelector('#c figure'); const s = document.querySelector('#c svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); return f && document.getElementById(f.getAttribute('aria-labelledby')).textContent.trim() === 'Время доставки по складам' && s.getAttribute('aria-roledescription') === 'ящик с усами' && s.tabIndex === 0 && d === 'Групп: 4, значений: 36. Часов в пути: медиана выше всего — Пермь (36), ниже всего — Самара (13); шире всего разброс — Пермь (половина значений в пределах 9). Выбросов: 2.' && document.querySelectorAll('#c .sf-chart-box-box').length === 4 && document.querySelectorAll('#c .sf-chart-box-median').length === 4 && document.querySelectorAll('#c .sf-chart-box-whisker').length === 4 && document.querySelectorAll('#c .sf-chart-box-outlier').length === 2 && !document.querySelector('#c .sf-chart-box-legend'); })()"
+            }
+          ]
+        },
+        {
+          "id": "p2-keyboard-cursor",
+          "title": "the arrows walk the boxes group by group, each move said with the box's median, quartiles, whiskers and outliers; End goes to the last; Enter chooses a box; Escape clears",
+          "covers": "keyboard.host (ArrowRight, End, Enter, Escape), events.select",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.items = [{\"warehouse\": \"Москва\", \"hours\": 12}, {\"warehouse\": \"Казань\", \"hours\": 20}, {\"warehouse\": \"Самара\", \"hours\": 4}, {\"warehouse\": \"Пермь\", \"hours\": 26}, {\"warehouse\": \"Москва\", \"hours\": 14}, {\"warehouse\": \"Казань\", \"hours\": 22}, {\"warehouse\": \"Самара\", \"hours\": 9}, {\"warehouse\": \"Пермь\", \"hours\": 30}, {\"warehouse\": \"Москва\", \"hours\": 15}, {\"warehouse\": \"Казань\", \"hours\": 25}, {\"warehouse\": \"Самара\", \"hours\": 11}, {\"warehouse\": \"Пермь\", \"hours\": 31}, {\"warehouse\": \"Москва\", \"hours\": 16}, {\"warehouse\": \"Казань\", \"hours\": 27}, {\"warehouse\": \"Самара\", \"hours\": 12}, {\"warehouse\": \"Пермь\", \"hours\": 33}, {\"warehouse\": \"Москва\", \"hours\": 18}, {\"warehouse\": \"Казань\", \"hours\": 28}, {\"warehouse\": \"Самара\", \"hours\": 13}, {\"warehouse\": \"Пермь\", \"hours\": 36}, {\"warehouse\": \"Москва\", \"hours\": 19}, {\"warehouse\": \"Казань\", \"hours\": 30}, {\"warehouse\": \"Самара\", \"hours\": 14}, {\"warehouse\": \"Пермь\", \"hours\": 38}, {\"warehouse\": \"Москва\", \"hours\": 21}, {\"warehouse\": \"Казань\", \"hours\": 33}, {\"warehouse\": \"Самара\", \"hours\": 15}, {\"warehouse\": \"Пермь\", \"hours\": 40}, {\"warehouse\": \"Москва\", \"hours\": 24}, {\"warehouse\": \"Казань\", \"hours\": 35}, {\"warehouse\": \"Самара\", \"hours\": 16}, {\"warehouse\": \"Пермь\", \"hours\": 44}, {\"warehouse\": \"Москва\", \"hours\": 48}, {\"warehouse\": \"Казань\", \"hours\": 38}, {\"warehouse\": \"Самара\", \"hours\": 18}, {\"warehouse\": \"Пермь\", \"hours\": 52}]; const g = document.querySelector('#g'); g.items = [{\"department\": \"Продажи\", \"min\": 60, \"q1\": 85, \"median\": 110, \"q3\": 150, \"max\": 260, \"mean\": 124}, {\"department\": \"ИТ\", \"min\": 90, \"q1\": 130, \"median\": 160, \"q3\": 200, \"max\": 320, \"mean\": 172}, {\"department\": \"Склад\", \"min\": 45, \"q1\": 55, \"median\": 62, \"q3\": 70, \"max\": 95, \"mean\": 64}, {\"department\": \"Бухгалтерия\", \"min\": 55, \"q1\": 70, \"median\": 80, \"q3\": 92, \"max\": 130, \"mean\": 84}, {\"department\": \"Маркетинг\", \"min\": 60, \"q1\": 80, \"median\": 95, \"q3\": 120, \"max\": 190, \"mean\": 104}]; const s = document.querySelector('#s'); s.names = {\"standard\": \"Обычная\", \"express\": \"Срочная\"}; s.items = [{\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 18}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 24}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 14}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 5}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 20}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 7}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 26}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 9}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 16}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 22}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 28}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 11}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 17}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 24}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 9}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 31}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 12}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 19}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 7}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 26}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 10}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 33}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 14}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 21}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 30}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 12}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 36}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 15}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 23}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 9}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(() => { window.__chosen = null; document.querySelector('#c').addEventListener('sf-chart-box-select', (event) => { window.__chosen = event.detail; }); document.querySelector('#c svg[role=group]').focus(); return true; })()",
+              "wait": 60
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Москва: медиана 18, квартили 15 – 21, усы 12 – 24, выбросов 1')()"
+            },
+            {
+              "user": "keyboard:ArrowRight",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Казань: медиана 28, квартили 25 – 33, усы 20 – 38')()"
+            },
+            {
+              "user": "keyboard:End",
+              "wait": 80,
+              "check": "(() => document.querySelector('#c [aria-live]').textContent.trim().replace(/\\u00a0|\\u202f/gu, ' ') === 'Пермь: медиана 36, квартили 31 – 40, усы 26 – 52' && document.querySelectorAll('#c .sf-chart-box-ring').length === 1)()"
+            },
+            {
+              "user": "keyboard:Enter",
+              "wait": 80,
+              "check": "(() => window.__chosen && window.__chosen.series === 'hours' && window.__chosen.index === 3 && window.__chosen.group === 'Пермь' && window.__chosen.median === 36)()"
+            },
+            {
+              "user": "keyboard:Escape",
+              "wait": 80,
+              "check": "(() => !document.querySelector('#c .sf-chart-box-ring'))()"
+            }
+          ]
+        },
+        {
+          "id": "p3-given-statistics",
+          "title": "stats given draws a box per row from its own min, quartiles, median and max, with no outliers; mean marks each with a diamond; the hidden table gives the five numbers and the mean",
+          "covers": "settings.stats, settings.mean, settings.table",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.items = [{\"warehouse\": \"Москва\", \"hours\": 12}, {\"warehouse\": \"Казань\", \"hours\": 20}, {\"warehouse\": \"Самара\", \"hours\": 4}, {\"warehouse\": \"Пермь\", \"hours\": 26}, {\"warehouse\": \"Москва\", \"hours\": 14}, {\"warehouse\": \"Казань\", \"hours\": 22}, {\"warehouse\": \"Самара\", \"hours\": 9}, {\"warehouse\": \"Пермь\", \"hours\": 30}, {\"warehouse\": \"Москва\", \"hours\": 15}, {\"warehouse\": \"Казань\", \"hours\": 25}, {\"warehouse\": \"Самара\", \"hours\": 11}, {\"warehouse\": \"Пермь\", \"hours\": 31}, {\"warehouse\": \"Москва\", \"hours\": 16}, {\"warehouse\": \"Казань\", \"hours\": 27}, {\"warehouse\": \"Самара\", \"hours\": 12}, {\"warehouse\": \"Пермь\", \"hours\": 33}, {\"warehouse\": \"Москва\", \"hours\": 18}, {\"warehouse\": \"Казань\", \"hours\": 28}, {\"warehouse\": \"Самара\", \"hours\": 13}, {\"warehouse\": \"Пермь\", \"hours\": 36}, {\"warehouse\": \"Москва\", \"hours\": 19}, {\"warehouse\": \"Казань\", \"hours\": 30}, {\"warehouse\": \"Самара\", \"hours\": 14}, {\"warehouse\": \"Пермь\", \"hours\": 38}, {\"warehouse\": \"Москва\", \"hours\": 21}, {\"warehouse\": \"Казань\", \"hours\": 33}, {\"warehouse\": \"Самара\", \"hours\": 15}, {\"warehouse\": \"Пермь\", \"hours\": 40}, {\"warehouse\": \"Москва\", \"hours\": 24}, {\"warehouse\": \"Казань\", \"hours\": 35}, {\"warehouse\": \"Самара\", \"hours\": 16}, {\"warehouse\": \"Пермь\", \"hours\": 44}, {\"warehouse\": \"Москва\", \"hours\": 48}, {\"warehouse\": \"Казань\", \"hours\": 38}, {\"warehouse\": \"Самара\", \"hours\": 18}, {\"warehouse\": \"Пермь\", \"hours\": 52}]; const g = document.querySelector('#g'); g.items = [{\"department\": \"Продажи\", \"min\": 60, \"q1\": 85, \"median\": 110, \"q3\": 150, \"max\": 260, \"mean\": 124}, {\"department\": \"ИТ\", \"min\": 90, \"q1\": 130, \"median\": 160, \"q3\": 200, \"max\": 320, \"mean\": 172}, {\"department\": \"Склад\", \"min\": 45, \"q1\": 55, \"median\": 62, \"q3\": 70, \"max\": 95, \"mean\": 64}, {\"department\": \"Бухгалтерия\", \"min\": 55, \"q1\": 70, \"median\": 80, \"q3\": 92, \"max\": 130, \"mean\": 84}, {\"department\": \"Маркетинг\", \"min\": 60, \"q1\": 80, \"median\": 95, \"q3\": 120, \"max\": 190, \"mean\": 104}]; const s = document.querySelector('#s'); s.names = {\"standard\": \"Обычная\", \"express\": \"Срочная\"}; s.items = [{\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 18}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 24}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 14}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 5}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 20}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 7}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 26}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 9}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 16}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 22}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 28}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 11}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 17}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 24}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 9}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 31}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 12}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 19}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 7}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 26}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 10}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 33}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 14}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 21}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 30}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 12}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 36}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 15}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 23}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 9}]; return true; })()",
+              "wait": 250,
+              "check": "(() => { const s = document.querySelector('#g svg[role=group]'); const d = document.getElementById(s.getAttribute('aria-describedby')).textContent.replace(/\\u00a0|\\u202f/gu, ' '); const head = [...document.querySelectorAll('#g table thead th')].map((th) => th.textContent.trim()).join('|'); const first = [...document.querySelectorAll('#g table tbody tr:first-child > *')].map((td) => td.textContent.trim()).join('|'); return d === 'Групп: 5. Зарплата, тыс. ₽: медиана выше всего — ИТ (160), ниже всего — Склад (62); шире всего разброс — ИТ (половина значений в пределах 70).' && document.querySelectorAll('#g .sf-chart-box-box').length === 5 && document.querySelectorAll('#g .sf-chart-box-mean').length === 5 && !document.querySelector('#g .sf-chart-box-outlier') && head === 'Отдел|Минимум|Нижний квартиль|Медиана|Верхний квартиль|Максимум|Среднее' && first === 'Продажи|60|85|110|150|260|124'; })()"
+            }
+          ]
+        },
+        {
+          "id": "p4-series-legend",
+          "title": "series puts a box per series side by side in each group; the legend hides a series and sends toggle",
+          "covers": "settings.series, settings.names, values.hidden-series, events.toggle",
+          "steps": [
+            {
+              "script": "(() => { const c = document.querySelector('#c'); c.items = [{\"warehouse\": \"Москва\", \"hours\": 12}, {\"warehouse\": \"Казань\", \"hours\": 20}, {\"warehouse\": \"Самара\", \"hours\": 4}, {\"warehouse\": \"Пермь\", \"hours\": 26}, {\"warehouse\": \"Москва\", \"hours\": 14}, {\"warehouse\": \"Казань\", \"hours\": 22}, {\"warehouse\": \"Самара\", \"hours\": 9}, {\"warehouse\": \"Пермь\", \"hours\": 30}, {\"warehouse\": \"Москва\", \"hours\": 15}, {\"warehouse\": \"Казань\", \"hours\": 25}, {\"warehouse\": \"Самара\", \"hours\": 11}, {\"warehouse\": \"Пермь\", \"hours\": 31}, {\"warehouse\": \"Москва\", \"hours\": 16}, {\"warehouse\": \"Казань\", \"hours\": 27}, {\"warehouse\": \"Самара\", \"hours\": 12}, {\"warehouse\": \"Пермь\", \"hours\": 33}, {\"warehouse\": \"Москва\", \"hours\": 18}, {\"warehouse\": \"Казань\", \"hours\": 28}, {\"warehouse\": \"Самара\", \"hours\": 13}, {\"warehouse\": \"Пермь\", \"hours\": 36}, {\"warehouse\": \"Москва\", \"hours\": 19}, {\"warehouse\": \"Казань\", \"hours\": 30}, {\"warehouse\": \"Самара\", \"hours\": 14}, {\"warehouse\": \"Пермь\", \"hours\": 38}, {\"warehouse\": \"Москва\", \"hours\": 21}, {\"warehouse\": \"Казань\", \"hours\": 33}, {\"warehouse\": \"Самара\", \"hours\": 15}, {\"warehouse\": \"Пермь\", \"hours\": 40}, {\"warehouse\": \"Москва\", \"hours\": 24}, {\"warehouse\": \"Казань\", \"hours\": 35}, {\"warehouse\": \"Самара\", \"hours\": 16}, {\"warehouse\": \"Пермь\", \"hours\": 44}, {\"warehouse\": \"Москва\", \"hours\": 48}, {\"warehouse\": \"Казань\", \"hours\": 38}, {\"warehouse\": \"Самара\", \"hours\": 18}, {\"warehouse\": \"Пермь\", \"hours\": 52}]; const g = document.querySelector('#g'); g.items = [{\"department\": \"Продажи\", \"min\": 60, \"q1\": 85, \"median\": 110, \"q3\": 150, \"max\": 260, \"mean\": 124}, {\"department\": \"ИТ\", \"min\": 90, \"q1\": 130, \"median\": 160, \"q3\": 200, \"max\": 320, \"mean\": 172}, {\"department\": \"Склад\", \"min\": 45, \"q1\": 55, \"median\": 62, \"q3\": 70, \"max\": 95, \"mean\": 64}, {\"department\": \"Бухгалтерия\", \"min\": 55, \"q1\": 70, \"median\": 80, \"q3\": 92, \"max\": 130, \"mean\": 84}, {\"department\": \"Маркетинг\", \"min\": 60, \"q1\": 80, \"median\": 95, \"q3\": 120, \"max\": 190, \"mean\": 104}]; const s = document.querySelector('#s'); s.names = {\"standard\": \"Обычная\", \"express\": \"Срочная\"}; s.items = [{\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 18}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 24}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 14}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 5}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 20}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 7}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 26}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 9}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 16}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 22}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 28}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 11}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 17}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 6}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 24}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 9}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 31}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 12}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 19}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 7}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 26}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 10}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 33}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 14}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 21}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 8}, {\"warehouse\": \"Москва\", \"kind\": \"standard\", \"hours\": 30}, {\"warehouse\": \"Москва\", \"kind\": \"express\", \"hours\": 12}, {\"warehouse\": \"Казань\", \"kind\": \"standard\", \"hours\": 36}, {\"warehouse\": \"Казань\", \"kind\": \"express\", \"hours\": 15}, {\"warehouse\": \"Самара\", \"kind\": \"standard\", \"hours\": 23}, {\"warehouse\": \"Самара\", \"kind\": \"express\", \"hours\": 9}]; return true; })()",
+              "wait": 250
+            },
+            {
+              "script": "(() => { window.__toggled = null; document.querySelector('#s').addEventListener('sf-chart-box-toggle', (event) => { window.__toggled = event.detail; }); return true; })()",
+              "wait": 40,
+              "check": "(() => document.querySelectorAll('#s .sf-chart-box-box').length === 6 && document.querySelectorAll('#s .sf-chart-box-legend-item').length === 2 && document.querySelectorAll('#s .sf-chart-box-series').length === 2)()"
+            },
+            {
+              "script": "(() => { document.querySelector('#s .sf-chart-box-legend-item[data-series=express]').click(); return true; })()",
+              "wait": 120,
+              "check": "(() => document.querySelectorAll('#s .sf-chart-box-box').length === 3 && window.__toggled && window.__toggled.id === 'express' && window.__toggled.hidden === true && document.querySelector('#s').hiddenSeries.join() === 'express')()"
+            }
+          ]
+        },
+        {
+          "id": "p5-error-refresh",
+          "title": "the error state offers a retry that sends refresh",
+          "covers": "settings.data-state, events.refresh",
+          "steps": [
+            {
+              "script": "(() => { window.__refresh = 0; document.querySelector('#e').addEventListener('sf-chart-box-refresh', () => { window.__refresh += 1; }); return true; })()",
+              "wait": 200
+            },
+            {
+              "script": "(() => { const button = document.querySelector('#e sf-empty-state button'); if (button) button.click(); return true; })()",
+              "wait": 120,
+              "check": "(() => window.__refresh === 1)()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
