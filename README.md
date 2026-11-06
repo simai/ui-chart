@@ -14,7 +14,8 @@ other Smart component and loaded by the same Loader.
 - Site: [`site/`](site/README.md), the documentation and demonstration
   site (Docara), local only.
 
-Nineteen charts are built as 0.x previews; the set is not released yet. See
+Nineteen charts, all 0.x previews, make the first release of the set,
+1.0.0 (npm `@simai-studio/chart`, [changelog](package/CHANGELOG.md)). See
 [docs/STATUS.md](docs/STATUS.md) for the state and
 [docs/START.md](docs/START.md) for how the work began.
 
@@ -25,5 +26,5 @@ non-commercial use (PolyForm Noncommercial 1.0.0); everyone else needs the
 SIMAI Commercial License, available on request from SIMAI. Use as part of
 Larena is covered by Larena's licence. See [LICENSE.md](LICENSE.md).
 
-The repository is private until the first release, then opens (owner
-decision q-26247b733d, 2026-11-02).
+The repository was private until the first release and opened with it
+(owner decision q-26247b733d, 2026-11-02).
