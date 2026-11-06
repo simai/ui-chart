@@ -94,8 +94,13 @@ The owner looked at ui-chart.test on 2026-11-06 and asked for:
   reference (six), each with every chart of its group, titled and linked to
   its page. `build-pages.mjs` writes it from `config/components.json` and
   each chart's own example, so it cannot drift from the set.
-- **A taller hero** (`padding=2xl`), ready for a background effect of its
-  own, which the owner will make on effects.simai.io.
+- **A taller hero** (`padding=2xl`) with a background of its own: the
+  effect `chart-recorder` («Самописец»), made for this site at the owner's
+  request in simai/ui-effects (bus `msg-b4120fd7e2e949d0a43b`). It is laid
+  through Docara's hero `effect`, with the effects catalogue pinned in
+  `docara.json` to ui-effects commit
+  `264cb2efc182fd7af6bc273bdcc3006f1588af18`; it follows the page's theme
+  and has its own pause button.
 - **A calmer bottom.** No more than three blocks a row: the advantages are
   two rows of three columns without frames, and the footer has three
   columns, with the links as one line under them.

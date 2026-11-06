@@ -3,7 +3,7 @@ description: SIMAI Chart — графики для SIMAI Framework, подклю
 profile: landing
 ---
 
-:::hero {layout=centered padding=2xl media=none}
+:::hero {layout=centered padding=2xl effect=chart-recorder}
 # SIMAI Chart
 
 Графики для SIMAI Framework: страница отдаёт данные, а график сам рисует себя, подсказывает значения, говорит с клавиатурой и показывает те же данные таблицей.

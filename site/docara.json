@@ -48,5 +48,8 @@
     "mobile_toc": "auto",
     "toc_depth": 3,
     "previous_next": true
+  },
+  "effects": {
+    "catalogue": "https://cdn.jsdelivr.net/gh/simai/ui-effects@264cb2efc182fd7af6bc273bdcc3006f1588af18/"
   }
 }
