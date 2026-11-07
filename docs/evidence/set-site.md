@@ -107,6 +107,10 @@ The owner looked at ui-chart.test on 2026-11-06 and asked for:
   tile, gauge, sparkline) are tiles on «Показатели». Each group's `home`
   list in `config/components.json` names its cards in order; the generator
   checks that every chart is there once and that halves come in pairs.
+  The card is the theme's `surface-1` with an outline: the owner turned
+  down `surface-container` on 2026-11-07, a translucent fill meant for
+  controls, darker than the surfaces 0-2 the charts' colours are checked
+  against.
 - **Square icons without a radius** are Docara 3.11.1's: its icon container
   takes `--sf-radius-default`, which the Framework does not define. Docara
   fixed it (`751168e3`, bus `msg-71a04c672a4149bfb612`) and released it in
@@ -140,7 +144,8 @@ On 2026-11-06 the Framework dispatcher released the set (1.0.0, release
   same output as at `993536a`); unit 160/0; registry 0 problems; manifest
   probes 88/88; browser probes pass; first paint 510/510, CLS 0.
 - verify-static: 47 pages, 5202 local references, none broken.
-- `evidence.mjs` into `docs/evidence/site-2026-11-07/`: 34 shots, no
+- `evidence.mjs` into `docs/evidence/site-2026-11-07/` (retaken over the
+  release 1.0.1 with the cards on `surface-1`): 34 shots, no
   problem, three cold reloads clean. The icon squares of the advantages
   have an 8 px radius.
 

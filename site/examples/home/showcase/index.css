@@ -14,7 +14,7 @@
   padding: var(--sf-space-3);
   border: 1px solid var(--sf-outline-variant);
   border-radius: var(--sf-radius--surface);
-  background: var(--sf-surface-container);
+  background: var(--sf-surface-1);
 }
 .showcase-full { grid-column: span 6; }
 .showcase-half { grid-column: span 3; }
