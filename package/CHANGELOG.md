@@ -3,6 +3,15 @@
 The set `chart`, by its npm version `@simai-studio/chart`; component
 versions in brackets.
 
+## 1.0.1 — 2026-11-07
+
+- The same nineteen charts, unchanged, rebuilt over SIMAI Framework
+  `ui-1ec283e856cd` (ui-source `82cf89e23ce8`, npm
+  `@simai-studio/ui@5.20261106.1926`), so a product whose lock runs that
+  pair (Larena) can pin the set: its receipt names the pair it was built
+  over. Between the two pins ui-source changed no token, style or source a
+  chart uses. Still needs core.runtime 1.25.0 or newer.
+
 ## 1.0.0 — 2026-11-06
 
 - First version of the set: nineteen chart components, every one a 0.x
