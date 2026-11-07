@@ -130,3 +130,17 @@ One line connects it:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261107.829/distr/core/js/core.min.js" data-sf-sets="chart@1.0.2"></script>
 ```
+
+### A new Framework pair
+
+When a product moves to a new Framework pair and the set's own source has
+not changed, the set is not released again (the owner's word of 2026-11-07;
+ui-control `control/decisions/2026-11-07-set-pair-receipts.md`). Send the
+dispatcher a request naming the release to re-receipt (`chart-<12>`) and the
+pair (`ui-<12>` with its npm version); do not repin, bump the version or touch
+`dist/`. The dispatcher proves the released bytes over the pair, runs this
+set's gates and commits `contracts/pair-receipts/<release>/<pair>.json`.
+Keep `scripts/{test,check-registry,run-manifest-probes,run-browser-probes,run-first-paint}.mjs`
+with their command lines. A release is needed instead when the rebuild gives
+other bytes, a gate is red, the pair's core.runtime is below the minimum, or
+the set's source changed.
