@@ -15,7 +15,7 @@
   },
   "framework": {
     "core_runtime": ">=1.25.0",
-    "source_revision": "5443d10d710be65429b296750b97a503de5d1d0b"
+    "source_revision": "82cf89e23ce8f7eb9c255dcaf3b1f251943ae2af"
   },
   "requires_sets": [],
   "families": [
