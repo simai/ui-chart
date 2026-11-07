@@ -3,6 +3,12 @@
 The set `chart`, by its npm version `@simai-studio/chart`; component
 versions in brackets.
 
+## 1.0.2 — 2026-11-07
+
+- The same nineteen charts, unchanged, repinned to ui-b58b5dec35e4
+  (ui-source `195fc22bad4b`, npm `@simai-studio/ui@5.20261107.829`), the
+  pair Larena moves to. Still needs core.runtime 1.25.0 or newer.
+
 ## 1.0.1 — 2026-11-07
 
 - The same nineteen charts, unchanged, rebuilt over SIMAI Framework
