@@ -9,9 +9,9 @@
   },
   "package_source": {
     "repository": "simai/ui-chart",
-    "revision": "085f260bbb2d104c3e20fcf56cb7fce31a442bda",
+    "revision": "41a2b6ccf3da8a3b78cce9b491ad6e58b24a17a1",
     "path": "package",
-    "tree": "0031c9e352c38d83b65bb0a7294ee7448c491609"
+    "tree": "9727424f3dfda069964ace59fd52cbcaaee3a7bf"
   },
   "licence": {
     "ref": "PolyForm-Small-Business-1.0.0 OR PolyForm-Noncommercial-1.0.0 OR LicenseRef-SIMAI-Commercial"
@@ -19,9 +19,9 @@
   "framework": {
     "source": {
       "repository": "simai/ui-source",
-      "revision": "82cf89e23ce8f7eb9c255dcaf3b1f251943ae2af"
+      "revision": "195fc22bad4b725cf4f5bb3778b78fb3739e5e20"
     },
-    "release": "ui-1ec283e856cd",
+    "release": "ui-b58b5dec35e4",
     "runtime": {
       "abi": 1,
       "modules": {
@@ -54,9 +54,9 @@
   "output": {
     "runtime_path": "smart",
     "files_count": 1083,
-    "manifest_sha256": "4e8fe0fb3c03b9cc96ed1108c880b65e095f055155e22520a7849ad2000b15a6",
+    "manifest_sha256": "eb34cbb122522b19b913a1594848a4d8702821b05eca83d680d77838ccb43ea2",
     "archive": "package-chart.tar",
-    "archive_sha256": "abc5c30d6b8c2075ed6cf3331c8dd3a4f942b2e2a3ebc5c0acc1867920032581",
+    "archive_sha256": "1f6c3b76c47385ae3f2e3adf8d0078d7328acb2e7ef3ce03b64d19eb2bd6d5b4",
     "archive_format": "ustar; entries sorted; owner 0:0; mtime 0; modes 0755/0644"
   },
   "required_files": [
@@ -452,20 +452,20 @@
   },
   "package_reference": {
     "path": "distr/core/contracts/packages/chart.package.json",
-    "release": "ui-1ec283e856cd",
+    "release": "ui-b58b5dec35e4",
     "status": "set-passport"
   },
   "set": {
     "id": "chart",
     "passport": "set.json",
-    "sha256": "9a72b6524157e8c1114ab93b2b3edc6872c7bca92c766bc6035879c1f3b8535e",
+    "sha256": "e7bbc387e586645d2389e6e00d228234b706a9c031eaa43ad1a231e1db745597",
     "api": null,
     "families": [
       "chart"
     ],
     "framework": {
       "core_runtime": ">=1.25.0",
-      "source_revision": "82cf89e23ce8f7eb9c255dcaf3b1f251943ae2af"
+      "source_revision": "195fc22bad4b725cf4f5bb3778b78fb3739e5e20"
     },
     "requires_sets": [],
     "registry": {
@@ -476,7 +476,7 @@
   "files": [
     {
       "path": "set.json",
-      "sha256": "9a72b6524157e8c1114ab93b2b3edc6872c7bca92c766bc6035879c1f3b8535e",
+      "sha256": "e7bbc387e586645d2389e6e00d228234b706a9c031eaa43ad1a231e1db745597",
       "size": 4585
     },
     {
