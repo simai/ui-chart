@@ -46,7 +46,7 @@ The standard and the reference followed:
 
 ## The site
 
-`site/` is a Docara 3.11.1 site laid out as ui-view's, on the set site scheme
+`site/` is a Docara site (3.11.1, then 3.12.0) laid out as ui-view's, on the set site scheme
 the owner agreed on 2026-11-05:
 
 - **Home** (`/ru/`): hero with «Начать» and «Компоненты»; all 19 live
@@ -109,20 +109,40 @@ The owner looked at ui-chart.test on 2026-11-06 and asked for:
   checks that every chart is there once and that halves come in pairs.
 - **Square icons without a radius** are Docara 3.11.1's: its icon container
   takes `--sf-radius-default`, which the Framework does not define. Docara
-  fixed it on main (`751168e3`, bus `msg-71a04c672a4149bfb612`); the site
-  moves to the Docara release that carries it.
+  fixed it (`751168e3`, bus `msg-71a04c672a4149bfb612`) and released it in
+  3.12.0; the site moved to 3.12.0 on 2026-11-07, and the icon squares have
+  their radius.
 - **A calmer bottom.** No more than three blocks a row: the advantages are
   two rows of three columns without frames, and the footer has three
   columns, with the links as one line under them.
 
 After the review the site was built again over the same set build
 (verify-static: 47 pages, 5219 local references, none broken) and checked by
-`evidence.mjs` into `docs/evidence/site-2026-11-06/`, which replaces the
-first pass's screenshots.
+`evidence.mjs` into `docs/evidence/site-2026-11-06/` (kept in history at
+`969fb0d`), which replaced the first pass's screenshots.
 It took 34 shots (six tabs instead of eight) with no problem: every tab
 draws all its charts, no page or console error, and three cold reloads end
 on `/ru/` clean. The check learned that the funnel and the parts bar draw
 their plot in HTML, not SVG: it now looks for their bars too.
+
+## Docara 3.12.0 and the release
+
+On 2026-11-06 the Framework dispatcher released the set (1.0.0, release
+`chart-01992b554963`). On 2026-11-07 the site moved to Docara 3.12.0
+(`composer.json` pins it exactly):
+
+- Docara 3.12.0 reads a set's receipt with its passport `set.json` and
+  checks the passport against it. The site's materializer no longer strips
+  the passport from the receipt; the receipt goes as the builder wrote it.
+- The set was built again over the release commit `9a87c74`: two builds
+  byte-identical, 1083 files, output manifest sha256
+  `501946666a660436f8e62e8920e152b16fa0b764e29fcffd31a0899889931c0e` (the
+  same output as at `993536a`); unit 160/0; registry 0 problems; manifest
+  probes 88/88; browser probes pass; first paint 510/510, CLS 0.
+- verify-static: 47 pages, 5202 local references, none broken.
+- `evidence.mjs` into `docs/evidence/site-2026-11-07/`: 34 shots, no
+  problem, three cold reloads clean. The icon squares of the advantages
+  have an 8 px radius.
 
 ## Checks
 

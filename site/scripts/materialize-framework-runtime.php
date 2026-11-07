@@ -361,7 +361,7 @@ $runPhp = static function (array $arguments) use ($packageRoot): array {
     fclose($pipes[2]);
     $status = proc_close($process);
     if ($status !== 0) {
-        throw new RuntimeException('FRAMEWORK_SYNC_FAILED: ' . trim((string) $stderr));
+        throw new RuntimeException('FRAMEWORK_SYNC_FAILED: ' . trim((string) $stderr . "\n" . $stdout));
     }
 
     return json_decode((string) $stdout, true, 512, JSON_THROW_ON_ERROR);
@@ -424,34 +424,15 @@ copy($packageLockPath, $projectLockPath);
 // lock only. Their bytes go to the installed Docara copy (ignored here) and
 // from there into the built site.
 $packageReceipts = [];
-$adapted = [];
 foreach ($receipts as $name => $receiptPath) {
     /* A component set's receipt lists its passport, set.json, beside smart/
        (standard simai.component-set: the builder copies it into the build).
-       Docara 3.11.1 takes a receipt whose every file is under smart/ and
-       refuses this one (FRAMEWORK_PACKAGE_RECEIPT_INVALID files). Until Docara
-       reads set receipts (requested, docs/DOCARA-REQUESTS.md), the site hands
-       it the same receipt without the passport, its manifest digest and count
-       recomputed over the files that remain, and reads the files from the
-       build's output directory (--from), which Docara reads under smart/ only.
-       Every smart/ file is still checked against the builder's hashes. */
-    $receipt = json_decode((string) file_get_contents($receiptPath), true, 512, JSON_THROW_ON_ERROR);
-    $outside = array_values(array_filter($receipt['files'], static fn (array $file): bool => ! str_starts_with($file['path'], 'smart/')));
-    $arguments = [$packageRoot . '/scripts/sync-framework-package-runtime.php'];
-    if ($outside !== []) {
-        if (! is_string($fromPath) || ! is_dir($fromPath . '/smart')) {
-            throw new RuntimeException('FRAMEWORK_PACKAGE_SET_NEEDS_OUTPUT: give --from=<the build output holding smart/> for the set ' . $name);
-        }
-        $receipt['files'] = array_values(array_filter($receipt['files'], static fn (array $file): bool => str_starts_with($file['path'], 'smart/')));
-        $manifest = array_map(static fn (array $file): array => ['path' => $file['path'], 'sha256' => $file['sha256'], 'size' => $file['size']], $receipt['files']);
-        $receipt['output']['files_count'] = count($manifest);
-        $receipt['output']['manifest_sha256'] = hash('sha256', json_encode($manifest, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n");
-        $derived = sys_get_temp_dir() . '/ui-chart-' . $name . '-docara-receipt.json';
-        $writeJson($derived, $receipt);
-        $adapted[$name] = array_map(static fn (array $file): string => $file['path'], $outside);
-        array_push($arguments, '--receipt', $derived, '--from', realpath($fromPath));
-    } else {
-        array_push($arguments, '--receipt', $receiptPath);
+       Docara 3.12.0 reads set receipts and checks the passport against the
+       receipt, so the receipt goes as the builder wrote it, with the files
+       read from the build's output directory (--from). */
+    $arguments = [$packageRoot . '/scripts/sync-framework-package-runtime.php', '--receipt', $receiptPath];
+    if (is_string($fromPath)) {
+        array_push($arguments, '--from', realpath($fromPath));
     }
     array_push($arguments, '--lock', $projectLockPath);
     $packageReceipts[$name] = $runPhp($arguments);
@@ -471,7 +452,6 @@ fwrite(STDOUT, json_encode([
     'core_projection' => $coreReceipt,
     'smart_projection' => $smartReceipt,
     'package_projections' => $packageReceipts,
-    'set_receipt_adapter' => $adapted,
     'project_lock_sha256' => hash_file('sha256', $projectLockPath),
     'owner_source_modified' => false,
 ], JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");

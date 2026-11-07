@@ -1,6 +1,6 @@
 # The site of the set chart
 
-Documentation and demonstrations of SIMAI Chart, built with Docara 3.11.1
+Documentation and demonstrations of SIMAI Chart, built with Docara 3.12.0
 (`composer.json` pins it). Its live examples run the set's own build over the
 SIMAI Framework pair the set is built on. The layout follows the set site
 scheme the owner agreed on 2026-11-05 (ui-control
@@ -47,7 +47,8 @@ node site/scripts/evidence.mjs https://ui-chart.test/ docs/evidence/site-<date>
   the set's receipt); commit them after a rebuild.
 - `vendor/`, `.docara/`, `.framework/` and `build_production/` are local.
 - The site is not deployed anywhere; chart.simai.io is not set up. The set is
-  not released: the connection line works from its first release.
+  released (1.0.0, 2026-11-06); the site still runs its examples from a local
+  build of the set.
 
 ## Languages
 
