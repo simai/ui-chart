@@ -13,6 +13,10 @@
 //   passport, src/core/passports/module.chart-core.json, as ui-source's
 //   helper modules do.
 //
+// The owner comes from linkage itself since ui-0c23f6a0af12: a Smart
+// component's from its component.json x-source.package (chart ->
+// simai/ui-chart), the core's from its written passport.
+//
 // --write refreshes this package's written passports (files, hash,
 // dependencies; never the version, which a person moves); --check fails when
 // a package unit has a problem or a package file belongs to no unit. Both
@@ -22,7 +26,6 @@ import {join, relative, resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {PACKAGE_ROOT, materializeOverlay} from './overlay.mjs';
 
-const OWNER = 'simai/ui-chart';
 const args = process.argv.slice(2);
 const at = args.indexOf('--overlay');
 const overlay = resolve(at === -1 ? join(PACKAGE_ROOT, '.overlay') : args[at + 1]);
@@ -49,7 +52,7 @@ if (write) {
   let {collected, mine} = collect();
   const byId = new Map(collected.units.map((unit) => [unit.id, unit]));
   for (const unit of mine.filter((one) => one.written)) {
-    const passport = {...linkage.passportFor(unit, byId), owner: OWNER};
+    const passport = linkage.passportFor(unit, byId);
     if (!passport.summary) passport.summary = 'The SIMAI Chart core: data, scales, formats, paths, decimation, the words and the keyboard cursor every chart shares.';
     writeFileSync(join(PACKAGE_ROOT, unit.passportFile), `${JSON.stringify(passport, null, 2)}\n`);
   }
@@ -63,6 +66,6 @@ const problems = linkage.checkPassports(collected).filter((problem) => ids.has(p
 // (a central passport is the unit's record, as ui-source's are core.runtime's).
 const claimed = new Set(mine.flatMap((unit) => unit.files ?? []));
 for (const file of own) if (!claimed.has(file) && !mine.some((unit) => unit.passportFile === file)) problems.push({id: file, code: 'unclaimed', message: `${file} belongs to no unit`});
-const units = mine.map((unit) => ({id: unit.id, version: unit.passport?.version, owner: unit.kind === 'smart' ? OWNER : unit.passport?.owner, content_sha256: unit.content_sha256, files: unit.files?.length}));
+const units = mine.map((unit) => ({id: unit.id, version: unit.passport?.version, owner: unit.passport?.owner, content_sha256: unit.content_sha256, files: unit.files?.length}));
 console.log(JSON.stringify({units, problems}, null, 1));
 if (problems.length) process.exitCode = 1;

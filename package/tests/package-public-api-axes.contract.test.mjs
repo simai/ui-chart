@@ -1,15 +1,13 @@
 // The package half of ui-source's "nothing calls an appearance or a status
 // `type` without being recorded" (tests/public-api-axes.contract.test.mjs).
 //
-// A chart's data-state is the vocabulary's data state (simai.smart-vocabulary
-// §3: idle, loading, ready, empty, error, ...), not a status the chart reports
-// about the world; its word error is what the free rule takes for a status.
-// sf-table's data-state is exempt in contracts/public-api-axes.json for the
-// same reason. That file is ui-source's and a package file may not replace it,
-// so the exemption is ui-source's to record (ordered from the SIMAI Framework
-// dispatcher with M0). Until it is, the package's own properties are listed
-// below with their reason; the list only shrinks -- a property the contract
-// records is removed from it in the same commit that moves the pin.
+// A chart's data-state is the vocabulary's data state (auto, loading,
+// populated, empty, error; ready counts as populated), not a status the chart
+// reports about the world. contracts/public-api-axes.json carries that list
+// since ui-0c23f6a0af12, so a chart whose data-state takes only these needs no
+// exemption. PENDING stays for a property the contract does not record yet,
+// with its reason; the list only shrinks -- a property the contract records is
+// removed from it in the same commit that moves the pin.
 //
 // scripts/test.mjs runs every other test of the free file as it is.
 import assert from 'node:assert/strict';
@@ -22,23 +20,6 @@ const json = (path) => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
 const map = json('contracts/public-api-axes.json');
 
 const PENDING = [
-  {component: 'chart-line', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-bar', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-pie', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-parts', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-heatmap', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-funnel', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-scatter', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-box', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-radar', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-candlestick', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-waterfall', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-treemap', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-timeline', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-sankey', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-sunburst', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-map', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
-  {component: 'chart-gauge', property: 'data-state', reason: 'the vocabulary data state of the chart (auto, loading, ready, empty, error), as sf-table data-state, not a status about the world'},
 ];
 
 // The free rule's words, as ui-source writes them at the pin.

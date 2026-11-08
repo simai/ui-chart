@@ -34,5 +34,5 @@
 | Release 1.0.0 | done (2026-11-06) by the Framework dispatcher at the owner's yes: release `chart-01992b554963`, npm `@simai-studio/chart@1.0.0` (the set 1.0.0, its components 0.x preview), archive sha256 `7dcbd68a19f56ba52347b61bbd4ba8edbf19610832065c2a079164c84b94e9cb`, over the pair `ui-e7b79c3a9e05`; the repository is public; Larena told (bus `msg-f43cd9d9d7e24c8d98df`) | `package/CHANGELOG.md`, bus `msg-7903f853f7814e938a76` |
 | Site on Docara 3.12.0 | done (2026-11-07): the radius fix of square icons, set receipts read as the builder writes them | `docs/evidence/set-site.md`, `docs/evidence/site-2026-11-07/` |
 
-Pinned SIMAI Framework release: `ui-b58b5dec35e4` (ui-source `195fc22b`, npm
-`@simai-studio/ui@5.20261107.829`), in `package/framework.lock.json`.
+Pinned SIMAI Framework release: `ui-0c23f6a0af12` (ui-source `da48ba8f`, npm
+`@simai-studio/ui@5.20261108.1449`), in `package/framework.lock.json`.
