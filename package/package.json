@@ -1,6 +1,6 @@
 {
   "name": "@simai-studio/chart",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "SIMAI Chart, the component set chart of SIMAI Framework: nineteen chart Smart components (lines, bars, pies, parts, metrics, heatmaps, funnels, gauges, scatter, box plots, radars, candles, waterfalls, treemaps, timelines, Sankey diagrams, sunbursts, choropleth maps and sparklines).",
   "license": "PolyForm-Small-Business-1.0.0 OR PolyForm-Noncommercial-1.0.0 OR LicenseRef-SIMAI-Commercial",
   "author": "Rim Zabarov",

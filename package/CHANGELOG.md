@@ -3,6 +3,16 @@
 The set `chart`, by its npm version `@simai-studio/chart`; component
 versions in brackets.
 
+## 1.0.3 — 2026-11-08
+
+- The same nineteen charts, repinned to ui-0c23f6a0af12 (ui-source
+  `da48ba8fde77`, npm `@simai-studio/ui@5.20261108.1449`), the pair Larena
+  moves to. Released rather than re-receipted: over this pair
+  `sf-progress-bar` writes `data-status` beside `status`, so the first-paint
+  snapshots of the metric tile's `storage` example
+  (`chart-metric/static/default/storage.html` and `storage.skeleton.html`)
+  changed. No chart source changed. Still needs core.runtime 1.25.0 or newer.
+
 ## 1.0.2 — 2026-11-07
 
 - The same nineteen charts, unchanged, repinned to ui-b58b5dec35e4
