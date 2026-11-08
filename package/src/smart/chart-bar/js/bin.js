@@ -3,8 +3,8 @@
 // bar is the count (or the sum of a weight) of the rows in its interval. An
 // interval holds its start and not its end, but the last holds both, so the
 // largest value is counted.
-import {readNumber, readRows} from './data.js';
-import {niceTicks} from './scale.js';
+import {readNumber, readRows} from '../../chart-core/data.js';
+import {niceTicks} from '../../chart-core/scale.js';
 
 /**
  * The bins' edges for values from `min` to `max`: {start, width, count}.

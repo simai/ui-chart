@@ -8,6 +8,7 @@ SF.RuleLoader['cl-chart-funnel'] = {
   js: true,
   css: true,
   relation: [
+    { name: 'cl-chart-core' },
     { name: 'cl-empty-state' },
   ],
 };

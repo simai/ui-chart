@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-treemap (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Treemap), the keyboard docs/research/rendering.md §3.1, the renderer D5, the name and the form docs/DECISIONS.md D12 (the recommendation under the owner's delegation, 2026-11-05).",
   "id": "smart.chart-treemap",
   "tag": "sf-chart-treemap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -167,6 +167,9 @@
   },
   "relations": [
     {
+      "name": "cl-chart-core"
+    },
+    {
       "name": "cl-empty-state"
     }
   ],
@@ -239,7 +242,7 @@
   "x-decisions": [
     "name: sf-chart-treemap, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart, as the charts of M2 (docs/DECISIONS.md D12), family chart. Reserved by the dispatcher (ui-control e79bd7f).",
     "data: x and y as on the bar chart (D3), and an optional group field for a second level; a value of zero or less, or none, is left out and counted, because an area cannot show it.",
-    "layout: squarified (worst aspect ratio, own implementation in chart-core/treemap), groups and parts largest first, 2 px between neighbours; a group keeps a band for its name when it is tall enough.",
+    "layout: squarified (worst aspect ratio, own implementation in js/treemap), groups and parts largest first, 2 px between neighbours; a group keeps a band for its name when it is tall enough.",
     "colours: a group takes the chart colour of its place (--sf-chart-1..8) as a light fill with the colour's line round each part, so the page's ink reads on every part; colors by group key for a page's own.",
     "labels: a part's name, cut with an ellipsis, and its value under it where there is room; a part narrower than three letters stays blank, its words are in the tooltip, the live line and the table.",
     "renderer: own SVG (D5); a treemap reads a few hundred parts at most, so there is no canvas layer.",

@@ -4,7 +4,7 @@
 //
 // The element reads its data once into stages (chart-core/data) in the
 // data's order, which is the process, and works out the conversions
-// (chart-core/funnel). A stage is an HTML row of the size rung's height and
+// (js/funnel). A stage is an HTML row of the size rung's height and
 // its bar's length a share of the widest stage, so the funnel needs no
 // measured width and its first paint is the drawn funnel. A person reaches
 // the stages with one Tab stop and walks them with the arrows
@@ -20,7 +20,7 @@ import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, colourValue} from '../chart-core/colors.js';
-import {funnelStages} from '../chart-core/funnel.js';
+import {funnelStages} from './js/funnel.js';
 import {renderFunnelTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

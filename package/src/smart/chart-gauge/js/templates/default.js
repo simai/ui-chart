@@ -1,7 +1,7 @@
 import {html, nothing} from 'lit';
 import {keptView} from '../../../chart-core/settle.js';
 import {arcPath} from '../../../chart-core/arc.js';
-import {gaugeAngle} from '../../../chart-core/gauge.js';
+import {gaugeAngle} from '../gauge.js';
 import './default.css';
 
 // The figure of a gauge: the label (with the table button on request), the

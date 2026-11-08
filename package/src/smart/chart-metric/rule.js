@@ -7,6 +7,7 @@ SF.RuleLoader['cl-chart-metric'] = {
   js: true,
   css: true,
   relation: [
+    { name: 'cl-chart-core' },
     { name: 'cl-progress-bar' },
   ],
 };

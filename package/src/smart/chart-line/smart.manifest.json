@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-line",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "title": "Line chart",
   "summary": "A line chart: one or more series over time, a number or categories, with axes, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",

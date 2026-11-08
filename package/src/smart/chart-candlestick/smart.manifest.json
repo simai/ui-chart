@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-candlestick",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Candlestick chart",
   "summary": "A candlestick chart: the open, high, low and close of each period on a price axis, side by side in time order, a rising period hollow and a falling one filled in the success and error tones, neighbours merged as a longer period when they crowd, a key of rise and fall, a tooltip, a keyboard cursor over the candles, a summary in words, and the same data as a table.",
   "kind": "smart",

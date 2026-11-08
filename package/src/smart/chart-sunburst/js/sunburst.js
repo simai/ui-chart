@@ -4,7 +4,7 @@
 // docs/research/parameters.md §2.1: an id and a parent per row, or a path
 // (a field holding the list of names from the top down). Own
 // implementation: the tree, the values summed up it, the arcs.
-import {readNumber, readRows} from './data.js';
+import {readNumber, readRows} from '../../chart-core/data.js';
 
 const TURN = Math.PI * 2;
 const text = (value) => (value === undefined || value === null ? '' : String(value));

@@ -298,6 +298,146 @@
       "recorded_on": "2026-11-05",
       "change": "added",
       "summary": "sf-chart-map: a choropleth map, a rate or a ratio by region; the regions given by the page as GeoJSON Polygon or MultiPolygon features (shapes, shape-key, shape-name), the package holding no map; the values joined by key (region, value); mercator, albers, equirectangular or plane projection, fitted into the plot, a map across the 180th meridian kept whole; the heatmap's stepped scale on the theme's tone ladders (scale, scheme, better, steps, middle, min, max) with a legend, a region without data as a dashed outline; names in the regions where they fit (labels), a tooltip with the value and the place, a keyboard cursor over the regions in reading order and to the nearest above or below, a summary sentence with the range, the most and the least, every region as a row of the table, rows without a region counted, loading, empty and error states."
+    },
+    {
+      "unit": "module.chart-core",
+      "version": "0.4.0",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "chart-core becomes the package's shared core (package.json simai.core, ABI 1): ui-builder builds it once as its own bundle that registers its modules with SF.runtimeModule, and every chart takes them from the runtime instead of inlining them, so a page with several charts loads the core once. It keeps the modules two or more charts use (arc, colors, cursor, data, decimate, describe, format, heat, palettes, path, scale, settle, stack) and timeline, kept for the view set's Gantt chart; the twelve single-chart modules (bin, box, funnel, gauge, geo, ohlc, radar, sankey, scatter, sunburst, treemap, waterfall) move into their chart's folder. Needs core.runtime 1.38.0 or newer. Nothing a chart draws or says changes."
+    },
+    {
+      "unit": "smart.chart-bar",
+      "version": "0.5.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-bar: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module bin moves from chart-core into its folder (js/bin.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-box",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-box: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module box moves from chart-core into its folder (js/box.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-candlestick",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-candlestick: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module ohlc moves from chart-core into its folder (js/ohlc.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-funnel",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-funnel: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module funnel moves from chart-core into its folder (js/funnel.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-gauge",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-gauge: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module gauge moves from chart-core into its folder (js/gauge.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-heatmap",
+      "version": "0.1.2",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-heatmap: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-line",
+      "version": "0.4.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-line: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-map",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-map: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module geo moves from chart-core into its folder (js/geo.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-metric",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-metric: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-parts",
+      "version": "0.3.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-parts: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-pie",
+      "version": "0.3.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-pie: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-radar",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-radar: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module radar moves from chart-core into its folder (js/radar.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-sankey",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-sankey: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module sankey moves from chart-core into its folder (js/sankey.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-scatter",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-scatter: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module scatter moves from chart-core into its folder (js/scatter.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-sparkline",
+      "version": "0.2.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-sparkline: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-sunburst",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-sunburst: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module sunburst moves from chart-core into its folder (js/sunburst.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-timeline",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-timeline: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-treemap",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-treemap: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module treemap moves from chart-core into its folder (js/treemap.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-waterfall",
+      "version": "0.1.1",
+      "recorded_on": "2026-11-09",
+      "change": "changed",
+      "summary": "sf-chart-waterfall: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module waterfall moves from chart-core into its folder (js/waterfall.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
     }
   ]
 }

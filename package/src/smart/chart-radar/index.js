@@ -5,7 +5,7 @@
 // The element reads its rows once into series (chart-core/data, the x field
 // as categories: one spoke each), measures its plot, and draws in SVG the
 // rings of the scale, a spoke per measure from the centre, and each series
-// as a ring through its values (chart-core/radar). A person reaches the plot
+// as a ring through its values (js/radar). A person reaches the plot
 // with one Tab stop and walks it with the arrows (chart-core/cursor): round
 // the spokes, and across the series; every move is said in a polite live
 // region, the chart as a whole in a summary sentence, and the same data is
@@ -23,7 +23,7 @@ import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
 import {PALETTES} from '../chart-core/palettes.js';
-import {compareRings, labelPlace, radarRuns, spokePoint} from '../chart-core/radar.js';
+import {compareRings, labelPlace, radarRuns, spokePoint} from './js/radar.js';
 import {renderRadarTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

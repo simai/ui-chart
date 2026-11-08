@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-waterfall",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Waterfall chart",
   "summary": "A waterfall chart: how a start value becomes an end value through positive and negative steps, a bar per step on a value axis from zero, a change floating from the running total and a total standing on zero, joined by thin lines, in the success, error and neutral tones with each value written with its sign, a closing total added, a key, a tooltip, a keyboard cursor over the steps, a summary in words, and the same data as a table.",
   "kind": "smart",

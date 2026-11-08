@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-map",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Map",
   "summary": "A choropleth map: a rate or a ratio by region, the regions given by the page as GeoJSON and projected to fit the plot, each filled by the step of its value on the theme's tone ladders (sequential or diverging, as the heatmap), a dashed outline for a region without data, the region's name in its middle where it fits, a legend of the steps, a tooltip with the value and the place, a keyboard cursor over the regions in reading order, a summary in words, and every region as a row of a table.",
   "kind": "smart",

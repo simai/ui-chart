@@ -9,7 +9,7 @@
 // move is said in a polite live region, the chart as a whole in a summary
 // sentence (chart-core/describe), and the same data is a table on request.
 // With bin, the rows are observations of one measure and the bars a
-// histogram (chart-core/bin): one bar per interval, the bars touching, the
+// histogram (js/bin): one bar per interval, the bars touching, the
 // axis marked at the intervals' edges.
 //
 // It renders into its own light DOM, like every Smart component.
@@ -17,7 +17,7 @@ import SfBaseElement from '../../core/js/smart-base';
 import {elementFromManifest} from '../../core/js/element-manifest';
 import {pageLocale} from '../../core/js/page-language';
 import {readSeries} from '../chart-core/data.js';
-import {binSeries, median} from '../chart-core/bin.js';
+import {binSeries, median} from './js/bin.js';
 import {bandScale, linearScale, niceTicks, tickCount} from '../chart-core/scale.js';
 import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {stackExtent, stackSeries} from '../chart-core/stack.js';

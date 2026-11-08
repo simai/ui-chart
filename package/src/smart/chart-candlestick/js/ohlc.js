@@ -3,7 +3,7 @@
 // (parameters.md §2, OHLC). The candles stand in their periods' order, one
 // beside the next, so a day without trading leaves no hole; when they are
 // more than the width holds, neighbours are merged as a longer period is.
-import {readNumber, readRows, readTime} from './data.js';
+import {readNumber, readRows, readTime} from '../../chart-core/data.js';
 
 /**
  * The candles of rows: {xField, kind, candles, missing}. kind is 'time'

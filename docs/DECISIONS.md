@@ -807,3 +807,27 @@ with its new date.
    - The core and the first chart are built with their passport,
      manifest, journal entry, tests and browser probes.
 3. **The colour order (D4) runs in parallel.** M0 does not wait for it.
+
+## D18. One chart core per page
+
+The Framework dispatcher built a package's shared core into the runtime
+(ui-source core.runtime 1.38.0, `SF.runtimeModule`; ui-builder `1608b36`) at
+the set's order (item 10), and handed the set its steps on 2026-11-09
+(room ui-control, handoff `ho-fd5d69462fd6`). Decided by the recommendation
+under the owner's delegation:
+
+- **The core.** `package.json` `simai.core` names `chart-core` with ABI 1.
+  ui-builder builds it once as its own bundle that registers its modules,
+  and every chart takes them from the runtime. Every chart's rule relates to
+  `cl-chart-core`, so the Loader fetches the core once for all charts.
+- **What it holds** (the dispatcher's option C, measured in ui-control
+  `control/evidence/2026-11-08-chart-core/`): the modules two or more charts
+  use, and `timeline`, which the view set's Gantt chart is to reuse (D13).
+  The twelve single-chart modules move into their chart's `js/` folder. All
+  charts together and a four-chart dashboard get lighter; a page with one
+  chart grows a little (bar: 46.8 to 59.5 KB measured).
+- **ABI.** `abi` is the version of chart-core's exports: removing or
+  changing an export raises it, adding one keeps it. All bundles of a
+  release come from one build.
+- **Runtime.** The set needs `core.runtime` 1.38.0 or newer, so an older
+  page refuses the bundles instead of breaking.

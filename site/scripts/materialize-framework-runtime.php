@@ -30,11 +30,11 @@ declare(strict_types=1);
  * files' hashes in simai-framework.lock.json, never the files.
  */
 
-const UI_METADATA_REVISION = '62e9986416f7f473b9c2ddfdcb30b957277411a2';
-const UI_RUNTIME_REVISION = '0c23f6a0af12ddc32846ff868aab4d9849dabd75';
-const SOURCE_REVISION = 'da48ba8fde776bbbb6b01b3010d32d8475a9686e';
+const UI_METADATA_REVISION = '5570d66485fefcc8c8cf0d42fdc6d37a3ce9b548';
+const UI_RUNTIME_REVISION = 'd6f01121bacac28bc9200d51f46f7389b38920c6';
+const SOURCE_REVISION = '277ef3bf9dfe4014a3d312cc7e9b2278ec176517';
 const BUILDER_REVISION = '9c9c1b1510393b24adb98ea2ca523b26474cf0cf';
-const RELEASE_LOCK = 'contracts/releases/ui-0c23f6a0af12.lock.json';
+const RELEASE_LOCK = 'contracts/releases/ui-d6f01121baca.lock.json';
 // The release on npm, the form the guide's CDN snippets use
 // (https://cdn.jsdelivr.net/npm/<package>@<version>/distr/...). The version is
 // derived from the release commit, never chosen: 5.<yyyymmdd>.<hhmm> of its
@@ -42,7 +42,7 @@ const RELEASE_LOCK = 'contracts/releases/ui-0c23f6a0af12.lock.json';
 // the commit. scripts/sync-framework-documentation-versions.php checks the
 // version against UI_RUNTIME_REVISION and moves the snippets with it.
 const NPM_PACKAGE = '@simai-studio/ui';
-const NPM_VERSION = '5.20261108.1449';
+const NPM_VERSION = '5.20261108.2127';
 // The set this repository holds: its receipt must name this repository's
 // package folder (checked against the checkout below).
 const PACKAGES = [

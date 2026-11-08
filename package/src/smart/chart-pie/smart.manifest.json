@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-pie",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "title": "Pie chart",
   "summary": "A pie chart: the parts of one whole as slices of a circle or a ring with the total in the middle, the smallest folded into «Другое», with shares inside the slices, a legend that hides parts, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",

@@ -4,7 +4,7 @@
 // shorter side, kept while it makes their worst aspect ratio no worse
 // (Bruls, Huizing and van Wijk, 2000) -- so they stay near square and an
 // area is easy to compare.
-import {readNumber, readRows} from './data.js';
+import {readNumber, readRows} from '../../chart-core/data.js';
 
 /**
  * The parts of rows: {xField, yField, groupField, groups, missing, dropped,

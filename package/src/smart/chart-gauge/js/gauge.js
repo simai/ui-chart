@@ -3,7 +3,7 @@
 // a target. The scale is a share 0..1 of its length; an arc turns the share
 // into an angle over the upper half circle, clockwise from nine o'clock.
 
-import {ROLES} from './colors.js';
+import {ROLES} from '../../chart-core/colors.js';
 
 /** The share of the scale a value stands at, kept to 0..1. */
 export function gaugeShare(value, {min, max}) {

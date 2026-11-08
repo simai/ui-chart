@@ -2,7 +2,7 @@
 // ring per level and each arc its share of its parent's
 // (docs/research/catalogue.md, Sunburst; docs/DECISIONS.md D15).
 //
-// The element reads its rows once into a tree (chart-core/sunburst), by an
+// The element reads its rows once into a tree (js/sunburst), by an
 // id and a parent per row or by a path of names, measures its plot, and
 // draws in SVG an arc per node: the top nodes share the turn clockwise from
 // twelve o'clock, a child its parent's angle. A top node takes a chart
@@ -21,7 +21,7 @@ import {pageLocale} from '../../core/js/page-language';
 import {formatNumber} from '../chart-core/format.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
-import {arcAt, sunburstLayout, sunburstRows} from '../chart-core/sunburst.js';
+import {arcAt, sunburstLayout, sunburstRows} from './js/sunburst.js';
 import {renderSunburstTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

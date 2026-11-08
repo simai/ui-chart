@@ -1,7 +1,7 @@
 // sf-chart-gauge: one measured value on a fixed scale with bands (normal,
 // warning, critical) and a target (docs/research/catalogue.md, Gauge).
 //
-// The element reads its scale once (chart-core/gauge): the value's share of
+// The element reads its scale once (js/gauge): the value's share of
 // the scale, the bands inside it and the band the value is in. It draws a
 // half circle in a fixed SVG view box scaled by its width, or a bar of HTML
 // whose positions are shares, so nothing is measured and the first paint is
@@ -15,7 +15,7 @@ import {pageLocale} from '../../core/js/page-language';
 import {formatNumber} from '../chart-core/format.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, colourValue} from '../chart-core/colors.js';
-import {bandOf, gaugeBands, gaugeShare} from '../chart-core/gauge.js';
+import {bandOf, gaugeBands, gaugeShare} from './js/gauge.js';
 import {renderGaugeTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

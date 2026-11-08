@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-funnel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Funnel",
   "summary": "A funnel: the stages of a process, each a subset of the last (visits, cart, payment), as bars on a common baseline with the value and the conversion beside each stage, a tooltip, a keyboard cursor, a summary in words (the overall conversion, where the most is lost) and the same data as a table.",
   "kind": "smart",

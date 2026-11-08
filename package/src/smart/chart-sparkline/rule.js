@@ -7,5 +7,6 @@ SF.RuleLoader['cl-chart-sparkline'] = {
   js: true,
   css: true,
   relation: [
+    { name: 'cl-chart-core' },
   ],
 };

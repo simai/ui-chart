@@ -1,10 +1,10 @@
 {
   "schema": "simai.framework.product-package-source-lock",
   "schema_version": 1,
-  "summary": "The ui-source revision the set chart is built and tested against: the free release ui-0c23f6a0af12 (npm @simai-studio/ui@5.20261108.1449, tarball sha256 91a0c024281a9a8d0489c8b1f4a823ac6f38f35a38cd1cd92b7944906f148429, ui-builder 9c9c1b151039; ui-control COMPATIBILITY_LEDGER framework_pair_ui_0c23f6a0af12_next_pair_2026_11_08b). The overlay is ui-source at this revision with this folder laid over it (scripts/overlay.mjs), and ui-builder's product-package build builds the same (standards simai.component-set 1.0.0 and simai.component-package 1.1.1); the same commit is framework.source_revision in set.json.",
+  "summary": "The ui-source revision the set chart is built and tested against: the free release ui-d6f01121baca (npm @simai-studio/ui@5.20261108.2127, tarball sha256 75e8381e25112034f93079b825d922a84e1e6443da9946f9cb4f10d0fe9daab8, ui-builder 9c9c1b151039; ui-control COMPATIBILITY_LEDGER framework_pair_ui_d6f01121baca_next_pair_2026_11_08d). The overlay is ui-source at this revision with this folder laid over it (scripts/overlay.mjs), and ui-builder's product-package build builds the same (standards simai.component-set 1.0.0 and simai.component-package 1.1.1); the same commit is framework.source_revision in set.json.",
   "package": "chart",
   "source": {
     "repository": "simai/ui-source",
-    "revision": "da48ba8fde776bbbb6b01b3010d32d8475a9686e"
+    "revision": "277ef3bf9dfe4014a3d312cc7e9b2278ec176517"
   }
 }

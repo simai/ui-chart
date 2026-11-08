@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-heatmap (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md §8.4 of ui-chart and docs/research/catalogue.md (Heatmap), the scale docs/DECISIONS.md D8 (the owner's choice of 2026-11-03).",
   "id": "smart.chart-heatmap",
   "tag": "sf-chart-heatmap",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -212,6 +212,9 @@
     }
   },
   "relations": [
+    {
+      "name": "cl-chart-core"
+    },
     {
       "name": "cl-empty-state"
     }

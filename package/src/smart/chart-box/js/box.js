@@ -2,7 +2,7 @@
 // group the median, the quartiles, the whiskers and the outliers of one
 // measure. The rows are raw observations (the statistics are worked out
 // here), or one row per group with the statistics already given.
-import {readNumber, readRows} from './data.js';
+import {readNumber, readRows} from '../../chart-core/data.js';
 
 /** The p-quantile of sorted numbers, linear between the two nearest (as R's type 7, NumPy's and a spreadsheet's). */
 export function quantile(sorted, p) {

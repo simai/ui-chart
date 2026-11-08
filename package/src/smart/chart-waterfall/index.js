@@ -2,7 +2,7 @@
 // value through positive and negative steps, for example a profit bridge
 // (docs/research/catalogue.md, Waterfall; docs/DECISIONS.md D11).
 //
-// The element reads its rows once into steps (chart-core/waterfall),
+// The element reads its rows once into steps (js/waterfall),
 // measures its plot, and draws in SVG a bar per step side by side on a
 // value axis from zero: a change floats from the running total to the new
 // one, a total stands on zero, and a thin line joins each bar's end to the
@@ -22,7 +22,7 @@ import {formatNumber} from '../chart-core/format.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
-import {waterfallExtent, waterfallSteps} from '../chart-core/waterfall.js';
+import {waterfallExtent, waterfallSteps} from './js/waterfall.js';
 import {renderWaterfallTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

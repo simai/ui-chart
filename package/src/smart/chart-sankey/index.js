@@ -1,7 +1,7 @@
 // sf-chart-sankey: a Sankey diagram, quantities flowing between stages or
 // categories (docs/research/catalogue.md, Sankey; docs/DECISIONS.md D14).
 //
-// The element reads its rows once into nodes and flows (chart-core/sankey),
+// The element reads its rows once into nodes and flows (js/sankey),
 // measures its plot, and draws in SVG the nodes in columns by their longest
 // path from where the flows start, and a band from node to node as wide as
 // its flow. A node takes a chart colour of its place (--sf-chart-1..8), and
@@ -19,7 +19,7 @@ import {pageLocale} from '../../core/js/page-language';
 import {formatNumber} from '../chart-core/format.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
-import {onBand, sankeyLayout, sankeyRows} from '../chart-core/sankey.js';
+import {onBand, sankeyLayout, sankeyRows} from './js/sankey.js';
 import {renderSankeyTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

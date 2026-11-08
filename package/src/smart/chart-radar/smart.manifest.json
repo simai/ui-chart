@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-radar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Radar chart",
   "summary": "A radar chart: a spoke per measure from a centre, each series a ring through its values on one scale, to compare a few items over several measures; a legend that hides series, a tooltip, a keyboard cursor round the spokes and across the series, a summary in words, and the same data as a table.",
   "kind": "smart",

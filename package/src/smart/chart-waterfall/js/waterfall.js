@@ -2,7 +2,7 @@
 // how a start value becomes an end value through positive and negative
 // changes. Each row is a change from the running total, or a total that
 // stands on zero; a closing total is added when the last row is not one.
-import {readNumber, readRows} from './data.js';
+import {readNumber, readRows} from '../../chart-core/data.js';
 
 const TRUE = new Set(['true', 'yes', '1', 'да']);
 

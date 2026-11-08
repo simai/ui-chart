@@ -2,7 +2,7 @@
 // of each period, for prices (docs/research/catalogue.md, Candlestick;
 // docs/DECISIONS.md D10).
 //
-// The element reads its rows once into candles (chart-core/ohlc), measures
+// The element reads its rows once into candles (js/ohlc), measures
 // its plot, and draws in SVG a candle per period side by side on a value
 // axis, merging neighbours as a longer period when they are more than the
 // width holds. A rising period is a hollow body and a falling one a filled
@@ -21,7 +21,7 @@ import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
-import {mergeCandles, ohlcExtent, ohlcRows, tickPlaces} from '../chart-core/ohlc.js';
+import {mergeCandles, ohlcExtent, ohlcRows, tickPlaces} from './js/ohlc.js';
 import {renderCandlestickTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

@@ -5,7 +5,7 @@
 // The page gives the regions as GeoJSON (the shapes property) and the
 // values as rows (items) joined by a region key: the package holds no map,
 // so the boundaries, their source and their licence are the page's. The
-// element projects the regions (chart-core/geo), fits them into its plot,
+// element projects the regions (js/geo), fits them into its plot,
 // cuts the values into steps on the theme's tone ladders as the heatmap
 // does (chart-core/heat, D8), and draws in SVG a path per region with a
 // legend of the steps. A person reaches the plot with one Tab stop and
@@ -21,7 +21,7 @@ import {pageLocale} from '../../core/js/page-language';
 import {formatNumber} from '../chart-core/format.js';
 import {settled} from '../chart-core/settle.js';
 import {heatColours, heatSteps, stepCount, stepOf} from '../chart-core/heat.js';
-import {geoLayout, geoRegions, geoValues, nearestRegion, regionOrder} from '../chart-core/geo.js';
+import {geoLayout, geoRegions, geoValues, nearestRegion, regionOrder} from './js/geo.js';
 import {renderMapTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

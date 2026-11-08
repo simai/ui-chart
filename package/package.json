@@ -23,7 +23,11 @@
   ],
   "simai": {
     "set": "chart",
-    "base": "dist/smart"
+    "base": "dist/smart",
+    "core": {
+      "folder": "chart-core",
+      "abi": 1
+    }
   },
   "scripts": {
     "overlay": "node scripts/overlay.mjs",

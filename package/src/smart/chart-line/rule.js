@@ -8,6 +8,7 @@ SF.RuleLoader['cl-chart-line'] = {
   js: true,
   css: true,
   relation: [
+    { name: 'cl-chart-core' },
     { name: 'cl-empty-state' },
   ],
 };

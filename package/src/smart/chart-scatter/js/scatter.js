@@ -2,7 +2,7 @@
 // bubble): one point per row, at two measures, with an optional third as a
 // bubble's area. A row without both measures is no point; it is counted, so
 // the summary can say how many were left out.
-import {readNumber, readRows} from './data.js';
+import {readNumber, readRows} from '../../chart-core/data.js';
 
 /**
  * {xField, yField, bubbleField, pointField, series: [{key, name}], points, missing}.

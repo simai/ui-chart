@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-funnel (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Funnel), the name the owner's M2 plan of 2026-11-03.",
   "id": "smart.chart-funnel",
   "tag": "sf-chart-funnel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -157,6 +157,9 @@
     }
   },
   "relations": [
+    {
+      "name": "cl-chart-core"
+    },
     {
       "name": "cl-empty-state"
     }

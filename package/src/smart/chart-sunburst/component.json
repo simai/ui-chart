@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-sunburst (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Sunburst) and the hierarchy shape of docs/research/parameters.md §2.1, the keyboard docs/research/rendering.md §3.1, the renderer D5, the name and the form docs/DECISIONS.md D15 (the owner's choice of the chart, the form by the recommendation under the owner's delegation, 2026-11-05).",
   "id": "smart.chart-sunburst",
   "tag": "sf-chart-sunburst",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -162,6 +162,9 @@
   },
   "relations": [
     {
+      "name": "cl-chart-core"
+    },
+    {
       "name": "cl-empty-state"
     }
   ],
@@ -233,7 +236,7 @@
   "x-decisions": [
     "name: sf-chart-sunburst, the catalogue's name, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart, as the charts of M2 (docs/DECISIONS.md D15), family chart. Reserved by the dispatcher (ui-control 868426b).",
     "data: the hierarchy shape of parameters.md §2.1, an id and a parent per row (the node setting names the id field, because id is the element's own attribute), or a path field holding a list; a parent's value is its own with its children's; what cannot be drawn is left out and counted.",
-    "layout: own implementation in chart-core/sunburst; the top nodes share the turn clockwise from twelve o'clock, largest first, a child its parent's angle by its share; the rings share the radius outside a hole of three tenths.",
+    "layout: own implementation in js/sunburst; the top nodes share the turn clockwise from twelve o'clock, largest first, a child its parent's angle by its share; the rings share the radius outside a hole of three tenths.",
     "colours: a top node takes the chart colour of its place (--sf-chart-1..8) and its branch keeps it, the colour's light fill with its line round each arc, lighter past the first ring, so the page's ink reads on every arc; colors by the top node's name for a page's own.",
     "labels: a node's name along the middle of its arc, straight, turned round below the middle so it never reads upside down, cut with an ellipsis to the room inside the arc; the total in the centre when it fits.",
     "renderer: own SVG (D5); a sunburst reads a few hundred arcs at most, so there is no canvas layer.",

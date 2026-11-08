@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-timeline",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Gantt chart",
   "summary": "A timeline (Gantt chart): tasks or states as ranges of time on rows, a row a lane with its name at the start, a bar from each range's start to its end on a calendar time axis and a diamond for a milestone, a status in a chart colour with its key, a tooltip with the start, the end and the length, a keyboard cursor along the rows and across them, a summary in words, and the same data as a table.",
   "kind": "smart",

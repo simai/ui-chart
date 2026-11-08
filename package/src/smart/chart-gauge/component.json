@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-gauge (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Gauge) and docs/research/parameters.md §6 (target and bands are annotations), the name the owner's M2 plan of 2026-11-03 (docs/DECISIONS.md D9).",
   "id": "smart.chart-gauge",
   "tag": "sf-chart-gauge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -116,6 +116,9 @@
   },
   "keyboard": null,
   "relations": [
+    {
+      "name": "cl-chart-core"
+    },
     {
       "name": "cl-empty-state"
     }

@@ -5,7 +5,7 @@
 // a band joins two nodes and is as wide as its flow. Own implementation:
 // the columns, the order in each by the weighted middle of the neighbours,
 // the bands' places along their nodes.
-import {readNumber, readRows} from './data.js';
+import {readNumber, readRows} from '../../chart-core/data.js';
 
 const text = (value) => (value === undefined || value === null ? '' : String(value));
 

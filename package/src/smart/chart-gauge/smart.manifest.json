@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-gauge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Gauge",
   "summary": "A gauge: one measured value on a fixed scale (a server's load, a score, a temperature) as a half circle or a bar, with bands (normal, warning, critical) each in its role's colour and name, a target mark with the distance to it, the value written in its middle with its band's name, a meter for screen readers, a summary in words and the same data as a table.",
   "kind": "smart",

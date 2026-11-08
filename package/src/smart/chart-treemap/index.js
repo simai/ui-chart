@@ -2,7 +2,7 @@
 // the plot, one level or two (parts in groups) (docs/research/catalogue.md,
 // Treemap; docs/DECISIONS.md D12).
 //
-// The element reads its rows once into groups of parts (chart-core/treemap),
+// The element reads its rows once into groups of parts (js/treemap),
 // measures its plot, and draws in SVG a rectangle per part laid out
 // squarified, largest first, so the rectangles stay near square. A group
 // takes a colour of the Framework's chart roles (--sf-chart-1..8): a light
@@ -20,7 +20,7 @@ import {formatNumber} from '../chart-core/format.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
-import {treemapLayout, treemapRows} from '../chart-core/treemap.js';
+import {treemapLayout, treemapRows} from './js/treemap.js';
 import {renderTreemapTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

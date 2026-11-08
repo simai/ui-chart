@@ -1,7 +1,7 @@
 // sf-chart-box: a box plot, to compare how one measure spreads across groups
 // (docs/research/catalogue.md, Box plot; docs/DECISIONS.md D9).
 //
-// The element reads its rows once into boxes (chart-core/box): the median,
+// The element reads its rows once into boxes (js/box): the median,
 // the quartiles, the whiskers and the outliers of each group, worked out
 // from raw observations or given. It measures its plot and draws in SVG a
 // band per group, a box per series side by side in it, on a value axis. A
@@ -20,7 +20,7 @@ import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
 import {PALETTES} from '../chart-core/palettes.js';
-import {boxSeries} from '../chart-core/box.js';
+import {boxSeries} from './js/box.js';
 import {renderBoxTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

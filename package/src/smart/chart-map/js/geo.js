@@ -4,7 +4,7 @@
 // boundaries, their source and their licence are the page's (the owner's
 // decision q-f136944dd5). Own implementation: the reading of GeoJSON
 // polygons, the projections, the fitting into the plot.
-import {readNumber, readRows} from './data.js';
+import {readNumber, readRows} from '../../chart-core/data.js';
 
 const RAD = Math.PI / 180;
 const text = (value) => (value === undefined || value === null ? '' : String(value));

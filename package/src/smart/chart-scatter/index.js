@@ -2,11 +2,11 @@
 // with an optional third measure as a bubble's area
 // (docs/research/catalogue.md, Scatter / bubble; docs/DECISIONS.md D9).
 //
-// The element reads its rows once into points (chart-core/scatter), measures
+// The element reads its rows once into points (js/scatter), measures
 // its plot, and draws axes, guide lines and one mark per point in SVG, or
 // past 2,000 marks on a canvas under the SVG (D5), which keeps the axes, the
 // cursor and the text. A person reaches the plot with one Tab stop and walks
-// the points with the arrows (chart-core/scatter moveScatter); every move is
+// the points with the arrows (js/scatter moveScatter); every move is
 // said in a polite live region, the chart as a whole in a summary sentence
 // with the strength of the relation, and the same data is a table on
 // request.
@@ -20,7 +20,7 @@ import {formatNumber} from '../chart-core/format.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
 import {PALETTES} from '../chart-core/palettes.js';
-import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from '../chart-core/scatter.js';
+import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from './js/scatter.js';
 import {paintMarks, renderScatterTemplate} from './js/templates/default';
 import manifest from './component.json';
 import en from './lang/en.json';

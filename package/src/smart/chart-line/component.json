@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-line (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/parameters.md of ui-chart, the renderer and the keyboard docs/research/rendering.md, the name and the family docs/DECISIONS.md D2.",
   "id": "smart.chart-line",
   "tag": "sf-chart-line",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -288,6 +288,9 @@
     }
   },
   "relations": [
+    {
+      "name": "cl-chart-core"
+    },
     {
       "name": "cl-empty-state"
     }

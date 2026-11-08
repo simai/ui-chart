@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-sankey (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Sankey) and the flow shape of docs/research/parameters.md §2.1, the keyboard docs/research/rendering.md §3.1, the renderer D5, the name and the form docs/DECISIONS.md D14 (the owner's choice of the chart, the form by the recommendation under the owner's delegation, 2026-11-05).",
   "id": "smart.chart-sankey",
   "tag": "sf-chart-sankey",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -150,6 +150,9 @@
   },
   "relations": [
     {
+      "name": "cl-chart-core"
+    },
+    {
       "name": "cl-empty-state"
     }
   ],
@@ -221,7 +224,7 @@
   "x-decisions": [
     "name: sf-chart-sankey, the catalogue's name, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart, as the charts of M2 (docs/DECISIONS.md D14), family chart. Reserved by the dispatcher (ui-control 4a70440).",
     "data: the flow shape of parameters.md §2.1, source, target and value fields; the same pair named twice is one flow with the sum; a row without a positive flow, or from a node to itself, is left out and counted; a flow that would close a loop is left out and counted, because the diagram runs one way.",
-    "layout: own implementation in chart-core/sankey; a node's column is its longest path from a node nothing flows into, a node that flows nowhere stands in the last column; one scale for every column, each centred; the order in a column sorted a few times by the weighted middle of the joined nodes, so the bands cross less.",
+    "layout: own implementation in js/sankey; a node's column is its longest path from a node nothing flows into, a node that flows nowhere stands in the last column; one scale for every column, each centred; the order in a column sorted a few times by the weighted middle of the joined nodes, so the bands cross less.",
     "colours: a node takes the chart colour of its place (--sf-chart-1..8) and its outgoing bands the colour's light fill; colors by node name for a page's own.",
     "labels: a node's name and value beside it, before it in the last column, cut with an ellipsis to the room between the columns; a node too thin for a line stays without, its words are in the tooltip, the live line and the table.",
     "renderer: own SVG (D5); a Sankey diagram reads a few hundred flows at most, so there is no canvas layer.",
