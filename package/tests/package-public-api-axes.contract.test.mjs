@@ -46,6 +46,10 @@ test('nothing calls an appearance or a status `type` without being recorded, or 
     const properties = json(`src/smart/${name}/smart.manifest.json`).inputs?.properties ?? {};
     for (const [property, definition] of Object.entries(properties)) {
       if (Object.keys(map.axes).includes(property)) continue;
+      // The standard data-state (contracts/public-api-axes.json data_state):
+      // a data-state whose values are all data states needs no exemption.
+      const states = map.data_state ? [...map.data_state.values, ...Object.keys(map.data_state.value_aliases ?? {})] : [];
+      if (map.data_state && property === map.data_state.property && (definition.enum ?? []).every((value) => states.includes(value))) continue;
       const values = definition.enum ?? [];
       const looksLikeAppearance = values.some((value) => APPEARANCE_WORDS.includes(value));
       const looksLikeStatus = values.some((value) => STATUS_WORDS.includes(value));
