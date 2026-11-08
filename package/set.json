@@ -29,6 +29,7 @@
       "folder": "chart-bar",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -38,6 +39,7 @@
       "folder": "chart-box",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -47,6 +49,7 @@
       "folder": "chart-candlestick",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -56,6 +59,7 @@
       "folder": "chart-funnel",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -65,6 +69,7 @@
       "folder": "chart-gauge",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -74,6 +79,7 @@
       "folder": "chart-heatmap",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -83,6 +89,7 @@
       "folder": "chart-line",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -92,6 +99,7 @@
       "folder": "chart-map",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -101,6 +109,7 @@
       "folder": "chart-metric",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-progress-bar"
       ]
     },
@@ -110,6 +119,7 @@
       "folder": "chart-parts",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -119,6 +129,7 @@
       "folder": "chart-pie",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -128,6 +139,7 @@
       "folder": "chart-radar",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -137,6 +149,7 @@
       "folder": "chart-sankey",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -146,6 +159,7 @@
       "folder": "chart-scatter",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -154,7 +168,9 @@
       "rule": "cl-chart-sparkline",
       "folder": "chart-sparkline",
       "status": "preview",
-      "requires": []
+      "requires": [
+        "cl-chart-core"
+      ]
     },
     {
       "element": "sf-chart-sunburst",
@@ -162,6 +178,7 @@
       "folder": "chart-sunburst",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -171,6 +188,7 @@
       "folder": "chart-timeline",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -180,6 +198,7 @@
       "folder": "chart-treemap",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     },
@@ -189,6 +208,7 @@
       "folder": "chart-waterfall",
       "status": "preview",
       "requires": [
+        "cl-chart-core",
         "cl-empty-state"
       ]
     }

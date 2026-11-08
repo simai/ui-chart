@@ -22,7 +22,9 @@
   ],
   "exported_parts": [],
   "composition": {
-    "uses": [],
+    "uses": [
+      "smart.chart-core"
+    ],
     "public_parts": []
   },
   "inputs": {

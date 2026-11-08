@@ -106,9 +106,11 @@ test('the registry at the pinned revision gives the set its family and names', {
   for (const {element} of PENDING_NAMES) {
     assert.ok(problems.includes(`${element} is not a registered name of chart`), `${element}: registered at the pin now; remove it from PENDING_NAMES`);
   }
-  // Each relation names a rule of this set or of SIMAI Framework (no set is
-  // required): the free rule exists in the overlay.
-  const own = new Set(passport.components.map((component) => component.rule));
+  // Each relation names a rule of this set (a component's, or the shared core's
+  // tagless cl-<folder> that ui-builder writes from package.json simai.core) or
+  // of SIMAI Framework (no set is required): the free rule exists in the overlay.
+  const core = json(join(setRoot, 'package.json')).simai?.core;
+  const own = new Set([...passport.components.map((component) => component.rule), ...(core ? [`cl-${core.folder}`] : [])]);
   for (const component of passport.components) {
     for (const rule of component.requires.filter((name) => !own.has(name))) {
       const folder = rule.slice(3);
