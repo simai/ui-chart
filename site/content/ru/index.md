@@ -29,10 +29,10 @@ Tab и стрелки или откройте таблицу; название �
 загрузит только те графики, что есть на странице:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261107.829/distr/core/js/core.min.js" data-sf-sets="chart"></script>
+<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261108.1449/distr/core/js/core.min.js" data-sf-sets="chart"></script>
 ```
 
-Версия набора — 1.0.2, сами графики пока предварительные (0.x). Версии, другие
+Версия набора — 1.0.3, сами графики пока предварительные (0.x). Версии, другие
 способы и лицензия — в разделе [Подключение](/ru/guide/connection/).
 
 ## Почему SIMAI Chart
@@ -89,11 +89,11 @@ Tab и стрелки или откройте таблицу; название �
 ::::grid {columns=3 gap=4}
 :::card {variant=plain}
 ### Версия
-Набор 1.0.2 от 7 ноября 2026 года, графики в нём — предварительные версии 0.x. [История изменений](/ru/guide/changes/)
+Набор 1.0.3 от 8 ноября 2026 года, графики в нём — предварительные версии 0.x. [История изменений](/ru/guide/changes/)
 :::
 :::card {variant=plain}
 ### Совместимость
-Собран и проверен над выпуском SIMAI Framework `ui-b58b5dec35e4`; нужен Core `core.runtime` 1.25.0 или новее. [Подключение](/ru/guide/connection/)
+Собран и проверен над выпуском SIMAI Framework `ui-0c23f6a0af12`; нужен Core `core.runtime` 1.25.0 или новее. [Подключение](/ru/guide/connection/)
 :::
 :::card {variant=plain}
 ### Лицензия
