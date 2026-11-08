@@ -9,9 +9,9 @@
   },
   "package_source": {
     "repository": "simai/ui-chart",
-    "revision": "41a2b6ccf3da8a3b78cce9b491ad6e58b24a17a1",
+    "revision": "b9d62c6d81a0028ae16487583f2732cb38ff0852",
     "path": "package",
-    "tree": "9727424f3dfda069964ace59fd52cbcaaee3a7bf"
+    "tree": "b1dff31dcb58d3799f2e30cb394a71de6d89a031"
   },
   "licence": {
     "ref": "PolyForm-Small-Business-1.0.0 OR PolyForm-Noncommercial-1.0.0 OR LicenseRef-SIMAI-Commercial"
@@ -19,9 +19,9 @@
   "framework": {
     "source": {
       "repository": "simai/ui-source",
-      "revision": "195fc22bad4b725cf4f5bb3778b78fb3739e5e20"
+      "revision": "da48ba8fde776bbbb6b01b3010d32d8475a9686e"
     },
-    "release": "ui-b58b5dec35e4",
+    "release": "ui-0c23f6a0af12",
     "runtime": {
       "abi": 1,
       "modules": {
@@ -54,9 +54,9 @@
   "output": {
     "runtime_path": "smart",
     "files_count": 1083,
-    "manifest_sha256": "eb34cbb122522b19b913a1594848a4d8702821b05eca83d680d77838ccb43ea2",
+    "manifest_sha256": "a6424fad2649d33a9e35e273a19bf17f01b6710c173c3b62c13f6a12eb72b3b3",
     "archive": "package-chart.tar",
-    "archive_sha256": "1f6c3b76c47385ae3f2e3adf8d0078d7328acb2e7ef3ce03b64d19eb2bd6d5b4",
+    "archive_sha256": "56cf6859eeed33a0d6cf4852fa81b5b23fe1124a6eb4d3147a2631979f407531",
     "archive_format": "ustar; entries sorted; owner 0:0; mtime 0; modes 0755/0644"
   },
   "required_files": [
@@ -452,31 +452,31 @@
   },
   "package_reference": {
     "path": "distr/core/contracts/packages/chart.package.json",
-    "release": "ui-b58b5dec35e4",
+    "release": "ui-0c23f6a0af12",
     "status": "set-passport"
   },
   "set": {
     "id": "chart",
     "passport": "set.json",
-    "sha256": "e7bbc387e586645d2389e6e00d228234b706a9c031eaa43ad1a231e1db745597",
+    "sha256": "f8626aa63db38b9b8fbdc6db8d7b4b612a0117e5102defcafe02f44122e480a3",
     "api": null,
     "families": [
       "chart"
     ],
     "framework": {
       "core_runtime": ">=1.25.0",
-      "source_revision": "195fc22bad4b725cf4f5bb3778b78fb3739e5e20"
+      "source_revision": "da48ba8fde776bbbb6b01b3010d32d8475a9686e"
     },
     "requires_sets": [],
     "registry": {
       "status": "agrees",
-      "sha256": "37b4053e0b1293cc4f4c1eb62a11040add6a2396421190979c9dd78a5de9d633"
+      "sha256": "5f205ae2cd0506152dbdba02be1cdab527e2374cfaf336d9527b9ad50232d467"
     }
   },
   "files": [
     {
       "path": "set.json",
-      "sha256": "e7bbc387e586645d2389e6e00d228234b706a9c031eaa43ad1a231e1db745597",
+      "sha256": "f8626aa63db38b9b8fbdc6db8d7b4b612a0117e5102defcafe02f44122e480a3",
       "size": 4585
     },
     {
@@ -3061,23 +3061,23 @@
     },
     {
       "path": "smart/chart-metric/static/default/storage.html",
-      "sha256": "5ff2413f60751807ce864eec1305e6dd4abdada47f363e36f054d2bc8c272a5d",
-      "size": 1875
+      "sha256": "2b92d70781bad5f8956fb6f0bb1f07960497b64148d2d6256d0b25fc970efbaa",
+      "size": 1897
     },
     {
       "path": "smart/chart-metric/static/default/storage.html.gz",
-      "sha256": "90d6743ae8f455742f9f4369f06327310c9cbd5aac609a754e2c8b6f1ae49229",
-      "size": 716
+      "sha256": "37ca8837e0d728f4d433068e76dfe20aec0c6934155219dc1578733258f7fe80",
+      "size": 722
     },
     {
       "path": "smart/chart-metric/static/default/storage.skeleton.html",
-      "sha256": "45e43b23feca84b784a5bd3af9c5f937adfaa7a61a458057ecf349523633812b",
-      "size": 2260
+      "sha256": "1713a9de0b744068c55cc225aa37361abb05140af72ea754476ce3c29faaab3d",
+      "size": 2282
     },
     {
       "path": "smart/chart-metric/static/default/storage.skeleton.html.gz",
-      "sha256": "c34e857fd4a414bd7217c365d345ea536b20a5bc48c5823882d5b1ccd4c5f5db",
-      "size": 764
+      "sha256": "be20e12e332234aafdc25bdb42a3342c0378136f37e757b4ea3bad9496899206",
+      "size": 766
     },
     {
       "path": "smart/chart-metric/static/sheets.json",
