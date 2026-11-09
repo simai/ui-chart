@@ -3,6 +3,19 @@
 The set `chart`, by its npm version `@simai-studio/chart`; component
 versions in brackets.
 
+## 1.1.0 — 2026-11-09
+
+- One chart core per page: `chart-core` is the set's shared core
+  (`package.json` `simai.core` names the folder `chart-core` with ABI 1),
+  so a page that shows several charts loads it once. Every chart rule
+  relates to `cl-chart-core` first; the twelve modules only one chart used
+  moved into that chart's `js/` folder, and the timeline module stays in the
+  core for the view set's Gantt chart (module.chart-core 0.4.0, each chart a
+  patch). Nothing a chart draws or says changes.
+- Over SIMAI Framework `ui-cb287da78ab1` (ui-source `44a5efda6649`, npm
+  `@simai-studio/ui@5.20261109.559`). Needs core.runtime 1.38.0 or newer
+  (it was 1.25.0): the Loader loads a set's core before its charts.
+
 ## 1.0.3 — 2026-11-08
 
 - The same nineteen charts, repinned to ui-0c23f6a0af12 (ui-source

@@ -15,7 +15,7 @@ other Smart component and loaded by the same Loader.
   site (Docara), local only.
 
 Nineteen charts, all 0.x previews, made the first release of the set,
-1.0.0; the current one is 1.0.3 (npm `@simai-studio/chart`, [changelog](package/CHANGELOG.md)). See
+1.0.0; the current one is 1.1.0 (npm `@simai-studio/chart`, [changelog](package/CHANGELOG.md)). See
 [docs/STATUS.md](docs/STATUS.md) for the state and
 [docs/START.md](docs/START.md) for how the work began.
 

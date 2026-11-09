@@ -117,8 +117,8 @@ node examples/serve.mjs <ui distr at the pin> <package build output>
 
 ## Releases
 
-**Version 1.0.3, released 2026-11-08** over `ui-0c23f6a0af12` (1.0.2 was over `ui-b58b5dec35e4`,
-1.0.1 over `ui-1ec283e856cd`, 1.0.0 over `ui-e7b79c3a9e05`; [CHANGELOG.md](CHANGELOG.md)) through
+**Version 1.1.0, released 2026-11-09** over `ui-cb287da78ab1` (1.0.3 was over `ui-0c23f6a0af12`,
+1.0.2 over `ui-b58b5dec35e4`, 1.0.1 over `ui-1ec283e856cd`, 1.0.0 over `ui-e7b79c3a9e05`; [CHANGELOG.md](CHANGELOG.md)) through
 the dispatcher's release route as the sets `view` and `editor` were: the build
 committed under `dist/` with its receipt, the release lock
 `contracts/releases/chart-<12>.lock.json`, the tag `chart-<12>` with a GitHub
@@ -128,7 +128,7 @@ release, and `npm publish` of `@simai-studio/chart` from the staged folder
 One line connects it:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261108.1449/distr/core/js/core.min.js" data-sf-sets="chart@1.0.3"></script>
+<script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261109.559/distr/core/js/core.min.js" data-sf-sets="chart@1.1.0"></script>
 ```
 
 ### A new Framework pair
