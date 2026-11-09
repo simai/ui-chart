@@ -67,11 +67,15 @@ step registry
 node "$here/scripts/check-registry.mjs" --registry "$workspace/names-main.json" > "$logs/registry.json"
 # Playwright for the probes: Node resolves it from the overlay's parent
 # folders; PLAYWRIGHT_MODULES names a node_modules that holds playwright and
-# playwright-core when no parent folder does.
+# playwright-core when no parent folder does. They are copied, not linked:
+# the first-paint scripts refuse a playwright that resolves outside the
+# overlay's own node_modules.
 if [ -n "${PLAYWRIGHT_MODULES:-}" ]; then
   mkdir -p "$here/.overlay/node_modules"
-  ln -sfn "$PLAYWRIGHT_MODULES/playwright" "$here/.overlay/node_modules/playwright"
-  ln -sfn "$PLAYWRIGHT_MODULES/playwright-core" "$here/.overlay/node_modules/playwright-core"
+  for module in playwright playwright-core; do
+    rm -rf "$here/.overlay/node_modules/$module"
+    cp -R "$PLAYWRIGHT_MODULES/$module" "$here/.overlay/node_modules/$module"
+  done
 fi
 step manifest
 node "$here/scripts/run-manifest-probes.mjs" "$free" "$output" > "$logs/manifest.log" 2>&1

@@ -9,6 +9,7 @@
     "component/buttons/css/buttons.min.css",
     "component/featured-icon/css/featured-icon.min.css",
     "component/icons/css/icons.min.css",
+    "component/kbd/css/kbd.min.css",
     "core/css/core.css",
     "smart/chart-map/css/chart-map.min.css",
     "smart/empty-state/css/empty-state.min.css",
@@ -17,6 +18,7 @@
     "utility/flex/default/css/default.min.css",
     "utility/font-weight/default/css/default.min.css",
     "utility/pointer-events/default/css/default.min.css",
+    "utility/sr-only/default/css/default.min.css",
     "utility/text-align/default/css/default.min.css"
   ],
   "examples": {
@@ -24,6 +26,7 @@
       "component/buttons/css/buttons.min.css",
       "component/featured-icon/css/featured-icon.min.css",
       "component/icons/css/icons.min.css",
+      "component/kbd/css/kbd.min.css",
       "core/css/core.css",
       "smart/chart-map/css/chart-map.min.css",
       "smart/empty-state/css/empty-state.min.css",
@@ -32,12 +35,14 @@
       "utility/flex/default/css/default.min.css",
       "utility/font-weight/default/css/default.min.css",
       "utility/pointer-events/default/css/default.min.css",
+      "utility/sr-only/default/css/default.min.css",
       "utility/text-align/default/css/default.min.css"
     ],
     "error": [
       "component/buttons/css/buttons.min.css",
       "component/featured-icon/css/featured-icon.min.css",
       "component/icons/css/icons.min.css",
+      "component/kbd/css/kbd.min.css",
       "core/css/core.css",
       "smart/chart-map/css/chart-map.min.css",
       "smart/empty-state/css/empty-state.min.css",
@@ -46,12 +51,14 @@
       "utility/flex/default/css/default.min.css",
       "utility/font-weight/default/css/default.min.css",
       "utility/pointer-events/default/css/default.min.css",
+      "utility/sr-only/default/css/default.min.css",
       "utility/text-align/default/css/default.min.css"
     ],
     "loading": [
       "component/buttons/css/buttons.min.css",
       "component/featured-icon/css/featured-icon.min.css",
       "component/icons/css/icons.min.css",
+      "component/kbd/css/kbd.min.css",
       "core/css/core.css",
       "smart/chart-map/css/chart-map.min.css",
       "smart/empty-state/css/empty-state.min.css",
@@ -60,12 +67,14 @@
       "utility/flex/default/css/default.min.css",
       "utility/font-weight/default/css/default.min.css",
       "utility/pointer-events/default/css/default.min.css",
+      "utility/sr-only/default/css/default.min.css",
       "utility/text-align/default/css/default.min.css"
     ],
     "plane": [
       "component/buttons/css/buttons.min.css",
       "component/featured-icon/css/featured-icon.min.css",
       "component/icons/css/icons.min.css",
+      "component/kbd/css/kbd.min.css",
       "core/css/core.css",
       "smart/chart-map/css/chart-map.min.css",
       "smart/empty-state/css/empty-state.min.css",
@@ -74,12 +83,14 @@
       "utility/flex/default/css/default.min.css",
       "utility/font-weight/default/css/default.min.css",
       "utility/pointer-events/default/css/default.min.css",
+      "utility/sr-only/default/css/default.min.css",
       "utility/text-align/default/css/default.min.css"
     ],
     "reference": [
       "component/buttons/css/buttons.min.css",
       "component/featured-icon/css/featured-icon.min.css",
       "component/icons/css/icons.min.css",
+      "component/kbd/css/kbd.min.css",
       "core/css/core.css",
       "smart/chart-map/css/chart-map.min.css",
       "smart/empty-state/css/empty-state.min.css",
@@ -88,12 +99,14 @@
       "utility/flex/default/css/default.min.css",
       "utility/font-weight/default/css/default.min.css",
       "utility/pointer-events/default/css/default.min.css",
+      "utility/sr-only/default/css/default.min.css",
       "utility/text-align/default/css/default.min.css"
     ],
     "small": [
       "component/buttons/css/buttons.min.css",
       "component/featured-icon/css/featured-icon.min.css",
       "component/icons/css/icons.min.css",
+      "component/kbd/css/kbd.min.css",
       "core/css/core.css",
       "smart/chart-map/css/chart-map.min.css",
       "smart/empty-state/css/empty-state.min.css",
@@ -102,6 +115,7 @@
       "utility/flex/default/css/default.min.css",
       "utility/font-weight/default/css/default.min.css",
       "utility/pointer-events/default/css/default.min.css",
+      "utility/sr-only/default/css/default.min.css",
       "utility/text-align/default/css/default.min.css"
     ]
   }
