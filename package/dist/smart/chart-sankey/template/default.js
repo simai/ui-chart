@@ -1,6 +1,6 @@
 import {html, nothing} from 'lit';
 import {keptView} from '../../../chart-core/settle.js';
-import {bandPathOf} from '../../../chart-core/sankey.js';
+import {bandPathOf} from '../sankey.js';
 import './default.css';
 
 // The figure of a Sankey diagram: the label and the table button, the plot

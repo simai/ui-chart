@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-heatmap",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "title": "Heatmap",
   "summary": "A heatmap: a measure over two categories as a grid of cells, coloured by the steps of a sequential or a diverging scale on the theme's own tones, with the value written where it fits, a legend of the scale, a tooltip, a keyboard cursor over the grid, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -28,6 +28,7 @@
   "exported_parts": [],
   "composition": {
     "uses": [
+      "smart.chart-core",
       "smart.empty-state"
     ],
     "public_parts": []

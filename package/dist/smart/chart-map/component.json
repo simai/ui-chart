@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-map (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Choropleth map) and the geo shape of docs/research/parameters.md §2.1, the colour scale the heatmap's (D8), the keyboard docs/research/rendering.md §3.1, the renderer D5, the name and the form docs/DECISIONS.md D16 (the owner's choice of the chart and of the boundaries given by the page, q-f136944dd5; the form by the recommendation under the owner's delegation, 2026-11-05).",
   "id": "smart.chart-map",
   "tag": "sf-chart-map",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -230,6 +230,9 @@
   },
   "relations": [
     {
+      "name": "cl-chart-core"
+    },
+    {
       "name": "cl-empty-state"
     }
   ],
@@ -303,7 +306,7 @@
     "name: sf-chart-map, the catalogue's name, the Framework's naming rule sf-[set]-<block>[-<variant>], block chart, as the charts of M2 (docs/DECISIONS.md D16), family chart. Reserved by the dispatcher (ui-control 906d127).",
     "boundaries: the page gives them as GeoJSON (shapes); the package holds no map, so no third-party geometry or licence enters it and the borders are the host's (the owner's decision q-f136944dd5).",
     "data: rows joined to the regions by key (region, value); a row naming no region and a region without a value are counted and said.",
-    "projection: mercator by default, albers for a wide country, equirectangular, plane for a scheme; own implementation in chart-core/geo, fitted into the plot with the shape's proportions.",
+    "projection: mercator by default, albers for a wide country, equirectangular, plane for a scheme; own implementation in js/geo, fitted into the plot with the shape's proportions.",
     "colours: the heatmap's stepped scale on the theme's tone ladders (D8), sequential or diverging, with a legend; a region without a value is the empty surface with a dashed line.",
     "labels: a region's name in its middle, cut to its width, when the region is tall enough.",
     "renderer: own SVG (D5); a map has a path per region, a few hundred at most.",

@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-timeline (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The parameters are docs/research/catalogue.md of ui-chart (Gantt / timeline) and the ranges shape of docs/research/parameters.md §2.1, the keyboard docs/research/rendering.md §3.1, the renderer D5, the name and the form docs/DECISIONS.md D13 (the owner's choice of the chart, the form by the recommendation under the owner's delegation, 2026-11-05).",
   "id": "smart.chart-timeline",
   "tag": "sf-chart-timeline",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -162,6 +162,9 @@
     }
   },
   "relations": [
+    {
+      "name": "cl-chart-core"
+    },
     {
       "name": "cl-empty-state"
     }

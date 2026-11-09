@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-bar",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "title": "Bar chart",
   "summary": "A bar chart: values by category as columns or bars, grouped or stacked (also as shares), with a value axis from zero, a legend that hides series, a tooltip, a keyboard cursor, a summary in words and the same data as a table; with bin, a histogram of one measure.",
   "kind": "smart",
@@ -29,6 +29,7 @@
   "exported_parts": [],
   "composition": {
     "uses": [
+      "smart.chart-core",
       "smart.empty-state"
     ],
     "public_parts": []

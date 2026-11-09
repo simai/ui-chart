@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-scatter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Scatter chart",
   "summary": "A scatter chart: one point per row at two measures, to show how they go together, with an optional third measure as a bubble's area, series by colour and mark shape, a least-squares trend line on request, a legend that hides series, a tooltip, a keyboard cursor that walks the points, a summary in words with the strength of each relation, and the same data as a table.",
   "kind": "smart",
@@ -27,6 +27,7 @@
   "exported_parts": [],
   "composition": {
     "uses": [
+      "smart.chart-core",
       "smart.empty-state"
     ],
     "public_parts": []

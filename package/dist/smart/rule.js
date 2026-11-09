@@ -9,6 +9,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -22,6 +25,9 @@ SF.RuleLoader.registerPackage("chart", {
       "js": true,
       "mode": "smart",
       "relation": [
+        {
+          "name": "cl-chart-core"
+        },
         {
           "name": "cl-empty-state"
         }
@@ -37,6 +43,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -45,11 +54,21 @@ SF.RuleLoader.registerPackage("chart", {
       ],
       "type": "smart"
     },
+    "cl-chart-core": {
+      "css": false,
+      "js": true,
+      "mode": "smart",
+      "tags": [],
+      "type": "smart"
+    },
     "cl-chart-funnel": {
       "css": true,
       "js": true,
       "mode": "smart",
       "relation": [
+        {
+          "name": "cl-chart-core"
+        },
         {
           "name": "cl-empty-state"
         }
@@ -65,6 +84,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -78,6 +100,9 @@ SF.RuleLoader.registerPackage("chart", {
       "js": true,
       "mode": "smart",
       "relation": [
+        {
+          "name": "cl-chart-core"
+        },
         {
           "name": "cl-empty-state"
         }
@@ -93,6 +118,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -106,6 +134,9 @@ SF.RuleLoader.registerPackage("chart", {
       "js": true,
       "mode": "smart",
       "relation": [
+        {
+          "name": "cl-chart-core"
+        },
         {
           "name": "cl-empty-state"
         }
@@ -121,6 +152,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-progress-bar"
         }
       ],
@@ -134,6 +168,9 @@ SF.RuleLoader.registerPackage("chart", {
       "js": true,
       "mode": "smart",
       "relation": [
+        {
+          "name": "cl-chart-core"
+        },
         {
           "name": "cl-empty-state"
         }
@@ -149,6 +186,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -162,6 +202,9 @@ SF.RuleLoader.registerPackage("chart", {
       "js": true,
       "mode": "smart",
       "relation": [
+        {
+          "name": "cl-chart-core"
+        },
         {
           "name": "cl-empty-state"
         }
@@ -177,6 +220,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -191,6 +237,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -203,7 +252,11 @@ SF.RuleLoader.registerPackage("chart", {
       "css": true,
       "js": true,
       "mode": "smart",
-      "relation": [],
+      "relation": [
+        {
+          "name": "cl-chart-core"
+        }
+      ],
       "tags": [
         "sf-chart-sparkline"
       ],
@@ -214,6 +267,9 @@ SF.RuleLoader.registerPackage("chart", {
       "js": true,
       "mode": "smart",
       "relation": [
+        {
+          "name": "cl-chart-core"
+        },
         {
           "name": "cl-empty-state"
         }
@@ -229,6 +285,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -243,6 +302,9 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
+          "name": "cl-chart-core"
+        },
+        {
           "name": "cl-empty-state"
         }
       ],
@@ -256,6 +318,9 @@ SF.RuleLoader.registerPackage("chart", {
       "js": true,
       "mode": "smart",
       "relation": [
+        {
+          "name": "cl-chart-core"
+        },
         {
           "name": "cl-empty-state"
         }

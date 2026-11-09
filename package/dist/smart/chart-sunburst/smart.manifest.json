@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-sunburst",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Sunburst",
   "summary": "A sunburst: a hierarchy as rings round a centre, a ring per level from the top nodes out, each arc its share of its parent's, read from ids and parents or from paths; a top node in a chart colour that its branch keeps, lighter past the first ring, with a line round each arc; a name along an arc where it fits and the total in the centre; a tooltip with the shares, a keyboard cursor round the rings and in and out of them, a summary in words, and every node as a row of a table.",
   "kind": "smart",
@@ -27,6 +27,7 @@
   "exported_parts": [],
   "composition": {
     "uses": [
+      "smart.chart-core",
       "smart.empty-state"
     ],
     "public_parts": []

@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-treemap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Treemap",
   "summary": "A treemap: values as the areas of rectangles that tile the plot, laid out squarified, largest first, one level or two (parts in groups under the group's name), a group in a chart colour with a light fill and a line round each part, the part's name and value written inside where they fit, a key of the groups, a tooltip with the share, a keyboard cursor over the parts and across the groups, a summary in words, and the same data as a table.",
   "kind": "smart",
@@ -27,6 +27,7 @@
   "exported_parts": [],
   "composition": {
     "uses": [
+      "smart.chart-core",
       "smart.empty-state"
     ],
     "public_parts": []

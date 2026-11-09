@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-metric (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). The catalogue's KPI and Larena's metric tile in one component (docs/research/parameters.md §15 of ui-chart; dispatcher bus msg-d0bbcfb263ca49d2ba05).",
   "id": "smart.chart-metric",
   "tag": "sf-chart-metric",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -127,6 +127,9 @@
     }
   },
   "relations": [
+    {
+      "name": "cl-chart-core"
+    },
     {
       "name": "cl-progress-bar"
     }

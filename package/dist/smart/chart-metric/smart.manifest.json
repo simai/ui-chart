@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-metric",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Metric",
   "summary": "A metric tile: one number with its label, the change against a previous period said in words and by an arrow, a limit as a meter, the page's status with a hint, an optional sparkline, and the whole tile as one link or button.",
   "kind": "smart",
@@ -25,6 +25,7 @@
   "exported_parts": [],
   "composition": {
     "uses": [
+      "smart.chart-core",
       "smart.progress-bar"
     ],
     "public_parts": []

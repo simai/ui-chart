@@ -2,7 +2,7 @@
   "$comment": "The source of sf-chart-sparkline (standard simai.smart-component 1.3.14 in the 1.4 form, vocabulary 1.1.5). A word-sized chart without axes for a table cell, a line of text or the chart slot of sf-chart-metric (docs/DECISIONS.md D1, D2 of ui-chart).",
   "id": "smart.chart-sparkline",
   "tag": "sf-chart-sparkline",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "kind": "leaf",
   "family": "chart",
   "settings": {
@@ -103,7 +103,11 @@
       "summary": "auto: ready with data, empty without. loading holds the box with a quiet skeleton; empty draws a dotted baseline and says «нет данных»."
     }
   },
-  "relations": [],
+  "relations": [
+    {
+      "name": "cl-chart-core"
+    }
+  ],
   "templates": {
     "default": {
       "file": "js/templates/default.js",

@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-parts",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "title": "Parts bar",
   "summary": "A parts bar: the parts of one whole as one thin bar split into shares, with the free remainder of a capacity (a disk, a quota, a model's context), the smallest folded into «Другое», a list of the parts with values and shares, a tooltip, a keyboard cursor, a summary in words and the same data as a table.",
   "kind": "smart",
@@ -28,6 +28,7 @@
   "exported_parts": [],
   "composition": {
     "uses": [
+      "smart.chart-core",
       "smart.empty-state"
     ],
     "public_parts": []

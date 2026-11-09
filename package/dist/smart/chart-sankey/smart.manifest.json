@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "id": "smart.chart-sankey",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Sankey diagram",
   "summary": "A Sankey diagram: quantities flowing between stages or categories, the nodes in columns by their longest path from where the flows start, a band from node to node as wide as its flow, a node in a chart colour and its bands in the light fill of it, names and values beside the nodes where they fit, a tooltip for a node or a band, a keyboard cursor over the nodes along the largest flows, a summary in words, and every flow as a row of a table.",
   "kind": "smart",
@@ -26,6 +26,7 @@
   "exported_parts": [],
   "composition": {
     "uses": [
+      "smart.chart-core",
       "smart.empty-state"
     ],
     "public_parts": []
