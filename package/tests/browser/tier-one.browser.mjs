@@ -42,6 +42,8 @@ const styles = [
 ].map((p) => join(out, p));
 const modules = [
   'core/core/js/core.js', 'core/core/js/smart-base.js',
+  // The shared chart core registers its runtime modules before any chart asks.
+  'smart/smart/chart-core/js/chart-core.js',
   'smart/smart/empty-state/js/empty-state.js', 'smart/smart/progress-bar/js/progress-bar.js',
   ...CHARTS.map((name) => `smart/smart/${name}/js/${name}.js`),
 ].map((p) => join(out, p));
