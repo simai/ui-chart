@@ -147,7 +147,10 @@ On 2026-11-06 the Framework dispatcher released the set (1.0.0, release
 - `evidence.mjs` into `docs/evidence/site-2026-11-07/` (kept in history at
   `13010db`; replaced by `docs/evidence/site-2026-11-08/`, the site over
   the release 1.0.3: 47 pages, 5231 references, none broken; 34 shots, no
-  problem) (retaken over the
+  problem; kept in history at `12090c8` and replaced by
+  `docs/evidence/site-2026-11-14/`, the site over the release 1.1.0
+  chart-58ba480db497 with one chart core per page: 47 pages, 5159
+  references, none broken; 34 shots, no problem) (retaken over the
   release 1.0.1 with the cards on `surface-1`): 34 shots, no
   problem, three cold reloads clean. The icon squares of the advantages
   have an 8 px radius.
