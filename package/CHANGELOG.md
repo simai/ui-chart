@@ -3,6 +3,25 @@
 The set `chart`, by its npm version `@simai-studio/chart`; component
 versions in brackets.
 
+## 1.2.0 — 2026-11-17
+
+- `sf-chart-metric` is no longer a chart of its own: it is the dated alias
+  of SIMAI Framework's metric tile `sf-tile-metric` until 2027-01-01
+  (decision C168; smart.chart-metric 1.0.0, a major of the unit). The
+  element is the tile's heir: the former `data-state` (`loading`, `empty`),
+  the `sf-chart-metric-open` event (it follows `sf-tile-metric-open` with
+  its detail) and three public variables are mapped; the bundle carries
+  none of the tile's code and its rule relates `cl-tile-metric`. Write
+  `sf-tile-metric` with an `sf-chart-sparkline` in its `chart` slot. The
+  set's change journal records `tag-sf-chart-metric-to-sf-tile-metric`,
+  remove_after 2027-01-01.
+- Over SIMAI Framework `ui-078a4b4c6f6e` (ui-source `10145e63b9dc`, npm
+  `@simai-studio/ui@5.20261116.1505`). Still needs core.runtime 1.38.0 or
+  newer. The first-paint snapshots follow the pair: `sf-empty-state`'s
+  featured icon writes its attributes in another order and the map's
+  skeletons carry `data-sf-late`; percents follow the pair's spelling
+  («12.5 %» with a no-break space, C203). No other chart changed.
+
 ## 1.1.0 — 2026-11-09
 
 - One chart core per page: `chart-core` is the set's shared core
