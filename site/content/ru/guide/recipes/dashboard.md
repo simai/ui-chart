@@ -1,14 +1,16 @@
 ---
-description: Как собрать панель из плиток SIMAI Chart — плитка показателя с изменением и статусом, мини-график в плитке и шкала с зонами — по шагам.
+description: Как собрать панель из плиток — плитка показателя SIMAI Framework с изменением и статусом, мини-график SIMAI Chart в плитке и шкала с зонами — по шагам.
 profile: how_to
 ---
 
 # Панель из плиток
 
 Верхний ряд панели — несколько важных чисел: выручка, нагрузка, место на
-диске. Для них в наборе три компонента: плитка показателя
-`sf-chart-metric`, мини-график `sf-chart-sparkline` и шкала
-`sf-chart-gauge`.
+диске. Для них три компонента: плитка показателя `sf-tile-metric` из
+SIMAI Framework, мини-график `sf-chart-sparkline` и шкала `sf-chart-gauge`
+из набора. Прежняя плитка набора `sf-chart-metric` — псевдоним
+`sf-tile-metric` до 2027-01-01: она работает, но новые страницы пишут
+`sf-tile-metric`.
 
 ## Перед началом
 
@@ -23,37 +25,38 @@ profile: how_to
    считает изменение, `period-text` — к чему изменение:
 
    ```html
-   <sf-chart-metric label="Выручка за неделю" value="1250000" previous="1100000"
-     format="currency-RUB" period-text="к прошлой неделе"></sf-chart-metric>
+   <sf-tile-metric label="Выручка за неделю" value="1250000" previous="1100000"
+     format="currency-RUB" period-text="к прошлой неделе"></sf-tile-metric>
    ```
 
 2. Скажите, хорош ли рост. У выручки рост — хорошо, у нагрузки и ошибок —
    плохо: `better="down"`. Тон изменения следует смыслу, а не знаку, а
    направление звучит словом — «рост», «снижение». Статус и подсказку
-   задаёт страница — плитка не выводит статус из значения сама:
+   задаёт страница — плитка не выводит статус из значения сама (пороги
+   шкалы — `warning-at` и `error-at`):
 
    ```html
-   <sf-chart-metric label="Нагрузка CPU" value="0.82" previous="0.64" format="percent"
-     better="down" status="warning" hint="Выше 80 % пятнадцать минут" period-text="за час"></sf-chart-metric>
+   <sf-tile-metric label="Нагрузка CPU" value="0.82" previous="0.64" format="percent"
+     better="down" status="warning" hint="Выше 80 % пятнадцать минут" period-text="за час"></sf-tile-metric>
    ```
 
 3. Для значения из предела задайте `max`: плитка напишет «45,3 ГБ из
    100 ГБ» и нарисует шкалу:
 
    ```html
-   <sf-chart-metric label="Хранилище" value="45.25" max="100" format="unit-gigabyte"
-     status="success" hint="Свободно 55 %"></sf-chart-metric>
+   <sf-tile-metric label="Хранилище" value="45.25" max="100" format="unit-gigabyte"
+     status="success" hint="Свободно 55 %"></sf-tile-metric>
    ```
 
-4. Положите мини-график в слот `chart` плитки — он встанет под числом и
-   растянется по её ширине. `summary="none"`, потому что плитка уже говорит
+4. Положите мини-график в слот `chart` плитки — он встанет под числами,
+   растянется по её ширине и возьмёт высоту 32 px. `summary="none"`, потому что плитка уже говорит
    число словами:
 
    ```html
-   <sf-chart-metric label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB">
+   <sf-tile-metric label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB">
      <sf-chart-sparkline id="revenue-trend" slot="chart" label="Выручка за 12 недель"
        shape="area" summary="none"></sf-chart-sparkline>
-   </sf-chart-metric>
+   </sf-tile-metric>
    ```
 
    Значения мини-графика — список чисел в `items`.
@@ -85,8 +88,8 @@ profile: how_to
    }
    ```
 
-   Самую узкую ширину плитки задаёт переменная
-   `--sf-chart-metric-min-inline-size`.
+   Для одних только плиток подойдёт и готовый класс `sf-tile-metric-grid`
+   на родителе; самую узкую колонку задаёт `--sf-tile-metric-min-width`.
 
 ## Результат
 
@@ -96,12 +99,12 @@ profile: how_to
 :::
 
 Плитку можно сделать ссылкой на подробный отчёт (`href`) или кнопкой
-(`openable`, событие `sf-chart-metric-open`). `size="1/2"` подходит для
+(`openable`, событие `sf-tile-metric-open`). `size="1/2"` подходит для
 плотного ряда, `size="2"` — для главной цифры страницы.
 
 ## См. также
 
-- [Плитка показателя sf-chart-metric](/ru/components/indicators/chart-metric/)
+- [Плитка показателя sf-tile-metric](/ru/components/indicators/chart-metric/)
 - [Шкала sf-chart-gauge](/ru/components/indicators/chart-gauge/)
 - [Мини-график sf-chart-sparkline](/ru/components/trends/chart-sparkline/)
 - [Форматы чисел и дат](../formats/)

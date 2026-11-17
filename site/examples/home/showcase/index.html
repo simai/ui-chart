@@ -143,14 +143,16 @@
     </section>
 
     <section slot="panel-5" class="flex flex-col gap-3 p-top-2" aria-label="Показатели">
-      <p class="m-0 color-on-surface-variant">Маленькие графики для панелей и таблиц: плитка показателя с изменением, шкала с зонами и мини-график размером со слово.</p>
+      <p class="m-0 color-on-surface-variant">Маленькие графики для панелей и таблиц: плитка показателя SIMAI Framework с мини-графиком, шкала с зонами и мини-график размером со слово.</p>
       <div class="showcase-grid">
       <figure class="showcase-card showcase-tile m-0">
         <figcaption class="showcase-head">
           <a href="/ru/components/indicators/chart-metric/" target="_top">Плитка показателя</a>
-          <span>одно важное число с изменением, пределом и статусом</span>
+          <span>одно важное число с изменением, пределом, статусом и мини-графиком; sf-chart-metric — её псевдоним до 2027-01-01</span>
         </figcaption>
-        <div class="showcase-plot"><sf-chart-metric id="home-metric" label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе"></sf-chart-metric></div>
+        <div class="showcase-plot"><sf-tile-metric id="home-metric" label="Выручка за неделю" value="1250000" previous="1100000" format="currency-RUB" period-text="к прошлой неделе">
+  <sf-chart-sparkline slot="chart" id="home-metric-chart" label="Выручка по дням" shape="area" curve="smooth" y-format="integer"></sf-chart-sparkline>
+</sf-tile-metric></div>
       </figure>
       <figure class="showcase-card showcase-tile m-0">
         <figcaption class="showcase-head">

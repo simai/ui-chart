@@ -61,7 +61,7 @@ profile: reference
 
 | График | Элемент | Что показывает |
 |:---|:---|:---|
-| [Плитка показателя](indicators/chart-metric/) | `sf-chart-metric` | одно важное число с изменением, пределом и статусом |
+| [Плитка показателя](indicators/chart-metric/) | `sf-tile-metric` | одно важное число с изменением, пределом, статусом и мини-графиком; sf-chart-metric — её псевдоним до 2027-01-01 |
 | [Шкала](indicators/chart-gauge/) | `sf-chart-gauge` | одно значение на шкале с зонами нормы и цели |
 
 <!-- /components:generated -->

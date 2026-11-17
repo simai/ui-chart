@@ -40,7 +40,7 @@ profile: how_to
    | `line-format` | линии поверх столбцов у `sf-chart-bar` |
    | `bubble-format` | пузырьки у `sf-chart-scatter` |
    | `value-format` | значения круговой, полосы частей, воронки, тепловой карты, карты и шкалы |
-   | `format` | число плитки `sf-chart-metric` |
+   | `format` | число плитки `sf-tile-metric` (и её псевдонима `sf-chart-metric`) |
    | `delta-format` | изменение плитки: `percent`, `absolute` или `both` |
 
    Формат действует везде, где звучит число: на оси, в подписи, в
@@ -72,4 +72,4 @@ profile: how_to
 
 - [Данные](../../concepts/data/) — числа, даты и пропуски.
 - [Панель из плиток](../dashboard/)
-- [Плитка показателя sf-chart-metric](/ru/components/indicators/chart-metric/)
+- [Плитка показателя sf-tile-metric](/ru/components/indicators/chart-metric/)

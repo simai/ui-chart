@@ -73,7 +73,7 @@ Framework: высоту рисунка, текст и отступы.
 | `--sf-chart-parts-thickness` | `sf-chart-parts` | толщина полосы частей |
 | `--sf-chart-parts-free-color` | `sf-chart-parts` | цвет свободного остатка |
 | `--sf-chart-sparkline-width` | `sf-chart-sparkline` | ширина мини-графика, по умолчанию 128 px |
-| `--sf-chart-metric-min-inline-size` | `sf-chart-metric` | самая узкая ширина плитки |
+| `--sf-chart-metric-min-inline-size` | `sf-chart-metric` | самая узкая ширина плитки-псевдонима до 2027-01-01; у `sf-tile-metric` — `--sf-tile-metric-min-width` в ряду `sf-tile-metric-grid` |
 | `--sf-chart-timeline-height` | `sf-chart-timeline` | высота диаграммы Ганта, когда рядов много |
 | `--sf-chart-heatmap-cell-radius` | `sf-chart-heatmap` | скругление ячеек |
 

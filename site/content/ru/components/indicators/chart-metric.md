@@ -1,20 +1,27 @@
 ---
-description: Плитка показателя sf-chart-metric — одно важное число с изменением, пределом и статусом.
+description: Плитка показателя sf-tile-metric из SIMAI Framework — одно важное число с изменением, пределом, статусом и мини-графиком; sf-chart-metric — её псевдоним до 2027-01-01.
 profile: reference
 ---
 
 # Плитка показателя
 
-:badge[sf-chart-metric]{variant=main scheme=on-surface size=1} :badge[Предварительная версия]{variant=tonal scheme=warning size=1}
+:badge[sf-tile-metric]{variant=main scheme=on-surface size=1} :badge[sf-chart-metric — псевдоним до 2027-01-01]{variant=tonal scheme=warning size=1}
 
-`<sf-chart-metric>` — плитка показателя: одно важное число с подписью, изменение к
-прошлому периоду, предел со шкалой, статус с подсказкой и мини-график. Это KPI
-каталога и плитка метрики Larena (нагрузка сервера, хранилище, трафик,
-очередь, лимиты лицензии).
+Плитка показателя — это `<sf-tile-metric>` из SIMAI Framework: одно важное
+число с подписью, изменение к прошлому периоду, предел со шкалой, статус с
+подсказкой и мини-график в слоте `chart`. Для мини-графика набор даёт
+`sf-chart-sparkline`.
+
+`<sf-chart-metric>` — прежнее имя этой плитки в наборе. Теперь это
+**псевдоним `sf-tile-metric` до 2027-01-01**: старая разметка продолжает
+работать и рисуется плиткой Framework, но новых возможностей у неё не будет.
+Пишите `<sf-tile-metric>`.
 
 ```html
-<sf-chart-metric label="Выручка за неделю" value="1250000" previous="1100000"
-           format="currency-RUB" period-text="к прошлой неделе"></sf-chart-metric>
+<sf-tile-metric label="Выручка за неделю" value="1250000" previous="1100000"
+                format="currency-RUB" period-text="к прошлой неделе">
+  <sf-chart-sparkline slot="chart" label="Выручка по дням" shape="area"></sf-chart-sparkline>
+</sf-tile-metric>
 ```
 
 ## Примеры
@@ -39,62 +46,43 @@ profile: reference
 :::example {id="components/chart-metric-link" label="Плитка-ссылка"}
 :::
 
-## Значение
+## Переход с sf-chart-metric
 
-- `value` — число; без него плитка пишет «—».
-- `format` — `number`, `integer`, `decimal-<n>`, `percent` (доля 0..1),
-  `compact`, `currency-<КОД>` или `unit-<единица Intl>` (`unit-gigabyte`,
-  `unit-megabit-per-second`), на языке страницы. Строка значения не
-  переносится посреди числа.
+- Тег: `<sf-chart-metric>` → `<sf-tile-metric>`. Параметры называются так же:
+  `label`, `value`, `format`, `previous`, `delta`, `delta-format`,
+  `period-text`, `better`, `max`, `limit-text`, `status`, `hint`, `href`,
+  `openable`, `size`.
+- Загрузка: `data-state="loading"` → `loading`. `data-state="empty"` не нужен:
+  без `value` плитка и так пишет «—».
+- Событие: `sf-chart-metric-open` → `sf-tile-metric-open`; в `detail` теперь
+  `id` элемента. До 2027-01-01 старое имя приходит вместе с новым.
+- Переменные CSS: `--sf-chart-metric-background-color`,
+  `--sf-chart-metric-value-color` и `--sf-chart-metric-hover-background-color`
+  → `--sf-tile-metric-background-color`, `--sf-tile-metric-value-color`,
+  `--sf-tile-metric-hover-background-color`. Ширину ряда плиток задаёт класс
+  `sf-tile-metric-grid` на родителе и `--sf-tile-metric-min-width`. Цвета
+  подписи, изменения и шкалы плитка берёт из ролей статуса: прежние
+  `-label-color`, `-positive-color`, `-negative-color`, `-meter-color` больше
+  не читаются.
+- Плитка Framework пишет деньги целыми («1 250 000 ₽»); копейки — с
+  `format="currency-RUB decimal-2"`, «1,3 млн ₽» — с `compact`. Пороги шкалы
+  задают `warning-at` и `error-at`, единицу, которую не знает Intl, — `unit`.
 
-## Изменение
+## Мини-график
 
-- `previous` — значение прошлого периода; изменение считается от него.
-- `delta` — само изменение, если оно уже есть; важнее `previous`.
-- `delta-format` — `percent` (доля от прошлого), `absolute` (разница) или `both`.
-- `period-text` — к чему изменение: «к прошлой неделе».
-- `better` — хорош ли рост: `up` (выручка), `down` (нагрузка, ошибки), `none`.
-  Тон изменения следует смыслу, а не знаку. Направление видно стрелкой и звучит
-  словом («рост», «снижение»), так что цвет — не единственный признак.
+Слот `chart` принимает `sf-chart-sparkline` того же ряда. Плитка кладёт его
+под числами на всю ширину, высотой 32 px и цветом подсказки, без осей и
+подписей. Данные мини-графику страница передаёт сама, как обычно:
 
-## Предел
-
-`max` показывает «45,3 ГБ из 100 ГБ» и шкалу. Для чтения с экрана это `meter`
-со значением; полоса внутри — `sf-progress-bar`, скрытая от дерева
-доступности. `limit-text` заменяет подпись под шкалой.
-
-## Статус
-
-`status` — `neutral`, `success`, `warning`, `error` или `info` (общий словарь
-статусов) и `hint` — короткая строка рядом. Статус — утверждение страницы:
-пороги задаёт страница, плитка не выводит статус из значения. Перед подсказкой
-звучит слово статуса («Внимание:»).
-
-## Нажатие
-
-- `href` делает всю плитку одной ссылкой.
-- `openable` (без `href`) — одной кнопкой, которая шлёт `sf-chart-metric-open`.
-- Внутри нет других элементов управления.
-
-## График
-
-Слот `chart` принимает график под числом, обычно `sf-chart-sparkline` того же ряда.
-Он растягивается по ширине плитки.
-
-```html
-<sf-chart-metric label="Очередь заданий" value="14" delta="-6" delta-format="absolute" better="down" format="integer">
-  <sf-chart-sparkline slot="chart" label="Очередь за день" summary="none"></sf-chart-sparkline>
-</sf-chart-metric>
+```js
+document.querySelector('sf-tile-metric sf-chart-sparkline').items = [980, 1040, 1110, 1250];
 ```
 
-## Состояния и размеры
+## Что осталось за набором
 
-- `data-state`: `auto` (со значением — готово, без — «—»), `loading` (тот же
-  размер, заглушка вместо числа), `empty`. Ошибку загрузки страница показывает
-  статусом `error` с подсказкой.
-- `size`: `1/2` (плотный ряд), `1`, `2` (главная цифра страницы).
-- Плитка тянется по ширине, страница раскладывает плитки сама; самая узкая
-  ширина — `--sf-chart-metric-min-inline-size`.
+Плитку, её параметры, доступность и вид описывает SIMAI Framework
+(`sf-tile-metric`). Набор отвечает за мини-график `sf-chart-sparkline` и до
+2027-01-01 — за псевдоним `sf-chart-metric`.
 
 ## Параметры
 

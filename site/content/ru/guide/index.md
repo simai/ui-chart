@@ -26,7 +26,7 @@ SIMAI Chart — набор компонентов `chart` для SIMAI Framework
 | Распределение и связь | [`sf-chart-scatter`](/ru/components/relations/chart-scatter/), [`sf-chart-box`](/ru/components/relations/chart-box/), [`sf-chart-radar`](/ru/components/relations/chart-radar/) |
 | Процессы и потоки | [`sf-chart-funnel`](/ru/components/flows/chart-funnel/), [`sf-chart-sankey`](/ru/components/flows/chart-sankey/), [`sf-chart-timeline`](/ru/components/flows/chart-timeline/) |
 | Сетки и карты | [`sf-chart-heatmap`](/ru/components/grids/chart-heatmap/), [`sf-chart-map`](/ru/components/grids/chart-map/) |
-| Показатели | [`sf-chart-metric`](/ru/components/indicators/chart-metric/), [`sf-chart-gauge`](/ru/components/indicators/chart-gauge/) |
+| Показатели | [`sf-tile-metric`](/ru/components/indicators/chart-metric/) из SIMAI Framework (прежняя `sf-chart-metric` — её псевдоним до 2027-01-01), [`sf-chart-gauge`](/ru/components/indicators/chart-gauge/) |
 
 Графики рисует сам набор, без чужих библиотек. Цвета, шрифты и отступы
 берутся из темы SIMAI Framework, поэтому график выглядит как остальная

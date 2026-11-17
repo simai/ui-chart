@@ -90,14 +90,15 @@
       "id": "indicators",
       "title": "Показатели",
       "tab": "Показатели",
-      "lead": "Маленькие графики для панелей и таблиц: плитка показателя с изменением, шкала с зонами и мини-график размером со слово.",
+      "lead": "Маленькие графики для панелей и таблиц: плитка показателя SIMAI Framework с мини-графиком, шкала с зонами и мини-график размером со слово.",
       "home": [
         {"folder": "chart-metric", "span": "tile"},
         {"folder": "chart-gauge", "span": "tile"},
         {"folder": "chart-sparkline", "span": "tile", "example": "tile"}
       ],
       "components": [
-        {"folder": "chart-metric", "title": "Плитка показателя", "description": "Плитка показателя sf-chart-metric — одно важное число с изменением, пределом и статусом."},
+        {"folder": "chart-metric", "title": "Плитка показателя", "tag": "sf-tile-metric", "description": "Плитка показателя sf-tile-metric из SIMAI Framework — одно важное число с изменением, пределом, статусом и мини-графиком; sf-chart-metric — её псевдоним до 2027-01-01.",
+          "chart": {"on": ["reference"], "settings": {"label": "Выручка по дням", "shape": "area", "curve": "smooth", "y-format": "integer", "items": [1100000, 1080000, 1135000, 1120000, 1170000, 1155000, 1210000, 1195000, 1230000, 1250000]}}},
         {"folder": "chart-gauge", "title": "Шкала", "description": "Шкала sf-chart-gauge — одно значение на шкале с зонами нормы и цели."}
       ]
     }

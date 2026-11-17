@@ -41,7 +41,7 @@ profile: how_to
    | **Где больше?** | [`sf-chart-bar`](/ru/components/trends/chart-bar/) — по категориям; `orientation="horizontal"` для рейтинга |
    | …по двум категориям: дни и часы, команды и недели | [`sf-chart-heatmap`](/ru/components/grids/chart-heatmap/) |
    | …по областям на карте | [`sf-chart-map`](/ru/components/grids/chart-map/) |
-   | **Одно число** | [`sf-chart-metric`](/ru/components/indicators/chart-metric/) — с изменением, пределом и статусом |
+   | **Одно число** | [`sf-tile-metric`](/ru/components/indicators/chart-metric/) из SIMAI Framework — с изменением, пределом, статусом и мини-графиком |
    | …на шкале с зонами нормы и целью | [`sf-chart-gauge`](/ru/components/indicators/chart-gauge/) |
 
 2. Проверьте, что график не попал в свой «не подходит»:

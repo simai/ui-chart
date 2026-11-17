@@ -20,6 +20,14 @@
 //     height) or a tile (tile, three a row), from the example the entry
 //     names (the component's first by default).
 //
+// A component entry of config/components.json may name the element its
+// examples are shown with (`tag`) and a chart for the element's `chart` slot
+// (`chart`: the settings of an sf-chart-sparkline, and `on`, the examples that
+// get it): the catalogue shows the KPI as SIMAI Framework's sf-tile-metric
+// with a sparkline, while the folder chart-metric holds sf-chart-metric, its
+// dated alias until 2027-01-01 (docs/DECISIONS.md D19). The tile's settings
+// keep the alias's names, so the examples are the folder's own.
+//
 // docs.md's own list of public CSS variables is left out: the reference part
 // lists them with what each sets. Run build-reference.mjs after this.
 //
@@ -50,21 +58,41 @@ const literal = (value, indent = '  ') => {
 };
 const attribute = (value) => String(value).replace(/&/gu, '&amp;').replace(/"/gu, '&quot;');
 
-const example = (tag, folder, entry, id = 'chart') => {
+const split = (settings) => {
   const attributes = [];
   const properties = [];
-  for (const [name, value] of Object.entries(entry.settings ?? {})) {
+  for (const [name, value] of Object.entries(settings ?? {})) {
     if (value !== null && typeof value === 'object') properties.push([name, value]);
     else if (value === true) attributes.push(` ${name}`);
     else if (value !== false && value !== null && value !== undefined) attributes.push(` ${name}="${attribute(value)}"`);
   }
-  const html = `<${tag} id="${id}"${attributes.join('')}></${tag}>`;
+  return {attributes, properties};
+};
+
+// The chart in a tile's `chart` slot: an sf-chart-sparkline with its own id.
+const CHART_TAG = 'sf-chart-sparkline';
+const chartFor = (chart, entry, id) => {
+  if (!chart || !(chart.on ?? []).includes(entry.name)) return null;
+  const {attributes, properties} = split(chart.settings);
+  return {id: `${id}-chart`, html: `<${CHART_TAG} slot="chart" id="${id}-chart"${attributes.join('')}></${CHART_TAG}>`, properties};
+};
+
+const example = (tag, folder, entry, id = 'chart', chart = null) => {
+  const {attributes, properties} = split(entry.settings);
+  const inner = chartFor(chart, entry, id);
+  const html = inner
+    ? `<${tag} id="${id}"${attributes.join('')}>\n  ${inner.html}\n</${tag}>`
+    : `<${tag} id="${id}"${attributes.join('')}></${tag}>`;
+  const scripts = [
+    ...(properties.length ? setter(tag, id, properties) : []),
+    ...(inner?.properties.length ? setter(CHART_TAG, inner.id, inner.properties) : []),
+  ];
   const lines = [
     `// ${entry.title}: the example «${entry.name}» of package/src/smart/${folder}/examples.json.`,
     `// Lists and objects are properties; the page sets them once the element is defined.`,
-    ...setter(tag, id, properties),
+    ...scripts,
   ];
-  return {html, js: properties.length ? lines.join('\n') : null, properties};
+  return {html, js: scripts.length ? lines.join('\n') : null, properties, scripts};
 };
 
 const setter = (tag, id, properties) => [
@@ -102,9 +130,16 @@ const known = new Map();
 // Under a page's title: the element's tag, and the component's state in the
 // set's passport while it is a preview.
 const passport = JSON.parse(readFileSync(resolve(site, '../package/set.json'), 'utf8'));
-const BADGES = (tag) => {
-  const status = passport.components.find((entry) => entry.element === tag)?.status;
-  if (!status) throw new Error(`${tag}: not in package/set.json`);
+const setJournal = JSON.parse(readFileSync(resolve(site, '../package/docs/chart/journal.json'), 'utf8'));
+const BADGES = (tag, own) => {
+  const status = passport.components.find((entry) => entry.element === own)?.status;
+  if (!status) throw new Error(`${own}: not in package/set.json`);
+  // Shown as another element (the alias's folder): that element, then the alias and its date.
+  if (tag !== own) {
+    const removeAfter = setJournal.records.find((record) => record.items?.some((item) => item.from === own && item.to === tag))?.remove_after;
+    if (!removeAfter) throw new Error(`${own}: shown as ${tag} without a dated alias in package/docs/chart/journal.json`);
+    return [`:badge[${tag}]{variant=main scheme=on-surface size=1}`, `:badge[${own} — псевдоним до ${removeAfter}]{variant=tonal scheme=warning size=1}`].join(' ');
+  }
   return [`:badge[${tag}]{variant=main scheme=on-surface size=1}`, ...(status === 'preview' ? [':badge[Предварительная версия]{variant=tonal scheme=warning size=1}'] : [])].join(' ');
 };
 config.groups.forEach((group, groupIndex) => {
@@ -113,13 +148,13 @@ config.groups.forEach((group, groupIndex) => {
   group.components.forEach((component, index) => {
     const {folder} = component;
     const manifest = JSON.parse(readFileSync(join(smart, folder, 'component.json'), 'utf8'));
-    const tag = manifest.tag;
+    const tag = component.tag ?? manifest.tag;
     const {examples} = JSON.parse(readFileSync(join(smart, folder, 'examples.json'), 'utf8'));
     const shown = examples.filter((entry) => !STATES.has(entry.name));
     const blocks = [];
     for (const entry of shown) {
       const id = `${folder}-${entry.name}`;
-      const {html, js} = example(tag, folder, entry);
+      const {html, js} = example(tag, folder, entry, 'chart', component.chart);
       put(`examples/components/${id}/index.html`, html);
       if (js) put(`examples/components/${id}/index.js`, js);
       blocks.push(`### ${entry.title}`, '', `:::example {id="components/${id}" label="${attribute(entry.title)}"}`, ':::', '');
@@ -135,7 +170,7 @@ config.groups.forEach((group, groupIndex) => {
       '',
       `# ${component.title}`,
       '',
-      BADGES(tag),
+      BADGES(tag, manifest.tag),
       '',
       intro,
       '',
@@ -180,7 +215,7 @@ config.groups.forEach((group, position) => {
     const settings = {...chosen.settings};
     if (card.span !== 'tile') delete settings.size;
     const id = `home-${card.folder.replace(/^chart-/u, '')}`;
-    const made = example(tag, card.folder, {...chosen, settings}, id);
+    const made = example(tag, card.folder, {...chosen, settings}, id, component.chart);
     cards.push([
       `      <figure class="showcase-card showcase-${card.span} m-0">`,
       '        <figcaption class="showcase-head">',
@@ -190,7 +225,7 @@ config.groups.forEach((group, position) => {
       `        <div class="showcase-plot">${made.html}</div>`,
       '      </figure>',
     ].join('\n'));
-    if (made.properties.length) home.scripts.push(`// ${component.title}: «${chosen.name}» of package/src/smart/${card.folder}/examples.json.`, ...setter(tag, id, made.properties), '');
+    if (made.scripts.length) home.scripts.push(`// ${component.title}: «${chosen.name}» of package/src/smart/${card.folder}/examples.json.`, ...made.scripts, '');
   }
   if (halves % 2) throw new Error(`${group.id}: a half card without its pair`);
   home.panels.push([

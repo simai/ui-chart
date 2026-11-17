@@ -793,6 +793,7 @@ ui-chart.test: «сделай все по стандарту, а потом мы
 | D15 | The sunburst: `sf-chart-sunburst`, an id and a parent per row (`node`, `parent`) or a path of names, a parent's value its own with its children's, rings round a hole with the total, a branch in its top node's chart colour, names along the arcs, the keyboard round the rings and in and out | 2026-11-05 | the owner's «Солнечные круги» in the chat; the form decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `868426b`, bus `msg-285614a61887494785a1`) |
 | D16 | The map: `sf-chart-map`, the boundaries given by the page as GeoJSON with no map in the package, values joined by key, mercator, albers, equirectangular or plane projection, the heatmap's stepped scale with a legend, the keyboard in reading order | 2026-11-05 | the owner's «Да, карта» and «Границы даёт сайт» in the chat (owner question `q-f136944dd5`); the rest decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `906d127`, bus `msg-02933d743db64e92b1e1`) |
 | D17 | The set `chart` laid out by `simai.component-set` 1.0.0 and its site on the agreed scheme, local | 2026-11-05 | the owner in the chat: «подготовить сайт на локалке ui-chart.test … сделай все по стандарту» |
+| D19 | `sf-chart-metric` retired into SIMAI Framework's `sf-tile-metric`: the set ships the dated alias element until 2027-01-01 (tag, events, data-state, three variables); the KPI on the site is `sf-tile-metric` with `sf-chart-sparkline` | 2026-11-17 | decision C168 (owner, 2026-11-14) and the SIMAI Framework dispatcher's task K-10 |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.
@@ -831,3 +832,46 @@ under the owner's delegation:
   release come from one build.
 - **Runtime.** The set needs `core.runtime` 1.38.0 or newer, so an older
   page refuses the bundles instead of breaking.
+
+## D19. sf-chart-metric retired into sf-tile-metric
+
+> **Кратко.** Плитка показателя теперь у SIMAI Framework: `sf-tile-metric` со
+> слотом `chart` для `sf-chart-sparkline`. `sf-chart-metric` — её псевдоним с
+> датой до 2027-01-01; новых возможностей у него не будет.
+
+Decision C168 (owner, 2026-11-14) made the free Smart component
+`sf-tile-metric` (ui-source `src/smart/tile-metric`, 1.4.0 and later) the
+Framework's metric tile, with a `chart` slot that takes `sf-chart-sparkline`.
+The tile had already taken over `sf-chart-metric` 0.1.0's settings by name.
+The SIMAI Framework dispatcher's task K-10 (2026-11-17) retires the set's own
+tile into it. Decided by C168 and the dispatcher's task:
+
+- **Alias, not removal.** `sf-chart-metric` 1.0.0 is the dated alias of
+  `sf-tile-metric` until 2027-01-01 (a major for the unit). Larena uses
+  `sf-chart-metric` as its metric tile, so the old markup keeps working,
+  drawn by the tile.
+- **How.** The same way `sf-message-log` became `sf-list-feed`'s alias
+  (ui-source `2874cb5d`, journal record `tag-sf-message-log-to-sf-list-feed`;
+  ui-pro `components/src/smart/message-log` 2.0.0): the set ships the alias
+  element itself, a subclass of the class that defines `sf-tile-metric`.
+  The bundle carries none of the tile's code; the rule relates
+  `cl-tile-metric`; the tag row is given at runtime once the element is
+  defined (`registerTagAliasRows`). The former names are mapped:
+  `data-state` (loading is the tile's `loading`), the event
+  `sf-chart-metric-open` (it follows `sf-tile-metric-open` with `{id}`), and
+  three public variables. Four colour variables have no counterpart in the
+  tile and are no longer read.
+- **Records.** The set's change journal (`package/docs/chart/journal.json`,
+  record `tag-sf-chart-metric-to-sf-tile-metric`, `remove_after`
+  2027-01-01), the unit journal (`smart.chart-metric` 1.0.0, `major`, with
+  the consumer note), the passport's summary. The passport schema
+  (`simai.component-set` 1.0.0) has no field for an alias of a Framework
+  element: `element_aliases` holds a set element's own former tags. The
+  Framework's side (its journal record and the registry's note, as for
+  `sf-message-log`) is ordered from the dispatcher.
+- **Catalogue.** The KPI on the site (home tab «Показатели», the component
+  page, the guide's dashboard recipe) is written as `sf-tile-metric` with an
+  `sf-chart-sparkline` in its `chart` slot.
+- **No new feature** lands in `chart-metric`. After 2027-01-01 the folder
+  leaves the set (a major of the set), and the name leaves the registry's
+  list of `chart`.

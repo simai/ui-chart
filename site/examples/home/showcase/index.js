@@ -300,6 +300,12 @@ customElements.whenDefined('sf-chart-map').then(() => {
   ];
 });
 
+// Плитка показателя: «reference» of package/src/smart/chart-metric/examples.json.
+customElements.whenDefined('sf-chart-sparkline').then(() => {
+  const chart = document.getElementById('home-metric-chart');
+  chart.items = [1100000,1080000,1135000,1120000,1170000,1155000,1210000,1195000,1230000,1250000];
+});
+
 // Шкала: «reference» of package/src/smart/chart-gauge/examples.json.
 customElements.whenDefined('sf-chart-gauge').then(() => {
   const chart = document.getElementById('home-gauge');
