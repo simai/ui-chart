@@ -1,0 +1,249 @@
+{
+  "schema": "simai.framework.set-pair-range",
+  "schema_version": 1,
+  "set": "chart",
+  "release": "chart-f5bff4e90a69",
+  "version": "1.2.0",
+  "repository": "simai/ui-chart",
+  "package": {
+    "source_revision": "f5bff4e90a69525956cdd615c3e5c8871a93c790",
+    "build_revision": "c5fcac1b27e727e1494ab01cc067ba7b9675854e",
+    "receipt_sha256": "4b9c059881b5bdf6e43381f27d2c5a1e07d7b2179eaa46d6637b701732d0d3db",
+    "manifest_sha256": "6503a9b92e434651972cf25446d714fa33de0ac0fa659a23fdca5da3d2beda63",
+    "archive_sha256": "1f3ca63d8ecfaed0d85507093324ee7003f9c5d6667ae9c6cf2dfdd791f36538",
+    "files_count": 1087
+  },
+  "built_over": {
+    "pair": "ui-078a4b4c6f6e",
+    "commit": "078a4b4c6f6eae1e3a6171a0a86f5fcdc9fe2b82",
+    "source_revision": "10145e63b9dc3325eeffd62731b4bb5881b21c12"
+  },
+  "requires": {
+    "core_runtime": ">=1.38.0",
+    "runtime": {
+      "abi": 1,
+      "modules": {
+        "alias-table": [
+          "aliasExpired",
+          "readTagAliases"
+        ],
+        "deprecations": [
+          "noteDeprecated"
+        ],
+        "element-manifest": [
+          "elementFromManifest"
+        ],
+        "lit": [
+          "html",
+          "nothing"
+        ],
+        "page-language": [
+          "pageLocale"
+        ],
+        "smart-base": [
+          "default"
+        ]
+      }
+    },
+    "relations": [
+      {
+        "name": "cl-empty-state",
+        "resolves_to": "cl-empty-state"
+      },
+      {
+        "name": "cl-tile-metric",
+        "resolves_to": "cl-tile-metric"
+      }
+    ],
+    "elements": [
+      "sf-chart-bar",
+      "sf-chart-box",
+      "sf-chart-candlestick",
+      "sf-chart-funnel",
+      "sf-chart-gauge",
+      "sf-chart-heatmap",
+      "sf-chart-line",
+      "sf-chart-map",
+      "sf-chart-metric",
+      "sf-chart-parts",
+      "sf-chart-pie",
+      "sf-chart-radar",
+      "sf-chart-sankey",
+      "sf-chart-scatter",
+      "sf-chart-sparkline",
+      "sf-chart-sunburst",
+      "sf-chart-timeline",
+      "sf-chart-treemap",
+      "sf-chart-waterfall"
+    ],
+    "free_elements": [
+      "sf-empty-state"
+    ],
+    "core_folder": "chart-core",
+    "variables": [
+      "--sf-a1",
+      "--sf-a2",
+      "--sf-a3",
+      "--sf-a4",
+      "--sf-a6",
+      "--sf-a8",
+      "--sf-b0",
+      "--sf-b1",
+      "--sf-b2",
+      "--sf-b4",
+      "--sf-c0",
+      "--sf-c4",
+      "--sf-c6",
+      "--sf-c8",
+      "--sf-chart-1",
+      "--sf-chart-1-fill",
+      "--sf-chart-2",
+      "--sf-chart-2-fill",
+      "--sf-chart-3",
+      "--sf-chart-3-fill",
+      "--sf-chart-4",
+      "--sf-chart-4-fill",
+      "--sf-chart-5",
+      "--sf-chart-5-fill",
+      "--sf-chart-6",
+      "--sf-chart-6-fill",
+      "--sf-chart-7",
+      "--sf-chart-7-fill",
+      "--sf-chart-8",
+      "--sf-chart-8-fill",
+      "--sf-chart-midpoint",
+      "--sf-d0",
+      "--sf-d6",
+      "--sf-duration-normal",
+      "--sf-e6",
+      "--sf-elevation-2--shadow",
+      "--sf-elevation-2--surface",
+      "--sf-f0",
+      "--sf-f2",
+      "--sf-f5",
+      "--sf-f6",
+      "--sf-focus--color",
+      "--sf-focus--offset",
+      "--sf-focus--style",
+      "--sf-focus--width",
+      "--sf-font-weight-medium",
+      "--sf-g0",
+      "--sf-g2",
+      "--sf-g4",
+      "--sf-heading-1--size",
+      "--sf-heading-3--size",
+      "--sf-heading-5--size",
+      "--sf-neutral-10",
+      "--sf-neutral-95",
+      "--sf-on-disable",
+      "--sf-on-error-container-graphic",
+      "--sf-on-info-container-graphic",
+      "--sf-on-neutral-container-graphic",
+      "--sf-on-primary-container-graphic",
+      "--sf-on-secondary-container-graphic",
+      "--sf-on-success-container-graphic",
+      "--sf-on-surface",
+      "--sf-on-surface-variant",
+      "--sf-on-tertiary-container-graphic",
+      "--sf-on-warning-container-graphic",
+      "--sf-outline",
+      "--sf-outline-variant",
+      "--sf-primary-20",
+      "--sf-primary-30",
+      "--sf-primary-40",
+      "--sf-primary-50",
+      "--sf-primary-60",
+      "--sf-primary-70",
+      "--sf-primary-80",
+      "--sf-primary-85",
+      "--sf-px",
+      "--sf-radius-1",
+      "--sf-radius-rounded",
+      "--sf-space-1",
+      "--sf-surface-0",
+      "--sf-surface-1",
+      "--sf-surface-2",
+      "--sf-surface-3",
+      "--sf-surface-transparent-hover",
+      "--sf-surface-transparent-select",
+      "--sf-text--family",
+      "--sf-text-large--height",
+      "--sf-text-large--size",
+      "--sf-text-medium--height",
+      "--sf-text-medium--size",
+      "--sf-text-small--height",
+      "--sf-text-small--size"
+    ],
+    "js_api": [
+      "RuleLoader",
+      "deprecations",
+      "format",
+      "format.number",
+      "runtimeModule",
+      "tags",
+      "tags.selector"
+    ]
+  },
+  "interface_sha256": "c352f67d212576732b186fcfc8d7f30df62ebd04410f14a72a559fc783ed8c12",
+  "expires": null,
+  "not_covered": [
+    "behaviour behind an unchanged interface: token values, free component looks, smart-base behaviour under the same ABI",
+    "Framework code a bundle inlined at build time: a rebuild over the pair may give other bytes (pair-receipt.py equivalence)",
+    "the set gates over the pair: unit, manifest, browser and first-paint probes",
+    "the attributes, events and slots of the free elements the set renders (renamed only with dated aliases)",
+    "window.SF reached through an alias the scan cannot see (const s = SF; s.x)"
+  ],
+  "tooling": {
+    "repository": "simai/ui-builder",
+    "revision": "16e9a81c1f2838f7cfeebbbd19654016743c9672",
+    "clean": true,
+    "as_of": "2026-11-17",
+    "notes": {
+      "relations_to_required_sets": [],
+      "variables_bound_by_the_page": [
+        "--sf-chart-heatmap--fill-0",
+        "--sf-chart-heatmap--fill-1",
+        "--sf-chart-heatmap--fill-2",
+        "--sf-chart-heatmap--fill-3",
+        "--sf-chart-heatmap--fill-4",
+        "--sf-chart-heatmap--fill-5",
+        "--sf-chart-heatmap--fill-6",
+        "--sf-chart-heatmap--fill-7",
+        "--sf-chart-heatmap--fill-8",
+        "--sf-chart-heatmap--ink-0",
+        "--sf-chart-heatmap--ink-1",
+        "--sf-chart-heatmap--ink-2",
+        "--sf-chart-heatmap--ink-3",
+        "--sf-chart-heatmap--ink-4",
+        "--sf-chart-heatmap--ink-5",
+        "--sf-chart-heatmap--ink-6",
+        "--sf-chart-heatmap--ink-7",
+        "--sf-chart-heatmap--ink-8",
+        "--sf-chart-map--fill-0",
+        "--sf-chart-map--fill-1",
+        "--sf-chart-map--fill-2",
+        "--sf-chart-map--fill-3",
+        "--sf-chart-map--fill-4",
+        "--sf-chart-map--fill-5",
+        "--sf-chart-map--fill-6",
+        "--sf-chart-map--fill-7",
+        "--sf-chart-map--fill-8",
+        "--sf-chart-map--ink-0",
+        "--sf-chart-map--ink-1",
+        "--sf-chart-map--ink-2",
+        "--sf-chart-map--ink-3",
+        "--sf-chart-map--ink-4",
+        "--sf-chart-map--ink-5",
+        "--sf-chart-map--ink-6",
+        "--sf-chart-map--ink-7",
+        "--sf-chart-map--ink-8",
+        "--sf-surface"
+      ],
+      "js_names_not_public": []
+    }
+  },
+  "created_on": "2026-11-17",
+  "claims": {
+    "production_ready": false
+  }
+}
