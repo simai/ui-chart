@@ -1,0 +1,19 @@
+{
+  "$comment": "Dated aliases of sf-chart-metric for the shim (core/js/aliases.js, standard §16 item 20), installed on the element by the Smart base. Since 1.0.0 the element is sf-tile-metric's heir: the tile sends sf-tile-metric-open {id}, and the former name follows with the same, larger detail (0.1.x sent {}).",
+  "component": "sf-chart-metric",
+  "since": "2026-11-17",
+  "remove_after": "2027-01-01",
+  "aliases": [
+    {
+      "from": "sf-chart-metric-open",
+      "to": "sf-tile-metric-open",
+      "kind": "event",
+      "component": "sf-chart-metric",
+      "since": "2026-11-17",
+      "remove_after": "2027-01-01",
+      "mode": "detail-adds",
+      "section": "decision C168; docs/DECISIONS.md D19",
+      "note": "the element is sf-tile-metric's heir; the tile sends sf-tile-metric-open {id} and the former name follows with that detail"
+    }
+  ]
+}

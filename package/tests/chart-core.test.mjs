@@ -102,7 +102,7 @@ test('time ticks fall on calendar units', () => {
 test('formats speak the page language', () => {
   assert.equal(formatNumber(1234.5, 'ru', 'number').replace(/\s/gu, ' '), '1 234,5');
   assert.equal(formatNumber(1234.5, 'en', 'integer'), '1,235');
-  assert.equal(formatNumber(0.125, 'en', 'percent'), '12.5%');
+  assert.equal(formatNumber(0.125, 'en', 'percent'), '12.5\u00a0%');
   assert.equal(formatNumber(1500, 'en', 'compact'), '1.5K');
   assert.match(formatNumber(10, 'ru', 'currency-RUB'), /₽/u);
   assert.equal(formatNumber(null, 'ru'), '—');

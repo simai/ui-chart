@@ -439,6 +439,14 @@
       "recorded_on": "2026-11-09",
       "change": "patch",
       "summary": "sf-chart-waterfall: takes the shared chart core from the runtime (SF.runtimeModule, package core chart-core ABI 1) and relates its rule to cl-chart-core, so the Loader fetches the core once for every chart on a page. Its own module waterfall moves from chart-core into its folder (js/waterfall.js). Needs core.runtime 1.38.0 or newer. Nothing it draws or says changes."
+    },
+    {
+      "unit": "smart.chart-metric",
+      "version": "1.0.0",
+      "recorded_on": "2026-11-17",
+      "change": "major",
+      "summary": "sf-chart-metric is retired into SIMAI Framework's metric tile sf-tile-metric (decision C168): the element is now the tile's dated alias until 2027-01-01, a subclass of the class that defines sf-tile-metric with no drawing of its own. It draws the tile's markup and sheet (.sf-tile-metric-*, not .sf-chart-metric-*): money whole by default, the change as a tonal badge, the status as an icon with its word. The former data-state, the event sf-chart-metric-open (now with detail {id}) and three public variables are mapped; -label-color, -positive-color, -negative-color and -meter-color are no longer read. The rule relates cl-tile-metric instead of cl-chart-core and cl-progress-bar. No new feature lands here.",
+      "consumer": "Write <sf-tile-metric> where you wrote <sf-chart-metric> (Larena: its metric tile is sf-tile-metric of the Framework); the settings keep their names; put an sf-chart-sparkline in slot=\"chart\" for the series. data-state=\"loading\" is loading; listen for sf-tile-metric-open; style --sf-tile-metric-* instead of --sf-chart-metric-*. Markup with sf-chart-metric keeps working until 2027-01-01, drawn by the tile; selectors or tests that read .sf-chart-metric-* classes must read .sf-tile-metric-* now."
     }
   ]
 }

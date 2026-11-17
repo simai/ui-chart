@@ -13,7 +13,8 @@
 //   left on a right-to-left page), the free remainder last;
 // - keyboard and screen reader: the bar and the pie charts and the parts bar
 //   are one Tab stop
-//   with a cursor that is said; an openable metric is one button; a sparkline
+//   with a cursor that is said; an openable metric (the alias of sf-tile-metric)
+//   is one button that also sends its former event; a sparkline
 //   takes no focus and is named by its data;
 // - reduced motion and forced colours;
 // - the heatmap: its rows' height, its values' contrast on their steps, the
@@ -38,6 +39,9 @@ const CHARTS = ['chart-sparkline', 'chart-bar', 'chart-pie', 'chart-metric', 'ch
 const styles = [
   'core/core/css/core.css', 'core/core/css/utility.full.css',
   'smart/smart/empty-state/css/empty-state.css',
+  // sf-chart-metric is the dated alias of the Framework's sf-tile-metric: the
+  // tile's sheet draws it (sf-badge and sf-icon carry theirs in their scripts).
+  'smart/smart/tile-metric/css/tile-metric.css',
   ...CHARTS.map((name) => `smart/smart/${name}/css/${name}.css`),
 ].map((p) => join(out, p));
 const modules = [
@@ -45,6 +49,8 @@ const modules = [
   // The shared chart core registers its runtime modules before any chart asks.
   'smart/smart/chart-core/js/chart-core.js',
   'smart/smart/empty-state/js/empty-state.js', 'smart/smart/progress-bar/js/progress-bar.js',
+  // What the Loader brings for sf-chart-metric (cl-tile-metric and its relations).
+  'smart/smart/icon/js/icon.js', 'smart/smart/badge/js/badge.js', 'smart/smart/tile-metric/js/tile-metric.js',
   ...CHARTS.map((name) => `smart/smart/${name}/js/${name}.js`),
 ].map((p) => join(out, p));
 const absent = [...styles, ...modules].filter((path) => !existsSync(path));
@@ -218,8 +224,8 @@ try {
 
         await make(page, 'sf-chart-metric', {label: 'Выручка за неделю', value: '1250000', previous: '1100000', format: 'currency-RUB', 'period-text': 'к прошлой неделе', max: '2000000', size});
         const metric = await page.evaluate(() => {
-          const tile = document.querySelector('#chart .sf-chart-metric');
-          const value = tile.querySelector('.sf-chart-metric-value');
+          const tile = document.querySelector('#chart .sf-tile-metric');
+          const value = tile.querySelector('.sf-tile-metric-value');
           const box = tile.getBoundingClientRect();
           return {
             overflow: tile.scrollWidth - tile.clientWidth,
@@ -293,12 +299,16 @@ try {
     await make(page, 'sf-chart-metric', {label: 'Очередь', value: '14', previous: '20', better: 'down', openable: ''});
     await page.focus('#before');
     await page.keyboard.press('Tab');
-    const metricFocus = await page.evaluate(() => document.activeElement?.matches('button.sf-chart-metric'));
+    const metricFocus = await page.evaluate(() => document.activeElement?.matches('button.sf-tile-metric'));
     await page.keyboard.press('Enter');
     await page.keyboard.press('Space');
     const opened = await page.evaluate(() => window.events.filter(({verb}) => verb === 'open').length);
-    const said = await page.evaluate(() => document.querySelector('#chart .sf-chart-metric-change').textContent.replace(/\s+/gu, ' ').trim());
-    if (!metricFocus || opened !== 2 || said !== '▼ снижение −30 %') note({case: 'metric: an openable tile is one button; Enter and Space open; the change says its direction', got: {metricFocus, opened, said}});
+    // The alias draws sf-tile-metric: the change is a tonal badge with its direction said in words.
+    const said = await page.evaluate(() => {
+      const delta = document.querySelector('#chart .sf-tile-metric-delta');
+      return `${delta.querySelector('.sr-only').textContent.trim()} ${delta.querySelector('.sf-tile-metric-change').getAttribute('text')}`.replace(/\s+/gu, ' ');
+    });
+    if (!metricFocus || opened !== 2 || said !== 'снижение −30 %') note({case: 'metric: an openable tile is one button; Enter and Space open under the former event name; the change says its direction', got: {metricFocus, opened, said}});
     await make(page, 'sf-chart-parts', {label: 'Диск', category: 'kind', value: 'size', max: '100', 'value-format': 'integer', table: 'hidden'}, {items: disk, names: diskNames});
     await page.focus('#before');
     await page.keyboard.press('Tab');

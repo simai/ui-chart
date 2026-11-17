@@ -2,6 +2,31 @@
   "schema": "simai.change-journal",
   "schema_version": 1,
   "policy": "contracts/lifecycle-policy.json",
-  "summary": "The chart package's change journal (standard simai.change-lifecycle 1.0.0): a public name of a chart component that is renamed or removed is recorded here in the free journal's record form, with its dates. No name has left yet.",
-  "records": []
+  "summary": "The chart package's change journal (standard simai.change-lifecycle 1.0.0): a public name of a chart component that is renamed or removed is recorded here in the free journal's record form, with its dates.",
+  "records": [
+    {
+      "id": "tag-sf-chart-metric-to-sf-tile-metric",
+      "recorded_on": "2026-11-17",
+      "stage": "compat",
+      "kind": "tag",
+      "summary": "sf-chart-metric is the dated alias of SIMAI Framework's sf-tile-metric (decision C168; the SIMAI Framework dispatcher's task K-10; docs/DECISIONS.md D19): the metric tile moved to the Framework as sf-tile-metric, which took over sf-chart-metric 0.1.0's settings by name and has a chart slot that takes sf-chart-sparkline, and the former tag keeps working until remove_after. As with sf-message-log and sf-list-feed (ui-source journal record tag-sf-message-log-to-sf-list-feed), the set ships the alias element itself (src/smart/chart-metric 1.0.0): a subclass of the class that defines sf-tile-metric, which also maps the former names (the data-state setting, the event sf-chart-metric-open, three public variables --sf-chart-metric-*) and gives its tag row at runtime (registerTagAliasRows). The Framework's static tag table does not carry the row while the set defines the element.",
+      "items": [
+        {
+          "component": "sf-tile-metric",
+          "from": "sf-chart-metric",
+          "to": "sf-tile-metric"
+        }
+      ],
+      "deprecated_on": "2026-11-17",
+      "remove_after": "2027-01-01",
+      "rewrite": "manual",
+      "examples": {
+        "before": "<sf-chart-metric label=\"Выручка\" value=\"1250000\" previous=\"1100000\" data-state=\"loading\"></sf-chart-metric>",
+        "after": "<sf-tile-metric label=\"Выручка\" value=\"1250000\" previous=\"1100000\" loading><sf-chart-sparkline slot=\"chart\" label=\"Выручка по дням\"></sf-chart-sparkline></sf-tile-metric>"
+      },
+      "manual": "Write <sf-tile-metric> for <sf-chart-metric>; the settings keep their names. data-state=\"loading\" is loading (data-state=\"empty\" goes: no value already reads «—»); listen for sf-tile-metric-open (detail {id}) for sf-chart-metric-open; --sf-tile-metric-background-color, -value-color and -hover-background-color for the same --sf-chart-metric-* variables; -label-color, -positive-color, -negative-color and -meter-color have no counterpart (the tile takes the status tones); -min-inline-size is --sf-tile-metric-min-width on a .sf-tile-metric-grid row. The tag alone is not a mechanical rename, because data-state lives only on the alias element.",
+      "owner": "simai/ui-chart",
+      "source": "package/src/smart/chart-metric (component.json x-decisions, docs.md «Переход с sf-chart-metric»); ui-source src/smart/tile-metric at 10145e63 (x-decisions C168)"
+    }
+  ]
 }

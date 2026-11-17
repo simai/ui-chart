@@ -21,7 +21,7 @@ release pinned in `framework.lock.json` (the same revision as
 | `src/smart/chart-bar/` | `sf-chart-bar`, values by category: grouped, stacked or shares, vertical or horizontal |
 | `src/smart/chart-pie/` | `sf-chart-pie`, the parts of one whole as a circle or a ring |
 | `src/smart/chart-sparkline/` | `sf-chart-sparkline`, one series word-sized, for tables and tiles |
-| `src/smart/chart-metric/` | `sf-chart-metric`, one number with its change, limit and status (the KPI and Larena's metric tile) |
+| `src/smart/chart-metric/` | `sf-chart-metric`, the dated alias of SIMAI Framework's metric tile `sf-tile-metric` until 2027-01-01 (decision C168): the element is the tile's heir with the former `data-state`, event name and variables mapped; write `sf-tile-metric` with an `sf-chart-sparkline` in its `chart` slot |
 | `src/smart/chart-parts/` | `sf-chart-parts`, the parts of one whole in one thin bar, with the free remainder of a capacity (a disk, a quota, a model's context) |
 | `src/smart/chart-heatmap/` | `sf-chart-heatmap`, a measure over two categories as a grid of cells on a stepped scale of the theme's tones (load by weekday and hour, a change by region and month) |
 | `src/smart/chart-funnel/` | `sf-chart-funnel`, the stages of a process as bars on a common baseline with the conversion beside each stage (a sales funnel, a sign-up, an order's path) |

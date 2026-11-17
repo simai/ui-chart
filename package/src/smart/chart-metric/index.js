@@ -1,127 +1,93 @@
-// sf-chart-metric: one number that matters, with its change, its limit and its
-// status (docs/DECISIONS.md D1; docs/research/parameters.md §15). The
-// catalogue's KPI and Larena's metric tile: server load, storage, traffic,
-// queue depth, licence limits.
+// sf-chart-metric 1.0.0: a dated alias of SIMAI Framework's sf-tile-metric
+// (decision C168; docs/DECISIONS.md D19). The metric tile moved to the
+// Framework as sf-tile-metric, which took over this element's settings by
+// name and has a chart slot for an sf-chart-sparkline; this element is now
+// its heir under the former tag, until 2027-01-01:
 //
-// The element formats the value (chart-core/format), works out the change
-// from the previous value when the page gives no delta, and draws the limit
-// as a meter with sf-progress-bar's look. The meaning of a change (is up
-// good?) and the status are the page's; the tile never infers them.
+//   - the element is a subclass of the class that defines sf-tile-metric, so
+//     it draws the tile's markup (.sf-tile-metric, .sf-tile-metric-*) and its
+//     stylesheet; three former public variables (--sf-chart-metric-*) still
+//     feed the tile's (js/templates/default.css);
+//   - the former names keep working: the settings are the tile's own; the
+//     state setting data-state is mapped (loading is the tile's loading,
+//     empty draws no value); the tile's open event also goes out under its
+//     former name sf-chart-metric-open (aliases.json, installed by the Smart
+//     base);
+//   - the first <sf-chart-metric> a page connects is noted in SF.deprecations
+//     and named once on the console, as every dated tag alias is.
 //
-// It renders into its own light DOM, like every Smart component.
-import SfBaseElement from '../../core/js/smart-base';
-import {elementFromManifest} from '../../core/js/element-manifest';
-import {pageLocale} from '../../core/js/page-language';
-import {formatNumber} from '../chart-core/format.js';
-import {renderChartMetricTemplate} from './js/templates/default';
-import manifest from './component.json';
-import en from './lang/en.json';
-import ru from './lang/ru.json';
+// The Framework's sf-tile-metric is the one source: this bundle carries none
+// of its code. The rule relates cl-tile-metric, so the Loader fetches the tile
+// with this element; the subclass is defined once the tile is. The same way
+// sf-message-log 2.0.0 became sf-list-feed's heir (ui-source 2874cb5d).
+import {noteTagAlias, registerTagAliasRows} from '../../core/js/tag-aliases.js';
+import aliases from './aliases.json';
+import './js/templates/default.css';
 
-const ChartMetricElement = elementFromManifest(manifest, {
-  base: SfBaseElement,
-  lang: {en, ru},
-  source: 'ru',
-});
+const TAG = 'sf-chart-metric';
+const TO = 'sf-tile-metric';
+const ROW = Object.freeze({from: TAG, to: TO, since: '2026-11-17', remove_after: '2027-01-01'});
 
-let instances = 0;
+function defineChartMetric(Tile) {
+  const registry = globalThis.customElements;
+  if (!Tile || !registry || registry.get(TAG)) return;
 
-class SfChartMetric extends ChartMetricElement {
-  static get props() {
-    return {...super.props, rootClass: {default: ''}};
+  class SfChartMetric extends Tile {
+    static get aliases() {
+      return aliases;
+    }
+
+    // data-state is the one former setting the tile does not have.
+    static get observedAttributes() {
+      return [...new Set([...super.observedAttributes, 'data-state'])];
+    }
+
+    get dataState() {
+      const state = this.getAttribute('data-state');
+      return ['loading', 'ready', 'empty'].includes(state) ? state : 'auto';
+    }
+
+    set dataState(value) {
+      if (value === null || value === undefined || value === 'auto') this.removeAttribute('data-state');
+      else this.setAttribute('data-state', String(value));
+    }
+
+    // data-state loading is the tile's loading.
+    get loading() {
+      return Boolean(super.loading) || this.dataState === 'loading';
+    }
+
+    set loading(value) {
+      super.loading = value;
+    }
+
+    // data-state empty draws the tile without its value («—»).
+    given(attribute) {
+      if (attribute === 'value' && this.dataState === 'empty') return null;
+      return super.given(attribute);
+    }
+
+    connectedCallback() {
+      noteTagAlias(ROW);
+      super.connectedCallback?.();
+    }
   }
 
-  onConnected() {
-    this._uid = this.id || `sf-chart-metric-${(instances += 1)}`;
-  }
-
-  words(key, vars) {
-    return this.sfWord(key, vars ? {vars} : undefined);
-  }
-
-  // A number setting holds only when the page set it: an unset number reads 0.
-  given(name, attribute) {
-    return this.hasAttribute(attribute) && Number.isFinite(this[name]) ? this[name] : null;
-  }
-
-  state() {
-    const asked = this.dataState;
-    if (asked && asked !== 'auto') return asked;
-    return this.given('value', 'value') === null ? 'empty' : 'ready';
-  }
-
-  say(value, format = this.format) {
-    return formatNumber(value, pageLocale(this), format, {gap: this.words('no-value')});
-  }
-
-  // The change against the previous period: given as delta, or worked out
-  // from previous. Its tone follows its meaning (better), not its sign.
-  change(value) {
-    const previous = this.given('previous', 'previous');
-    let change = this.given('delta', 'delta');
-    if (change === null && previous !== null && value !== null) change = value - previous;
-    if (change === null) return null;
-    const base = previous ?? (value !== null ? value - change : null);
-    const share = base ? change / Math.abs(base) : null;
-    const direction = change > 0 ? 'up' : change < 0 ? 'down' : 'flat';
-    const tone = direction === 'flat' || this.better === 'none' ? 'neutral' : direction === this.better ? 'positive' : 'negative';
-    const sign = change > 0 ? '+' : change < 0 ? '−' : '';
-    const absolute = `${sign}${this.say(Math.abs(change))}`;
-    const percent = share === null ? '' : `${sign}${formatNumber(Math.abs(share), pageLocale(this), 'percent')}`;
-    const text = this.deltaFormat === 'absolute' || !percent ? absolute
-      : this.deltaFormat === 'both' ? `${percent} (${absolute})` : percent;
-    return {direction, tone, text, word: this.words(`change-${direction}`)};
-  }
-
-  // The limit as a meter: «45 ГБ из 100 ГБ», 45 %.
-  meter(value) {
-    const max = this.given('max', 'max');
-    if (max === null || max <= 0 || value === null) return null;
-    const text = this.limitText || this.words('limit', {value: this.say(value), max: this.say(max)});
-    return {
-      max,
-      value: Math.max(0, Math.min(max, value)),
-      percent: Math.round(Math.max(0, Math.min(1, value / max)) * 100),
-      text,
-      said: text,
-      name: this.words('limit-name', {label: this.label || this.words('untitled')}),
-      status: this.status,
-    };
-  }
-
-  open() {
-    this.sfEmit('open', {});
-  }
-
-  templateContext() {
-    const state = this.state();
-    const value = state === 'ready' ? this.given('value', 'value') : null;
-    const target = this.href ? 'link' : this.openable ? 'button' : '';
-    return this.createTemplateContext({
-      ...this.getPropsContext(),
-      component: this,
-      uid: this._uid,
-      size: this.size,
-      state,
-      target,
-      href: this.href,
-      label: this.label || this.words('untitled'),
-      valueText: state === 'empty' ? this.words('no-value') : this.say(value),
-      delta: state === 'ready' ? this.change(value) : null,
-      periodText: this.periodText,
-      meter: state === 'ready' ? this.meter(value) : null,
-      status: this.status,
-      statusWord: this.status === 'neutral' ? '' : this.words(`status-${this.status}`),
-      hint: this.hint,
-      hasChart: this.hasSlotContent?.('chart') ?? false,
-      chart: this.hasSlotContent?.('chart') ? this.getSlotContent('chart') : null,
-      rootClass: this.getRootClass(),
-    });
-  }
-
-  template() {
-    return renderChartMetricTemplate(this.templateContext());
-  }
+  Object.defineProperty(SfChartMetric, 'sfTagAliasOf', {value: TO});
+  registry.define(TAG, SfChartMetric);
+  // The row is given once the element is defined: given before the tile is,
+  // the Smart base would define a bare subclass under the former tag first.
+  registerTagAliasRows([ROW]);
 }
 
-SfChartMetric.define('sf-chart-metric');
+const registry = globalThis.customElements;
+if (registry) {
+  const defined = registry.get(TO);
+  if (defined) defineChartMetric(defined);
+  else {
+    registry.whenDefined(TO).then(defineChartMetric);
+    // The rule relates cl-tile-metric; a page whose Loader has not fetched it
+    // yet (the element came before its rule) asks for it here.
+    globalThis.SF?.Loader?.ensure?.([TO], {timeout: Infinity});
+  }
+}

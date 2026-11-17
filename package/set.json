@@ -7,7 +7,7 @@
   },
   "id": "chart",
   "title": "SIMAI Chart",
-  "summary": "Charts for SIMAI Framework pages: lines, bars, pies, parts, metrics, heatmaps, funnels, gauges, scatter, box plots, radars, candles, waterfalls, treemaps, timelines, Sankey diagrams, sunbursts and choropleth maps, each with a tooltip, a keyboard cursor, a summary in words and the data as a table.",
+  "summary": "Charts for SIMAI Framework pages: lines, bars, pies, parts, heatmaps, funnels, gauges, scatter, box plots, radars, candles, waterfalls, treemaps, timelines, Sankey diagrams, sunbursts and choropleth maps, each with a tooltip, a keyboard cursor, a summary in words and the data as a table. sf-chart-metric is no longer a chart of its own: it is the dated alias of SIMAI Framework's metric tile sf-tile-metric (tag and events) until remove_after 2027-01-01 (decision C168; change journal docs/chart/journal.json, record tag-sf-chart-metric-to-sf-tile-metric).",
   "repository": "simai/ui-chart",
   "licence": {
     "class": "simai-pro",
@@ -109,8 +109,7 @@
       "folder": "chart-metric",
       "status": "preview",
       "requires": [
-        "cl-chart-core",
-        "cl-progress-bar"
+        "cl-tile-metric"
       ]
     },
     {
