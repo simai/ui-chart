@@ -5,8 +5,8 @@
 // /framework/ and the chart package at /package/.
 //
 // <framework distr> is the `distr` of the ui distribution at the release the
-// package pins (package/framework.lock.json: ui-cb287da78ab1, npm
-// @simai-studio/ui@5.20261109.559); <package build output> holds smart/rule.js
+// package pins (package/framework.lock.json: ui-078a4b4c6f6e, npm
+// @simai-studio/ui@5.20261116.1505); <package build output> holds smart/rule.js
 // and smart/chart-line/ (ui-builder's verify-package-reproducibility.cjs,
 // wave-1/output/package/chart). A ui distribution also carries another
 // package's rule file as smart/rule.js; this page declares only chart, so that

@@ -20,7 +20,7 @@ import {fileURLToPath} from 'node:url';
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'smart', 'chart-core', 'palettes.js');
 
-// Surfaces 0-2 of the pinned Framework (ui-cb287da78ab1, unchanged since ui-2d39b617a719): white, neutral-98
+// Surfaces 0-2 of the pinned Framework (ui-078a4b4c6f6e, unchanged since ui-2d39b617a719): white, neutral-98
 // and neutral-95 in the light theme; neutral-5, -10 and -15 in the dark.
 const SURFACES = {
   light: ['#ffffff', '#faf9fe', '#f1f0f6'],
