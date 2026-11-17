@@ -152,10 +152,7 @@ SF.RuleLoader.registerPackage("chart", {
       "mode": "smart",
       "relation": [
         {
-          "name": "cl-chart-core"
-        },
-        {
-          "name": "cl-progress-bar"
+          "name": "cl-tile-metric"
         }
       ],
       "tags": [

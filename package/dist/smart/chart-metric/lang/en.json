@@ -1,19 +1,5 @@
 {
-  "title": "Metric",
-  "runtime": {
-    "untitled": "Metric",
-    "no-value": "—",
-    "loading": "Loading the value",
-    "change-up": "up",
-    "change-down": "down",
-    "change-flat": "no change",
-    "limit": "{value} of {max}",
-    "limit-name": "{label}: limit",
-    "status-success": "Fine:",
-    "status-warning": "Warning:",
-    "status-error": "Error:",
-    "status-info": "Note:"
-  },
+  "title": "Metric (alias of sf-tile-metric)",
   "events": {
     "open": {
       "label": "Open the details"

@@ -2,277 +2,506 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "0859988450a2"
-(module, __webpack_exports__, __webpack_require__) {
+/***/ "f28a9d913ce0"
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("deb1a4d61565");
-/* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("5b7d7695b41b");
-/* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("43090d1c8307");
-/* harmony import */ var _chart_core_format_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("dd0c3978091b");
-/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("0870a7fc4348");
-/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("5c308f665b3b");
-/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("9e379715fe5d");
-/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("8883e224aaad");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_3__, _js_templates_default__WEBPACK_IMPORTED_MODULE_4__]);
-([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_3__, _js_templates_default__WEBPACK_IMPORTED_MODULE_4__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
-/* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _chart_core_format_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_chart_core_format_js__WEBPACK_IMPORTED_MODULE_3__);
-// sf-chart-metric: one number that matters, with its change, its limit and its
-// status (docs/DECISIONS.md D1; docs/research/parameters.md §15). The
-// catalogue's KPI and Larena's metric tile: server load, storage, traffic,
-// queue depth, licence limits.
-//
-// The element formats the value (chart-core/format), works out the change
-// from the previous value when the page gives no delta, and draws the limit
-// as a meter with sf-progress-bar's look. The meaning of a change (is up
-// good?) and the status are the page's; the tile never infers them.
-//
-// It renders into its own light DOM, like every Smart component.
-
-
-
-
-
-
-
-
-const ChartMetricElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_5__, {
-  base: (_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default()),
-  lang: {
-    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_6__,
-    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_7__
-  },
-  source: 'ru'
-});
-let instances = 0;
-
-class SfChartMetric extends ChartMetricElement {
-  static get props() {
-    return { ...super.props,
-      rootClass: {
-        default: ''
-      }
-    };
-  }
-
-  onConnected() {
-    this._uid = this.id || `sf-chart-metric-${instances += 1}`;
-  }
-
-  words(key, vars) {
-    return this.sfWord(key, vars ? {
-      vars
-    } : undefined);
-  } // A number setting holds only when the page set it: an unset number reads 0.
-
-
-  given(name, attribute) {
-    return this.hasAttribute(attribute) && Number.isFinite(this[name]) ? this[name] : null;
-  }
-
-  state() {
-    const asked = this.dataState;
-    if (asked && asked !== 'auto') return asked;
-    return this.given('value', 'value') === null ? 'empty' : 'ready';
-  }
-
-  say(value, format = this.format) {
-    return (0,_chart_core_format_js__WEBPACK_IMPORTED_MODULE_3__.formatNumber)(value, (0,_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__.pageLocale)(this), format, {
-      gap: this.words('no-value')
-    });
-  } // The change against the previous period: given as delta, or worked out
-  // from previous. Its tone follows its meaning (better), not its sign.
-
-
-  change(value) {
-    const previous = this.given('previous', 'previous');
-    let change = this.given('delta', 'delta');
-    if (change === null && previous !== null && value !== null) change = value - previous;
-    if (change === null) return null;
-    const base = previous ?? (value !== null ? value - change : null);
-    const share = base ? change / Math.abs(base) : null;
-    const direction = change > 0 ? 'up' : change < 0 ? 'down' : 'flat';
-    const tone = direction === 'flat' || this.better === 'none' ? 'neutral' : direction === this.better ? 'positive' : 'negative';
-    const sign = change > 0 ? '+' : change < 0 ? '−' : '';
-    const absolute = `${sign}${this.say(Math.abs(change))}`;
-    const percent = share === null ? '' : `${sign}${(0,_chart_core_format_js__WEBPACK_IMPORTED_MODULE_3__.formatNumber)(Math.abs(share), (0,_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__.pageLocale)(this), 'percent')}`;
-    const text = this.deltaFormat === 'absolute' || !percent ? absolute : this.deltaFormat === 'both' ? `${percent} (${absolute})` : percent;
-    return {
-      direction,
-      tone,
-      text,
-      word: this.words(`change-${direction}`)
-    };
-  } // The limit as a meter: «45 ГБ из 100 ГБ», 45 %.
-
-
-  meter(value) {
-    const max = this.given('max', 'max');
-    if (max === null || max <= 0 || value === null) return null;
-    const text = this.limitText || this.words('limit', {
-      value: this.say(value),
-      max: this.say(max)
-    });
-    return {
-      max,
-      value: Math.max(0, Math.min(max, value)),
-      percent: Math.round(Math.max(0, Math.min(1, value / max)) * 100),
-      text,
-      said: text,
-      name: this.words('limit-name', {
-        label: this.label || this.words('untitled')
-      }),
-      status: this.status
-    };
-  }
-
-  open() {
-    this.sfEmit('open', {});
-  }
-
-  templateContext() {
-    const state = this.state();
-    const value = state === 'ready' ? this.given('value', 'value') : null;
-    const target = this.href ? 'link' : this.openable ? 'button' : '';
-    return this.createTemplateContext({ ...this.getPropsContext(),
-      component: this,
-      uid: this._uid,
-      size: this.size,
-      state,
-      target,
-      href: this.href,
-      label: this.label || this.words('untitled'),
-      valueText: state === 'empty' ? this.words('no-value') : this.say(value),
-      delta: state === 'ready' ? this.change(value) : null,
-      periodText: this.periodText,
-      meter: state === 'ready' ? this.meter(value) : null,
-      status: this.status,
-      statusWord: this.status === 'neutral' ? '' : this.words(`status-${this.status}`),
-      hint: this.hint,
-      hasChart: this.hasSlotContent?.('chart') ?? false,
-      chart: this.hasSlotContent?.('chart') ? this.getSlotContent('chart') : null,
-      rootClass: this.getRootClass()
-    });
-  }
-
-  template() {
-    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_4__.renderChartMetricTemplate)(this.templateContext());
-  }
-
-}
-
-SfChartMetric.define('sf-chart-metric');
-__webpack_async_result__();
-} catch(e) { __webpack_async_result__(e); } });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// Generated from the `tag` rows of src/smart/*/aliases.json and the element_aliases of
+// src/core/contracts/packages/*.package.json by scripts/tag-alias-table.mjs; do not edit.
+// The dated tag aliases of the Framework and of its component packages, read by core/js/tag-aliases.js.
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Object.freeze([Object.freeze({
+  from: 'sf-avatars',
+  to: 'sf-avatar-group',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-button-group',
+  to: 'sf-segmented',
+  since: '2026-11-08',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-change-confirm',
+  to: 'sf-confirm-change',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-close',
+  to: 'sf-button-close',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-code-input',
+  to: 'sf-input-code',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-color',
+  to: 'sf-input-color',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-composition-overlay',
+  to: 'sf-editor-overlay',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-content-editor',
+  to: 'sf-editor-content',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-context-menu',
+  to: 'sf-menu-context',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-copy-button',
+  to: 'sf-button-copy',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-country-code',
+  to: 'sf-input-country',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-data-view',
+  to: 'sf-view',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-datepicker',
+  to: 'sf-input-date',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-download-file',
+  to: 'sf-file-download',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-icon-button',
+  to: 'sf-button-icon',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-image-field',
+  to: 'sf-input-image',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-inline-editor',
+  to: 'sf-editor-inline',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-lookup',
+  to: 'sf-input-lookup',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-page-header',
+  to: 'sf-header-page',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-property-view',
+  to: 'sf-view-properties',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-quantity',
+  to: 'sf-input-quantity',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-range-slider',
+  to: 'sf-slider-range',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-rich-text',
+  to: 'sf-input-rich',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-site-header',
+  to: 'sf-header-site',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-table',
+  to: 'sf-view-table',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-textarea',
+  to: 'sf-input-textarea',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+}), Object.freeze({
+  from: 'sf-thread-list',
+  to: 'sf-chat-threads',
+  since: '2026-11-03',
+  remove_after: '2027-01-01'
+})]));
 
 /***/ },
 
-/***/ "0870a7fc4348"
+/***/ "4a85acfb05c1"
 (module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   renderChartMetricTemplate: () => (/* binding */ renderChartMetricTemplate)
+/* harmony export */   canonicalTag: () => (/* binding */ canonicalTag),
+/* harmony export */   defineTagAliases: () => (/* binding */ defineTagAliases),
+/* harmony export */   isTag: () => (/* binding */ isTag),
+/* harmony export */   listTagAliases: () => (/* binding */ listTagAliases),
+/* harmony export */   noteTagAlias: () => (/* binding */ noteTagAlias),
+/* harmony export */   registerTagAliasRows: () => (/* binding */ registerTagAliasRows),
+/* harmony export */   registerTagAliases: () => (/* binding */ registerTagAliases),
+/* harmony export */   tagNames: () => (/* binding */ tagNames),
+/* harmony export */   tagSelector: () => (/* binding */ tagSelector)
 /* harmony export */ });
-/* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("2a080a730149");
-/* harmony import */ var _default_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("23347cc02e89");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit__WEBPACK_IMPORTED_MODULE_0__]);
-var __webpack_async_dependencies_result__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
-lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_async_dependencies_result__[0];
-/* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lit__WEBPACK_IMPORTED_MODULE_0__);
-
- // A metric tile: the label, the value, the change against a previous period,
-// a limit as a meter, a status with a hint, and a chart from the page.
+/* harmony import */ var _deprecations_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("d3818183b14c");
+/* harmony import */ var _alias_table_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("5dcef5de40cf");
+/* harmony import */ var _tag_aliases_generated_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("f28a9d913ce0");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_deprecations_js__WEBPACK_IMPORTED_MODULE_0__, _alias_table_js__WEBPACK_IMPORTED_MODULE_1__]);
+([_deprecations_js__WEBPACK_IMPORTED_MODULE_0__, _alias_table_js__WEBPACK_IMPORTED_MODULE_1__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _deprecations_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_deprecations_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _alias_table_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_alias_table_js__WEBPACK_IMPORTED_MODULE_1__);
+// Dated tag aliases (rename plan R0, ui-control RENAME-PLAN-2026-11-03; change
+// lifecycle: contracts/changes/journal.json, kind "tag"). When a Smart
+// component takes a new tag, the old tag keeps working until its
+// `remove_after` day:
 //
-// The whole tile is one target when it has one: a link (href) or a button
-// (openable), with no control inside it. Otherwise it is a group named by
-// its label. Inside a button only phrasing content is allowed, so every
-// part is a span laid out by CSS. The change says its direction in words as well as by an arrow
-// and a tone, so colour is never the only sign.
+// - Definition. defineTagAliases(Class, tag) defines each old tag as a trivial
+//   subclass of the class that defines the new one (the Smart base calls it
+//   from define()). The Loader's rule lists the old tag beside the new one, so
+//   markup with the old tag alone loads the bundle.
+// - Note. The first old-tag element a page connects is noted in
+//   SF.deprecations (kind "tag") and named once on the console with the new tag
+//   and the date, whatever the page opted into: an element name is the most
+//   visible thing a page writes, and the old one is going.
+// - Script. Code that finds a renamed element by name asks for both names
+//   through one helper instead of a literal:
+//
+//     import {tagSelector, isTag} from '../../core/js/smart-base';
+//     host.querySelector(`.sf-tag > ${tagSelector('sf-button-close')}`);
+//     if (isTag(node, 'sf-button-close')) ...
+//
+// - Sheets. A selector that names the new tag names the old one beside it in
+//   source, `:is(sf-button-close, sf-close)`, for as long as the alias lives
+//   (scripts/rename-smart-tag.mjs writes it, --sweep takes it out; the
+//   contract test tests/tag-aliases.contract.test.mjs holds both).
+//
+// The aliases are a static table (tag-aliases.generated.js, written by
+// scripts/tag-alias-table.mjs from every component's aliases.json and from the
+// element_aliases of the component package references,
+// contracts/packages/*.package.json), so a lookup finds an old tag before the
+// renamed component's bundle has run, a package's (sf-table, rename plan R2)
+// as well as the Framework's. A package's component adds its rows again when it
+// is defined, which matters only for a package the pair does not reference. Every copy of this
+// module shares one state on the page (a global symbol); the Smart bundles
+// reach it through the shared runtime (smart-base re-exports it).
 
-const ARROWS = {
-  up: '▲',
-  down: '▼',
-  flat: '–'
-};
 
-function renderDelta(context) {
-  const {
-    delta
-  } = context;
-  if (!delta) return lit__WEBPACK_IMPORTED_MODULE_0__.nothing;
-  return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <span class="sf-chart-metric-delta">
-      <span class=${`sf-chart-metric-change sf-chart-metric-change--${delta.tone}`}>
-        <span class="sf-chart-metric-arrow" aria-hidden="true">${ARROWS[delta.direction]}</span>
-        <span class="sf-chart-metric-sr">${delta.word}</span>
-        <span class="sf-chart-metric-change-text">${delta.text}</span>
-      </span>
-      ${context.periodText ? (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="sf-chart-metric-period">${context.periodText}</span>` : lit__WEBPACK_IMPORTED_MODULE_0__.nothing}
-    </span>
-  `;
-}
 
-function renderMeter(context) {
-  const {
-    meter
-  } = context;
-  if (!meter) return lit__WEBPACK_IMPORTED_MODULE_0__.nothing;
-  return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <span class="sf-chart-metric-meter" role="meter" aria-label=${meter.name}
-         aria-valuemin="0" aria-valuemax=${meter.max} aria-valuenow=${meter.value} aria-valuetext=${meter.said}>
-      <sf-progress-bar class="sf-chart-metric-bar" aria-hidden="true" size="1/2" value=${meter.percent} status=${meter.status}></sf-progress-bar>
-      <span class="sf-chart-metric-limit" aria-hidden="true">${meter.text}</span>
-    </span>
-  `;
-}
+const STATE = Symbol.for('simai.sf.tag-aliases');
 
-function renderBody(context) {
-  const {
-    state,
-    uid
-  } = context;
-  const loading = state === 'loading';
-  return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <span class="sf-chart-metric-label" id=${`${uid}-label`}>${context.label}</span>
-    <span class="sf-chart-metric-value" aria-hidden=${loading ? 'true' : 'false'}>
-      ${loading ? (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="sf-chart-metric-skeleton"></span>` : context.valueText}
-    </span>
-    ${loading ? (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="sf-chart-metric-sr">${context.component.words('loading')}</span>` : lit__WEBPACK_IMPORTED_MODULE_0__.nothing}
-    ${loading ? lit__WEBPACK_IMPORTED_MODULE_0__.nothing : renderDelta(context)}
-    ${loading ? lit__WEBPACK_IMPORTED_MODULE_0__.nothing : renderMeter(context)}
-    ${context.status !== 'neutral' || context.hint ? (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class=${`sf-chart-metric-status sf-chart-metric-status--${context.status}`}>
-          <span class="sf-chart-metric-dot" aria-hidden="true"></span>
-          <span class="sf-chart-metric-sr">${context.statusWord}</span>
-          <span class="sf-chart-metric-hint">${context.hint}</span>
-        </span>` : lit__WEBPACK_IMPORTED_MODULE_0__.nothing}
-  `;
-}
+function state() {
+  if (!globalThis[STATE]) {
+    const shared = {
+      byOld: new Map(),
+      byNew: new Map(),
+      noted: new Set()
+    };
+    Object.defineProperty(globalThis, STATE, {
+      value: shared,
+      configurable: true
+    });
 
-function renderChartMetricTemplate(context) {
-  const {
-    state,
-    uid
-  } = context;
-  const size = String(context.size).replace('/', '-');
-  const classes = ['sf-chart-metric', `sf-chart-metric--size-${size}`, `sf-chart-metric--${state}`, context.target ? 'sf-chart-metric--target' : '', context.rootClass].filter(Boolean).join(' ');
-  const chart = (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="sf-chart-metric-chart" ?hidden=${!context.hasChart}>${context.chart}</span>`;
-
-  if (context.target === 'link') {
-    return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<a class=${classes} href=${context.href} aria-busy=${state === 'loading' ? 'true' : 'false'}>${renderBody(context)}${chart}</a>`;
+    for (const row of _tag_aliases_generated_js__WEBPACK_IMPORTED_MODULE_2__["default"]) addRow(shared, row);
   }
 
-  if (context.target === 'button') {
-    return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<button type="button" class=${classes} aria-busy=${state === 'loading' ? 'true' : 'false'}
-                        @click=${() => context.component.open()}>${renderBody(context)}${chart}</button>`;
+  return globalThis[STATE];
+}
+
+function addRow(shared, row) {
+  if (shared.byOld.has(row.from)) return;
+  shared.byOld.set(row.from, row);
+  shared.byNew.set(row.to, [...(shared.byNew.get(row.to) ?? []), row.from]);
+} // Rows from a component's aliases.json (its `tag` rows); the Framework's are
+// already known, a package's are added here.
+
+
+function registerTagAliases(table, tag) {
+  const {
+    rows
+  } = (0,_alias_table_js__WEBPACK_IMPORTED_MODULE_1__.readTagAliases)(table, {
+    tag
+  });
+  const shared = state();
+
+  for (const row of rows) addRow(shared, row);
+
+  return rows;
+} // Rows a component set gives at runtime (SF.RuleLoader.registerPackage(name,
+// {aliases})): {from, to, since, remove_after}, the set's own former tags, so
+// SIMAI Framework needs no table row for a set it does not know. Answers the
+// rows taken; a row whose old tag is already known keeps the first.
+
+function registerTagAliasRows(rows) {
+  const shared = state();
+  const taken = [];
+
+  for (const row of Array.isArray(rows) ? rows : []) {
+    if (!row || typeof row.from !== 'string' || typeof row.to !== 'string') continue;
+    if (shared.byOld.has(row.from)) continue;
+    const clean = Object.freeze({
+      from: row.from,
+      to: row.to,
+      since: String(row.since ?? ''),
+      remove_after: String(row.remove_after ?? '')
+    });
+    addRow(shared, clean);
+    taken.push(clean);
   }
 
-  return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<div class=${classes} role="group" aria-labelledby=${`${uid}-label`} aria-busy=${state === 'loading' ? 'true' : 'false'}>${renderBody(context)}${chart}</div>`;
+  return taken;
+} // The open old names of a tag, its own first: ['sf-button-close', 'sf-close'].
+
+function tagNames(tag) {
+  const name = String(tag || '').toLowerCase();
+  return [name, ...(state().byNew.get(name) ?? [])];
+} // A selector for the tag that matches its old names too:
+// ':is(sf-button-close, sf-close)', or the tag itself when it has none.
+
+function tagSelector(tag) {
+  const names = tagNames(tag);
+  return names.length > 1 ? `:is(${names.join(', ')})` : names[0];
+} // Whether an element is the tag, under its own or an old name.
+
+function isTag(element, tag) {
+  const name = element?.localName;
+  return Boolean(name) && tagNames(tag).includes(name);
+} // The current name of a tag: 'sf-button-close' for 'sf-close'. An old tag the
+// page still has as an element of its own stays itself: a component package
+// built before its rename (rules naming sf-table alone) beside a pair whose
+// table already knows the new name, where the new tag would never upgrade.
+
+function canonicalTag(tag) {
+  const name = String(tag || '').toLowerCase();
+  const row = state().byOld.get(name);
+  if (!row) return name;
+  const own = globalThis.customElements?.get?.(name);
+  if (own && !own.sfTagAliasOf) return name;
+  let rules = null;
+
+  try {
+    rules = globalThis.SF?.Loader?.getCustomElementRules?.() ?? null;
+  } catch {
+    rules = null;
+  }
+
+  if (rules && rules[name] && !rules[row.to]) return name;
+  return row.to;
+} // Every open row: [{from, to, since, remove_after}].
+
+function listTagAliases() {
+  return [...state().byOld.values()].map(row => ({ ...row
+  }));
+} // The page met an element under an old name: once per old tag.
+
+function noteTagAlias(row) {
+  const shared = state();
+  const expired = (0,_alias_table_js__WEBPACK_IMPORTED_MODULE_1__.aliasExpired)(row);
+  (0,_deprecations_js__WEBPACK_IMPORTED_MODULE_0__.noteDeprecated)({
+    component: row.to,
+    kind: 'tag',
+    from: row.from,
+    to: row.to,
+    tag: row.to,
+    since: row.since,
+    remove_after: row.remove_after,
+    expired
+  });
+  if (shared.noted.has(row.from)) return;
+  shared.noted.add(row.from); // deprecations.js prints an expired name itself, and every name when the
+  // page opted in; the note here is for the rest.
+
+  const optedIn = globalThis.document?.documentElement?.dataset?.sfDeprecations === 'warn' || globalThis.SF?.deprecations?.warn === true;
+  if (expired || optedIn) return;
+  globalThis.console?.warn?.(`[SIMAI Framework] <${row.from}> is now <${row.to}>; the old tag works until ${row.remove_after}. Write <${row.to}>. See contracts/changes/journal.json.`);
+} // Defines each old tag of `tag` as a subclass of `Base` (the class that
+// defines `tag`), through `define(name, Class)`: the Smart base passes its
+// definition queue, so both names are defined in the same batch. Returns the
+// rows defined.
+
+function defineTagAliases(Base, tag, {
+  table = Base?.aliases,
+  define
+} = {}) {
+  if (table) registerTagAliases(table, tag);
+  const rows = (state().byNew.get(tag) ?? []).map(from => state().byOld.get(from));
+  const registry = globalThis.customElements;
+  const defined = [];
+
+  for (const row of rows) {
+    if (!registry || registry.get(row.from)) continue;
+
+    class TagAlias extends Base {
+      connectedCallback() {
+        noteTagAlias(row);
+        super.connectedCallback?.();
+      }
+
+    }
+
+    Object.defineProperty(TagAlias, 'sfTagAliasOf', {
+      value: row.to
+    });
+    (define ?? ((name, Class) => registry.define(name, Class)))(row.from, TagAlias);
+    defined.push(row);
+  }
+
+  return defined;
+}
+
+if (typeof globalThis !== 'undefined') {
+  globalThis.SF = globalThis.SF || {}; // For scripts that are not Smart bundles (class components, a page):
+  // SF.tags.selector('sf-button-close').
+
+  if (!globalThis.SF.tags) {
+    globalThis.SF.tags = Object.freeze({
+      names: tagNames,
+      selector: tagSelector,
+      is: isTag,
+      canonical: canonicalTag,
+      list: listTagAliases
+    });
+  }
+}
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } });
+
+/***/ },
+
+/***/ "0859988450a2"
+(module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core_js_tag_aliases_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4a85acfb05c1");
+/* harmony import */ var _aliases_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("aee2eabbb5b8");
+/* harmony import */ var _js_templates_default_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("23347cc02e89");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_tag_aliases_js__WEBPACK_IMPORTED_MODULE_0__]);
+var __webpack_async_dependencies_result__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+_core_js_tag_aliases_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_async_dependencies_result__[0];
+// sf-chart-metric 1.0.0: a dated alias of SIMAI Framework's sf-tile-metric
+// (decision C168; docs/DECISIONS.md D19). The metric tile moved to the
+// Framework as sf-tile-metric, which took over this element's settings by
+// name and has a chart slot for an sf-chart-sparkline; this element is now
+// its heir under the former tag, until 2027-01-01:
+//
+//   - the element is a subclass of the class that defines sf-tile-metric, so
+//     it draws the tile's markup (.sf-tile-metric, .sf-tile-metric-*) and its
+//     stylesheet; three former public variables (--sf-chart-metric-*) still
+//     feed the tile's (js/templates/default.css);
+//   - the former names keep working: the settings are the tile's own; the
+//     state setting data-state is mapped (loading is the tile's loading,
+//     empty draws no value); the tile's open event also goes out under its
+//     former name sf-chart-metric-open (aliases.json, installed by the Smart
+//     base);
+//   - the first <sf-chart-metric> a page connects is noted in SF.deprecations
+//     and named once on the console, as every dated tag alias is.
+//
+// The Framework's sf-tile-metric is the one source: this bundle carries none
+// of its code. The rule relates cl-tile-metric, so the Loader fetches the tile
+// with this element; the subclass is defined once the tile is. The same way
+// sf-message-log 2.0.0 became sf-list-feed's heir (ui-source 2874cb5d).
+
+
+
+const TAG = 'sf-chart-metric';
+const TO = 'sf-tile-metric';
+const ROW = Object.freeze({
+  from: TAG,
+  to: TO,
+  since: '2026-11-17',
+  remove_after: '2027-01-01'
+});
+
+function defineChartMetric(Tile) {
+  const registry = globalThis.customElements;
+  if (!Tile || !registry || registry.get(TAG)) return;
+
+  class SfChartMetric extends Tile {
+    static get aliases() {
+      return _aliases_json__WEBPACK_IMPORTED_MODULE_1__;
+    } // data-state is the one former setting the tile does not have.
+
+
+    static get observedAttributes() {
+      return [...new Set([...super.observedAttributes, 'data-state'])];
+    }
+
+    get dataState() {
+      const state = this.getAttribute('data-state');
+      return ['loading', 'ready', 'empty'].includes(state) ? state : 'auto';
+    }
+
+    set dataState(value) {
+      if (value === null || value === undefined || value === 'auto') this.removeAttribute('data-state');else this.setAttribute('data-state', String(value));
+    } // data-state loading is the tile's loading.
+
+
+    get loading() {
+      return Boolean(super.loading) || this.dataState === 'loading';
+    }
+
+    set loading(value) {
+      super.loading = value;
+    } // data-state empty draws the tile without its value («—»).
+
+
+    given(attribute) {
+      if (attribute === 'value' && this.dataState === 'empty') return null;
+      return super.given(attribute);
+    }
+
+    connectedCallback() {
+      (0,_core_js_tag_aliases_js__WEBPACK_IMPORTED_MODULE_0__.noteTagAlias)(ROW);
+      super.connectedCallback?.();
+    }
+
+  }
+
+  Object.defineProperty(SfChartMetric, 'sfTagAliasOf', {
+    value: TO
+  });
+  registry.define(TAG, SfChartMetric); // The row is given once the element is defined: given before the tile is,
+  // the Smart base would define a bare subclass under the former tag first.
+
+  (0,_core_js_tag_aliases_js__WEBPACK_IMPORTED_MODULE_0__.registerTagAliasRows)([ROW]);
+}
+
+const registry = globalThis.customElements;
+
+if (registry) {
+  const defined = registry.get(TO);
+  if (defined) defineChartMetric(defined);else {
+    registry.whenDefined(TO).then(defineChartMetric); // The rule relates cl-tile-metric; a page whose Loader has not fetched it
+    // yet (the element came before its rule) asks for it here.
+
+    globalThis.SF?.Loader?.ensure?.([TO], {
+      timeout: Infinity
+    });
+  }
 }
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } });
@@ -288,59 +517,24 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ },
 
-/***/ "dd0c3978091b"
+/***/ "5dcef5de40cf"
 (module) {
 
-module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/format", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/format", 1).then(resolve, reject), { once: true })));
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("alias-table", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("alias-table", 1).then(resolve, reject), { once: true })));
 
 /***/ },
 
-/***/ "5b7d7695b41b"
+/***/ "d3818183b14c"
 (module) {
 
-module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("element-manifest", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("element-manifest", 1).then(resolve, reject), { once: true })));
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("deprecations", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("deprecations", 1).then(resolve, reject), { once: true })));
 
 /***/ },
 
-/***/ "2a080a730149"
+/***/ "aee2eabbb5b8"
 (module) {
 
-module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("lit", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("lit", 1).then(resolve, reject), { once: true })));
-
-/***/ },
-
-/***/ "43090d1c8307"
-(module) {
-
-module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("page-language", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("page-language", 1).then(resolve, reject), { once: true })));
-
-/***/ },
-
-/***/ "deb1a4d61565"
-(module) {
-
-module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("smart-base", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("smart-base", 1).then(resolve, reject), { once: true })));
-
-/***/ },
-
-/***/ "5c308f665b3b"
-(module) {
-
-module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-metric","tag":"sf-chart-metric","version":"0.1.1","kind":"leaf","settings":{"label":{"type":"string","default":""},"value":{"type":"number","optional":true},"format":{"type":"string","default":"number"},"previous":{"type":"number","optional":true},"delta":{"type":"number","optional":true},"delta-format":{"type":"enum","values":["percent","absolute","both"],"default":"percent"},"period-text":{"type":"string","default":""},"better":{"type":"enum","values":["up","down","none"],"default":"up"},"max":{"type":"number","optional":true},"limit-text":{"type":"string","default":""},"status":{"type":"enum","values":["neutral","success","warning","error","info"],"default":"neutral"},"hint":{"type":"string","default":""},"href":{"type":"string","default":""},"openable":{"type":"boolean","default":false},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"data-state":{"type":"enum","values":["auto","loading","ready","empty"],"default":"auto"}},"events":{"open":{"carries":{}}},"presentation":{"skeleton":{"late":["value"]}},"css-variables":{"--sf-chart-metric-background-color":{"type":"color","state":"default"},"--sf-chart-metric-label-color":{"type":"color","state":"default"},"--sf-chart-metric-value-color":{"type":"color","state":"default"},"--sf-chart-metric-positive-color":{"type":"color","state":"default"},"--sf-chart-metric-negative-color":{"type":"color","state":"default"},"--sf-chart-metric-meter-color":{"type":"color","state":"default"},"--sf-chart-metric-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-metric-min-inline-size":{"type":"length","state":"default"}}}');
-
-/***/ },
-
-/***/ "9e379715fe5d"
-(module) {
-
-module.exports = /*#__PURE__*/JSON.parse('{"title":"Metric","runtime":{"untitled":"Metric","no-value":"—","loading":"Loading the value","change-up":"up","change-down":"down","change-flat":"no change","limit":"{value} of {max}","limit-name":"{label}: limit","status-success":"Fine:","status-warning":"Warning:","status-error":"Error:","status-info":"Note:"},"events":{"open":{"label":"Open the details"}}}');
-
-/***/ },
-
-/***/ "8883e224aaad"
-(module) {
-
-module.exports = /*#__PURE__*/JSON.parse('{"title":"Показатель","runtime":{"untitled":"Показатель","no-value":"—","loading":"Загрузка значения","change-up":"рост","change-down":"снижение","change-flat":"без изменений","limit":"{value} из {max}","limit-name":"{label}: предел","status-success":"В норме:","status-warning":"Внимание:","status-error":"Ошибка:","status-info":"Сведения:"},"events":{"open":{"label":"Открыть подробности"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$comment":"Dated aliases of sf-chart-metric for the shim (core/js/aliases.js, standard §16 item 20), installed on the element by the Smart base. Since 1.0.0 the element is sf-tile-metric\'s heir: the tile sends sf-tile-metric-open {id}, and the former name follows with the same, larger detail (0.1.x sent {}).","component":"sf-chart-metric","since":"2026-11-17","remove_after":"2027-01-01","aliases":[{"from":"sf-chart-metric-open","to":"sf-tile-metric-open","kind":"event","component":"sf-chart-metric","since":"2026-11-17","remove_after":"2027-01-01","mode":"detail-adds","section":"decision C168; docs/DECISIONS.md D19","note":"the element is sf-tile-metric\'s heir; the tile sends sf-tile-metric-open {id} and the former name follows with that detail"}]}');
 
 /***/ }
 
