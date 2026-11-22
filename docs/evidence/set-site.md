@@ -150,7 +150,10 @@ On 2026-11-06 the Framework dispatcher released the set (1.0.0, release
   problem; kept in history at `12090c8` and replaced by
   `docs/evidence/site-2026-11-14/`, the site over the release 1.1.0
   chart-58ba480db497 with one chart core per page: 47 pages, 5159
-  references, none broken; 34 shots, no problem) (retaken over the
+  references, none broken; 34 shots, no problem; kept in history at
+  `d271302` and replaced by `docs/evidence/site-2026-11-22/`, the site over
+  the release 1.2.0 chart-f5bff4e90a69 with the KPI as sf-tile-metric:
+  47 pages, 5860 references, none broken; 34 shots, no problem) (retaken over the
   release 1.0.1 with the cards on `surface-1`): 34 shots, no
   problem, three cold reloads clean. The icon squares of the advantages
   have an 8 px radius.

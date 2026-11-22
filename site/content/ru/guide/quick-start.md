@@ -30,10 +30,10 @@ profile: tutorial
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <title>Продажи</title>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261109.559/distr/core/css/core.min.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261116.1505/distr/core/css/core.min.css">
    </head>
    <body class="p-4">
-     <script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261109.559/distr/core/js/core.min.js" data-sf-sets="chart"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@simai-studio/ui@5.20261116.1505/distr/core/js/core.min.js" data-sf-sets="chart"></script>
    </body>
    </html>
    ```
