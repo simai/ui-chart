@@ -3,6 +3,25 @@
 The set `chart`, by its npm version `@simai-studio/chart`; component
 versions in brackets.
 
+## 1.3.0 — 2026-11-22
+
+- Series apart without hue (DSA-1, decision D20): in forced colours and
+  under a display-settings scheme on the root (`data-sf-scheme`) every
+  series past the first carries its own cue, and the legend and tooltip
+  swatches show the same cue. Lines: a dash per series and a mark shape per
+  series; bars and the histogram, slices and parts: a hatch per series;
+  box, scatter bubbles, radar rings and waterfall take their forced-colours
+  cues in a scheme too. A pie share takes the first ink that holds 4.5:1
+  against its own slice as drawn, in both themes and every scheme. The
+  shared core `chart-core` 0.5.0 (ABI 1, unchanged) holds the detection
+  and one page watcher (sf-chart-line 0.5.0, sf-chart-bar 0.6.0,
+  sf-chart-pie 0.4.0, sf-chart-parts 0.4.0, sf-chart-box,
+  sf-chart-scatter, sf-chart-radar, sf-chart-waterfall 0.2.0).
+- Over the same SIMAI Framework pair `ui-078a4b4c6f6e` (ui-source
+  `10145e63b9dc`, npm `@simai-studio/ui@5.20261116.1505`). Still needs
+  core.runtime 1.38.0 or newer. The pie's first-paint snapshots follow the
+  share inks; no other chart changed.
+
 ## 1.2.0 — 2026-11-17
 
 - `sf-chart-metric` is no longer a chart of its own: it is the dated alias
