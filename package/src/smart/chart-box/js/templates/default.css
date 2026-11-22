@@ -362,6 +362,13 @@
     white-space: nowrap;
   }
 
+  /* Cue mode (forced colours or a display-settings scheme, chart-core/cues,
+     docs/DECISIONS.md D20): hue is gone, so a series past the first has its
+     box's dash outside forced colours too. */
+  .sf-chart-box--cues .sf-chart-box-box {
+    stroke-dasharray: var(--sf-chart-box--dash, none);
+  }
+
   @media (forced-colors: active) {
     .sf-chart-box-series { --sf-chart-box--series: CanvasText; }
     .sf-chart-box-box { fill: Canvas; fill-opacity: 1; stroke-dasharray: var(--sf-chart-box--dash, none); }

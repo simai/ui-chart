@@ -22,6 +22,7 @@ import {seriesFacts} from '../chart-core/describe.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
+import {cuesOn, watchDisplay} from '../chart-core/cues.js';
 import {PALETTES} from '../chart-core/palettes.js';
 import {compareRings, labelPlace, radarRuns, spokePoint} from './js/radar.js';
 import {renderRadarTemplate} from './js/templates/default';
@@ -62,9 +63,15 @@ class SfRadar extends ChartRadarElement {
     this._cursor = null;
     this._said = '';
     this._view = 'chart';
+    // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+    this._display?.();
+    this._display = watchDisplay(() => { if (cuesOn() !== this._cues) this.requestComponentUpdate('display'); });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     clearTimeout(this._table?.timer);
@@ -372,6 +379,7 @@ class SfRadar extends ChartRadarElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.series ?? []),
+      cues: (this._cues = cuesOn()),
       rootClass: this.getRootClass(),
     });
   }

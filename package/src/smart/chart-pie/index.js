@@ -17,7 +17,8 @@ import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {arcMiddle, arcPath, pieSlices} from '../chart-core/arc.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
-import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
+import {checkContrast, coloursKey, inkLabels, readColours} from '../chart-core/colors.js';
+import {cuesOn, watchDisplay} from '../chart-core/cues.js';
 import {PALETTES} from '../chart-core/palettes.js';
 import {renderPieChartTemplate} from './js/templates/default';
 import manifest from './component.json';
@@ -55,9 +56,15 @@ class SfPieChart extends ChartPieElement {
     this._cursor = null;
     this._said = '';
     this._view = 'chart';
+    // A scheme, forced colours or the theme changed: draw the cues and
+    // choose the shares' inks again (chart-core/cues, D20).
+    this._display?.();
+    this._display = watchDisplay(() => this.requestComponentUpdate('display'));
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     clearTimeout(this._table?.timer);
@@ -73,6 +80,11 @@ class SfPieChart extends ChartPieElement {
       this._coloursChecked = checked;
       checkContrast(this, colours, 'sf-chart-pie');
     }
+    // Each share in the ink that reads on its own slice (4.5:1, D20).
+    const pairs = [...this.querySelectorAll('.sf-chart-pie-series')]
+      .map((group) => [group.querySelector('.sf-chart-pie-share'), group.querySelector('.sf-chart-pie-slice')])
+      .filter(([label, slice]) => label && slice);
+    this._inks = inkLabels(this, pairs);
     const plot = this.querySelector('.sf-chart-pie-plot');
     if (plot && plot !== this._observed && typeof ResizeObserver === 'function') {
       this._observer?.disconnect();
@@ -338,6 +350,7 @@ class SfPieChart extends ChartPieElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.parts ?? []),
+      cues: (this._cues = cuesOn()),
       rootClass: this.getRootClass(),
     });
   }

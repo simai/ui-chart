@@ -240,7 +240,7 @@ export function renderBoxTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return html`
-    <figure class=${['sf-chart-box', `sf-chart-box--size-${size}`, `sf-chart-box--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-box', `sf-chart-box--size-${size}`, `sf-chart-box--${state}`, context.cues ? 'sf-chart-box--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-box-head">
         <span class="sf-chart-box-label" id=${`${uid}-label`}>${context.label}</span>

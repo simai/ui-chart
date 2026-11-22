@@ -794,6 +794,7 @@ ui-chart.test: «сделай все по стандарту, а потом мы
 | D16 | The map: `sf-chart-map`, the boundaries given by the page as GeoJSON with no map in the package, values joined by key, mercator, albers, equirectangular or plane projection, the heatmap's stepped scale with a legend, the keyboard in reading order | 2026-11-05 | the owner's «Да, карта» and «Границы даёт сайт» in the chat (owner question `q-f136944dd5`); the rest decided by the recommendation under the owner's delegation; the name reserved by the dispatcher (ui-control `906d127`, bus `msg-02933d743db64e92b1e1`) |
 | D17 | The set `chart` laid out by `simai.component-set` 1.0.0 and its site on the agreed scheme, local | 2026-11-05 | the owner in the chat: «подготовить сайт на локалке ui-chart.test … сделай все по стандарту» |
 | D19 | `sf-chart-metric` retired into SIMAI Framework's `sf-tile-metric`: the set ships the dated alias element until 2027-01-01 (tag, events, data-state, three variables); the KPI on the site is `sf-tile-metric` with `sf-chart-sparkline` | 2026-11-17 | decision C168 (owner, 2026-11-14) and the SIMAI Framework dispatcher's task K-10 |
+| D20 | Cue mode under forced colours and display-settings schemes (one detection in chart-core; dashes and mark shapes for lines, hatches for fills, the same cue on the swatch), and a slice's share inked against its own slice at 4.5:1 | 2026-11-22 | the SIMAI Framework thread's request DSA-1 (ui-control `769fc883`); decided by the recommendation under the owner's delegation |
 
 The owner may overturn any of these. The decision is then recorded here
 with its new date.
@@ -875,3 +876,81 @@ tile into it. Decided by C168 and the dispatcher's task:
 - **No new feature** lands in `chart-metric`. After 2027-01-01 the folder
   leaves the set (a major of the set), and the name leaves the registry's
   list of `chart`.
+
+## D20. Series without hue: forced colours and display-settings schemes
+
+> **Кратко.** Когда цвета нет (принудительные цвета системы или цветовая
+> схема «версии для слабовидящих» Фреймворка), графики различают ряды формой:
+> у линий свой пунктир и свой значок, у столбцов, долей круга и частей своя
+> штриховка, и легенда показывает то же. Подпись на доле круга берёт цвет,
+> который читается на её собственной заливке (не ниже 4,5:1).
+
+The SIMAI Framework thread's acceptance of `sf-display-settings`
+(ui-source `feat/display-settings-ds` 08f6ed93f; ui-control
+`control/evidence/2026-11-22-ds-roles-acceptance/README.md` at `769fc883`,
+return DSA-1) found that under any of its colour schemes the series of the
+line, bar and pie charts collapse to one colour with no other cue, and that
+a pie share was 1:1 on its slice (3.14-4.43:1 on a lighter one). Decided by
+the recommendation under the owner's delegation, at that thread's request:
+
+- **What a scheme is.** `sf-display-settings` writes `data-sf-scheme` on the
+  root (`black-on-white`, `white-on-black`, `yellow-on-black`, `blue-on-sky`,
+  `brown-on-cream`); core's sheet `_sf_css__display.scss` then maps the eight
+  theme families to the scheme's two tones. It is the Framework's own mode,
+  not `forced-colors: active`: the page keeps its tokens, and the graphic
+  tones the `theme` palette reads become the one text tone. The named
+  palettes (D7) read `--sf-chart-1..8` and keep their hues.
+- **One detection** (`chart-core/cues.js`, shared by every chart):
+  cue mode is `forced-colors: active` or a scheme on the root. A scheme is
+  one of `SF.displaySettings.schemes` when the runtime has them; an older
+  runtime has no scheme sheet, so any value counts there (the cues cost
+  nothing where hue still works). One page watcher (a mutation observer on
+  the root's `data-sf-scheme`, `class` and `style` and the body's, and the
+  forced-colours and colour-scheme media) tells every chart; a chart draws
+  again only when its cue mode changes, the pie also on a theme change. No
+  Framework hook is missing: the root attribute and `SF.displaySettings`
+  are enough.
+- **The cues.** In cue mode the chart's root carries `sf-chart-<x>--cues`:
+  - line: every series past the first dashed (the seven dashes it had in
+    forced colours), every series a mark of its own shape (circle, square,
+    triangle, diamond, a triangle down: the scatter's and radar's, D9),
+    about a dozen spread along a long line, staggered per series;
+  - bar and its histogram, pie, parts: the first series solid, every other
+    one of seven hatches (lines at 45° each way, across, down, dots, a
+    cross, a grid) in the ground's colour over its own, an SVG pattern
+    inside the series' group (so it reads the group's colour and a page's
+    own colours) or, for HTML parts and swatches, the same hatch as a CSS
+    background. In forced colours the hatches replace the bar's dashed
+    outlines; the pie's and parts' lighter second round of tones is dropped
+    in cue mode, since the hatch tells those apart;
+  - box, scatter bubbles, radar rings: the dashes they had in forced colours
+    only are drawn in a scheme too; waterfall: a rise hollow and a total
+    dashed, as in forced colours;
+  - the legend's (and the tooltip's) swatch shows the series' cue: a short
+    line in its dash with its mark, or its hatch.
+  Own implementation on browser APIs and Framework tokens; no library code.
+- **A share's ink on its slice.** After each render a share takes the first
+  of the theme's inks (`--sf-on-surface`, `--sf-surface-0`), then black or
+  white, that holds 4.5:1 against its slice as drawn: the slice's colour
+  (or a hatch's tile) at its opacity over the ground under the chart. One of
+  black and white always reaches 4.5:1 on an opaque colour, so the rule
+  never fails. In cue mode a share keeps a ring of its slice's colour, so a
+  hatch's lines never cross its letters. Under forced colours the system's
+  colours stand. Measured in `docs/evidence/dsa1.md`.
+- **Checked under a scheme, no change needed:** the candlestick (rises
+  hollow, falls filled), the funnel and the sparkline (one series), the
+  gauge (the band's name is written), the treemap and the sunburst (each
+  group keeps its `--sf-chart-N` line hue; names in the page's ink on light
+  washes), the Sankey diagram and the timeline (nodes and statuses on
+  `--sf-chart-N`), the heatmap and the map (the value is written in the
+  cell, and the scale is a tone ladder; see the open point below).
+- **Open point for the Framework.** A scheme maps every tone of a family to
+  its text or its ground, so the stepped scale of the heatmap and the map
+  (family tone ladders, D8) keeps two steps. The values stay written and in
+  the table; a scale under a scheme is a question for the Framework's
+  scheme sheet, recorded in the evidence note.
+- **Versions** (minor, the release after 1.2.0): chart-core 0.5.0 (exports
+  added, ABI 1), line 0.5.0, bar 0.6.0, pie 0.4.0, parts 0.4.0, box 0.2.0,
+  scatter 0.2.0, radar 0.2.0, waterfall 0.2.0. The browser probe
+  `tests/browser/chart-cues.browser.mjs` holds the series apart under forced
+  colours and a scheme.

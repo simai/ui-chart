@@ -19,6 +19,7 @@ import {formatNumber, formatTime, timeUnitOf} from '../chart-core/format.js';
 import {moveCursor} from '../chart-core/cursor.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
+import {cuesOn, watchDisplay} from '../chart-core/cues.js';
 import {PALETTES} from '../chart-core/palettes.js';
 import {renderPartsBarTemplate} from './js/templates/default';
 import manifest from './component.json';
@@ -46,9 +47,15 @@ class SfPartsBar extends ChartPartsElement {
     this._cursor = null;
     this._said = '';
     this._view = 'chart';
+    // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+    this._display?.();
+    this._display = watchDisplay(() => { if (cuesOn() !== this._cues) this.requestComponentUpdate('display'); });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     clearTimeout(this._table?.timer);
     super.onDisconnected();
   }
@@ -294,6 +301,7 @@ class SfPartsBar extends ChartPartsElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.parts ?? []),
+      cues: (this._cues = cuesOn()),
       rootClass: this.getRootClass(),
     });
   }

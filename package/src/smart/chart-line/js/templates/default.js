@@ -1,5 +1,6 @@
 import {html, nothing} from 'lit';
 import {keptView} from '../../../chart-core/settle.js';
+import {cueIndexes, markMarkup} from '../../../chart-core/cues.js';
 import './default.css';
 
 // The figure of a line chart: the label and the table button, the legend,
@@ -12,6 +13,13 @@ import './default.css';
 // (--c1..--c4) and a dash (--d1..--d7), so a series stays itself in forced
 // colours and in print. A page's own colour (the colors setting, by the
 // series' key) is --custom with its value in a style: the dash stays.
+//
+// In cue mode (forced colours or a display-settings scheme, chart-core/cues,
+// docs/DECISIONS.md D20) hue cannot tell the series apart: every series
+// past the first is dashed, every series carries marks of its own shape
+// (circle, square, triangle, diamond, a triangle down; about a dozen spread
+// along a long line), and the legend's and the tooltip's swatch is a short
+// line in the series' dash with its mark.
 
 const colourOf = (place, paint) => `sf-chart-line-series--${paint ? 'custom' : `c${(place % 4) + 1}`}${place > 0 ? ` sf-chart-line-series--d${Math.min(place, 7)}` : ''}`;
 const paintOf = (paint) => (paint ? `--sf-chart-line--custom: ${paint}` : '');
@@ -61,14 +69,31 @@ function cursorMarkup(g, cursor, paint) {
   return out;
 }
 
-function linesMarkup(g, cursor, paint) {
+const MARK = 3.5;
+
+// A series' marks in cue mode: on every point when the chart shows points,
+// else on about a dozen spread along the line.
+function cueMarks(g, line, shown) {
+  const points = line.dots.length ? line.dots : line.ys.map((at, index) => (at === null ? null : [g.px[index], at, index])).filter(Boolean);
+  const keep = line.dots.length ? points.map((_, index) => index) : cueIndexes(points, line.place, 12, shown);
+  return keep.map((index) => markMarkup(line.place, points[index][0], points[index][1], MARK, ' class="sf-chart-line-dot sf-chart-line-dot--cue"')).join('');
+}
+
+// The swatch of cue mode: a short line in the series' dash with its mark.
+const cueSwatch = (place) => `<line class="sf-chart-line-cue-line" x1="1" x2="23" y1="6" y2="6"/>${markMarkup(place, 12, 6, MARK, ' class="sf-chart-line-dot sf-chart-line-dot--cue"')}`;
+const swatch = (context, place) => (context.cues
+  ? html`<svg class="sf-chart-line-cue" aria-hidden="true" width="24" height="12" viewBox="0 0 24 12" .innerHTML=${cueSwatch(place)}></svg>`
+  : html`<span class="sf-chart-line-swatch" aria-hidden="true"></span>`);
+
+function linesMarkup(g, cursor, paint, cues = false) {
   let out = '<g class="sf-chart-line-marks" aria-hidden="true">';
   for (const line of g.lines) {
     const dim = cursor && cursor.series !== line.key ? ' sf-chart-line-series--dim' : '';
     out += `<g class="sf-chart-line-series ${colourOf(line.place, paint.get(line.key))}${dim}"${paintAttr(paint.get(line.key))} data-series="${esc(line.key)}">`;
     if (line.area) out += `<path class="sf-chart-line-area${g.stacked ? ' sf-chart-line-area--layer' : ''}" d="${line.area}"/>`;
     out += `<path class="sf-chart-line-line" d="${line.d}"/>`;
-    for (const [x, y] of line.dots) out += `<circle class="sf-chart-line-dot" cx="${px(x)}" cy="${px(y)}" r="2.5"/>`;
+    if (cues) out += cueMarks(g, line, g.lines.length);
+    else for (const [x, y] of line.dots) out += `<circle class="sf-chart-line-dot" cx="${px(x)}" cy="${px(y)}" r="2.5"/>`;
     out += '</g>';
   }
   if (cursor) out += cursorMarkup(g, cursor, paint);
@@ -87,7 +112,7 @@ function renderTooltip(context, g, cursor) {
       ${g.lines.map((line) => html`
         <div class=${['sf-chart-line-tooltip-row', colourOf(line.place, context.paint.get(line.key)), line.key === cursor.series ? 'sf-chart-line-tooltip-row--current' : ''].filter(Boolean).join(' ')}
              style=${paintOf(context.paint.get(line.key)) || nothing}>
-          <span class="sf-chart-line-swatch"></span>
+          ${swatch(context, line.place)}
           <span class="sf-chart-line-tooltip-name">${line.name}</span>
           <span class="sf-chart-line-tooltip-value">${component.sayValue(line, cursor.index)}</span>
         </div>
@@ -106,7 +131,7 @@ function renderLegend(context, place) {
         <button type="button" class=${`sf-chart-line-legend-item ${colourOf(index, context.paint.get(one.key))}`}
                 style=${paintOf(context.paint.get(one.key)) || nothing} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
                 data-series=${one.key} @click=${() => component.toggleSeries(one.key)}>
-          <span class="sf-chart-line-swatch" aria-hidden="true"></span>
+          ${swatch(context, index)}
           <span class="sf-chart-line-legend-name">${one.name}</span>
         </button>
       `)}
@@ -176,7 +201,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${axesMarkup({...g, grid: context.grid, xLabel: context.xLabel, yLabel: context.yLabel}) + linesMarkup(g, cursor, context.paint)}>
+         .innerHTML=${axesMarkup({...g, grid: context.grid, xLabel: context.xLabel, yLabel: context.yLabel}) + linesMarkup(g, cursor, context.paint, context.cues)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;
@@ -187,7 +212,7 @@ export function renderLineChartTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return html`
-    <figure class=${['sf-chart-line', `sf-chart-line--size-${size}`, `sf-chart-line--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-line', `sf-chart-line--size-${size}`, `sf-chart-line--${state}`, context.cues ? 'sf-chart-line--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-line-head">
         <span class="sf-chart-line-label" id=${`${uid}-label`}>${context.label}</span>
