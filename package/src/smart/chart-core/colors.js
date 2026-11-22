@@ -120,3 +120,112 @@ export function checkContrast(host, colours, tag) {
     probe.remove();
   }
 }
+
+// --- A label's ink on its fill ------------------------------------------------
+//
+// A label written on a mark (a slice's share) is read against that mark,
+// not the page: its ink is chosen against the fill as it is drawn, the
+// fill's colour laid over the ground at its opacity, so it holds 4.5:1 in
+// the light and dark themes, under a display-settings scheme and on a
+// page's own colours (docs/DECISIONS.md D20). The theme's own inks come
+// first; pure black or white, one of which reaches 4.5:1 on any opaque
+// colour, only when neither does.
+
+export const LABEL_INKS = ['var(--sf-on-surface)', 'var(--sf-surface-0)', 'var(--sf-black, #000)', 'var(--sf-white, #fff)'];
+
+/** `top` at `alpha` over the opaque `under`, as sRGB 0..255. */
+export function composite(top, alpha, under) {
+  const a = Math.max(0, Math.min(1, Number.isFinite(alpha) ? alpha : 1));
+  return top.map((channel, index) => Math.round(channel * a + under[index] * (1 - a)));
+}
+
+/**
+ * The place in `inks` (sRGB colours, in the order of preference) of the
+ * first ink that holds `need` against `ground`, else of the one that comes
+ * closest; -1 when there is none.
+ */
+export function pickInk(ground, inks, need = 4.5) {
+  let best = -1;
+  let most = -1;
+  for (const [index, ink] of inks.entries()) {
+    if (!ink) continue;
+    const ratio = contrast(ink, ground);
+    if (ratio >= need) return index;
+    if (ratio > most) {
+      most = ratio;
+      best = index;
+    }
+  }
+  return best;
+}
+
+// A colour the browser resolved, as sRGB 0..255 and its alpha 0..1, or null.
+function rgbaOf(colour) {
+  if (typeof document === 'undefined' || !colour || colour === 'none' || colour === 'transparent') return null;
+  pad = pad || document.createElement('canvas').getContext('2d', {willReadFrequently: true});
+  if (!pad) return null;
+  pad.clearRect(0, 0, 1, 1);
+  pad.fillStyle = 'rgba(0, 0, 0, 0)';
+  pad.fillStyle = colour;
+  pad.fillRect(0, 0, 1, 1);
+  const [r, g, b, a] = pad.getImageData(0, 0, 1, 1).data;
+  if (a === 0) return null;
+  return {rgb: a === 255 ? [r, g, b] : [r, g, b].map((one) => Math.min(255, Math.round((one * 255) / a))), alpha: a / 255};
+}
+
+// A mark's own colour: its computed fill, or, for a hatch, the pattern's
+// tile under the lines.
+function fillOf(mark) {
+  const style = getComputedStyle(mark);
+  let fill = style.fill;
+  const url = /url\(\s*["']?#([^"')]+)["']?\s*\)/u.exec(fill || '');
+  if (url) {
+    const tile = mark.ownerDocument.getElementById(url[1])?.querySelector('rect');
+    fill = tile ? getComputedStyle(tile).fill : '';
+  }
+  const colour = rgbaOf(fill);
+  if (!colour) return null;
+  const opacity = Number.parseFloat(style.fillOpacity);
+  return {rgb: colour.rgb, alpha: colour.alpha * (Number.isFinite(opacity) ? opacity : 1)};
+}
+
+/**
+ * Gives each label its ink against its mark: `pairs` is a list of
+ * [label element, mark element]. The ink is written in the label's style
+ * (fill for SVG text, color for HTML); under forced colours the system's
+ * colours stand and an ink written before is taken back. Returns the
+ * ratios reached, for a probe.
+ */
+export function inkLabels(host, pairs, {inks = LABEL_INKS, need = 4.5} = {}) {
+  if (!pairs.length || typeof getComputedStyle !== 'function') return [];
+  const forced = typeof matchMedia === 'function' && matchMedia('(forced-colors: active)').matches;
+  const property = (label) => (label.namespaceURI === 'http://www.w3.org/2000/svg' ? 'fill' : 'color');
+  if (forced) {
+    for (const [label] of pairs) label.style.removeProperty(property(label));
+    return [];
+  }
+  const probe = document.createElement('span');
+  probe.hidden = true;
+  host.append(probe);
+  let resolved;
+  try {
+    resolved = inks.map((ink) => {
+      probe.style.color = ink;
+      return rgbOf(getComputedStyle(probe).color);
+    });
+  } finally {
+    probe.remove();
+  }
+  const ground = groundOf(host);
+  const ratios = [];
+  for (const [label, mark] of pairs) {
+    const fill = mark && fillOf(mark);
+    if (!fill) continue;
+    const under = composite(fill.rgb, fill.alpha, ground);
+    const chosen = pickInk(under, resolved, need);
+    if (chosen < 0) continue;
+    label.style.setProperty(property(label), inks[chosen]);
+    ratios.push(Math.round(contrast(resolved[chosen], under) * 100) / 100);
+  }
+  return ratios;
+}

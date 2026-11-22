@@ -17,6 +17,8 @@
     --sf-chart-parts--gap: var(--sf-chart-parts-gap-width, var(--sf-a2));
     --sf-chart-parts--font: var(--sf-text-small--size);
     --sf-chart-parts--line: var(--sf-text-small--height);
+    /* A hatch's lines in cue mode: the ground's colour over the part's. */
+    --sf-chart-parts--hatch: var(--sf-surface-0);
     display: flex;
     flex-direction: column;
     gap: var(--sf-space-1\/3);
@@ -343,7 +345,25 @@
     white-space: nowrap;
   }
 
+  /* Cue mode (forced colours or a display-settings scheme, chart-core/cues,
+     docs/DECISIONS.md D20): hue is gone, so a part past the first has a
+     hatch of its own and its swatch the same; the lighter second round of
+     tones is dropped, the hatch tells those parts apart. */
+  .sf-chart-parts--cues .sf-chart-parts-series--t2.sf-chart-parts-part,
+  .sf-chart-parts--cues .sf-chart-parts-series--t2 .sf-chart-parts-swatch {
+    opacity: 1;
+  }
+
+  .sf-chart-parts--cues .sf-chart-parts-swatch {
+    inline-size: var(--sf-a12, calc(var(--sf-a8) * 1.5));
+    block-size: var(--sf-a12, calc(var(--sf-a8) * 1.5));
+  }
+
   @media (forced-colors: active) {
+    .sf-chart-parts { --sf-chart-parts--hatch: Canvas; }
+    .sf-chart-parts-series--c1, .sf-chart-parts-series--c2, .sf-chart-parts-series--c3, .sf-chart-parts-series--c4,
+    .sf-chart-parts-series--custom { --sf-chart-parts--series: CanvasText; }
+    .sf-chart-parts--cues .sf-chart-parts-part--current { box-shadow: inset 0 0 0 var(--sf-a1) Highlight; }
     .sf-chart-parts-track { background: Canvas; outline: var(--sf-px) solid CanvasText; forced-color-adjust: none; }
     .sf-chart-parts-part { background: CanvasText; opacity: 1; }
     .sf-chart-parts-series--free.sf-chart-parts-part { background: Canvas; }

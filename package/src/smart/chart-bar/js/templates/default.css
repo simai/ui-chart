@@ -19,6 +19,8 @@
     --sf-chart-bar--ink: var(--sf-chart-bar-label-color, var(--sf-on-surface-variant));
     --sf-chart-bar--radius: var(--sf-chart-bar-bar-radius, var(--sf-a1));
     --sf-chart-bar--font: var(--sf-text-small--size);
+    /* A hatch's lines in cue mode: the ground's colour over the series'. */
+    --sf-chart-bar--hatch: var(--sf-surface-0);
     display: flex;
     flex-direction: column;
     gap: var(--sf-space-1\/3);
@@ -365,13 +367,33 @@
     white-space: nowrap;
   }
 
+  /* Cue mode (forced colours or a display-settings scheme, chart-core/cues,
+     docs/DECISIONS.md D20): hue is gone, so the bars of a series past the
+     first have a hatch of their own (a pattern in the series' group) and
+     its swatch, square here so the hatch shows, the same; a series in lines
+     takes its dash. */
+  .sf-chart-bar--cues .sf-chart-bar-swatch {
+    inline-size: var(--sf-a12, calc(var(--sf-a8) * 1.5));
+    block-size: var(--sf-a12, calc(var(--sf-a8) * 1.5));
+  }
+
+  .sf-chart-bar--cues .sf-chart-bar-series--line .sf-chart-bar-swatch {
+    block-size: var(--sf-a6);
+  }
+
+  .sf-chart-bar--cues .sf-chart-bar-line {
+    stroke-dasharray: var(--sf-chart-bar--dash, none);
+  }
+
   @media (forced-colors: active) {
+    .sf-chart-bar { --sf-chart-bar--hatch: Canvas; }
     .sf-chart-bar-series { --sf-chart-bar--series: CanvasText; }
     .sf-chart-bar-bar { fill: Canvas; stroke: CanvasText; stroke-dasharray: var(--sf-chart-bar--dash, none); }
     .sf-chart-bar-series--solid .sf-chart-bar-bar { fill: CanvasText; }
+    .sf-chart-bar--cues .sf-chart-bar-bar { fill: CanvasText; stroke: Canvas; stroke-dasharray: none; }
     .sf-chart-bar-legend-item[aria-pressed='false'] { color: GrayText; }
     .sf-chart-bar-legend-item[aria-pressed='false'] .sf-chart-bar-swatch { background: GrayText; }
-    .sf-chart-bar-swatch { background: CanvasText; forced-color-adjust: none; }
+    .sf-chart-bar-swatch { --sf-chart-bar--series: CanvasText; background: CanvasText; forced-color-adjust: none; }
     .sf-chart-bar-line { stroke: CanvasText; stroke-dasharray: var(--sf-chart-bar--dash, none); }
     .sf-chart-bar-dot { fill: CanvasText; stroke: Canvas; }
     .sf-chart-bar-series--line .sf-chart-bar-swatch { background: CanvasText; block-size: var(--sf-a2); }

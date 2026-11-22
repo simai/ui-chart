@@ -1,5 +1,6 @@
 import {html, nothing} from 'lit';
 import {keptView} from '../../../chart-core/settle.js';
+import {hatchBackground, hatchOf, hatchPattern} from '../../../chart-core/cues.js';
 import './default.css';
 
 // The figure of a bar chart: the label and the table button, the legend,
@@ -14,6 +15,12 @@ import './default.css';
 // bars' axis or on its own scale with its ticks on the far side. A page's
 // own colour (the colors setting, by the series' key) is --custom with its
 // value in a style: the dash stays.
+//
+// In cue mode (forced colours or a display-settings scheme, chart-core/cues,
+// docs/DECISIONS.md D20) hue cannot tell the series apart: the bars of a
+// series past the first have a hatch of their own, a pattern in the
+// series' group that reads the group's colour, and its legend swatch the
+// same hatch; a series in lines takes its dash.
 
 const paintOf = (paint) => (paint ? `--sf-chart-bar--custom: ${paint}` : '');
 const paintAttr = (paint) => (paint ? ` style="${esc(paintOf(paint))}"` : '');
@@ -61,7 +68,16 @@ function axesMarkup(g) {
   return `${out}</g>`;
 }
 
-function barsMarkup(g, cursor, paint) {
+const SERIES = 'var(--sf-chart-bar--series)';
+const HATCH = 'var(--sf-chart-bar--hatch)';
+const hatchId = (uid, place) => `${uid}-hatch-${place}`;
+// A series' swatch in cue mode: its bars' hatch (a series in lines keeps its own).
+const swatchAttr = (context, place, line, hidden = false) => {
+  const value = context.cues && !line && !hidden ? hatchBackground(hatchOf(place), SERIES, HATCH) : '';
+  return value ? `background: ${value}` : nothing;
+};
+
+function barsMarkup(g, cursor, paint, cues = false, uid = '') {
   let out = '<g class="sf-chart-bar-marks" aria-hidden="true">';
   if (cursor) {
     const band = g.bands[cursor.index];
@@ -71,8 +87,11 @@ function barsMarkup(g, cursor, paint) {
   }
   for (const group of g.groups) {
     const dim = cursor && cursor.series !== group.key ? ' sf-chart-bar-series--dim' : '';
+    const kind = cues ? hatchOf(group.place) : 0;
+    const fill = kind ? ` style="fill: url(#${hatchId(uid, group.place)})"` : '';
     out += `<g class="sf-chart-bar-series ${colourOf(group.place, paint.get(group.key))}${dim}"${paintAttr(paint.get(group.key))} data-series="${esc(group.key)}">`;
-    for (const bar of group.bars) out += `<rect class="sf-chart-bar-bar" x="${px(bar.x)}" y="${px(bar.y)}" width="${px(bar.width)}" height="${px(bar.height)}"/>`;
+    if (kind) out += hatchPattern(hatchId(uid, group.place), kind, SERIES, HATCH);
+    for (const bar of group.bars) out += `<rect class="sf-chart-bar-bar"${fill} x="${px(bar.x)}" y="${px(bar.y)}" width="${px(bar.width)}" height="${px(bar.height)}"/>`;
     out += '</g>';
   }
   for (const label of g.valueLabels) {
@@ -113,7 +132,7 @@ function renderTooltip(context, g, cursor) {
       ${[...g.groups, ...g.lines].sort((a, b) => a.place - b.place).map((group) => html`
         <div class=${['sf-chart-bar-tooltip-row', colourOf(group.place, context.paint.get(group.key)), group.line ? 'sf-chart-bar-series--line' : '', group.key === cursor.series ? 'sf-chart-bar-tooltip-row--current' : ''].filter(Boolean).join(' ')}
              style=${paintOf(context.paint.get(group.key)) || nothing}>
-          <span class="sf-chart-bar-swatch"></span>
+          <span class="sf-chart-bar-swatch" style=${swatchAttr(context, group.place, group.line)}></span>
           <span class="sf-chart-bar-tooltip-name">${group.name}</span>
           <span class="sf-chart-bar-tooltip-value">${component.sayValue(group, cursor.index)}</span>
         </div>
@@ -132,7 +151,8 @@ function renderLegend(context, place) {
         <button type="button" class=${`sf-chart-bar-legend-item ${colourOf(index, context.paint.get(one.key))}${context.lineKeys.has(one.key) ? ' sf-chart-bar-series--line' : ''}`}
                 style=${paintOf(context.paint.get(one.key)) || nothing} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
                 data-series=${one.key} @click=${() => component.toggleSeries(one.key)}>
-          <span class="sf-chart-bar-swatch" aria-hidden="true"></span>
+          <span class="sf-chart-bar-swatch" aria-hidden="true"
+                style=${swatchAttr(context, index, context.lineKeys.has(one.key), hidden.has(one.key))}></span>
           <span class="sf-chart-bar-legend-name">${one.name}</span>
         </button>
       `)}
@@ -202,7 +222,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${axesMarkup({...g, grid: context.grid}) + barsMarkup(g, cursor, context.paint)}>
+         .innerHTML=${axesMarkup({...g, grid: context.grid}) + barsMarkup(g, cursor, context.paint, context.cues, uid)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;
@@ -212,7 +232,7 @@ export function renderBarChartTemplate(context) {
   const {component, uid, state} = context;
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
-  const classes = ['sf-chart-bar', `sf-chart-bar--size-${size}`, `sf-chart-bar--${state}`, `sf-chart-bar--${context.orientation}`, `sf-chart-bar--stack-${context.stack}`, context.rootClass];
+  const classes = ['sf-chart-bar', `sf-chart-bar--size-${size}`, `sf-chart-bar--${state}`, `sf-chart-bar--${context.orientation}`, `sf-chart-bar--stack-${context.stack}`, context.cues ? 'sf-chart-bar--cues' : '', context.rootClass];
   return html`
     <figure class=${classes.filter(Boolean).join(' ')} aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-bar-head">

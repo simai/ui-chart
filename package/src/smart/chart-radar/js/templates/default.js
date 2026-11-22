@@ -212,7 +212,7 @@ export function renderRadarTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return html`
-    <figure class=${['sf-chart-radar', `sf-chart-radar--size-${size}`, `sf-chart-radar--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-radar', `sf-chart-radar--size-${size}`, `sf-chart-radar--${state}`, context.cues ? 'sf-chart-radar--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-radar-head">
         <span class="sf-chart-radar-label" id=${`${uid}-label`}>${context.label}</span>

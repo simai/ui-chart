@@ -19,6 +19,7 @@ import {linearScale, niceTicks, tickCount} from '../chart-core/scale.js';
 import {formatNumber} from '../chart-core/format.js';
 import {settled} from '../chart-core/settle.js';
 import {checkContrast, coloursKey, readColours} from '../chart-core/colors.js';
+import {cuesOn, watchDisplay} from '../chart-core/cues.js';
 import {PALETTES} from '../chart-core/palettes.js';
 import {bubbleRadius, linearFit, measureExtent, moveScatter, nearestPoint, readingOrder, scatterPoints, strengthOf} from './js/scatter.js';
 import {paintMarks, renderScatterTemplate} from './js/templates/default';
@@ -62,9 +63,15 @@ class SfScatter extends ChartScatterElement {
     this._cursor = null;
     this._said = '';
     this._view = 'chart';
+    // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+    this._display?.();
+    this._display = watchDisplay(() => { if (cuesOn() !== this._cues) this.requestComponentUpdate('display'); });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     this._theme?.disconnect();
@@ -428,6 +435,7 @@ class SfScatter extends ChartScatterElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.series ?? []),
+      cues: (this._cues = cuesOn()),
       rootClass: this.getRootClass(),
     });
   }

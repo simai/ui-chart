@@ -359,8 +359,39 @@
     white-space: nowrap;
   }
 
+  /* Cue mode (forced colours or a display-settings scheme, chart-core/cues,
+     docs/DECISIONS.md D20): hue is gone, so every series past the first is
+     dashed and every series carries marks of its own shape; the legend's
+     swatch is a short line in that dash with that mark. */
+  .sf-chart-line--cues .sf-chart-line-line {
+    stroke-dasharray: var(--sf-chart-line--dash, none);
+  }
+
+  .sf-chart-line-dot--cue {
+    stroke-width: 1.5;
+  }
+
+  .sf-chart-line-cue {
+    display: inline-block;
+    flex: none;
+    overflow: visible;
+  }
+
+  .sf-chart-line-cue-line {
+    stroke: var(--sf-chart-line--series);
+    stroke-width: var(--sf-chart-line--line);
+    stroke-dasharray: var(--sf-chart-line--dash, none);
+  }
+
+  .sf-chart-line-legend-item[aria-pressed='false'] .sf-chart-line-cue {
+    --sf-chart-line--series: var(--sf-chart-line-hidden-color, var(--sf-outline-variant));
+  }
+
   @media (forced-colors: active) {
     .sf-chart-line-series { --sf-chart-line--series: CanvasText; }
+    .sf-chart-line-cue { --sf-chart-line--series: CanvasText; forced-color-adjust: none; }
+    .sf-chart-line-cue .sf-chart-line-dot { stroke: Canvas; }
+    .sf-chart-line-legend-item[aria-pressed='false'] .sf-chart-line-cue { --sf-chart-line--series: GrayText; }
     .sf-chart-line-line { stroke-dasharray: var(--sf-chart-line--dash, none); }
     .sf-chart-line-area--layer { fill: none; }
     .sf-chart-line-legend-item[aria-pressed='false'] { color: GrayText; }

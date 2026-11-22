@@ -3,15 +3,16 @@
   "schema_version": 1,
   "id": "module.chart-core",
   "kind": "module",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "owner": "simai/ui-chart",
-  "summary": "The SIMAI Chart core: data, scales, formats, paths, decimation, the words and the keyboard cursor every chart shares.",
+  "summary": "The SIMAI Chart core: data, scales, formats, paths, decimation, the words, the keyboard cursor, and the cues and label inks for forced colours and display-settings schemes every chart shares.",
   "includes": [
     "src/smart/chart-core/"
   ],
   "files": [
     "src/smart/chart-core/arc.js",
     "src/smart/chart-core/colors.js",
+    "src/smart/chart-core/cues.js",
     "src/smart/chart-core/cursor.js",
     "src/smart/chart-core/data.js",
     "src/smart/chart-core/decimate.js",
@@ -25,7 +26,7 @@
     "src/smart/chart-core/stack.js",
     "src/smart/chart-core/timeline.js"
   ],
-  "content_sha256": "2e6f80f19dc54387d310fd784102a8b3e9f348b0b85bec7cfb953529a7725d7b",
+  "content_sha256": "0fff5c4b9dcb6f72c88229d280b00ab1e0ca27949d56792c151afc5ec368ad79",
   "dependencies": [
     {
       "id": "core.runtime",

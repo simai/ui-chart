@@ -15,7 +15,8 @@ import {keptView, settled} from '../src/smart/chart-core/settle.js';
 import {execFileSync} from 'node:child_process';
 import {existsSync} from 'node:fs';
 import {PALETTES} from '../src/smart/chart-core/palettes.js';
-import {colourValue, contrast, coloursKey, readColours} from '../src/smart/chart-core/colors.js';
+import {colourValue, composite, contrast, coloursKey, pickInk, readColours} from '../src/smart/chart-core/colors.js';
+import {cueIndexes, hatchBackground, hatchOf, hatchPattern, markMarkup, schemeOn} from '../src/smart/chart-core/cues.js';
 import {heatColours, heatSteps, stepCount, stepOf} from '../src/smart/chart-core/heat.js';
 import {funnelStages} from '../src/smart/chart-funnel/js/funnel.js';
 import {bandOf, gaugeAngle, gaugeBands, gaugeShare} from '../src/smart/chart-gauge/js/gauge.js';
@@ -739,4 +740,81 @@ test('map layout projects, fits the shape into the box with its proportions, kee
   const across = geoRegions([box(170, 60, 179.9, 65), box(-179.9, 60, -170, 65)]).regions;
   const [west, east] = geoLayout(across, {width: 400, height: 100}, {projection: 'mercator', pad: 0});
   assert.ok(east.box.x >= west.box.x + west.box.w - 1 && east.box.x - (west.box.x + west.box.w) < 5);
+});
+
+test('a label on a fill takes the first ink that holds 4.5:1 against that fill (D20)', () => {
+  const black = [0, 0, 0];
+  const white = [255, 255, 255];
+  const yellow = [255, 221, 51];
+  // A display-settings scheme, yellow on black: the slice is the text tone,
+  // the theme's first ink is that same tone (1:1), the ground is black.
+  const inks = [yellow, black, black, white];
+  assert.equal(pickInk(yellow, inks), 1, 'the ground reads on a slice of the text tone');
+  assert.ok(contrast(inks[pickInk(yellow, inks)], yellow) >= 4.5);
+  // The lighter second round: the text tone at 55 % over the black ground.
+  const light = composite(yellow, 0.55, black);
+  assert.deepEqual(light, [140, 122, 28]);
+  assert.ok(contrast(inks[pickInk(light, inks)], light) >= 4.5);
+  // The light theme: a dark ink first, the page's white when it fails.
+  const dark = [28, 27, 31];
+  const theme = [dark, white, black, white];
+  assert.equal(pickInk([47, 95, 208], theme), 1, 'white on a strong blue');
+  assert.equal(pickInk([236, 240, 255], theme), 0, 'the dark ink on a pale fill');
+  // Any opaque fill has an ink at 4.5:1 among the four (black or white).
+  for (let r = 0; r <= 255; r += 17) {
+    for (let g = 0; g <= 255; g += 17) {
+      for (let b = 0; b <= 255; b += 51) {
+        const fill = [r, g, b];
+        const chosen = pickInk(fill, [fill, fill, black, white]);
+        assert.ok(contrast([fill, fill, black, white][chosen], fill) >= 4.5, `${fill}`);
+      }
+    }
+  }
+  // None reaches: the closest one, and -1 with no ink at all.
+  assert.equal(pickInk([128, 128, 128], [[120, 120, 120], [200, 200, 200]]), 1);
+  assert.equal(pickInk(white, []), -1);
+  assert.deepEqual(composite(white, 2, black), white, 'an opacity is held to 0..1');
+});
+
+test('cue mode: a hatch per fill past the first, a shape per series, a few marks on a long line (D20)', () => {
+  assert.equal(hatchOf(0), 0);
+  assert.deepEqual([1, 2, 3, 4, 5, 6, 7, 8, 9].map(hatchOf), [1, 2, 3, 4, 5, 6, 7, 1, 2]);
+  assert.equal(hatchPattern('p', 0, 'red', 'blue'), '', 'the first series is solid');
+  for (let kind = 1; kind <= 7; kind += 1) {
+    const pattern = hatchPattern(`p${kind}`, kind, 'var(--a)', 'var(--b)');
+    assert.match(pattern, new RegExp(`^<pattern id="p${kind}"[^>]*patternUnits="userSpaceOnUse"[^>]*>`, 'u'));
+    assert.match(pattern, /<rect width="6" height="6" style="fill: var\(--a\)"\/>/u, 'the tile is the series colour');
+    assert.match(pattern, /var\(--b\)/u, 'the lines are the hatch ink');
+    assert.match(hatchBackground(kind, 'var(--a)', 'var(--b)'), /gradient\(.*var\(--b\).*, var\(--a\)$/u, 'the swatch: the same hatch over the colour');
+  }
+  assert.equal(new Set([1, 2, 3, 4, 5, 6, 7].map((kind) => hatchBackground(kind, 'x', 'y'))).size, 7, 'seven kinds tell seven series apart');
+  assert.equal(hatchBackground(0, 'x', 'y'), '');
+  assert.match(markMarkup(0, 10, 10, 3), /^<circle cx="10" cy="10" r="3"\/>$/u);
+  assert.match(markMarkup(1, 10, 10, 3, ' class="m"'), /^<path class="m" d="M7\.3 7\.3L12\.7 7\.3L12\.7 12\.7L7\.3 12\.7Z"\/>$/u);
+  assert.equal(new Set([0, 1, 2, 3, 4].map((place) => markMarkup(place, 0, 0, 3))).size, 5, 'five shapes');
+  assert.equal(markMarkup(5, 0, 0, 3), markMarkup(0, 0, 0, 3), 'the shapes come round again');
+  const points = Array.from({length: 120}, (_, index) => index);
+  assert.deepEqual(cueIndexes(points.slice(0, 8), 0), [0, 1, 2, 3, 4, 5, 6, 7], 'few points: a mark on each');
+  const first = cueIndexes(points, 0, 12, 3);
+  const second = cueIndexes(points, 1, 12, 3);
+  assert.equal(first.length, 12);
+  assert.ok(first.every((index, at) => at === 0 || index > first[at - 1]));
+  assert.ok(first.every((index) => !second.includes(index)), 'two series do not put their marks on the same x');
+});
+
+test('a display-settings scheme is read from the root, by the Framework\'s own names when it has them (D20)', () => {
+  const root = (value) => ({getAttribute: (name) => (name === 'data-sf-scheme' ? value : null)});
+  const held = globalThis.SF;
+  try {
+    globalThis.SF = undefined;
+    assert.equal(schemeOn(root(null)), false);
+    assert.equal(schemeOn(root('')), false);
+    assert.equal(schemeOn(root('yellow-on-black')), true, 'an older runtime: any scheme counts');
+    globalThis.SF = {displaySettings: {schemes: ['black-on-white', 'white-on-black', 'yellow-on-black', 'blue-on-sky', 'brown-on-cream']}};
+    assert.equal(schemeOn(root('blue-on-sky')), true);
+    assert.equal(schemeOn(root('typo')), false, 'a name the Framework does not apply draws no cues');
+    assert.equal(schemeOn(null), false);
+  } finally {
+    globalThis.SF = held;
+  }
 });
