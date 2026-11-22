@@ -1,5 +1,6 @@
 import {html, nothing} from 'lit';
 import {keptView} from '../../../chart-core/settle.js';
+import {hatchBackground, hatchOf} from '../../../chart-core/cues.js';
 import './default.css';
 
 // The figure of a parts bar: the label with the whole and the table button,
@@ -13,6 +14,11 @@ import './default.css';
 // apart as well, and the free remainder is a neutral track. A page's own
 // colour (the colors setting, by the category) is --custom with its value in
 // a style; the free remainder keeps its own variable.
+//
+// In cue mode (forced colours or a display-settings scheme, chart-core/cues,
+// docs/DECISIONS.md D20) hue cannot tell the parts apart: a part past the
+// first has a hatch of its own and its swatch the same hatch; the free
+// remainder stays the plain track.
 
 const paintOf = (paint) => (paint ? `--sf-chart-parts--custom: ${paint}` : '');
 const colourOf = (part, paint) => (part.free ? 'sf-chart-parts-series--free'
@@ -24,16 +30,23 @@ const grow = (share) => `${Math.round(share * 10000) / 10000}`;
 const ESCAPES = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
 const esc = (value) => String(value).replace(/[&<>"']/gu, (one) => ESCAPES[one]);
 
+const SERIES = 'var(--sf-chart-parts--series)';
+const HATCH = 'var(--sf-chart-parts--hatch)';
+// A part's hatch in cue mode, as a background value, or ''.
+const hatchFor = (part, cues) => (cues && !part.free ? hatchBackground(hatchOf(part.place), SERIES, HATCH) : '');
+const swatchAttr = (part, cues) => (hatchFor(part, cues) ? `background: ${hatchFor(part, cues)}` : nothing);
+
 // The bar's inside is markup set as the element's innerHTML (a property, so
 // lit writes no part markers inside it: a first-paint snapshot of the bar is
 // the same on every run). Every part shares the width by its value.
-function partsMarkup(segments, cursor, paint) {
+function partsMarkup(segments, cursor, paint, cues = false) {
   let out = '';
   for (const part of segments) {
     const dim = cursor && cursor.index !== part.place ? ' sf-chart-parts-part--dim' : '';
     const current = cursor && cursor.index === part.place ? ' sf-chart-parts-part--current' : '';
     const own = part.free ? '' : paint.get(part.key);
-    out += `<span class="sf-chart-parts-part ${colourOf(part, own)}${dim}${current}" data-place="${part.place}" style="flex-grow: ${grow(part.share)}${own ? `; ${esc(paintOf(own))}` : ''}"></span>`;
+    const hatch = hatchFor(part, cues);
+    out += `<span class="sf-chart-parts-part ${colourOf(part, own)}${dim}${current}" data-place="${part.place}" style="flex-grow: ${grow(part.share)}${own ? `; ${esc(paintOf(own))}` : ''}${hatch ? `; background: ${hatch}` : ''}"></span>`;
   }
   return out;
 }
@@ -52,7 +65,7 @@ function renderTooltip(context, cursor) {
          style=${`inset-inline-start: ${Math.round(middle * 10) / 10}%`}>
       <div class=${`sf-chart-parts-tooltip-row ${colourOf(part, part.free ? '' : context.paint.get(part.key))}`}
            style=${(!part.free && paintOf(context.paint.get(part.key))) || nothing}>
-        <span class="sf-chart-parts-swatch"></span>
+        <span class="sf-chart-parts-swatch" style=${swatchAttr(part, context.cues)}></span>
         <span class="sf-chart-parts-tooltip-name">${part.name}</span>
         <span class="sf-chart-parts-tooltip-value">${component.sayPart(part)}</span>
       </div>
@@ -69,7 +82,7 @@ function renderLegend(context) {
       ${segments.map((part) => html`
         <li class=${`sf-chart-parts-item ${colourOf(part, part.free ? '' : context.paint.get(part.key))}`}
             style=${(!part.free && paintOf(context.paint.get(part.key))) || nothing}>
-          <span class="sf-chart-parts-swatch" aria-hidden="true"></span>
+          <span class="sf-chart-parts-swatch" aria-hidden="true" style=${swatchAttr(part, context.cues)}></span>
           <span class="sf-chart-parts-item-name">${part.name}</span>
           ${inline ? nothing : html`<span class="sf-chart-parts-item-value">${component.sayY(part.value)}</span>`}
           <span class="sf-chart-parts-item-share">${component.sayShare(part.share)}</span>
@@ -141,7 +154,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${partsMarkup(segments, cursor, context.paint)}></div>
+         .innerHTML=${partsMarkup(segments, cursor, context.paint, context.cues)}></div>
     ${renderTooltip(context, cursor)}
   `;
 }
@@ -151,7 +164,7 @@ export function renderPartsBarTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return html`
-    <figure class=${['sf-chart-parts', `sf-chart-parts--size-${size}`, `sf-chart-parts--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-parts', `sf-chart-parts--size-${size}`, `sf-chart-parts--${state}`, context.cues ? 'sf-chart-parts--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-parts-head">
         <span class="sf-chart-parts-label" id=${`${uid}-label`}>${context.label}</span>

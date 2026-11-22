@@ -459,6 +459,13 @@
     overflow: hidden;
     white-space: nowrap;
   }
+  /* Cue mode (forced colours or a display-settings scheme, chart-core/cues,
+     docs/DECISIONS.md D20): hue is gone; the marks keep their shapes, and a
+     ring past the first takes its dash outside forced colours too. */
+  .sf-chart-radar--cues .sf-chart-radar-line {
+    stroke-dasharray: none;
+    stroke-dasharray: var(--sf-chart-radar--dash, none);
+  }
   @media (forced-colors: active) {
     .sf-chart-radar-series {
       --sf-chart-radar--series: CanvasText;

@@ -15,13 +15,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("43efc6ca45fc");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("297fd25a909a");
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("8c84a9c1df25");
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("a128d5f62041");
-/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("84cb6d08fbad");
-/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("77cd876e816d");
-/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("5cecf2e97bae");
-/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("7ee71363c4cc");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__, _js_templates_default__WEBPACK_IMPORTED_MODULE_9__]);
-([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__, _js_templates_default__WEBPACK_IMPORTED_MODULE_9__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("a128d5f62041");
+/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("84cb6d08fbad");
+/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("77cd876e816d");
+/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("5cecf2e97bae");
+/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("7ee71363c4cc");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__, _js_templates_default__WEBPACK_IMPORTED_MODULE_10__]);
+([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__, _js_templates_default__WEBPACK_IMPORTED_MODULE_10__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__);
@@ -30,7 +31,8 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__);
 // sf-chart-parts: the parts of one whole as one thin bar split into shares,
 // with the free remainder of a capacity when max is set (docs/DECISIONS.md
 // D2): what fills a disk, a quota or a model's context.
@@ -57,13 +59,14 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 
 
 
+
 const OTHER = '\u0000other';
 const FREE = '\u0000free';
-const ChartPartsElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_10__, {
+const ChartPartsElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_11__, {
   base: (_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default()),
   lang: {
-    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_11__,
-    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_12__
+    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_12__,
+    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_13__
   },
   source: 'ru'
 });
@@ -82,10 +85,18 @@ class SfPartsBar extends ChartPartsElement {
     this._uid = this.id || `sf-chart-parts-${instances += 1}`;
     this._cursor = null;
     this._said = '';
-    this._view = 'chart';
+    this._view = 'chart'; // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+
+    this._display?.();
+    this._display = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.watchDisplay)(() => {
+      if ((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.cuesOn)() !== this._cues) this.requestComponentUpdate('display');
+    });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     clearTimeout(this._table?.timer);
     super.onDisconnected();
   }
@@ -119,7 +130,7 @@ class SfPartsBar extends ChartPartsElement {
 
   paints(list) {
     const own = this.colours();
-    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__.PALETTES[this.palette];
+    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__.PALETTES[this.palette];
     if (!set) return own;
     const out = new Map(own);
     list.forEach((one, place) => {
@@ -438,6 +449,7 @@ class SfPartsBar extends ChartPartsElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.parts ?? []),
+      cues: this._cues = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.cuesOn)(),
       rootClass: this.getRootClass()
     });
   } // The data the table shows: settled, so a stream or a pointer move does
@@ -461,7 +473,7 @@ class SfPartsBar extends ChartPartsElement {
   }
 
   template() {
-    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_9__.renderPartsBarTemplate)(this.templateContext());
+    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_10__.renderPartsBarTemplate)(this.templateContext());
   }
 
 }
@@ -482,11 +494,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("2a080a730149");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("297fd25a909a");
-/* harmony import */ var _default_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("7fbabb317fd0");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__]);
-([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _default_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("7fbabb317fd0");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__]);
+([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lit__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
  // The figure of a parts bar: the label with the whole and the table button,
@@ -500,6 +515,11 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit_
 // apart as well, and the free remainder is a neutral track. A page's own
 // colour (the colors setting, by the category) is --custom with its value in
 // a style; the free remainder keeps its own variable.
+//
+// In cue mode (forced colours or a display-settings scheme, chart-core/cues,
+// docs/DECISIONS.md D20) hue cannot tell the parts apart: a part past the
+// first has a hatch of its own and its swatch the same hatch; the free
+// remainder stays the plain track.
 
 const paintOf = paint => paint ? `--sf-chart-parts--custom: ${paint}` : '';
 
@@ -517,19 +537,27 @@ const ESCAPES = {
   "'": '&#39;'
 };
 
-const esc = value => String(value).replace(/[&<>"']/gu, one => ESCAPES[one]); // The bar's inside is markup set as the element's innerHTML (a property, so
+const esc = value => String(value).replace(/[&<>"']/gu, one => ESCAPES[one]);
+
+const SERIES = 'var(--sf-chart-parts--series)';
+const HATCH = 'var(--sf-chart-parts--hatch)'; // A part's hatch in cue mode, as a background value, or ''.
+
+const hatchFor = (part, cues) => cues && !part.free ? (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.hatchBackground)((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.hatchOf)(part.place), SERIES, HATCH) : '';
+
+const swatchAttr = (part, cues) => hatchFor(part, cues) ? `background: ${hatchFor(part, cues)}` : lit__WEBPACK_IMPORTED_MODULE_0__.nothing; // The bar's inside is markup set as the element's innerHTML (a property, so
 // lit writes no part markers inside it: a first-paint snapshot of the bar is
 // the same on every run). Every part shares the width by its value.
 
 
-function partsMarkup(segments, cursor, paint) {
+function partsMarkup(segments, cursor, paint, cues = false) {
   let out = '';
 
   for (const part of segments) {
     const dim = cursor && cursor.index !== part.place ? ' sf-chart-parts-part--dim' : '';
     const current = cursor && cursor.index === part.place ? ' sf-chart-parts-part--current' : '';
     const own = part.free ? '' : paint.get(part.key);
-    out += `<span class="sf-chart-parts-part ${colourOf(part, own)}${dim}${current}" data-place="${part.place}" style="flex-grow: ${grow(part.share)}${own ? `; ${esc(paintOf(own))}` : ''}"></span>`;
+    const hatch = hatchFor(part, cues);
+    out += `<span class="sf-chart-parts-part ${colourOf(part, own)}${dim}${current}" data-place="${part.place}" style="flex-grow: ${grow(part.share)}${own ? `; ${esc(paintOf(own))}` : ''}${hatch ? `; background: ${hatch}` : ''}"></span>`;
   }
 
   return out;
@@ -552,7 +580,7 @@ function renderTooltip(context, cursor) {
          style=${`inset-inline-start: ${Math.round(middle * 10) / 10}%`}>
       <div class=${`sf-chart-parts-tooltip-row ${colourOf(part, part.free ? '' : context.paint.get(part.key))}`}
            style=${!part.free && paintOf(context.paint.get(part.key)) || lit__WEBPACK_IMPORTED_MODULE_0__.nothing}>
-        <span class="sf-chart-parts-swatch"></span>
+        <span class="sf-chart-parts-swatch" style=${swatchAttr(part, context.cues)}></span>
         <span class="sf-chart-parts-tooltip-name">${part.name}</span>
         <span class="sf-chart-parts-tooltip-value">${component.sayPart(part)}</span>
       </div>
@@ -572,7 +600,7 @@ function renderLegend(context) {
       ${segments.map(part => (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
         <li class=${`sf-chart-parts-item ${colourOf(part, part.free ? '' : context.paint.get(part.key))}`}
             style=${!part.free && paintOf(context.paint.get(part.key)) || lit__WEBPACK_IMPORTED_MODULE_0__.nothing}>
-          <span class="sf-chart-parts-swatch" aria-hidden="true"></span>
+          <span class="sf-chart-parts-swatch" aria-hidden="true" style=${swatchAttr(part, context.cues)}></span>
           <span class="sf-chart-parts-item-name">${part.name}</span>
           ${inline ? lit__WEBPACK_IMPORTED_MODULE_0__.nothing : (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="sf-chart-parts-item-value">${component.sayY(part.value)}</span>`}
           <span class="sf-chart-parts-item-share">${component.sayShare(part.share)}</span>
@@ -658,7 +686,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${event => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${partsMarkup(segments, cursor, context.paint)}></div>
+         .innerHTML=${partsMarkup(segments, cursor, context.paint, context.cues)}></div>
     ${renderTooltip(context, cursor)}
   `;
 }
@@ -672,7 +700,7 @@ function renderPartsBarTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <figure class=${['sf-chart-parts', `sf-chart-parts--size-${size}`, `sf-chart-parts--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-parts', `sf-chart-parts--size-${size}`, `sf-chart-parts--${state}`, context.cues ? 'sf-chart-parts--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-parts-head">
         <span class="sf-chart-parts-label" id=${`${uid}-label`}>${context.label}</span>
@@ -709,6 +737,13 @@ __webpack_require__.r(__webpack_exports__);
 (module) {
 
 module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/colors", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/colors", 1).then(resolve, reject), { once: true })));
+
+/***/ },
+
+/***/ "329d5ea36d33"
+(module) {
+
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/cues", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/cues", 1).then(resolve, reject), { once: true })));
 
 /***/ },
 
@@ -778,7 +813,7 @@ module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.r
 /***/ "77cd876e816d"
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-parts","tag":"sf-chart-parts","version":"0.3.1","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"category":{"type":"string","default":""},"value":{"type":"string","default":""},"max":{"type":"number","optional":true},"free-label":{"type":"string","default":""},"max-parts":{"type":"number","default":7},"total":{"type":"enum","values":["auto","none"],"default":"auto"},"legend":{"type":"enum","values":["list","inline","none"],"default":"list"},"tooltip":{"type":"enum","values":["part","none"],"default":"part"},"category-label":{"type":"string","default":""},"value-label":{"type":"string","default":""},"value-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"events":{"select":{"carries":{"series":"string","index":"number","x":"string","value":"number"}},"refresh":{"carries":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-parts-thickness":{"type":"length","state":"default"},"--sf-chart-parts-free-color":{"type":"color","state":"default"},"--sf-chart-parts-label-color":{"type":"color","state":"default"},"--sf-chart-parts-gap-width":{"type":"length","state":"default"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-parts","tag":"sf-chart-parts","version":"0.4.0","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"category":{"type":"string","default":""},"value":{"type":"string","default":""},"max":{"type":"number","optional":true},"free-label":{"type":"string","default":""},"max-parts":{"type":"number","default":7},"total":{"type":"enum","values":["auto","none"],"default":"auto"},"legend":{"type":"enum","values":["list","inline","none"],"default":"list"},"tooltip":{"type":"enum","values":["part","none"],"default":"part"},"category-label":{"type":"string","default":""},"value-label":{"type":"string","default":""},"value-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"events":{"select":{"carries":{"series":"string","index":"number","x":"string","value":"number"}},"refresh":{"carries":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-parts-thickness":{"type":"length","state":"default"},"--sf-chart-parts-free-color":{"type":"color","state":"default"},"--sf-chart-parts-label-color":{"type":"color","state":"default"},"--sf-chart-parts-gap-width":{"type":"length","state":"default"}}}');
 
 /***/ },
 

@@ -1,5 +1,6 @@
 import {html, nothing} from 'lit';
 import {keptView} from '../../../chart-core/settle.js';
+import {hatchBackground, hatchOf, hatchPattern} from '../../../chart-core/cues.js';
 import './default.css';
 
 // The figure of a pie chart: the label and the table button, the plot (SVG)
@@ -12,6 +13,12 @@ import './default.css';
 // (--c1..--c4, then lighter --t2); the order, a separator and the share
 // inside tell the parts apart as well. A page's own colour (the colors
 // setting, by the category) is --custom with its value in a style.
+//
+// In cue mode (forced colours or a display-settings scheme, chart-core/cues,
+// docs/DECISIONS.md D20) hue cannot tell the parts apart: a slice past the
+// first has a hatch of its own, a pattern in its group that reads the
+// group's colour, and its legend swatch the same hatch. A share's ink is
+// chosen against its slice after each render (chart-core/colors inkLabels).
 
 const colourOf = (place, paint) => (paint ? 'sf-chart-pie-series--custom'
   : `sf-chart-pie-series--c${(place % 4) + 1}${place >= 4 ? ' sf-chart-pie-series--t2' : ''}`);
@@ -25,12 +32,20 @@ const px = (value) => `${Math.round(value * 10) / 10}`;
 const ESCAPES = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
 const esc = (value) => String(value).replace(/[&<>"']/gu, (one) => ESCAPES[one]);
 
-function slicesMarkup(g, cursor, paint) {
+const SERIES = 'var(--sf-chart-pie--series)';
+const HATCH = 'var(--sf-chart-pie--hatch)';
+const hatchId = (uid, place) => `${uid}-hatch-${place}`;
+// A visible part's swatch in cue mode: its slice's hatch.
+const swatchStyle = (context, place) => (context.cues ? hatchBackground(hatchOf(place), SERIES, HATCH) : '');
+
+function slicesMarkup(g, cursor, paint, cues, uid) {
   let out = '<g class="sf-chart-pie-marks" aria-hidden="true">';
   for (const slice of g.slices) {
     const dim = cursor && cursor.index !== slice.index ? ' sf-chart-pie-series--dim' : '';
+    const kind = cues ? hatchOf(slice.place) : 0;
     out += `<g class="sf-chart-pie-series ${colourOf(slice.place, paint.get(slice.key))}${dim}"${paintAttr(paint.get(slice.key))} data-part="${esc(slice.key)}">`;
-    out += `<path class="sf-chart-pie-slice" d="${slice.d}"/>`;
+    if (kind) out += hatchPattern(hatchId(uid, slice.place), kind, SERIES, HATCH);
+    out += `<path class="sf-chart-pie-slice"${kind ? ` style="fill: url(#${hatchId(uid, slice.place)})"` : ''} d="${slice.d}"/>`;
     if (slice.label) out += `<text class="sf-chart-pie-share" x="${px(slice.label.x)}" y="${px(slice.label.y)}" text-anchor="middle" dominant-baseline="middle">${esc(slice.label.text)}</text>`;
     out += '</g>';
   }
@@ -55,7 +70,7 @@ function renderTooltip(context, g, cursor) {
          style=${`inset-inline-start: ${px(slice.tip.x)}px; inset-block-start: ${px(slice.tip.y)}px`}>
       <div class=${`sf-chart-pie-tooltip-row sf-chart-pie-tooltip-row--current ${colourOf(slice.place, context.paint.get(slice.key))}`}
            style=${paintOf(context.paint.get(slice.key)) || nothing}>
-        <span class="sf-chart-pie-swatch"></span>
+        <span class="sf-chart-pie-swatch" style=${swatchStyle(context, slice.place) ? `background: ${swatchStyle(context, slice.place)}` : nothing}></span>
         <span class="sf-chart-pie-tooltip-name">${part.name}</span>
         <span class="sf-chart-pie-tooltip-value">${component.sayPart(part)}</span>
       </div>
@@ -73,7 +88,8 @@ function renderLegend(context) {
         <button type="button" class=${`sf-chart-pie-legend-item ${colourOf(part.place, context.paint.get(part.key))}`}
                 style=${paintOf(context.paint.get(part.key)) || nothing} aria-pressed=${hidden.has(part.key) ? 'false' : 'true'}
                 data-part=${part.key} @click=${() => component.togglePart(part.key)}>
-          <span class="sf-chart-pie-swatch" aria-hidden="true"></span>
+          <span class="sf-chart-pie-swatch" aria-hidden="true"
+                style=${!hidden.has(part.key) && swatchStyle(context, part.place) ? `background: ${swatchStyle(context, part.place)}` : nothing}></span>
           <span class="sf-chart-pie-legend-name">${part.name}</span>
           ${hidden.has(part.key) ? nothing : html`<span class="sf-chart-pie-legend-share">${component.sayShare(part.share)}</span>`}
         </button>
@@ -146,7 +162,7 @@ function renderPlot(context) {
          @pointerleave=${() => component.onPointerLeave()}
          @click=${(event) => component.onPlotClick(event)}
          @blur=${() => component.setCursor(null)}
-         .innerHTML=${slicesMarkup(g, cursor, context.paint)}>
+         .innerHTML=${slicesMarkup(g, cursor, context.paint, context.cues, uid)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;
@@ -157,7 +173,7 @@ export function renderPieChartTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return html`
-    <figure class=${['sf-chart-pie', `sf-chart-pie--size-${size}`, `sf-chart-pie--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-pie', `sf-chart-pie--size-${size}`, `sf-chart-pie--${state}`, context.cues ? 'sf-chart-pie--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-pie-head">
         <span class="sf-chart-pie-label" id=${`${uid}-label`}>${context.label}</span>

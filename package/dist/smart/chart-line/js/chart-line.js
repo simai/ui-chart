@@ -20,13 +20,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("43efc6ca45fc");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("297fd25a909a");
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("8c84a9c1df25");
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("a128d5f62041");
-/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("5e638d8f0f2e");
-/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("f6188f0cea25");
-/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("169e34d07212");
-/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("534d83181936");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_path_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_stack_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_decimate_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__, _js_templates_default__WEBPACK_IMPORTED_MODULE_14__]);
-([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_path_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_stack_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_decimate_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__, _js_templates_default__WEBPACK_IMPORTED_MODULE_14__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("a128d5f62041");
+/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("5e638d8f0f2e");
+/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("f6188f0cea25");
+/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("169e34d07212");
+/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("534d83181936");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_path_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_stack_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_decimate_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__, _js_templates_default__WEBPACK_IMPORTED_MODULE_15__]);
+([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_path_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_stack_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_decimate_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__, _js_templates_default__WEBPACK_IMPORTED_MODULE_15__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__);
@@ -40,7 +41,8 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__);
 // sf-chart-line: one or more series along time, a number or categories
 // (docs/DECISIONS.md D1, the first chart of SIMAI Chart).
 //
@@ -71,6 +73,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 
 
 
+
  // The text of the plot, in px, by size rung: axis labels are the small text
 // role, so the room they need is known before anything is measured.
 
@@ -81,11 +84,11 @@ const FONT = {
 };
 const CHAR = 0.6;
 const GAP = 8;
-const ChartLineElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_15__, {
+const ChartLineElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_16__, {
   base: (_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default()),
   lang: {
-    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_16__,
-    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_17__
+    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_17__,
+    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_18__
   },
   source: 'ru',
   actions: {
@@ -116,10 +119,18 @@ class SfLineChart extends ChartLineElement {
     };
     this._cursor = null;
     this._said = '';
-    this._view = 'chart';
+    this._view = 'chart'; // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+
+    this._display?.();
+    this._display = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__.watchDisplay)(() => {
+      if ((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__.cuesOn)() !== this._cues) this.requestComponentUpdate('display');
+    });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     clearTimeout(this._table?.timer);
@@ -175,7 +186,7 @@ class SfLineChart extends ChartLineElement {
 
   paints(list) {
     const own = this.colours();
-    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__.PALETTES[this.palette];
+    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__.PALETTES[this.palette];
     if (!set) return own;
     const out = new Map(own);
     list.forEach((one, place) => {
@@ -580,6 +591,7 @@ class SfLineChart extends ChartLineElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.series ?? []),
+      cues: this._cues = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__.cuesOn)(),
       rootClass: this.getRootClass()
     });
   } // The data the table shows: settled, so a stream or a pointer move does
@@ -603,7 +615,7 @@ class SfLineChart extends ChartLineElement {
   }
 
   template() {
-    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_14__.renderLineChartTemplate)(this.templateContext());
+    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_15__.renderLineChartTemplate)(this.templateContext());
   }
 
 }
@@ -624,11 +636,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("2a080a730149");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("297fd25a909a");
-/* harmony import */ var _default_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("e0e69aaaf669");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__]);
-([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _default_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("e0e69aaaf669");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__]);
+([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lit__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
  // The figure of a line chart: the label and the table button, the legend,
@@ -641,6 +656,13 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit_
 // (--c1..--c4) and a dash (--d1..--d7), so a series stays itself in forced
 // colours and in print. A page's own colour (the colors setting, by the
 // series' key) is --custom with its value in a style: the dash stays.
+//
+// In cue mode (forced colours or a display-settings scheme, chart-core/cues,
+// docs/DECISIONS.md D20) hue cannot tell the series apart: every series
+// past the first is dashed, every series carries marks of its own shape
+// (circle, square, triangle, diamond, a triangle down; about a dozen spread
+// along a long line), and the legend's and the tooltip's swatch is a short
+// line in the series' dash with its mark.
 
 const colourOf = (place, paint) => `sf-chart-line-series--${paint ? 'custom' : `c${place % 4 + 1}`}${place > 0 ? ` sf-chart-line-series--d${Math.min(place, 7)}` : ''}`;
 
@@ -710,7 +732,21 @@ function cursorMarkup(g, cursor, paint) {
   return out;
 }
 
-function linesMarkup(g, cursor, paint) {
+const MARK = 3.5; // A series' marks in cue mode: on every point when the chart shows points,
+// else on about a dozen spread along the line.
+
+function cueMarks(g, line, shown) {
+  const points = line.dots.length ? line.dots : line.ys.map((at, index) => at === null ? null : [g.px[index], at, index]).filter(Boolean);
+  const keep = line.dots.length ? points.map((_, index) => index) : (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.cueIndexes)(points, line.place, 12, shown);
+  return keep.map(index => (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.markMarkup)(line.place, points[index][0], points[index][1], MARK, ' class="sf-chart-line-dot sf-chart-line-dot--cue"')).join('');
+} // The swatch of cue mode: a short line in the series' dash with its mark.
+
+
+const cueSwatch = place => `<line class="sf-chart-line-cue-line" x1="1" x2="23" y1="6" y2="6"/>${(0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.markMarkup)(place, 12, 6, MARK, ' class="sf-chart-line-dot sf-chart-line-dot--cue"')}`;
+
+const swatch = (context, place) => context.cues ? (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<svg class="sf-chart-line-cue" aria-hidden="true" width="24" height="12" viewBox="0 0 24 12" .innerHTML=${cueSwatch(place)}></svg>` : (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`<span class="sf-chart-line-swatch" aria-hidden="true"></span>`;
+
+function linesMarkup(g, cursor, paint, cues = false) {
   let out = '<g class="sf-chart-line-marks" aria-hidden="true">';
 
   for (const line of g.lines) {
@@ -718,9 +754,7 @@ function linesMarkup(g, cursor, paint) {
     out += `<g class="sf-chart-line-series ${colourOf(line.place, paint.get(line.key))}${dim}"${paintAttr(paint.get(line.key))} data-series="${esc(line.key)}">`;
     if (line.area) out += `<path class="sf-chart-line-area${g.stacked ? ' sf-chart-line-area--layer' : ''}" d="${line.area}"/>`;
     out += `<path class="sf-chart-line-line" d="${line.d}"/>`;
-
-    for (const [x, y] of line.dots) out += `<circle class="sf-chart-line-dot" cx="${px(x)}" cy="${px(y)}" r="2.5"/>`;
-
+    if (cues) out += cueMarks(g, line, g.lines.length);else for (const [x, y] of line.dots) out += `<circle class="sf-chart-line-dot" cx="${px(x)}" cy="${px(y)}" r="2.5"/>`;
     out += '</g>';
   }
 
@@ -743,7 +777,7 @@ function renderTooltip(context, g, cursor) {
       ${g.lines.map(line => (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
         <div class=${['sf-chart-line-tooltip-row', colourOf(line.place, context.paint.get(line.key)), line.key === cursor.series ? 'sf-chart-line-tooltip-row--current' : ''].filter(Boolean).join(' ')}
              style=${paintOf(context.paint.get(line.key)) || lit__WEBPACK_IMPORTED_MODULE_0__.nothing}>
-          <span class="sf-chart-line-swatch"></span>
+          ${swatch(context, line.place)}
           <span class="sf-chart-line-tooltip-name">${line.name}</span>
           <span class="sf-chart-line-tooltip-value">${component.sayValue(line, cursor.index)}</span>
         </div>
@@ -765,7 +799,7 @@ function renderLegend(context, place) {
         <button type="button" class=${`sf-chart-line-legend-item ${colourOf(index, context.paint.get(one.key))}`}
                 style=${paintOf(context.paint.get(one.key)) || lit__WEBPACK_IMPORTED_MODULE_0__.nothing} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
                 data-series=${one.key} @click=${() => component.toggleSeries(one.key)}>
-          <span class="sf-chart-line-swatch" aria-hidden="true"></span>
+          ${swatch(context, index)}
           <span class="sf-chart-line-legend-name">${one.name}</span>
         </button>
       `)}
@@ -854,7 +888,7 @@ function renderPlot(context) {
     grid: context.grid,
     xLabel: context.xLabel,
     yLabel: context.yLabel
-  }) + linesMarkup(g, cursor, context.paint)}>
+  }) + linesMarkup(g, cursor, context.paint, context.cues)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;
@@ -869,7 +903,7 @@ function renderLineChartTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <figure class=${['sf-chart-line', `sf-chart-line--size-${size}`, `sf-chart-line--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-line', `sf-chart-line--size-${size}`, `sf-chart-line--${state}`, context.cues ? 'sf-chart-line--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-line-head">
         <span class="sf-chart-line-label" id=${`${uid}-label`}>${context.label}</span>
@@ -904,6 +938,13 @@ __webpack_require__.r(__webpack_exports__);
 (module) {
 
 module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/colors", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/colors", 1).then(resolve, reject), { once: true })));
+
+/***/ },
+
+/***/ "329d5ea36d33"
+(module) {
+
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/cues", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/cues", 1).then(resolve, reject), { once: true })));
 
 /***/ },
 
@@ -1008,7 +1049,7 @@ module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.r
 /***/ "f6188f0cea25"
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-line","tag":"sf-chart-line","version":"0.4.1","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"series":{"type":"string","default":""},"x-scale":{"type":"enum","values":["auto","time","linear","category"],"default":"auto"},"y-min":{"type":"number","optional":true},"y-max":{"type":"number","optional":true},"y-zero":{"type":"boolean","default":false},"curve":{"type":"enum","values":["linear","step","smooth"],"default":"linear"},"area":{"type":"boolean","default":false},"stack":{"type":"enum","values":["none","stacked","normalized"],"default":"none"},"gaps":{"type":"enum","values":["break","connect"],"default":"break"},"markers":{"type":"enum","values":["auto","always","none"],"default":"auto"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["axis","none"],"default":"axis"},"grid":{"type":"enum","values":["y","x","both","none"],"default":"y"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"x-format":{"type":"string","default":"auto"},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"},"decimate":{"type":"enum","values":["auto","none"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","x":"string","value":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-line-height":{"type":"length","state":"default"},"--sf-chart-line-grid-color":{"type":"color","state":"default"},"--sf-chart-line-baseline-color":{"type":"color","state":"default"},"--sf-chart-line-label-color":{"type":"color","state":"default"},"--sf-chart-line-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-line-hidden-color":{"type":"color","state":"disabled"},"--sf-chart-line-line-width":{"type":"length","state":"default"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-line","tag":"sf-chart-line","version":"0.5.0","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"series":{"type":"string","default":""},"x-scale":{"type":"enum","values":["auto","time","linear","category"],"default":"auto"},"y-min":{"type":"number","optional":true},"y-max":{"type":"number","optional":true},"y-zero":{"type":"boolean","default":false},"curve":{"type":"enum","values":["linear","step","smooth"],"default":"linear"},"area":{"type":"boolean","default":false},"stack":{"type":"enum","values":["none","stacked","normalized"],"default":"none"},"gaps":{"type":"enum","values":["break","connect"],"default":"break"},"markers":{"type":"enum","values":["auto","always","none"],"default":"auto"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["axis","none"],"default":"axis"},"grid":{"type":"enum","values":["y","x","both","none"],"default":"y"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"x-format":{"type":"string","default":"auto"},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"},"decimate":{"type":"enum","values":["auto","none"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","x":"string","value":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-line-height":{"type":"length","state":"default"},"--sf-chart-line-grid-color":{"type":"color","state":"default"},"--sf-chart-line-baseline-color":{"type":"color","state":"default"},"--sf-chart-line-label-color":{"type":"color","state":"default"},"--sf-chart-line-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-line-hidden-color":{"type":"color","state":"disabled"},"--sf-chart-line-line-width":{"type":"length","state":"default"}}}');
 
 /***/ },
 

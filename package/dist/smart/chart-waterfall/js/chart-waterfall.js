@@ -15,13 +15,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("43efc6ca45fc");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("297fd25a909a");
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("8c84a9c1df25");
-/* harmony import */ var _js_waterfall_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("31977e9a1cde");
-/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("12bca088a7c6");
-/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("5d9ab0b957d6");
-/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("4afe9fc64bc0");
-/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("c9bf4a06b263");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _js_waterfall_js__WEBPACK_IMPORTED_MODULE_8__, _js_templates_default__WEBPACK_IMPORTED_MODULE_9__]);
-([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _js_waterfall_js__WEBPACK_IMPORTED_MODULE_8__, _js_templates_default__WEBPACK_IMPORTED_MODULE_9__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _js_waterfall_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("31977e9a1cde");
+/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("12bca088a7c6");
+/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("5d9ab0b957d6");
+/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("4afe9fc64bc0");
+/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("c9bf4a06b263");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__, _js_waterfall_js__WEBPACK_IMPORTED_MODULE_9__, _js_templates_default__WEBPACK_IMPORTED_MODULE_10__]);
+([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__, _js_waterfall_js__WEBPACK_IMPORTED_MODULE_9__, _js_templates_default__WEBPACK_IMPORTED_MODULE_10__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__);
@@ -30,6 +31,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__);
 // sf-chart-waterfall: a waterfall chart, how a start value becomes an end
 // value through positive and negative steps, for example a profit bridge
 // (docs/research/catalogue.md, Waterfall; docs/DECISIONS.md D11).
@@ -58,6 +60,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 
 
 
+
  // The text of the plot, in px, by size rung, as on the line chart.
 
 const FONT = {
@@ -74,11 +77,11 @@ const WIDEST = {
 const KEYS = ['up', 'down', 'total'];
 const CHAR = 0.6;
 const GAP = 8;
-const ChartWaterfallElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_10__, {
+const ChartWaterfallElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_11__, {
   base: (_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default()),
   lang: {
-    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_11__,
-    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_12__
+    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_12__,
+    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_13__
   },
   source: 'ru',
   actions: {
@@ -110,10 +113,18 @@ class SfWaterfall extends ChartWaterfallElement {
     };
     this._cursor = null;
     this._said = '';
-    this._view = 'chart';
+    this._view = 'chart'; // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+
+    this._display?.();
+    this._display = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.watchDisplay)(() => {
+      if ((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.cuesOn)() !== this._cues) this.requestComponentUpdate('display');
+    });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     clearTimeout(this._table?.timer);
@@ -177,7 +188,7 @@ class SfWaterfall extends ChartWaterfallElement {
     const key = [this.items, this.x, this.y, this.total, this.end, (0,_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__.pageLocale)(this)];
     if (this._modelKey && key.every((part, index) => part === this._modelKey[index])) return this._model;
     this._modelKey = key;
-    this._model = (0,_js_waterfall_js__WEBPACK_IMPORTED_MODULE_8__.waterfallSteps)(this.items, {
+    this._model = (0,_js_waterfall_js__WEBPACK_IMPORTED_MODULE_9__.waterfallSteps)(this.items, {
       x: this.x,
       y: this.y,
       total: this.total || 'total',
@@ -236,7 +247,7 @@ class SfWaterfall extends ChartWaterfallElement {
     } = this._box;
     if (!width || !height) return null;
     const font = FONT[this.size] ?? 12;
-    const [low, high] = (0,_js_waterfall_js__WEBPACK_IMPORTED_MODULE_8__.waterfallExtent)(model.steps);
+    const [low, high] = (0,_js_waterfall_js__WEBPACK_IMPORTED_MODULE_9__.waterfallExtent)(model.steps);
     const labelled = this.valueLabels !== 'none';
     const top = GAP + (this.yLabel ? font * 1.5 : 0) + (labelled ? font * 1.4 : 0);
     const bottom = font * 1.5 + GAP + (this.xLabel ? font * 1.5 : 0) + (labelled && low < 0 ? font * 1.4 : 0);
@@ -493,6 +504,7 @@ class SfWaterfall extends ChartWaterfallElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.colours(),
+      cues: this._cues = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.cuesOn)(),
       rootClass: this.getRootClass()
     });
   } // The data the table shows: settled, so a stream does not rebuild it on
@@ -515,7 +527,7 @@ class SfWaterfall extends ChartWaterfallElement {
   }
 
   template() {
-    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_9__.renderWaterfallTemplate)(this.templateContext());
+    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_10__.renderWaterfallTemplate)(this.templateContext());
   }
 
 }
@@ -780,7 +792,7 @@ function renderWaterfallTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <figure class=${['sf-chart-waterfall', `sf-chart-waterfall--size-${size}`, `sf-chart-waterfall--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-waterfall', `sf-chart-waterfall--size-${size}`, `sf-chart-waterfall--${state}`, context.cues ? 'sf-chart-waterfall--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-waterfall-head">
         <span class="sf-chart-waterfall-label" id=${`${uid}-label`}>${context.label}</span>
@@ -945,6 +957,13 @@ module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.r
 
 /***/ },
 
+/***/ "329d5ea36d33"
+(module) {
+
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/cues", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/cues", 1).then(resolve, reject), { once: true })));
+
+/***/ },
+
 /***/ "43efc6ca45fc"
 (module) {
 
@@ -1011,7 +1030,7 @@ module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.r
 /***/ "5d9ab0b957d6"
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-waterfall","tag":"sf-chart-waterfall","version":"0.1.1","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"colors":{"type":"object","default":{}},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"total":{"type":"string","default":"total"},"end":{"type":"enum","values":["auto","none"],"default":"auto"},"value-labels":{"type":"enum","values":["auto","none"],"default":"auto"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["step","none"],"default":"step"},"grid":{"type":"enum","values":["value","none"],"default":"value"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"events":{"select":{"carries":{"index":"number","row":"number","x":"string","kind":"string","value":"number","total":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-waterfall-height":{"type":"length","state":"default"},"--sf-chart-waterfall-grid-color":{"type":"color","state":"default"},"--sf-chart-waterfall-baseline-color":{"type":"color","state":"default"},"--sf-chart-waterfall-label-color":{"type":"color","state":"default"},"--sf-chart-waterfall-hover-background-color":{"type":"color","state":"hover"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-waterfall","tag":"sf-chart-waterfall","version":"0.2.0","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"colors":{"type":"object","default":{}},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"total":{"type":"string","default":"total"},"end":{"type":"enum","values":["auto","none"],"default":"auto"},"value-labels":{"type":"enum","values":["auto","none"],"default":"auto"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["step","none"],"default":"step"},"grid":{"type":"enum","values":["value","none"],"default":"value"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"events":{"select":{"carries":{"index":"number","row":"number","x":"string","kind":"string","value":"number","total":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-waterfall-height":{"type":"length","state":"default"},"--sf-chart-waterfall-grid-color":{"type":"color","state":"default"},"--sf-chart-waterfall-baseline-color":{"type":"color","state":"default"},"--sf-chart-waterfall-label-color":{"type":"color","state":"default"},"--sf-chart-waterfall-hover-background-color":{"type":"color","state":"hover"}}}');
 
 /***/ },
 

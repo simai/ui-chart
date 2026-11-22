@@ -15,14 +15,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("43efc6ca45fc");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("297fd25a909a");
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("8c84a9c1df25");
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("a128d5f62041");
-/* harmony import */ var _js_box_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("651a9279e7a6");
-/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("323c5d94699f");
-/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("9651cab4967d");
-/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("bb8971e59466");
-/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("66ca298bed4f");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__, _js_box_js__WEBPACK_IMPORTED_MODULE_9__, _js_templates_default__WEBPACK_IMPORTED_MODULE_10__]);
-([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__, _js_box_js__WEBPACK_IMPORTED_MODULE_9__, _js_templates_default__WEBPACK_IMPORTED_MODULE_10__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("a128d5f62041");
+/* harmony import */ var _js_box_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("651a9279e7a6");
+/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("323c5d94699f");
+/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("9651cab4967d");
+/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("bb8971e59466");
+/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("66ca298bed4f");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__, _js_box_js__WEBPACK_IMPORTED_MODULE_10__, _js_templates_default__WEBPACK_IMPORTED_MODULE_11__]);
+([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__, _js_box_js__WEBPACK_IMPORTED_MODULE_10__, _js_templates_default__WEBPACK_IMPORTED_MODULE_11__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__);
@@ -31,7 +32,8 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_chart_core_colors_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__);
 // sf-chart-box: a box plot, to compare how one measure spreads across groups
 // (docs/research/catalogue.md, Box plot; docs/DECISIONS.md D9).
 //
@@ -45,6 +47,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 // a table on request.
 //
 // It renders into its own light DOM, like every Smart component.
+
 
 
 
@@ -80,11 +83,11 @@ const WIDEST = {
 };
 const CHAR = 0.6;
 const GAP = 8;
-const ChartBoxElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_11__, {
+const ChartBoxElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_12__, {
   base: (_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default()),
   lang: {
-    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_12__,
-    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_13__
+    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_13__,
+    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_14__
   },
   source: 'ru',
   actions: {
@@ -115,10 +118,18 @@ class SfBox extends ChartBoxElement {
     };
     this._cursor = null;
     this._said = '';
-    this._view = 'chart';
+    this._view = 'chart'; // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+
+    this._display?.();
+    this._display = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.watchDisplay)(() => {
+      if ((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.cuesOn)() !== this._cues) this.requestComponentUpdate('display');
+    });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     clearTimeout(this._table?.timer);
@@ -173,7 +184,7 @@ class SfBox extends ChartBoxElement {
 
   paints(list) {
     const own = this.colours();
-    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__.PALETTES[this.palette];
+    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_9__.PALETTES[this.palette];
     if (!set) return own;
     const out = new Map(own);
     list.forEach((one, place) => {
@@ -193,7 +204,7 @@ class SfBox extends ChartBoxElement {
     const key = [this.items, this.names, this.x, this.y, this.series, this.stats, this.whiskers];
     if (this._modelKey && key.every((part, index) => part === this._modelKey[index])) return this._model;
     this._modelKey = key;
-    this._model = (0,_js_box_js__WEBPACK_IMPORTED_MODULE_9__.boxSeries)(this.items, {
+    this._model = (0,_js_box_js__WEBPACK_IMPORTED_MODULE_10__.boxSeries)(this.items, {
       x: this.x,
       y: this.y,
       series: this.series,
@@ -586,6 +597,7 @@ class SfBox extends ChartBoxElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.series ?? []),
+      cues: this._cues = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_8__.cuesOn)(),
       rootClass: this.getRootClass()
     });
   } // The data the table shows: settled, so a stream does not rebuild it on
@@ -608,7 +620,7 @@ class SfBox extends ChartBoxElement {
   }
 
   template() {
-    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_10__.renderBoxTemplate)(this.templateContext());
+    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_11__.renderBoxTemplate)(this.templateContext());
   }
 
 }
@@ -1098,7 +1110,7 @@ function renderBoxTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <figure class=${['sf-chart-box', `sf-chart-box--size-${size}`, `sf-chart-box--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-box', `sf-chart-box--size-${size}`, `sf-chart-box--${state}`, context.cues ? 'sf-chart-box--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-box-head">
         <span class="sf-chart-box-label" id=${`${uid}-label`}>${context.label}</span>
@@ -1133,6 +1145,13 @@ __webpack_require__.r(__webpack_exports__);
 (module) {
 
 module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/colors", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/colors", 1).then(resolve, reject), { once: true })));
+
+/***/ },
+
+/***/ "329d5ea36d33"
+(module) {
+
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/cues", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/cues", 1).then(resolve, reject), { once: true })));
 
 /***/ },
 
@@ -1209,7 +1228,7 @@ module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.r
 /***/ "9651cab4967d"
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-box","tag":"sf-chart-box","version":"0.1.1","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"series":{"type":"string","default":""},"stats":{"type":"enum","values":["raw","given"],"default":"raw"},"whiskers":{"type":"enum","values":["tukey","range"],"default":"tukey"},"mean":{"type":"boolean","default":false},"y-min":{"type":"number","optional":true},"y-max":{"type":"number","optional":true},"y-zero":{"type":"boolean","default":false},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["box","none"],"default":"box"},"grid":{"type":"enum","values":["value","none"],"default":"value"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","group":"string","median":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-box-height":{"type":"length","state":"default"},"--sf-chart-box-grid-color":{"type":"color","state":"default"},"--sf-chart-box-baseline-color":{"type":"color","state":"default"},"--sf-chart-box-label-color":{"type":"color","state":"default"},"--sf-chart-box-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-box-hidden-color":{"type":"color","state":"disabled"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-box","tag":"sf-chart-box","version":"0.2.0","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"series":{"type":"string","default":""},"stats":{"type":"enum","values":["raw","given"],"default":"raw"},"whiskers":{"type":"enum","values":["tukey","range"],"default":"tukey"},"mean":{"type":"boolean","default":false},"y-min":{"type":"number","optional":true},"y-max":{"type":"number","optional":true},"y-zero":{"type":"boolean","default":false},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["box","none"],"default":"box"},"grid":{"type":"enum","values":["value","none"],"default":"value"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","group":"string","median":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-box-height":{"type":"length","state":"default"},"--sf-chart-box-grid-color":{"type":"color","state":"default"},"--sf-chart-box-baseline-color":{"type":"color","state":"default"},"--sf-chart-box-label-color":{"type":"color","state":"default"},"--sf-chart-box-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-box-hidden-color":{"type":"color","state":"disabled"}}}');
 
 /***/ },
 

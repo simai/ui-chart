@@ -18,6 +18,8 @@
     --sf-chart-pie--ink: var(--sf-chart-pie-label-color, var(--sf-on-surface-variant));
     --sf-chart-pie--gap: var(--sf-chart-pie-gap-width, var(--sf-a1));
     --sf-chart-pie--font: var(--sf-text-small--size);
+    /* A hatch's lines in cue mode: the ground's colour over the part's. */
+    --sf-chart-pie--hatch: var(--sf-surface-0);
     display: flex;
     flex-direction: column;
     gap: var(--sf-space-1\/3);
@@ -366,12 +368,40 @@
     white-space: nowrap;
   }
 
+  /* Cue mode (forced colours or a display-settings scheme, chart-core/cues,
+     docs/DECISIONS.md D20): hue is gone, so a part past the first has a hatch
+     of its own (a pattern in its group) and its swatch the same; the lighter
+     second round of tones is dropped, the hatch tells those parts apart. A
+     share keeps a ring of its slice's colour, so the hatch's lines never
+     cross its letters; its ink is chosen against the slice (inkLabels). */
+  .sf-chart-pie--cues .sf-chart-pie-series--t2 .sf-chart-pie-slice,
+  .sf-chart-pie--cues .sf-chart-pie-series--t2 .sf-chart-pie-swatch {
+    fill-opacity: 1;
+    opacity: 1;
+  }
+
+  .sf-chart-pie--cues .sf-chart-pie-swatch {
+    inline-size: var(--sf-a12, calc(var(--sf-a8) * 1.5));
+    block-size: var(--sf-a12, calc(var(--sf-a8) * 1.5));
+  }
+
+  .sf-chart-pie--cues .sf-chart-pie-share {
+    stroke: var(--sf-chart-pie--series);
+    stroke-width: 6;
+    stroke-linejoin: round;
+    paint-order: stroke;
+  }
+
   @media (forced-colors: active) {
+    .sf-chart-pie { --sf-chart-pie--hatch: Canvas; }
+    .sf-chart-pie-series { --sf-chart-pie--series: CanvasText; }
     .sf-chart-pie-slice { fill: Canvas; stroke: CanvasText; fill-opacity: 1; }
     .sf-chart-pie-share { fill: CanvasText; }
+    .sf-chart-pie--cues .sf-chart-pie-slice { fill: CanvasText; stroke: Canvas; }
+    .sf-chart-pie--cues .sf-chart-pie-share { fill: Canvas; stroke: CanvasText; }
     .sf-chart-pie-legend-item[aria-pressed='false'] { color: GrayText; }
     .sf-chart-pie-legend-item[aria-pressed='false'] .sf-chart-pie-swatch { background: GrayText; }
-    .sf-chart-pie-swatch { background: CanvasText; forced-color-adjust: none; }
+    .sf-chart-pie-swatch { --sf-chart-pie--series: CanvasText; background: CanvasText; forced-color-adjust: none; }
   }
 
   @media print {

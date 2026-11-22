@@ -14,14 +14,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("dd0c3978091b");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("297fd25a909a");
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("8c84a9c1df25");
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("a128d5f62041");
-/* harmony import */ var _js_scatter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("8ee9a66b8cb2");
-/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("b1f9ebed6749");
-/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("ef19798d5700");
-/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("c3661f0b5cf0");
-/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("dbfd8cc3128f");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_7__, _js_scatter_js__WEBPACK_IMPORTED_MODULE_8__, _js_templates_default__WEBPACK_IMPORTED_MODULE_9__]);
-([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_7__, _js_scatter_js__WEBPACK_IMPORTED_MODULE_8__, _js_templates_default__WEBPACK_IMPORTED_MODULE_9__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("a128d5f62041");
+/* harmony import */ var _js_scatter_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("8ee9a66b8cb2");
+/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("b1f9ebed6749");
+/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("ef19798d5700");
+/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("c3661f0b5cf0");
+/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("dbfd8cc3128f");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__, _js_scatter_js__WEBPACK_IMPORTED_MODULE_9__, _js_templates_default__WEBPACK_IMPORTED_MODULE_10__]);
+([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__, _js_scatter_js__WEBPACK_IMPORTED_MODULE_9__, _js_templates_default__WEBPACK_IMPORTED_MODULE_10__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__);
@@ -29,7 +30,8 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 /* harmony import */ var _chart_core_format_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_chart_core_colors_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__);
 // sf-chart-scatter: points at two measures, to show how they go together,
 // with an optional third measure as a bubble's area
 // (docs/research/catalogue.md, Scatter / bubble; docs/DECISIONS.md D9).
@@ -44,6 +46,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 // request.
 //
 // It renders into its own light DOM, like every Smart component.
+
 
 
 
@@ -78,11 +81,11 @@ const CHAR = 0.6;
 const GAP = 8; // Past this many marks the marks layer is a canvas (D5).
 
 const CANVAS_FROM = 2000;
-const ChartScatterElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_10__, {
+const ChartScatterElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_11__, {
   base: (_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default()),
   lang: {
-    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_11__,
-    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_12__
+    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_12__,
+    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_13__
   },
   source: 'ru',
   actions: {
@@ -113,10 +116,18 @@ class SfScatter extends ChartScatterElement {
     };
     this._cursor = null;
     this._said = '';
-    this._view = 'chart';
+    this._view = 'chart'; // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+
+    this._display?.();
+    this._display = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_7__.watchDisplay)(() => {
+      if ((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_7__.cuesOn)() !== this._cues) this.requestComponentUpdate('display');
+    });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     this._theme?.disconnect();
@@ -171,7 +182,7 @@ class SfScatter extends ChartScatterElement {
       return;
     }
 
-    (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_9__.paintMarks)(this, canvas, geometry);
+    (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_10__.paintMarks)(this, canvas, geometry);
 
     if (!this._theme && typeof MutationObserver === 'function') {
       this._theme = new MutationObserver(() => this.paintCanvas());
@@ -197,7 +208,7 @@ class SfScatter extends ChartScatterElement {
 
   paints(list) {
     const own = this.colours();
-    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_7__.PALETTES[this.palette];
+    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_8__.PALETTES[this.palette];
     if (!set) return own;
     const out = new Map(own);
     list.forEach((one, place) => {
@@ -217,7 +228,7 @@ class SfScatter extends ChartScatterElement {
     const key = [this.items, this.names, this.x, this.y, this.bubble, this.series, this.point];
     if (this._modelKey && key.every((part, index) => part === this._modelKey[index])) return this._model;
     this._modelKey = key;
-    this._model = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.scatterPoints)(this.items, {
+    this._model = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.scatterPoints)(this.items, {
       x: this.x,
       y: this.y,
       bubble: this.bubble,
@@ -289,7 +300,7 @@ class SfScatter extends ChartScatterElement {
     const name = measure === 'x' ? 'x' : 'y';
     const min = this.hasAttribute(`${name}-min`) && Number.isFinite(this[`${name}Min`]) ? this[`${name}Min`] : null;
     const max = this.hasAttribute(`${name}-max`) && Number.isFinite(this[`${name}Max`]) ? this[`${name}Max`] : null;
-    let [low, high] = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.measureExtent)(points, measure) ?? [0, 1];
+    let [low, high] = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.measureExtent)(points, measure) ?? [0, 1];
     if (min !== null) low = min;
     if (max !== null) high = max;
     if (high < low) [low, high] = [high, low];
@@ -354,12 +365,12 @@ class SfScatter extends ChartScatterElement {
       };
     });
     const place = new Map(shown.map(one => [one.key, one.place]));
-    const topSize = bubbles ? (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.measureExtent)(model.points, 'size')?.[1] ?? 0 : 0;
+    const topSize = bubbles ? (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.measureExtent)(model.points, 'size')?.[1] ?? 0 : 0;
     const marks = points.map(one => ({ ...one,
       place: place.get(one.series),
       cx: x(one.x),
       cy: y(one.y),
-      r: bubbles ? (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.bubbleRadius)(one.size, topSize, {
+      r: bubbles ? (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.bubbleRadius)(one.size, topSize, {
         least: 2,
         largest
       }) : largest,
@@ -370,9 +381,9 @@ class SfScatter extends ChartScatterElement {
     const drawn = bubbles ? marks.map((_, index) => index).sort((a, b) => marks[b].r - marks[a].r) : marks.map((_, index) => index);
     const trends = this.trend === 'linear' ? shown.map(one => {
       const own = points.filter(each => each.series === one.key);
-      const fit = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.linearFit)(own);
+      const fit = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.linearFit)(own);
       if (!fit) return null;
-      const [from, to] = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.measureExtent)(own, 'x');
+      const [from, to] = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.measureExtent)(own, 'x');
       return {
         key: one.key,
         place: one.place,
@@ -394,7 +405,7 @@ class SfScatter extends ChartScatterElement {
       at,
       drawn,
       trends,
-      order: (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.readingOrder)(marks),
+      order: (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.readingOrder)(marks),
       canvas: marks.length > CANVAS_FROM,
       yTicks: yTicks.ticks.map((value, index) => ({
         at: y(value),
@@ -412,8 +423,8 @@ class SfScatter extends ChartScatterElement {
     const points = model.points.filter(one => keys.has(one.series));
     if (!points.length) return this.words('summary-empty');
     const locale = (0,_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__.pageLocale)(this);
-    const [xMin, xMax] = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.measureExtent)(points, 'x');
-    const [yMin, yMax] = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.measureExtent)(points, 'y');
+    const [xMin, xMax] = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.measureExtent)(points, 'x');
+    const [yMin, yMax] = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.measureExtent)(points, 'y');
     const parts = [this.words('summary-range', {
       count: (0,_chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__.formatNumber)(points.length, locale, 'integer'),
       xName: this.axisName('x'),
@@ -423,7 +434,7 @@ class SfScatter extends ChartScatterElement {
       yMin: this.sayY(yMin),
       yMax: this.sayY(yMax)
     })];
-    const sizes = model.bubbleField ? (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.measureExtent)(points, 'size') : null;
+    const sizes = model.bubbleField ? (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.measureExtent)(points, 'size') : null;
     if (sizes) parts.push(this.words('summary-bubble', {
       name: this.axisName('bubble'),
       min: this.saySize(sizes[0]),
@@ -431,9 +442,9 @@ class SfScatter extends ChartScatterElement {
     }));
 
     for (const one of shown) {
-      const fit = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.linearFit)(points.filter(each => each.series === one.key));
+      const fit = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.linearFit)(points.filter(each => each.series === one.key));
       if (!fit) continue;
-      const strength = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.strengthOf)(fit.r);
+      const strength = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.strengthOf)(fit.r);
       const r = (0,_chart_core_format_js__WEBPACK_IMPORTED_MODULE_4__.formatNumber)(fit.r, locale, 'decimal-2');
       const relation = strength === 'none' ? this.words('relation-none', {
         r
@@ -523,7 +534,7 @@ class SfScatter extends ChartScatterElement {
       return;
     }
 
-    const next = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.moveScatter)(this._cursor, event.key, {
+    const next = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.moveScatter)(this._cursor, event.key, {
       order: geometry.order,
       at: geometry.at
     });
@@ -539,7 +550,7 @@ class SfScatter extends ChartScatterElement {
     const geometry = this._geometry;
     if (!geometry) return null;
     const box = event.currentTarget.getBoundingClientRect();
-    const index = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_8__.nearestPoint)(geometry.at, event.clientX - box.left, event.clientY - box.top, geometry.bubbles ? BUBBLE[this.size] ?? 22 : 12);
+    const index = (0,_js_scatter_js__WEBPACK_IMPORTED_MODULE_9__.nearestPoint)(geometry.at, event.clientX - box.left, event.clientY - box.top, geometry.bubbles ? BUBBLE[this.size] ?? 22 : 12);
     if (index < 0) return null;
     return geometry.order.indexOf(index);
   }
@@ -617,6 +628,7 @@ class SfScatter extends ChartScatterElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.series ?? []),
+      cues: this._cues = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_7__.cuesOn)(),
       rootClass: this.getRootClass()
     });
   } // The data the table shows: settled, so a stream does not rebuild a row
@@ -639,7 +651,7 @@ class SfScatter extends ChartScatterElement {
   }
 
   template() {
-    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_9__.renderScatterTemplate)(this.templateContext());
+    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_10__.renderScatterTemplate)(this.templateContext());
   }
 
 }
@@ -1253,7 +1265,7 @@ function renderScatterTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <figure class=${['sf-chart-scatter', `sf-chart-scatter--size-${size}`, `sf-chart-scatter--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-scatter', `sf-chart-scatter--size-${size}`, `sf-chart-scatter--${state}`, context.cues ? 'sf-chart-scatter--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-scatter-head">
         <span class="sf-chart-scatter-label" id=${`${uid}-label`}>${context.label}</span>
@@ -1288,6 +1300,13 @@ __webpack_require__.r(__webpack_exports__);
 (module) {
 
 module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/colors", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/colors", 1).then(resolve, reject), { once: true })));
+
+/***/ },
+
+/***/ "329d5ea36d33"
+(module) {
+
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/cues", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/cues", 1).then(resolve, reject), { once: true })));
 
 /***/ },
 
@@ -1357,7 +1376,7 @@ module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.r
 /***/ "ef19798d5700"
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-scatter","tag":"sf-chart-scatter","version":"0.1.1","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"bubble":{"type":"string","default":""},"series":{"type":"string","default":""},"point":{"type":"string","default":""},"x-min":{"type":"number","optional":true},"x-max":{"type":"number","optional":true},"y-min":{"type":"number","optional":true},"y-max":{"type":"number","optional":true},"x-zero":{"type":"boolean","default":false},"y-zero":{"type":"boolean","default":false},"trend":{"type":"enum","values":["none","linear"],"default":"none"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["point","none"],"default":"point"},"grid":{"type":"enum","values":["y","x","both","none"],"default":"both"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"bubble-label":{"type":"string","default":""},"x-format":{"type":"string","default":"number"},"y-format":{"type":"string","default":"number"},"bubble-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","point":"string","x":"number","y":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-scatter-height":{"type":"length","state":"default"},"--sf-chart-scatter-grid-color":{"type":"color","state":"default"},"--sf-chart-scatter-baseline-color":{"type":"color","state":"default"},"--sf-chart-scatter-label-color":{"type":"color","state":"default"},"--sf-chart-scatter-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-scatter-hidden-color":{"type":"color","state":"disabled"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-scatter","tag":"sf-chart-scatter","version":"0.2.0","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"bubble":{"type":"string","default":""},"series":{"type":"string","default":""},"point":{"type":"string","default":""},"x-min":{"type":"number","optional":true},"x-max":{"type":"number","optional":true},"y-min":{"type":"number","optional":true},"y-max":{"type":"number","optional":true},"x-zero":{"type":"boolean","default":false},"y-zero":{"type":"boolean","default":false},"trend":{"type":"enum","values":["none","linear"],"default":"none"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["point","none"],"default":"point"},"grid":{"type":"enum","values":["y","x","both","none"],"default":"both"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"bubble-label":{"type":"string","default":""},"x-format":{"type":"string","default":"number"},"y-format":{"type":"string","default":"number"},"bubble-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","point":"string","x":"number","y":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-scatter-height":{"type":"length","state":"default"},"--sf-chart-scatter-grid-color":{"type":"color","state":"default"},"--sf-chart-scatter-baseline-color":{"type":"color","state":"default"},"--sf-chart-scatter-label-color":{"type":"color","state":"default"},"--sf-chart-scatter-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-scatter-hidden-color":{"type":"color","state":"disabled"}}}');
 
 /***/ },
 

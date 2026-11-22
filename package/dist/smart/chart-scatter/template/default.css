@@ -382,6 +382,14 @@
     white-space: nowrap;
   }
 
+  /* Cue mode (forced colours or a display-settings scheme, chart-core/cues,
+     docs/DECISIONS.md D20): hue is gone; points keep their shapes, and
+     bubbles, all circles, take their series' dash outside forced colours
+     too. */
+  .sf-chart-scatter--cues .sf-chart-scatter-series--bubbles > * {
+    stroke-dasharray: var(--sf-chart-scatter--dash, none);
+  }
+
   @media (forced-colors: active) {
     .sf-chart-scatter-series,
     .sf-chart-scatter-trend,

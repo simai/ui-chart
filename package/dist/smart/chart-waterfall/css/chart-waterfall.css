@@ -438,6 +438,17 @@
     overflow: hidden;
     white-space: nowrap;
   }
+  /* Cue mode (forced colours or a display-settings scheme, chart-core/cues,
+     docs/DECISIONS.md D20): the success and error tones become one, so a
+     rise is hollow and a total dashed outside forced colours too, as they
+     are in forced colours. */
+  .sf-chart-waterfall--cues .sf-chart-waterfall-up .sf-chart-waterfall-bar {
+    fill: var(--sf-surface-0);
+    stroke-width: 1.5;
+  }
+  .sf-chart-waterfall--cues .sf-chart-waterfall-total .sf-chart-waterfall-bar {
+    stroke-dasharray: 4 2;
+  }
   @media (forced-colors: active) {
     .sf-chart-waterfall-up,
     .sf-chart-waterfall-down,

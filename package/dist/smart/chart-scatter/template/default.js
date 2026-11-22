@@ -281,7 +281,7 @@ export function renderScatterTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return html`
-    <figure class=${['sf-chart-scatter', `sf-chart-scatter--size-${size}`, `sf-chart-scatter--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-scatter', `sf-chart-scatter--size-${size}`, `sf-chart-scatter--${state}`, context.cues ? 'sf-chart-scatter--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-scatter-head">
         <span class="sf-chart-scatter-label" id=${`${uid}-label`}>${context.label}</span>

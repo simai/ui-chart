@@ -20,13 +20,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("43efc6ca45fc");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("297fd25a909a");
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("8c84a9c1df25");
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("a128d5f62041");
-/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("8f122d90c81a");
-/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("031ab9e7c8db");
-/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("3a73307bc0af");
-/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("c2d1e8a022e2");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _js_bin_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_stack_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_path_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__, _js_templates_default__WEBPACK_IMPORTED_MODULE_14__]);
-([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _js_bin_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_stack_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_path_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__, _js_templates_default__WEBPACK_IMPORTED_MODULE_14__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("a128d5f62041");
+/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("8f122d90c81a");
+/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("031ab9e7c8db");
+/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("3a73307bc0af");
+/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("c2d1e8a022e2");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _js_bin_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_stack_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_path_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__, _js_templates_default__WEBPACK_IMPORTED_MODULE_15__]);
+([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _js_bin_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_stack_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_path_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__, _js_templates_default__WEBPACK_IMPORTED_MODULE_15__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__);
@@ -39,7 +40,8 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_chart_core_colors_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__);
 // sf-chart-bar: values by category as bars, grouped or stacked, vertical or
 // horizontal (docs/DECISIONS.md D1), with some series as lines over the bars
 // when asked (lines), on the bars' axis or a scale of their own.
@@ -72,6 +74,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 
 
 
+
  // The text of the plot, in px, by size rung: axis labels are the small text
 // role, so the room they need is known before anything is measured.
 
@@ -82,11 +85,11 @@ const FONT = {
 };
 const CHAR = 0.6;
 const GAP = 8;
-const ChartBarElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_15__, {
+const ChartBarElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_16__, {
   base: (_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default()),
   lang: {
-    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_16__,
-    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_17__
+    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_17__,
+    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_18__
   },
   source: 'ru',
   actions: {
@@ -132,10 +135,18 @@ class SfBarChart extends ChartBarElement {
     };
     this._cursor = null;
     this._said = '';
-    this._view = 'chart';
+    this._view = 'chart'; // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+
+    this._display?.();
+    this._display = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__.watchDisplay)(() => {
+      if ((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__.cuesOn)() !== this._cues) this.requestComponentUpdate('display');
+    });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     clearTimeout(this._table?.timer);
@@ -191,7 +202,7 @@ class SfBarChart extends ChartBarElement {
 
   paints(list) {
     const own = this.colours();
-    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_13__.PALETTES[this.palette];
+    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_14__.PALETTES[this.palette];
     if (!set) return own;
     const out = new Map(own);
     list.forEach((one, place) => {
@@ -867,6 +878,7 @@ class SfBarChart extends ChartBarElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.series ?? []),
+      cues: this._cues = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_13__.cuesOn)(),
       rootClass: this.getRootClass()
     });
   } // The data the table shows: settled, so a stream or a pointer move does
@@ -890,7 +902,7 @@ class SfBarChart extends ChartBarElement {
   }
 
   template() {
-    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_14__.renderBarChartTemplate)(this.templateContext());
+    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_15__.renderBarChartTemplate)(this.templateContext());
   }
 
 }
@@ -1081,11 +1093,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("2a080a730149");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("297fd25a909a");
-/* harmony import */ var _default_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("87815406855f");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__]);
-([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _default_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("87815406855f");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__]);
+([lit__WEBPACK_IMPORTED_MODULE_0__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lit__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
  // The figure of a bar chart: the label and the table button, the legend,
@@ -1100,6 +1115,12 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([lit_
 // bars' axis or on its own scale with its ticks on the far side. A page's
 // own colour (the colors setting, by the series' key) is --custom with its
 // value in a style: the dash stays.
+//
+// In cue mode (forced colours or a display-settings scheme, chart-core/cues,
+// docs/DECISIONS.md D20) hue cannot tell the series apart: the bars of a
+// series past the first have a hatch of their own, a pattern in the
+// series' group that reads the group's colour, and its legend swatch the
+// same hatch; a series in lines takes its dash.
 
 const paintOf = paint => paint ? `--sf-chart-bar--custom: ${paint}` : '';
 
@@ -1159,7 +1180,18 @@ function axesMarkup(g) {
   return `${out}</g>`;
 }
 
-function barsMarkup(g, cursor, paint) {
+const SERIES = 'var(--sf-chart-bar--series)';
+const HATCH = 'var(--sf-chart-bar--hatch)';
+
+const hatchId = (uid, place) => `${uid}-hatch-${place}`; // A series' swatch in cue mode: its bars' hatch (a series in lines keeps its own).
+
+
+const swatchAttr = (context, place, line, hidden = false) => {
+  const value = context.cues && !line && !hidden ? (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.hatchBackground)((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.hatchOf)(place), SERIES, HATCH) : '';
+  return value ? `background: ${value}` : lit__WEBPACK_IMPORTED_MODULE_0__.nothing;
+};
+
+function barsMarkup(g, cursor, paint, cues = false, uid = '') {
   let out = '<g class="sf-chart-bar-marks" aria-hidden="true">';
 
   if (cursor) {
@@ -1169,9 +1201,12 @@ function barsMarkup(g, cursor, paint) {
 
   for (const group of g.groups) {
     const dim = cursor && cursor.series !== group.key ? ' sf-chart-bar-series--dim' : '';
+    const kind = cues ? (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.hatchOf)(group.place) : 0;
+    const fill = kind ? ` style="fill: url(#${hatchId(uid, group.place)})"` : '';
     out += `<g class="sf-chart-bar-series ${colourOf(group.place, paint.get(group.key))}${dim}"${paintAttr(paint.get(group.key))} data-series="${esc(group.key)}">`;
+    if (kind) out += (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_2__.hatchPattern)(hatchId(uid, group.place), kind, SERIES, HATCH);
 
-    for (const bar of group.bars) out += `<rect class="sf-chart-bar-bar" x="${px(bar.x)}" y="${px(bar.y)}" width="${px(bar.width)}" height="${px(bar.height)}"/>`;
+    for (const bar of group.bars) out += `<rect class="sf-chart-bar-bar"${fill} x="${px(bar.x)}" y="${px(bar.y)}" width="${px(bar.width)}" height="${px(bar.height)}"/>`;
 
     out += '</g>';
   }
@@ -1217,7 +1252,7 @@ function renderTooltip(context, g, cursor) {
       ${[...g.groups, ...g.lines].sort((a, b) => a.place - b.place).map(group => (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
         <div class=${['sf-chart-bar-tooltip-row', colourOf(group.place, context.paint.get(group.key)), group.line ? 'sf-chart-bar-series--line' : '', group.key === cursor.series ? 'sf-chart-bar-tooltip-row--current' : ''].filter(Boolean).join(' ')}
              style=${paintOf(context.paint.get(group.key)) || lit__WEBPACK_IMPORTED_MODULE_0__.nothing}>
-          <span class="sf-chart-bar-swatch"></span>
+          <span class="sf-chart-bar-swatch" style=${swatchAttr(context, group.place, group.line)}></span>
           <span class="sf-chart-bar-tooltip-name">${group.name}</span>
           <span class="sf-chart-bar-tooltip-value">${component.sayValue(group, cursor.index)}</span>
         </div>
@@ -1239,7 +1274,8 @@ function renderLegend(context, place) {
         <button type="button" class=${`sf-chart-bar-legend-item ${colourOf(index, context.paint.get(one.key))}${context.lineKeys.has(one.key) ? ' sf-chart-bar-series--line' : ''}`}
                 style=${paintOf(context.paint.get(one.key)) || lit__WEBPACK_IMPORTED_MODULE_0__.nothing} aria-pressed=${hidden.has(one.key) ? 'false' : 'true'}
                 data-series=${one.key} @click=${() => component.toggleSeries(one.key)}>
-          <span class="sf-chart-bar-swatch" aria-hidden="true"></span>
+          <span class="sf-chart-bar-swatch" aria-hidden="true"
+                style=${swatchAttr(context, index, context.lineKeys.has(one.key), hidden.has(one.key))}></span>
           <span class="sf-chart-bar-legend-name">${one.name}</span>
         </button>
       `)}
@@ -1326,7 +1362,7 @@ function renderPlot(context) {
          @blur=${() => component.setCursor(null)}
          .innerHTML=${axesMarkup({ ...g,
     grid: context.grid
-  }) + barsMarkup(g, cursor, context.paint)}>
+  }) + barsMarkup(g, cursor, context.paint, context.cues, uid)}>
     </svg>
     ${renderTooltip(context, g, cursor)}
   `;
@@ -1340,7 +1376,7 @@ function renderBarChartTemplate(context) {
   } = context;
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
-  const classes = ['sf-chart-bar', `sf-chart-bar--size-${size}`, `sf-chart-bar--${state}`, `sf-chart-bar--${context.orientation}`, `sf-chart-bar--stack-${context.stack}`, context.rootClass];
+  const classes = ['sf-chart-bar', `sf-chart-bar--size-${size}`, `sf-chart-bar--${state}`, `sf-chart-bar--${context.orientation}`, `sf-chart-bar--stack-${context.stack}`, context.cues ? 'sf-chart-bar--cues' : '', context.rootClass];
   return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
     <figure class=${classes.filter(Boolean).join(' ')} aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-bar-head">
@@ -1376,6 +1412,13 @@ __webpack_require__.r(__webpack_exports__);
 (module) {
 
 module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/colors", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/colors", 1).then(resolve, reject), { once: true })));
+
+/***/ },
+
+/***/ "329d5ea36d33"
+(module) {
+
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/cues", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/cues", 1).then(resolve, reject), { once: true })));
 
 /***/ },
 
@@ -1473,7 +1516,7 @@ module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.r
 /***/ "031ab9e7c8db"
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-bar","tag":"sf-chart-bar","version":"0.5.1","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"series":{"type":"string","default":""},"bin":{"type":"string","default":"none"},"x-scale":{"type":"enum","values":["auto","time","category"],"default":"auto"},"y-max":{"type":"number","optional":true},"stack":{"type":"enum","values":["none","stacked","normalized"],"default":"none"},"lines":{"type":"string","default":""},"line-axis":{"type":"enum","values":["shared","own"],"default":"shared"},"line-format":{"type":"string","default":""},"orientation":{"type":"enum","values":["vertical","horizontal"],"default":"vertical"},"sort":{"type":"enum","values":["none","ascending","descending"],"default":"none"},"value-labels":{"type":"enum","values":["none","end"],"default":"none"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["axis","none"],"default":"axis"},"grid":{"type":"enum","values":["value","none"],"default":"value"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"x-format":{"type":"string","default":"auto"},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","x":"string","value":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-bar-height":{"type":"length","state":"default"},"--sf-chart-bar-grid-color":{"type":"color","state":"default"},"--sf-chart-bar-baseline-color":{"type":"color","state":"default"},"--sf-chart-bar-label-color":{"type":"color","state":"default"},"--sf-chart-bar-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-bar-hidden-color":{"type":"color","state":"disabled"},"--sf-chart-bar-bar-radius":{"type":"length","state":"default"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-bar","tag":"sf-chart-bar","version":"0.6.0","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"series":{"type":"string","default":""},"bin":{"type":"string","default":"none"},"x-scale":{"type":"enum","values":["auto","time","category"],"default":"auto"},"y-max":{"type":"number","optional":true},"stack":{"type":"enum","values":["none","stacked","normalized"],"default":"none"},"lines":{"type":"string","default":""},"line-axis":{"type":"enum","values":["shared","own"],"default":"shared"},"line-format":{"type":"string","default":""},"orientation":{"type":"enum","values":["vertical","horizontal"],"default":"vertical"},"sort":{"type":"enum","values":["none","ascending","descending"],"default":"none"},"value-labels":{"type":"enum","values":["none","end"],"default":"none"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["axis","none"],"default":"axis"},"grid":{"type":"enum","values":["value","none"],"default":"value"},"x-label":{"type":"string","default":""},"y-label":{"type":"string","default":""},"x-format":{"type":"string","default":"auto"},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","x":"string","value":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-bar-height":{"type":"length","state":"default"},"--sf-chart-bar-grid-color":{"type":"color","state":"default"},"--sf-chart-bar-baseline-color":{"type":"color","state":"default"},"--sf-chart-bar-label-color":{"type":"color","state":"default"},"--sf-chart-bar-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-bar-hidden-color":{"type":"color","state":"disabled"},"--sf-chart-bar-bar-radius":{"type":"length","state":"default"}}}');
 
 /***/ },
 

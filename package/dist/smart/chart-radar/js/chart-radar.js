@@ -17,14 +17,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("43efc6ca45fc");
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("297fd25a909a");
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("8c84a9c1df25");
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("a128d5f62041");
-/* harmony import */ var _js_radar_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("3e3d1d5ec83b");
-/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("9e93b6f8824a");
-/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("60cb04c9e408");
-/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("fb41d0a58104");
-/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("77dc24a1b1fa");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_10__, _js_templates_default__WEBPACK_IMPORTED_MODULE_12__]);
-([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_10__, _js_templates_default__WEBPACK_IMPORTED_MODULE_12__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("329d5ea36d33");
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("a128d5f62041");
+/* harmony import */ var _js_radar_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("3e3d1d5ec83b");
+/* harmony import */ var _js_templates_default__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("9e93b6f8824a");
+/* harmony import */ var _component_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("60cb04c9e408");
+/* harmony import */ var _lang_en_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("fb41d0a58104");
+/* harmony import */ var _lang_ru_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("77dc24a1b1fa");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_11__, _js_templates_default__WEBPACK_IMPORTED_MODULE_13__]);
+([_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__, _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__, _core_js_page_language__WEBPACK_IMPORTED_MODULE_2__, _chart_core_data_js__WEBPACK_IMPORTED_MODULE_3__, _chart_core_scale_js__WEBPACK_IMPORTED_MODULE_4__, _chart_core_format_js__WEBPACK_IMPORTED_MODULE_5__, _chart_core_describe_js__WEBPACK_IMPORTED_MODULE_6__, _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_7__, _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_8__, _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_9__, _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_10__, _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_11__, _js_templates_default__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 /* harmony import */ var _core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _core_js_page_language__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_core_js_page_language__WEBPACK_IMPORTED_MODULE_2__);
@@ -35,7 +36,8 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 /* harmony import */ var _chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cursor_js__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _chart_core_settle_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chart_core_settle_js__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _chart_core_colors_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_chart_core_colors_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _chart_core_cues_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_11__);
 // sf-chart-radar: a radar chart, to compare a few items over several
 // measures on one scale (docs/research/catalogue.md, Radar;
 // docs/DECISIONS.md D9).
@@ -50,6 +52,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_cor
 // a table on request.
 //
 // It renders into its own light DOM, like every Smart component.
+
 
 
 
@@ -80,11 +83,11 @@ const DOT = {
 };
 const CHAR = 0.6;
 const GAP = 8;
-const ChartRadarElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_13__, {
+const ChartRadarElement = (0,_core_js_element_manifest__WEBPACK_IMPORTED_MODULE_1__.elementFromManifest)(_component_json__WEBPACK_IMPORTED_MODULE_14__, {
   base: (_core_js_smart_base__WEBPACK_IMPORTED_MODULE_0___default()),
   lang: {
-    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_14__,
-    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_15__
+    en: _lang_en_json__WEBPACK_IMPORTED_MODULE_15__,
+    ru: _lang_ru_json__WEBPACK_IMPORTED_MODULE_16__
   },
   source: 'ru',
   actions: {
@@ -115,10 +118,18 @@ class SfRadar extends ChartRadarElement {
     };
     this._cursor = null;
     this._said = '';
-    this._view = 'chart';
+    this._view = 'chart'; // A scheme or forced colours came or went: draw the cues again
+    // (chart-core/cues, D20).
+
+    this._display?.();
+    this._display = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_10__.watchDisplay)(() => {
+      if ((0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_10__.cuesOn)() !== this._cues) this.requestComponentUpdate('display');
+    });
   }
 
   onDisconnected() {
+    this._display?.();
+    this._display = null;
     this._observer?.disconnect();
     this._observer = null;
     clearTimeout(this._table?.timer);
@@ -173,7 +184,7 @@ class SfRadar extends ChartRadarElement {
 
   paints(list) {
     const own = this.colours();
-    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_10__.PALETTES[this.palette];
+    const set = _chart_core_palettes_js__WEBPACK_IMPORTED_MODULE_11__.PALETTES[this.palette];
     if (!set) return own;
     const out = new Map(own);
     list.forEach((one, place) => {
@@ -279,8 +290,8 @@ class SfRadar extends ChartRadarElement {
     const at = value => Math.max(0, Math.min(radius, distance(value)));
 
     const spokes = model.labels.map((_, index) => {
-      const [x, y] = (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_11__.spokePoint)(center, radius, index, count);
-      const [lx, ly] = (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_11__.spokePoint)(center, radius + GAP / 2, index, count);
+      const [x, y] = (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_12__.spokePoint)(center, radius, index, count);
+      const [lx, ly] = (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_12__.spokePoint)(center, radius + GAP / 2, index, count);
       const name = this.spokeName(model, index);
       return {
         index,
@@ -289,23 +300,23 @@ class SfRadar extends ChartRadarElement {
         lx,
         ly,
         text: name.length > most ? `${name.slice(0, most - 1)}…` : name,
-        ...(0,_js_radar_js__WEBPACK_IMPORTED_MODULE_11__.labelPlace)(index, count)
+        ...(0,_js_radar_js__WEBPACK_IMPORTED_MODULE_12__.labelPlace)(index, count)
       };
     });
     const rings = ticks.ticks.filter(value => value > ticks.min).map(value => ({
       r: at(value),
-      points: model.labels.map((_, index) => (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_11__.spokePoint)(center, at(value), index, count)),
+      points: model.labels.map((_, index) => (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_12__.spokePoint)(center, at(value), index, count)),
       text: this.sayY(value, ticks.step)
     }));
     const dot = DOT[this.size] ?? 3;
     const series = shown.map(one => ({
       key: one.key,
       place: one.place,
-      ring: (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_11__.radarRuns)(one.values, center, at),
+      ring: (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_12__.radarRuns)(one.values, center, at),
       marks: one.values.map((value, index) => value === null ? null : {
         index,
         value,
-        point: (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_11__.spokePoint)(center, at(value), index, count)
+        point: (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_12__.spokePoint)(center, at(value), index, count)
       }).filter(Boolean)
     }));
     return {
@@ -373,7 +384,7 @@ class SfRadar extends ChartRadarElement {
       const {
         above,
         below
-      } = (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_11__.compareRings)(a.one.values, b.one.values);
+      } = (0,_js_radar_js__WEBPACK_IMPORTED_MODULE_12__.compareRings)(a.one.values, b.one.values);
       const both = a.one.values.filter((value, index) => value !== null && b.one.values[index] !== null).length;
       parts.push(this.words('summary-compare', {
         a: a.one.name,
@@ -552,6 +563,7 @@ class SfRadar extends ChartRadarElement {
       hasDescription: this.hasSlotContent?.('description') ?? false,
       description: this.hasSlotContent?.('description') ? this.getSlotContent('description') : null,
       paint: this.paints(model?.series ?? []),
+      cues: this._cues = (0,_chart_core_cues_js__WEBPACK_IMPORTED_MODULE_10__.cuesOn)(),
       rootClass: this.getRootClass()
     });
   } // The data the table shows: settled, so a stream does not rebuild it on
@@ -574,7 +586,7 @@ class SfRadar extends ChartRadarElement {
   }
 
   template() {
-    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_12__.renderRadarTemplate)(this.templateContext());
+    return (0,_js_templates_default__WEBPACK_IMPORTED_MODULE_13__.renderRadarTemplate)(this.templateContext());
   }
 
 }
@@ -943,7 +955,7 @@ function renderRadarTemplate(context) {
   const size = String(context.size).replace('/', '-');
   const tableView = context.table === 'toggle' && context.view === 'table';
   return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)`
-    <figure class=${['sf-chart-radar', `sf-chart-radar--size-${size}`, `sf-chart-radar--${state}`, context.rootClass].filter(Boolean).join(' ')}
+    <figure class=${['sf-chart-radar', `sf-chart-radar--size-${size}`, `sf-chart-radar--${state}`, context.cues ? 'sf-chart-radar--cues' : '', context.rootClass].filter(Boolean).join(' ')}
             aria-labelledby=${`${uid}-label`}>
       <figcaption class="sf-chart-radar-head">
         <span class="sf-chart-radar-label" id=${`${uid}-label`}>${context.label}</span>
@@ -978,6 +990,13 @@ __webpack_require__.r(__webpack_exports__);
 (module) {
 
 module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/colors", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/colors", 1).then(resolve, reject), { once: true })));
+
+/***/ },
+
+/***/ "329d5ea36d33"
+(module) {
+
+module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.runtimeModule("chart/cues", 1) : new Promise((resolve, reject) => globalThis.addEventListener("sf-runtime-ready", () => globalThis.SF.runtimeModule("chart/cues", 1).then(resolve, reject), { once: true })));
 
 /***/ },
 
@@ -1061,7 +1080,7 @@ module.exports = (globalThis.SF && globalThis.SF.runtimeModule ? globalThis.SF.r
 /***/ "60cb04c9e408"
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-radar","tag":"sf-chart-radar","version":"0.1.1","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"series":{"type":"string","default":""},"min":{"type":"number","optional":true},"max":{"type":"number","optional":true},"grid":{"type":"enum","values":["polygon","circle","none"],"default":"polygon"},"fill":{"type":"enum","values":["area","none"],"default":"area"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["spoke","none"],"default":"spoke"},"x-label":{"type":"string","default":""},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","spoke":"string","value":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-radar-height":{"type":"length","state":"default"},"--sf-chart-radar-grid-color":{"type":"color","state":"default"},"--sf-chart-radar-baseline-color":{"type":"color","state":"default"},"--sf-chart-radar-label-color":{"type":"color","state":"default"},"--sf-chart-radar-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-radar-hidden-color":{"type":"color","state":"disabled"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"id":"smart.chart-radar","tag":"sf-chart-radar","version":"0.2.0","kind":"leaf","settings":{"label":{"type":"string","default":""},"items":{"type":"list","default":[],"of":"object"},"names":{"type":"object","default":{}},"colors":{"type":"object","default":{}},"palette":{"type":"enum","values":["theme","vivid","soft","warm","cool","brand"],"default":"theme"},"x":{"type":"string","default":""},"y":{"type":"string","default":""},"series":{"type":"string","default":""},"min":{"type":"number","optional":true},"max":{"type":"number","optional":true},"grid":{"type":"enum","values":["polygon","circle","none"],"default":"polygon"},"fill":{"type":"enum","values":["area","none"],"default":"area"},"legend":{"type":"enum","values":["auto","top","bottom","none"],"default":"auto"},"tooltip":{"type":"enum","values":["spoke","none"],"default":"spoke"},"x-label":{"type":"string","default":""},"y-format":{"type":"string","default":"number"},"size":{"type":"enum","values":["1/2","1","2"],"default":"1"},"table":{"type":"enum","values":["toggle","visible","hidden"],"default":"toggle"},"summary":{"type":"enum","values":["auto","none"],"default":"auto"},"data-state":{"type":"enum","values":["auto","loading","ready","empty","error"],"default":"auto"}},"values":{"hidden-series":{"type":"list","default":[],"of":"string"}},"events":{"toggle":{"carries":{"id":"string","hidden":"boolean"}},"select":{"carries":{"series":"string","index":"number","spoke":"string","value":"number"}},"refresh":{"carries":{}}},"actions":{"reset":{"with":{}}},"presentation":{"skeleton":{"late":["items"]}},"css-variables":{"--sf-chart-radar-height":{"type":"length","state":"default"},"--sf-chart-radar-grid-color":{"type":"color","state":"default"},"--sf-chart-radar-baseline-color":{"type":"color","state":"default"},"--sf-chart-radar-label-color":{"type":"color","state":"default"},"--sf-chart-radar-hover-background-color":{"type":"color","state":"hover"},"--sf-chart-radar-hidden-color":{"type":"color","state":"disabled"}}}');
 
 /***/ },
 

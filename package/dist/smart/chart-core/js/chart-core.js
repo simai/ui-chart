@@ -532,11 +532,15 @@ function arcMiddle({
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LABEL_INKS: () => (/* binding */ LABEL_INKS),
 /* harmony export */   ROLES: () => (/* binding */ ROLES),
 /* harmony export */   checkContrast: () => (/* binding */ checkContrast),
 /* harmony export */   colourValue: () => (/* binding */ colourValue),
 /* harmony export */   coloursKey: () => (/* binding */ coloursKey),
+/* harmony export */   composite: () => (/* binding */ composite),
 /* harmony export */   contrast: () => (/* binding */ contrast),
+/* harmony export */   inkLabels: () => (/* binding */ inkLabels),
+/* harmony export */   pickInk: () => (/* binding */ pickInk),
 /* harmony export */   readColours: () => (/* binding */ readColours)
 /* harmony export */ });
 // A page's own colours for series and parts: the colors setting, an object of
@@ -662,6 +666,372 @@ function checkContrast(host, colours, tag) {
   } finally {
     probe.remove();
   }
+} // --- A label's ink on its fill ------------------------------------------------
+//
+// A label written on a mark (a slice's share) is read against that mark,
+// not the page: its ink is chosen against the fill as it is drawn, the
+// fill's colour laid over the ground at its opacity, so it holds 4.5:1 in
+// the light and dark themes, under a display-settings scheme and on a
+// page's own colours (docs/DECISIONS.md D20). The theme's own inks come
+// first; pure black or white, one of which reaches 4.5:1 on any opaque
+// colour, only when neither does.
+
+const LABEL_INKS = ['var(--sf-on-surface)', 'var(--sf-surface-0)', 'var(--sf-black, #000)', 'var(--sf-white, #fff)'];
+/** `top` at `alpha` over the opaque `under`, as sRGB 0..255. */
+
+function composite(top, alpha, under) {
+  const a = Math.max(0, Math.min(1, Number.isFinite(alpha) ? alpha : 1));
+  return top.map((channel, index) => Math.round(channel * a + under[index] * (1 - a)));
+}
+/**
+ * The place in `inks` (sRGB colours, in the order of preference) of the
+ * first ink that holds `need` against `ground`, else of the one that comes
+ * closest; -1 when there is none.
+ */
+
+function pickInk(ground, inks, need = 4.5) {
+  let best = -1;
+  let most = -1;
+
+  for (const [index, ink] of inks.entries()) {
+    if (!ink) continue;
+    const ratio = contrast(ink, ground);
+    if (ratio >= need) return index;
+
+    if (ratio > most) {
+      most = ratio;
+      best = index;
+    }
+  }
+
+  return best;
+} // A colour the browser resolved, as sRGB 0..255 and its alpha 0..1, or null.
+
+function rgbaOf(colour) {
+  if (typeof document === 'undefined' || !colour || colour === 'none' || colour === 'transparent') return null;
+  pad = pad || document.createElement('canvas').getContext('2d', {
+    willReadFrequently: true
+  });
+  if (!pad) return null;
+  pad.clearRect(0, 0, 1, 1);
+  pad.fillStyle = 'rgba(0, 0, 0, 0)';
+  pad.fillStyle = colour;
+  pad.fillRect(0, 0, 1, 1);
+  const [r, g, b, a] = pad.getImageData(0, 0, 1, 1).data;
+  if (a === 0) return null;
+  return {
+    rgb: a === 255 ? [r, g, b] : [r, g, b].map(one => Math.min(255, Math.round(one * 255 / a))),
+    alpha: a / 255
+  };
+} // A mark's own colour: its computed fill, or, for a hatch, the pattern's
+// tile under the lines.
+
+
+function fillOf(mark) {
+  const style = getComputedStyle(mark);
+  let fill = style.fill;
+  const url = /url\(\s*["']?#([^"')]+)["']?\s*\)/u.exec(fill || '');
+
+  if (url) {
+    const tile = mark.ownerDocument.getElementById(url[1])?.querySelector('rect');
+    fill = tile ? getComputedStyle(tile).fill : '';
+  }
+
+  const colour = rgbaOf(fill);
+  if (!colour) return null;
+  const opacity = Number.parseFloat(style.fillOpacity);
+  return {
+    rgb: colour.rgb,
+    alpha: colour.alpha * (Number.isFinite(opacity) ? opacity : 1)
+  };
+}
+/**
+ * Gives each label its ink against its mark: `pairs` is a list of
+ * [label element, mark element]. The ink is written in the label's style
+ * (fill for SVG text, color for HTML); under forced colours the system's
+ * colours stand and an ink written before is taken back. Returns the
+ * ratios reached, for a probe.
+ */
+
+
+function inkLabels(host, pairs, {
+  inks = LABEL_INKS,
+  need = 4.5
+} = {}) {
+  if (!pairs.length || typeof getComputedStyle !== 'function') return [];
+  const forced = typeof matchMedia === 'function' && matchMedia('(forced-colors: active)').matches;
+
+  const property = label => label.namespaceURI === 'http://www.w3.org/2000/svg' ? 'fill' : 'color';
+
+  if (forced) {
+    for (const [label] of pairs) label.style.removeProperty(property(label));
+
+    return [];
+  }
+
+  const probe = document.createElement('span');
+  probe.hidden = true;
+  host.append(probe);
+  let resolved;
+
+  try {
+    resolved = inks.map(ink => {
+      probe.style.color = ink;
+      return rgbOf(getComputedStyle(probe).color);
+    });
+  } finally {
+    probe.remove();
+  }
+
+  const ground = groundOf(host);
+  const ratios = [];
+
+  for (const [label, mark] of pairs) {
+    const fill = mark && fillOf(mark);
+    if (!fill) continue;
+    const under = composite(fill.rgb, fill.alpha, ground);
+    const chosen = pickInk(under, resolved, need);
+    if (chosen < 0) continue;
+    label.style.setProperty(property(label), inks[chosen]);
+    ratios.push(Math.round(contrast(resolved[chosen], under) * 100) / 100);
+  }
+
+  return ratios;
+}
+
+/***/ },
+
+/***/ "00497a56a818"
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   HATCHES: () => (/* binding */ HATCHES),
+/* harmony export */   MARK_SHAPES: () => (/* binding */ MARK_SHAPES),
+/* harmony export */   cueIndexes: () => (/* binding */ cueIndexes),
+/* harmony export */   cuesOn: () => (/* binding */ cuesOn),
+/* harmony export */   forcedColours: () => (/* binding */ forcedColours),
+/* harmony export */   hatchBackground: () => (/* binding */ hatchBackground),
+/* harmony export */   hatchImage: () => (/* binding */ hatchImage),
+/* harmony export */   hatchOf: () => (/* binding */ hatchOf),
+/* harmony export */   hatchPattern: () => (/* binding */ hatchPattern),
+/* harmony export */   markMarkup: () => (/* binding */ markMarkup),
+/* harmony export */   schemeOn: () => (/* binding */ schemeOn),
+/* harmony export */   watchDisplay: () => (/* binding */ watchDisplay)
+/* harmony export */ });
+// When hue cannot tell series apart, the shapes do (docs/DECISIONS.md D20).
+//
+// Two cases take hue away from a chart:
+//
+// - the system sets the colours (`forced-colors: active`, the Windows
+//   contrast themes): every series is drawn in the text colour;
+// - a colour scheme of SIMAI Framework's display settings is on: the root
+//   carries `data-sf-scheme` (black-on-white, white-on-black,
+//   yellow-on-black, blue-on-sky, brown-on-cream) and the scheme maps the
+//   theme's graphic tones, which the charts' `theme` palette reads, to its
+//   one text tone.
+//
+// In either case a chart is in "cue" mode: a line series past the first has
+// a dash of its own and every series a mark of its own shape; a bar, slice
+// or part past the first has a hatch of its own; the legend's swatch shows
+// the same dash, shape or hatch. One detection and one watcher serve every
+// chart on the page.
+const SCHEME = 'data-sf-scheme';
+
+function matches(query) {
+  try {
+    return Boolean(globalThis.matchMedia?.(query).matches);
+  } catch {
+    return false;
+  }
+}
+/** True when the system sets the colours. */
+
+
+const forcedColours = () => matches('(forced-colors: active)');
+/**
+ * True when a display-settings colour scheme is on. The names are the
+ * Framework's own (SF.displaySettings.schemes) when its runtime has them;
+ * an older runtime has no scheme sheet, so any value counts there and the
+ * cues are only drawn where they cost nothing.
+ */
+
+function schemeOn(root = globalThis.document?.documentElement) {
+  const value = root?.getAttribute?.(SCHEME);
+  if (!value) return false;
+  const known = globalThis.SF?.displaySettings?.schemes;
+  return known && typeof known.includes === 'function' ? known.includes(value) : true;
+}
+/** True when a chart should tell its series apart without hue. */
+
+const cuesOn = () => forcedColours() || schemeOn(); // --- One watcher per page -----------------------------------------------------
+
+const listeners = new Set();
+let undo = null;
+
+function tell() {
+  for (const listener of [...listeners]) {
+    try {
+      listener();
+    } catch (error) {
+      console.error('chart cues listener failed', error);
+    }
+  }
+}
+
+function start() {
+  const doc = globalThis.document;
+  const stops = [];
+
+  if (doc?.documentElement && typeof MutationObserver === 'function') {
+    // The scheme, and the theme class or colour-scheme a page switches: a
+    // label's ink is chosen against what is drawn now.
+    const observer = new MutationObserver(tell);
+    observer.observe(doc.documentElement, {
+      attributes: true,
+      attributeFilter: [SCHEME, 'class', 'style']
+    });
+    if (doc.body) observer.observe(doc.body, {
+      attributes: true,
+      attributeFilter: ['class', 'style']
+    });
+    stops.push(() => observer.disconnect());
+  }
+
+  for (const query of ['(forced-colors: active)', '(prefers-color-scheme: dark)']) {
+    try {
+      const list = globalThis.matchMedia?.(query);
+
+      if (list?.addEventListener) {
+        list.addEventListener('change', tell);
+        stops.push(() => list.removeEventListener('change', tell));
+      }
+    } catch {// A runner without media queries: nothing to follow.
+    }
+  }
+
+  return () => stops.forEach(stop => stop());
+}
+/**
+ * Calls `listener` whenever the cues or the look may have changed (a scheme
+ * chosen or left, forced colours, the theme). Returns the unsubscribe.
+ */
+
+
+function watchDisplay(listener) {
+  if (typeof listener !== 'function') return () => {};
+  listeners.add(listener);
+  if (!undo) undo = start();
+  return () => {
+    listeners.delete(listener);
+
+    if (!listeners.size && undo) {
+      undo();
+      undo = null;
+    }
+  };
+} // --- Marks --------------------------------------------------------------------
+// A series' mark by its place: a circle, a square, a triangle, a diamond and
+// a triangle down, each of about a circle's area at radius r (the scatter's
+// and the radar's shapes, D9).
+
+const CORNERS = [null, [[-0.89, -0.89], [0.89, -0.89], [0.89, 0.89], [-0.89, 0.89]], [[0, -1.25], [1.08, 0.62], [-1.08, 0.62]], [[0, -1.25], [1.25, 0], [0, 1.25], [-1.25, 0]], [[0, 1.25], [1.08, -0.62], [-1.08, -0.62]]];
+const MARK_SHAPES = CORNERS.length;
+
+const round = value => `${Math.round(value * 10) / 10}`;
+/** The SVG markup of a series' mark at (cx, cy), with extra attributes. */
+
+
+function markMarkup(place, cx, cy, r, extra = '') {
+  const corners = CORNERS[(place % CORNERS.length + CORNERS.length) % CORNERS.length];
+  if (!corners) return `<circle${extra} cx="${round(cx)}" cy="${round(cy)}" r="${round(r)}"/>`;
+  const d = corners.map(([x, y], index) => `${index ? 'L' : 'M'}${round(cx + x * r)} ${round(cy + y * r)}`).join('');
+  return `<path${extra} d="${d}Z"/>`;
+}
+/**
+ * The indexes of a series' points that carry a mark in cue mode: every
+ * point when they are few, else about `most` spread evenly, each series
+ * shifted a little so the marks of two series do not sit on each other.
+ */
+
+function cueIndexes(points, place, most = 12, shown = 1) {
+  const count = points.length;
+  if (count <= most) return points.map((_, index) => index);
+  const step = count / most;
+  const shift = step * (place % Math.max(1, shown) + 0.5) / Math.max(1, shown);
+  const out = [];
+
+  for (let at = shift; at < count; at += step) out.push(Math.min(count - 1, Math.floor(at)));
+
+  return [...new Set(out)];
+} // --- Hatches ------------------------------------------------------------------
+// A fill's hatch by its place: the first series is solid, every other one
+// has lines or dots of the ground's colour over its own, on a 6 px tile.
+// The same seven kinds are an SVG pattern (marks) and a CSS background
+// (legend swatches, HTML parts), so a swatch shows what its series shows.
+
+const HATCHES = 7;
+/** The hatch kind of a place: 0 is solid, 1..7 a hatch. */
+
+const hatchOf = place => place <= 0 ? 0 : (place - 1) % HATCHES + 1;
+const LINES = {
+  1: 'M-1.5 1.5L1.5 -1.5M0 6L6 0M4.5 7.5L7.5 4.5',
+  2: 'M0 3H6',
+  4: 'M-1.5 4.5L1.5 7.5M0 0L6 6M4.5 -1.5L7.5 1.5',
+  5: 'M3 0V6',
+  6: 'M-1.5 1.5L1.5 -1.5M0 6L6 0M4.5 7.5L7.5 4.5M-1.5 4.5L1.5 7.5M0 0L6 6M4.5 -1.5L7.5 1.5',
+  7: 'M0 3H6M3 0V6'
+};
+/**
+ * An SVG pattern of a hatch kind, its tile in `fill` and its lines in
+ * `ink` (CSS values, as var() of the chart's own variables, so a theme or
+ * forced colours restyle it). '' for a solid place.
+ */
+
+function hatchPattern(id, kind, fill, ink) {
+  if (!kind) return '';
+  const lines = kind === 3 ? `<circle cx="3" cy="3" r="1.4" style="fill: ${ink}"/>` : `<path d="${LINES[kind]}" style="fill: none; stroke: ${ink}; stroke-width: ${kind === 6 || kind === 7 ? 1 : 1.5}"/>`;
+  return `<pattern id="${id}" class="sf-chart-hatch" patternUnits="userSpaceOnUse" width="6" height="6">` + `<rect width="6" height="6" style="fill: ${fill}"/>${lines}</pattern>`;
+}
+
+const stripes = (angle, ink, width = 1.5, period = 6) => `repeating-linear-gradient(${angle}, ${ink} 0 ${width}px, transparent ${width}px ${period}px)`;
+
+const diagonal = (angle, ink, width = 1.5) => stripes(angle, ink, width, 4.24);
+/** The CSS background-image of a hatch kind in `ink`, or '' for solid. */
+
+
+function hatchImage(kind, ink) {
+  switch (kind) {
+    case 1:
+      return diagonal('-45deg', ink);
+
+    case 2:
+      return `${stripes('180deg', ink)}`;
+
+    case 3:
+      return `radial-gradient(circle at 3px 3px, ${ink} 0 1.4px, transparent 1.7px) 0 0 / 6px 6px`;
+
+    case 4:
+      return diagonal('45deg', ink);
+
+    case 5:
+      return `${stripes('90deg', ink)}`;
+
+    case 6:
+      return `${diagonal('-45deg', ink, 1)}, ${diagonal('45deg', ink, 1)}`;
+
+    case 7:
+      return `${stripes('180deg', ink, 1)}, ${stripes('90deg', ink, 1)}`;
+
+    default:
+      return '';
+  }
+}
+/** A `background` declaration value: the hatch over `fill`, or '' for solid. */
+
+function hatchBackground(kind, fill, ink) {
+  const image = hatchImage(kind, ink);
+  return image ? `${image}, ${fill}` : '';
 }
 
 /***/ },
@@ -1332,21 +1702,22 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _arc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("bdf61eb31e5c");
 /* harmony import */ var _colors_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("fc9bb1435f01");
-/* harmony import */ var _cursor_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("132d5cf6d077");
-/* harmony import */ var _data_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("37677343b39a");
-/* harmony import */ var _decimate_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("13016023b0f5");
-/* harmony import */ var _describe_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("40ff9ca61ced");
-/* harmony import */ var _format_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("6668151838ce");
-/* harmony import */ var _heat_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("66a3b5260618");
-/* harmony import */ var _palettes_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("b3159bcb2ffd");
-/* harmony import */ var _path_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("5fc4022962c0");
-/* harmony import */ var _scale_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("e8bb19218bf5");
-/* harmony import */ var _settle_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("21ed19c5c40f");
-/* harmony import */ var _stack_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("3514cfe878c1");
-/* harmony import */ var _timeline_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("18122a307874");
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_format_js__WEBPACK_IMPORTED_MODULE_6__]);
+/* harmony import */ var _cues_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("00497a56a818");
+/* harmony import */ var _cursor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("132d5cf6d077");
+/* harmony import */ var _data_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("37677343b39a");
+/* harmony import */ var _decimate_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("13016023b0f5");
+/* harmony import */ var _describe_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("40ff9ca61ced");
+/* harmony import */ var _format_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("6668151838ce");
+/* harmony import */ var _heat_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("66a3b5260618");
+/* harmony import */ var _palettes_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("b3159bcb2ffd");
+/* harmony import */ var _path_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("5fc4022962c0");
+/* harmony import */ var _scale_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("e8bb19218bf5");
+/* harmony import */ var _settle_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("21ed19c5c40f");
+/* harmony import */ var _stack_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("3514cfe878c1");
+/* harmony import */ var _timeline_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("18122a307874");
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_format_js__WEBPACK_IMPORTED_MODULE_7__]);
 var __webpack_async_dependencies_result__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
-_format_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_async_dependencies_result__[0];
+_format_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_async_dependencies_result__[0];
 // Package chart: its shared core, smart/chart-core, built once.
 // Registers its modules with the page's runtime; the package's components
 // ask for them as SF.runtimeModule("chart/<module>", 1).
@@ -1365,21 +1736,23 @@ _format_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_async_dependencies_result__[
 
 
 
+
 const modules = {
   "arc": _arc_js__WEBPACK_IMPORTED_MODULE_0__,
   "colors": _colors_js__WEBPACK_IMPORTED_MODULE_1__,
-  "cursor": _cursor_js__WEBPACK_IMPORTED_MODULE_2__,
-  "data": _data_js__WEBPACK_IMPORTED_MODULE_3__,
-  "decimate": _decimate_js__WEBPACK_IMPORTED_MODULE_4__,
-  "describe": _describe_js__WEBPACK_IMPORTED_MODULE_5__,
-  "format": _format_js__WEBPACK_IMPORTED_MODULE_6__,
-  "heat": _heat_js__WEBPACK_IMPORTED_MODULE_7__,
-  "palettes": _palettes_js__WEBPACK_IMPORTED_MODULE_8__,
-  "path": _path_js__WEBPACK_IMPORTED_MODULE_9__,
-  "scale": _scale_js__WEBPACK_IMPORTED_MODULE_10__,
-  "settle": _settle_js__WEBPACK_IMPORTED_MODULE_11__,
-  "stack": _stack_js__WEBPACK_IMPORTED_MODULE_12__,
-  "timeline": _timeline_js__WEBPACK_IMPORTED_MODULE_13__
+  "cues": _cues_js__WEBPACK_IMPORTED_MODULE_2__,
+  "cursor": _cursor_js__WEBPACK_IMPORTED_MODULE_3__,
+  "data": _data_js__WEBPACK_IMPORTED_MODULE_4__,
+  "decimate": _decimate_js__WEBPACK_IMPORTED_MODULE_5__,
+  "describe": _describe_js__WEBPACK_IMPORTED_MODULE_6__,
+  "format": _format_js__WEBPACK_IMPORTED_MODULE_7__,
+  "heat": _heat_js__WEBPACK_IMPORTED_MODULE_8__,
+  "palettes": _palettes_js__WEBPACK_IMPORTED_MODULE_9__,
+  "path": _path_js__WEBPACK_IMPORTED_MODULE_10__,
+  "scale": _scale_js__WEBPACK_IMPORTED_MODULE_11__,
+  "settle": _settle_js__WEBPACK_IMPORTED_MODULE_12__,
+  "stack": _stack_js__WEBPACK_IMPORTED_MODULE_13__,
+  "timeline": _timeline_js__WEBPACK_IMPORTED_MODULE_14__
 };
 
 function register() {
